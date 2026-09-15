@@ -2,6 +2,7 @@ package com.lx862.mtrsurveyor;
 
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
 import com.lx862.mtrsurveyor.integration.XaeroIntegration;
+import com.lx862.mtrsurveyor.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrsurveyor.network.MTRNetwork;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -47,6 +48,11 @@ public class MTRSurveyor {
         } else {
             LOGGER.info("[{}] Xaero's Minimap not found - waypoint sync disabled", MOD_NAME);
         }
+
+        LOGGER.info("[{}] JourneyMap {} - landmark integration {}",
+                MOD_NAME,
+                JourneyMapIntegration.isJourneyMapLoaded() ? "detected" : "not found",
+                JourneyMapIntegration.isJourneyMapLoaded() ? "enabled" : "disabled");
     }
 
     /**
@@ -60,10 +66,11 @@ public class MTRSurveyor {
 
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Post event) {
-        if (!XaeroIntegration.isXaeroLoaded())
-            return;
-
-        XaeroIntegration.onClientTick();
+        if (XaeroIntegration.isXaeroLoaded()) {
+            XaeroIntegration.onClientTick();
+        }
+        // JourneyMap landmark sync (self-gates on JourneyMap presence)
+        JourneyMapIntegration.onClientTick();
     }
 
     public static MinecraftServer getServerInstance() {

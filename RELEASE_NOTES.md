@@ -1,3 +1,29 @@
+# v1.3.0 Release Notes (2026-09-16)
+
+## 统一版本：一个 jar 同时支持 Xaero 与 JourneyMap
+
+- 将原独立发行的 JourneyMap 版本（journeymap 分支）并入主 mod，与 Xaero 集成共存：
+  - **装了 JourneyMap** → 自动启用车站/车辆段地标（JourneyMap v2 API `MarkerOverlay`，按交通方式着色图标，
+    station/platform 两种模式，悬浮显示收费区与「路线 → 终点站」信息），行为与旧 JourneyMap 版一致；
+  - **装了 Xaero** → 航点同步 + 世界地图路径层 + 全网同步，行为不变；
+  - **两者都装** → 两套集成同时工作，互不干扰。
+- JourneyMap 检测为可选依赖（`ModList` 探测 + 类加载隔离），未安装时零开销、零报错。
+- 移植到 JourneyMap **v2 API**（`journeymap.api.v2`，依赖 `info.journeymap:journeymap-api-neoforge`，
+  官方 maven `jm.gserv.me`）；旧 `journeymap.client.api`（v1）在 JourneyMap 6.x 已被移除。
+- 标记纹理统一迁入 `assets/mtrsurveyor/` 命名空间（同时修正了旧分支命名空间不一致的隐患）。
+- 新增命令：`/mtrsurveyor syncLandmarks`（强制刷新地标）、`/mtrsurveyor testMarker`
+  （在玩家位置放一个诊断标记，验证集成是否生效）。
+- `neoforge.mods.toml` 将 JourneyMap 声明为可选依赖（`[1.21.1-6.0.8,)`）。
+
+## 实机自测（runClient：MTR + Xaero 双图 + JourneyMap 6.0.8 同装）
+
+- JourneyMap 启动时发现并初始化本 mod 的 v2 插件（`JourneyMap v2 API initialized!`）。
+- 进入世界后地标同步自动执行（`Landmark sync (scheduled sync): 0 markers active, 0 failed`）。
+- `/mtrsurveyor testMarker` 放置的标记在 JourneyMap 全屏地图上实际渲染（截图确认）。
+- 同会话中 Xaero 航点同步、路径层、全网同步均正常，无冲突、无报错。
+
+---
+
 # v1.2.0 Release Notes (2026-09-05)
 
 ## 平台迁移: Forge 1.20.1 → NeoForge 1.21.1

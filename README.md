@@ -2,7 +2,7 @@
 
 > **AI Agent / 多人协作必读**：[AGENTS.md](AGENTS.md)（协作协议与项目状态索引）、[walkthrough.md](walkthrough.md)（开发全导览）、[docs/agents/STATE.md](docs/agents/STATE.md)（当前权威状态）。
 
-A Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) - Create-train-map style - and syncs stations and depots as waypoints to [Xaero's Minimap](https://modrinth.com/mod/xaeros-minimap).
+A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on your map - Create-train-map style. One jar supports every major map mod: **Xaero's World Map / Minimap** and **JourneyMap** are auto-detected, and whichever you have installed is what gets enabled (both can be used side by side, just like Create itself).
 
 ## Features
 
@@ -23,6 +23,9 @@ A Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](
   - Snapshot collection runs on MTR's simulator threads and is chunked in transit, safe for big networks
 - **Client-Only Fallback** — without server installation, the path layer still renders whatever MTR synced to
   the client (within render distance of the player)
+- **JourneyMap Landmarks** — station/depot markers (with fare zone + route tooltips, or per-platform markers
+  in platform mode) rendered through the JourneyMap v2 API with per-transport-mode colored icons;
+  auto-enabled when JourneyMap is installed, silent when it is not
 
 ## Requirements
 
@@ -43,6 +46,8 @@ All commands are client-side and work on any server:
 |---------|-------------|
 | `/mtrsurveyor syncWaypoints` | Force a waypoint sync |
 | `/mtrsurveyor syncRoutes` | Request a full-network snapshot from the server |
+| `/mtrsurveyor syncLandmarks` | Force a JourneyMap landmark refresh |
+| `/mtrsurveyor testMarker` | Place a diagnostic marker at your position (JourneyMap) |
 | `/mtrsurveyor mode` | Show current display mode |
 | `/mtrsurveyor mode station` | Switch to station mode (one waypoint per station) |
 | `/mtrsurveyor mode platform` | Switch to platform mode (one waypoint per platform) |

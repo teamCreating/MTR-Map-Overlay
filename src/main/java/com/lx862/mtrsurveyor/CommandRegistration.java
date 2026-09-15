@@ -2,6 +2,7 @@ package com.lx862.mtrsurveyor;
 
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
 import com.lx862.mtrsurveyor.integration.XaeroIntegration;
+import com.lx862.mtrsurveyor.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrsurveyor.network.ClientNetworkSync;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -84,6 +85,44 @@ public class CommandRegistration {
                         return 1;
                 });
 
+                // /mtrsurveyor syncLandmarks - force a JourneyMap landmark refresh
+                LiteralArgumentBuilder<CommandSourceStack> syncLandmarksNode = Commands.literal("syncLandmarks");
+                syncLandmarksNode
+                                .executes(ctx -> {
+                                        if (!JourneyMapIntegration.isJourneyMapLoaded()) {
+                                                ctx.getSource().sendFailure(
+                                                                Component.literal("JourneyMap is not installed!")
+                                                                                .withStyle(ChatFormatting.RED));
+                                                return 1;
+                                        }
+                                        JourneyMapIntegration.requestSync();
+                                        ctx.getSource().sendSuccess(
+                                                        () -> Component.literal(
+                                                                        "Landmark sync requested! Markers will update shortly.")
+                                                                                        .withStyle(ChatFormatting.GREEN),
+                                                        true);
+                                        return 1;
+                                });
+
+                // /mtrsurveyor testMarker - place a diagnostic marker at the player position
+                LiteralArgumentBuilder<CommandSourceStack> testMarkerNode = Commands.literal("testMarker");
+                testMarkerNode
+                                .executes(ctx -> {
+                                        String result = JourneyMapIntegration.placeTestMarker();
+                                        boolean ok = !result.startsWith("Failed") && !result.contains("not installed")
+                                                        && !result.contains("Not in a world");
+                                        if (ok) {
+                                                ctx.getSource().sendSuccess(
+                                                                () -> Component.literal(result)
+                                                                                .withStyle(ChatFormatting.GREEN),
+                                                                true);
+                                        } else {
+                                                ctx.getSource().sendFailure(
+                                                                Component.literal(result).withStyle(ChatFormatting.RED));
+                                        }
+                                        return 1;
+                                });
+
                 // Config sub-commands
                 LiteralArgumentBuilder<CommandSourceStack> configNode = Commands.literal("config");
                 configNode.then(createBoolConfigNode("enabled", "Waypoint sync",
@@ -105,6 +144,8 @@ public class CommandRegistration {
                 rootNode.then(forceSyncNode);
                 rootNode.then(modeNode);
                 rootNode.then(syncRoutesNode);
+                rootNode.then(syncLandmarksNode);
+                rootNode.then(testMarkerNode);
                 rootNode.then(configNode);
                 dispatcher.register(rootNode);
         }

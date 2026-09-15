@@ -5,8 +5,8 @@
 
 ## 当前版本
 
-- **v1.2.0**（NeoForge 移植版）
-- 最后更新：2026-09-16 01:05，操作者：ZCode（Ben 的主力 agent）
+- **v1.3.0**（统一版：Xaero + JourneyMap 单 jar）
+- 最后更新：2026-09-16 02:20，操作者：ZCode（Ben 的主力 agent）
 
 ## 平台与依赖
 
@@ -16,6 +16,7 @@
 | MTR | 4.1.0-beta.2（NEOFORGE-4.1.0-beta.2+1.21.1） |
 | Xaero's World Map | 1.45.0+（neoforge-1.21.1） |
 | Xaero's Minimap | 26.4.2+（neoforge-1.21.1） |
+| JourneyMap | 1.21.1-6.0.8+（可选；v2 API 2.0.0-1.21.1） |
 | 构建 | ModDevGradle 2.0.146 / Gradle 8.8 / JDK 21 |
 
 ## 架构现状
@@ -24,6 +25,7 @@
 - 路径层（GuiMap mixin + XaeroRouteRenderer：路线层/轨道层/开关/悬停）——稳定
 - 全网同步（C2S RequestNetworkSync → Simulator 线程采集 → 200KB 分块 S2C → MapDataCache）——稳定
 - 纯客户端回退（无服务端组件时用 MTR 半径数据）——稳定
+- JourneyMap 地标（v2 API MarkerOverlay，station/platform/depot，自动检测）——稳定（实机验证）
 
 ## 已验证功能（最近一次实机测试）
 
@@ -35,12 +37,14 @@
 
 ## 已知限制
 
-- 只渲染 TRAIN 模式轨道
+- 只渲染 TRAIN 模式轨道（路径层；JourneyMap 地标不受限）
 - 列车实时位置未上地图（数据已具备：`MinecraftClientData.vehicles`）
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 - 路线层为站台折线，不沿轨道走线
 
 ## 历史要点
+
+- 2026-09-16：v1.3.0 统一版——JourneyMap 集成并入主 mod（v2 API），实机验证通过。
 
 - 2026-09-05：v1.2.0 完成 Forge 1.20.1 → NeoForge 1.21.1 整体移植并实机验证（commit fa8ff07）。
 - 2026-09-16：回退事故（某 agent 按过时认知暂存了旧 Forge 架构，后自行 reset 丢弃；HEAD 无损）。

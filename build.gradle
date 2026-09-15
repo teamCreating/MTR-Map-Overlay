@@ -51,6 +51,17 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "JourneyMap"
+                url = "https://jm.gserv.me/repository/maven-public"
+            }
+        }
+        filter {
+            includeGroup "info.journeymap"
+        }
+    }
 }
 
 dependencies {
@@ -62,6 +73,11 @@ dependencies {
 
     // Xaero's World Map (path layer render hook)
     compileOnly "maven.modrinth:xaeros-world-map:${project.xaero_world_map_modrinth_version}"
+
+    // JourneyMap v2 API (landmark integration)
+    compileOnly("info.journeymap:journeymap-api-neoforge:${project.journeymap_api_version}") {
+        exclude(group: "curse.maven") // transitive pulls an old Forge JourneyMap
+    }
 }
 
 processResources {

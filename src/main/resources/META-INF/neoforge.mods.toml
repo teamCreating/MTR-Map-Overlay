@@ -46,5 +46,12 @@ versionRange = "[1.45.0,)"
 ordering = "AFTER"
 side = "CLIENT"
 
+[[dependencies.mtrsurveyor]]
+modId = "journeymap"
+type = "optional"
+versionRange = "[1.21.1-6.0.8,)"
+ordering = "AFTER"
+side = "CLIENT"
+
 [[mixins]]
 config = "mtrsurveyor.mixins.json"
