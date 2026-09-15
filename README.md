@@ -1,5 +1,7 @@
 # [CRTools] MTR:Xaero Mapper
 
+> **AI Agent / 多人协作必读**：[AGENTS.md](AGENTS.md)（协作协议与项目状态索引）、[walkthrough.md](walkthrough.md)（开发全导览）、[docs/agents/STATE.md](docs/agents/STATE.md)（当前权威状态）。
+
 A Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) - Create-train-map style - and syncs stations and depots as waypoints to [Xaero's Minimap](https://modrinth.com/mod/xaeros-minimap).
 
 ## Features
