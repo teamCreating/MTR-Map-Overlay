@@ -78,6 +78,15 @@ dependencies {
     compileOnly("info.journeymap:journeymap-api-neoforge:${project.journeymap_api_version}") {
         exclude(group: "curse.maven") // transitive pulls an old Forge JourneyMap
     }
+
+    // RoutePathfinder unit tests run against the pure mtr-core data layer
+    testImplementation "maven.modrinth:minecraft-transit-railway:${project.mtr_modrinth_version}"
+    testImplementation platform("org.junit:junit-bom:5.10.2")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+}
+
+test {
+    useJUnitPlatform()
 }
 
 processResources {
