@@ -19,7 +19,7 @@ import java.util.List;
  * S2C: one chunk of a full-network map snapshot. The payload is a byte slice
  * of a self-describing binary dump; the last chunk triggers reassembly.
  */
-public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChunks, byte[] data)
+public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChunks, long snapshotHash, byte[] data)
         implements CustomPacketPayload {
 
     public static final Type<NetworkSyncChunk> TYPE =
@@ -37,6 +37,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         buf.writeVarInt(msg.transferId());
         buf.writeShort(msg.chunkIndex());
         buf.writeShort(msg.totalChunks());
+        buf.writeLong(msg.snapshotHash());
         buf.writeByteArray(msg.data());
     }
 
@@ -44,8 +45,9 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         final int transferId = buf.readVarInt();
         final short chunkIndex = buf.readShort();
         final short totalChunks = buf.readShort();
+        final long snapshotHash = buf.readLong();
         final byte[] data = buf.readByteArray();
-        return new NetworkSyncChunk(transferId, chunkIndex, totalChunks, data);
+        return new NetworkSyncChunk(transferId, chunkIndex, totalChunks, snapshotHash, data);
     }
 
     public static void handle(NetworkSyncChunk msg, IPayloadContext ctx) {
@@ -61,7 +63,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
      * <pre>
      * int dimensionCount
      * per dimension:
-     *   UTF dimensionId
+     *   UTF dimensionId, long snapshotHash
      *   int routeCount
      *   per route: UTF name, int color, boolean circular, int stopCount,
      *              per stop: float x, float z, UTF stationName, UTF destination,
@@ -76,6 +78,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         out.writeInt(dimensions.size());
         for (PendingDimension dimension : dimensions) {
             out.writeUTF(dimension.dimensionId);
+            out.writeLong(dimension.snapshotHash);
             out.writeInt(dimension.routes.size());
             for (MapRoute route : dimension.routes) {
                 out.writeUTF(route.name == null ? "" : route.name);
@@ -111,6 +114,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         final List<MapDataCache.DimensionData> result = new ArrayList<>(dimensionCount);
         for (int d = 0; d < dimensionCount; d++) {
             final String dimensionId = in.readUTF();
+            final long snapshotHash = in.readLong();
 
             final int routeCount = in.readInt();
             final List<MapRoute> routes = new ArrayList<>(routeCount);
@@ -146,7 +150,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                 tracks.add(new MapTrack(points));
             }
 
-            result.add(new MapDataCache.DimensionData(dimensionId, routes, tracks, System.currentTimeMillis()));
+            result.add(new MapDataCache.DimensionData(dimensionId, routes, tracks, snapshotHash));
         }
         return result;
     }
@@ -155,11 +159,24 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
     public static class PendingDimension {
 
         public final String dimensionId;
+        public final long snapshotHash;
         public final List<MapRoute> routes = new ArrayList<>();
         public final List<MapTrack> tracks = new ArrayList<>();
+        private final it.unimi.dsi.fastutil.longs.LongOpenHashSet realPathRouteIds =
+                new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
 
-        public PendingDimension(String dimensionId) {
+        public PendingDimension(String dimensionId, long snapshotHash) {
             this.dimensionId = dimensionId;
+            this.snapshotHash = snapshotHash;
+        }
+
+        /** Mark a route as covered by a real depot driving path. */
+        public void markRealPath(long routeId) {
+            realPathRouteIds.add(routeId);
+        }
+
+        public boolean hasRealPath(long routeId) {
+            return realPathRouteIds.contains(routeId);
         }
     }
 

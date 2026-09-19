@@ -19,12 +19,14 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
  */
 public class MTRNetwork {
 
-    private static final String PROTOCOL_VERSION = "2";
+    private static final String PROTOCOL_VERSION = "3";
 
     public static void register(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar(PROTOCOL_VERSION).optional();
         registrar.playToServer(RequestNetworkSync.TYPE, RequestNetworkSync.STREAM_CODEC, RequestNetworkSync::handle);
+        registrar.playToServer(NetworkSyncProbe.TYPE, NetworkSyncProbe.STREAM_CODEC, NetworkSyncProbe::handle);
         registrar.playToClient(NetworkSyncChunk.TYPE, NetworkSyncChunk.STREAM_CODEC, NetworkSyncChunk::handle);
+        registrar.playToClient(NetworkProbeResponse.TYPE, NetworkProbeResponse.STREAM_CODEC, NetworkProbeResponse::handle);
         MTRSurveyor.LOGGER.info("[MTRSurveyor] Full-network sync payloads registered (protocol {})", PROTOCOL_VERSION);
     }
 

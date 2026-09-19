@@ -9,6 +9,7 @@ import org.mtr.core.data.Platform;
 import org.mtr.core.data.Route;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.mtr.client.MinecraftClientData;
+import org.mtr.data.VehicleExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,16 +18,18 @@ import java.util.Map;
 
 /**
  * Central access point for map path-layer data, keyed by dimension id
- * (e.g. "minecraft:overworld").
+ * (MTR world-id format, e.g. "minecraft/overworld").
  *
  * <p>Resolution order per dimension:</p>
  * <ol>
  *   <li>Server-synced full-network data ({@code SERVER_DATA}, filled by the
- *       Plan-C network sync when the server runs this mod) - covers the whole
- *       network, Create-style.</li>
+ *       network sync when the server runs this mod) - covers the whole
+ *       network, Create-style. Route colors here are painted along MTR's own
+ *       generated driving paths.</li>
  *   <li>Fallback: whatever MTR has synced to the client
  *       ({@link MinecraftClientData}), which is limited to the area around
- *       the player (MTR only syncs data within render distance).</li>
+ *       the player (MTR only syncs data within render distance). Route colors
+ *       come from running vehicles' real driving paths.</li>
  * </ol>
  */
 public class MapDataCache {
@@ -37,7 +40,7 @@ public class MapDataCache {
         public final String dimensionId;
         public final List<MapRoute> routes;
         public final List<MapTrack> tracks;
-        /** Monotonic version counter, used to decide when to rebuild GPU-side caches. */
+        /** Monotonic version counter, used to decide when to rebuild caches. */
         public final long version;
 
         public DimensionData(String dimensionId, List<MapRoute> routes, List<MapTrack> tracks, long version) {
@@ -124,6 +127,7 @@ public class MapDataCache {
             // mirroring how the waypoint sync collects its data.
             final Map<Long, Platform> allPlatforms = new HashMap<>();
             final List<SimplifiedRoute> allRoutes = new ArrayList<>();
+            final List<MapTrack> clientTracks = new ArrayList<>();
             try {
                 final MinecraftClientData instance = MinecraftClientData.getInstance();
                 if (instance != null) {
@@ -138,6 +142,38 @@ public class MapDataCache {
                 }
             } catch (Throwable e) {
                 MTRSurveyor.LOGGER.error("[MTRSurveyor] Error accessing MTR client datasets", e);
+            }
+
+            // Pure-client fallback for route colors: running vehicles carry
+            // MTR's own real driving paths (immutablePath). Group them by
+            // route name/color so the map dyes the rails the trains use.
+            try {
+                final MinecraftClientData live = MinecraftClientData.getInstance();
+                if (live != null) {
+                    final Map<String, List<double[]>> vehiclePaths = new HashMap<>();
+                    final Map<String, List<MapRoute.Stop>> vehicleStops = new HashMap<>();
+                    for (VehicleExtension vehicle : live.vehicles) {
+                        final String routeName = vehicle.vehicleExtraData.getThisRouteName();
+                        final int routeColor = vehicle.vehicleExtraData.getThisRouteColor();
+                        final String key = routeName + "#" + routeColor;
+                        final List<double[]> path = vehiclePaths.computeIfAbsent(key,
+                                k -> new ArrayList<>());
+                        for (org.mtr.core.data.PathData pathData : vehicle.vehicleExtraData.immutablePath) {
+                            final List<double[]> sampled = TrackSampler.samplePathData(pathData);
+                            if (sampled != null) {
+                                path.addAll(sampled);
+                            }
+                        }
+                    }
+                    for (Map.Entry<String, List<double[]>> entry : vehiclePaths.entrySet()) {
+                        final String key = entry.getKey();
+                        final int sep = key.lastIndexOf('#');
+                        routes.add(MapRoute.ofPath(key.substring(0, sep),
+                                Integer.parseInt(key.substring(sep + 1)), new ArrayList<>(), entry.getValue()));
+                    }
+                }
+            } catch (Throwable e) {
+                MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to collect vehicle paths: {}", e.getMessage());
             }
 
             for (SimplifiedRoute route : allRoutes) {
@@ -181,10 +217,6 @@ public class MapDataCache {
      * Sample the actual rail geometry from MTR's client-side rail set into
      * polylines. Rails follow real curves (arcs, slopes), so each rail is
      * sampled along its length via {@link RailMath#getPosition(double, boolean)}.
-     *
-     * <p>Note: MTR only syncs rails within render distance of the player, so
-     * this client-side source covers the explored area only; server-synced
-     * data (when available) replaces it with the full network.</p>
      */
     private static void collectClientTracks(MinecraftClientData instance, List<MapTrack> tracks) {
         for (Rail rail : instance.rails) {

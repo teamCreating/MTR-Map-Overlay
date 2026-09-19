@@ -7,6 +7,16 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-20 05:10] ZCode — v1.5.0：真实路径染色 + 哈希探测热更
+- 按需求移除自研 Dijkstra 寻路，路线颜色改用 MTR 车辆段生成的真实驾驶路径
+  （`Depot.getPath()`，公开 getter；`writePathCache()` 刷新轨道引用）。
+  颜色按列车途经站台解析（platform.routes ∩ depot.routes），染色叠加在轨道几何上。
+- 热更：新增 `NetworkSyncProbe`/`NetworkProbeResponse`（协议 v3）。
+  服务端哈希 = 轨道 hexId 摘要 + 路线 id/名 + 车辆段 lastGeneratedMillis；
+  客户端只对哈希变化的维度发起按维度过滤的全量请求。
+- 数据生成器经验：MTR 的 Depot 生成需要 siding 真实连入铁路网
+  （siding rail 必须加入 simulator.rails，否则 updateRailCache 失败被 prune）；
+  生成管线在游戏 tick 中异步完成，instantDeployDepots 不保证同步生成 path。
 ## [2026-09-20 03:10] ZCode — v1.4.0 路线寻路吸附上线
 - 路线层不再走直线：服务端快照对每条路线做铁路网 Dijkstra（站台平台轨道为锚点），
   输出真实轨道几何；共线路线按方向分组分配 ±1/±2 车道偏移，渲染为平行走线。

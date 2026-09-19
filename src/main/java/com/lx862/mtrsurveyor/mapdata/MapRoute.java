@@ -1,5 +1,6 @@
 package com.lx862.mtrsurveyor.mapdata;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,20 @@ public class MapRoute {
         this.circular = circular;
         this.stops = stops;
         this.path = path == null ? List.of() : path;
+    }
+
+    /** A route represented only by its stop anchors (rendered as a plain polyline). */
+    public static MapRoute ofStops(String name, int color, boolean circular, List<Stop> stops) {
+        return new MapRoute(name, color, circular, stops, List.of());
+    }
+
+    /** A route stretch with real driving-path geometry (depot PathData sampling). */
+    public static MapRoute ofPath(String name, int color, List<Stop> stops, List<double[]> points) {
+        final List<PathPoint> path = new ArrayList<>(points.size());
+        for (double[] point : points) {
+            path.add(new PathPoint(point[0], point[1], 0));
+        }
+        return new MapRoute(name, color, false, stops, path);
     }
 
     /** One stop on a route: its world position plus display strings for tooltips. */

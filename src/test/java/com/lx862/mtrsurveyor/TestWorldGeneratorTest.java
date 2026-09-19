@@ -1,10 +1,10 @@
 package com.lx862.mtrsurveyor;
 
-import com.lx862.mtrsurveyor.mapdata.RoutePathfinder;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 import org.mtr.core.data.ClientData;
+import org.mtr.core.data.Depot;
 import org.mtr.core.data.Platform;
 import org.mtr.core.data.Position;
 import org.mtr.core.data.Rail;
@@ -124,23 +124,30 @@ class TestWorldGeneratorTest {
         final Route local = route(simulator, "Local", 28440, List.of(alpha, bravo, charlie));
         final Route localReturn = route(simulator, "Local Return", 28440, List.of(charlie, bravo, alpha));
 
-        // Sanity: the pathfinder must snap these routes onto the rails
-        final RoutePathfinder.Graph graph =
-                RoutePathfinder.buildGraph(List.of(railAlpha, shared, railBravo, bend, railCharlie),
-                        index(List.of(railAlpha, shared, railBravo, bend, railCharlie)));
-        final List<RoutePathfinder.SegmentPath> expressPath =
-                RoutePathfinder.findRoutePath(graph, List.of(alpha, bravo), false);
-        if (expressPath == null || expressPath.get(0) == null) {
-            throw new IllegalStateException("pathfinder failed on Express route");
-        }
-        final List<RoutePathfinder.SegmentPath> localPath =
-                RoutePathfinder.findRoutePath(graph, List.of(alpha, bravo, charlie), false);
-        if (localPath == null || localPath.get(0) == null || localPath.get(1) == null) {
-            throw new IllegalStateException("pathfinder failed on Local route");
-        }
-        final List<double[]> localPoints =
-                RoutePathfinder.flattenToPoints(graph, List.of(alpha, bravo, charlie), localPath, false);
-        System.out.println("[TestWorldGenerator] Local route points: " + localPoints.size());
+        // Siding + depot: instant deploy makes MTR generate the real driving
+        // path (Depot.path) for the Local route, which the map colors follow.
+        final Position s0 = node(750, 200);
+        final Position s1 = node(900, 200);
+        final Rail sidingRail = Rail.newSidingRail(s0, angleOf(s0, s1), s1, angleOf(s1, s0),
+                Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                new ObjectArrayList<>(), TransportMode.TRAIN);
+        final org.mtr.core.data.Siding siding = new org.mtr.core.data.Siding(s0, s1, 0, TransportMode.TRAIN, simulator);
+        siding.rail = sidingRail;
+        simulator.sidings.add(siding);
+        simulator.rails.add(sidingRail);
+
+        final Depot depot = new Depot(TransportMode.TRAIN, simulator);
+        final JsonObject depotJson = new JsonObject();
+        depotJson.addProperty("name", "Test Depot");
+        final org.mtr.libraries.com.google.gson.JsonArray routeIds = new org.mtr.libraries.com.google.gson.JsonArray();
+        routeIds.add(local.getId());
+        depotJson.add("routeIds", routeIds);
+        depotJson.addProperty("color", 28440);
+        depotJson.add("position1", positionJson(node(740, 190)));
+        depotJson.add("position2", positionJson(node(910, 210)));
+        depot.updateData(new JsonReader(depotJson));
+        depot.routes.add(local);
+        simulator.depots.add(depot);
 
         simulator.stations.add(stationAlpha);
         simulator.stations.add(stationBravo);
@@ -161,6 +168,13 @@ class TestWorldGeneratorTest {
                 + " alpha.rail=" + (alpha.rail == null ? "NULL" : "ok")
                 + " positionsToRailContainsN0=" + simulator.positionsToRail.containsKey(n0));
         simulator.sync();
+        System.out.println("[TestWorldGenerator] pre-deploy: depot path size=" + depot.getPath().size()
+                + " depot routes=" + depot.routes.size() + " depot routeIds=" + depot.getRouteIds()
+                + " siding valid=" + sidingRail.isValid() + " isSiding=" + sidingRail.isSiding());
+        simulator.instantDeployDepots(new ObjectArrayList<>(List.of(depot)));
+        System.out.println("[TestWorldGenerator] post-deploy: depot path size=" + depot.getPath().size()
+                + " status=" + depot.getLastGeneratedStatus()
+                + " millis=" + depot.getLastGeneratedMillis());
         System.out.println("[TestWorldGenerator] post-sync positionsToRail keys:");
         simulator.positionsToRail.keySet().forEach(k ->
                 System.out.println("[TestWorldGenerator]   key: " + k.getX() + "," + k.getY() + "," + k.getZ()));

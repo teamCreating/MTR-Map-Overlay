@@ -36,6 +36,8 @@ public final class ClientNetworkSync {
     private static final long MIN_REFRESH_MILLIS = 60_000;
 
     private static final Map<Integer, TransferBuffer> transfers = new ConcurrentHashMap<>();
+    private static final Map<String, Long> knownHashes = new ConcurrentHashMap<>();
+    private static long lastProbeMillis = 0;
     private static long lastRequestMillis = 0;
     private static long lastSuccessfulSyncMillis = 0;
     private static int SCREEN_TRACE_TIMER = 0;
@@ -48,6 +50,10 @@ public final class ClientNetworkSync {
     }
 
     public static void requestSync(String trigger) {
+        requestSync(trigger, null);
+    }
+
+    private static void requestSync(String trigger, String dimensionFilter) {
         if (!MTRSurveyorConfig.INSTANCE.networkSyncEnabled.get()) {
             return;
         }
@@ -66,15 +72,41 @@ public final class ClientNetworkSync {
                 markServerUnsupported();
                 return;
             }
-            net.neoforged.neoforge.network.PacketDistributor.sendToServer(RequestNetworkSync.INSTANCE);
+            net.neoforged.neoforge.network.PacketDistributor.sendToServer(new RequestNetworkSync(dimensionFilter));
             lastRequestMillis = System.currentTimeMillis();
             if (MTRSurveyorConfig.INSTANCE.debugLog.get()) {
-                MTRSurveyor.LOGGER.info("[MTRSurveyor] Requested full-network snapshot ({})", trigger);
+                MTRSurveyor.LOGGER.info("[MTRSurveyor] Requested full-network snapshot ({}, filter={})",
+                        trigger, dimensionFilter);
             }
         } catch (Throwable e) {
             // Payload rejected - back off for a while.
             MTRSurveyor.LOGGER.debug("[MTRSurveyor] Snapshot request failed (server lacks the mod?): {}", e.getMessage());
             markServerUnsupported();
+        }
+    }
+
+    /** Ask the server for per-dimension content hashes (cheap hot-update probe). */
+    private static void requestProbe() {
+        try {
+            net.neoforged.neoforge.network.PacketDistributor.sendToServer(NetworkSyncProbe.INSTANCE);
+            lastProbeMillis = System.currentTimeMillis();
+            if (MTRSurveyorConfig.INSTANCE.debugLog.get()) {
+                MTRSurveyor.LOGGER.info("[MTRSurveyor] Sent network probe");
+            }
+        } catch (Throwable e) {
+            markServerUnsupported();
+        }
+    }
+
+    /** Hot-update: pull full snapshots only for dimensions whose hash changed. */
+    static void onProbeReceived(List<NetworkProbeResponse.DimensionHash> hashes) {
+        serverHasSupport = true;
+        lastSuccessfulSyncMillis = System.currentTimeMillis();
+        for (NetworkProbeResponse.DimensionHash entry : hashes) {
+            final Long known = knownHashes.get(entry.dimensionId());
+            if (known == null || known.longValue() != entry.hash()) {
+                requestSync("probe: " + entry.dimensionId() + " changed", entry.dimensionId());
+            }
         }
     }
 
@@ -104,6 +136,7 @@ public final class ClientNetworkSync {
             lastSuccessfulSyncMillis = System.currentTimeMillis();
             for (MapDataCache.DimensionData dimension : dimensions) {
                 MapDataCache.putServerData(dimension.dimensionId, dimension);
+                knownHashes.put(dimension.dimensionId, dimension.version);
                 MTRSurveyor.LOGGER.info(
                         "[MTRSurveyor] Full-network snapshot applied for {}: {} routes, {} track polylines",
                         dimension.dimensionId, dimension.routes.size(), dimension.tracks.size());
@@ -145,22 +178,18 @@ public final class ClientNetworkSync {
             MTRSurveyor.LOGGER.info("[MTRSurveyor] screen-trace: {}", mc.screen);
         }
 
+
         if (!MTRSurveyorConfig.INSTANCE.networkSyncEnabled.get()) {
             return;
         }
 
         final long now = System.currentTimeMillis();
-        if (serverHasSupport) {
-            // Known-good server: periodic refresh.
-            final long interval = Math.max(MIN_REFRESH_MILLIS,
-                    MTRSurveyorConfig.INSTANCE.networkSyncIntervalSeconds.get() * 1000L);
-            if (now - lastSuccessfulSyncMillis >= interval) {
-                requestSync("periodic refresh");
-            }
-        } else if (now - lastRequestMillis >= INITIAL_RETRY_MILLIS
-                && now >= serverUnsupportedBackoffUntil) {
-            // Not yet answered: retry until the server proves it has the mod.
-            requestSync("initial handshake retry");
+        // Probing is cheap (O(network) hash, no transfer), so run it on the
+        // regular cadence; full snapshots are pulled only when a hash changes.
+        final long interval = Math.max(MIN_REFRESH_MILLIS,
+                MTRSurveyorConfig.INSTANCE.networkSyncIntervalSeconds.get() * 1000L);
+        if (now - lastProbeMillis >= interval) {
+            requestProbe();
         }
     }
 
@@ -170,17 +199,20 @@ public final class ClientNetworkSync {
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
         transfers.clear();
+        knownHashes.clear();
         serverHasSupport = false;
         serverUnsupportedBackoffUntil = 0;
         lastSuccessfulSyncMillis = 0;
-        lastRequestMillis = System.currentTimeMillis() - INITIAL_RETRY_MILLIS
-                + 3_000; // first attempt ~3 seconds after login
+        lastProbeMillis = System.currentTimeMillis()
+                - Math.max(MIN_REFRESH_MILLIS, MTRSurveyorConfig.INSTANCE.networkSyncIntervalSeconds.get() * 1000L)
+                + 3_000; // first probe ~3 seconds after login
     }
 
     @SubscribeEvent
     public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
         MapDataCache.clearServerData();
         transfers.clear();
+        knownHashes.clear();
         serverHasSupport = false;
         serverUnsupportedBackoffUntil = 0;
     }

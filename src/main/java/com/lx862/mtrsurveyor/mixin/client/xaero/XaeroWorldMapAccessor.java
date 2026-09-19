@@ -21,6 +21,9 @@ public interface XaeroWorldMapAccessor {
     @Accessor
     double getScale();
 
+    @Accessor("scale")
+    void setScale(double value);
+
     @Accessor
     MapProcessor getMapProcessor();
 }
