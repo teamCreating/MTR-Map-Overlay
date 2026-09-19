@@ -163,7 +163,7 @@ public class MapDataCache {
                     if (allStopsResolved) {
                         final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                                 || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-                        routes.add(new MapRoute(route.getName(), route.getColor(), circular, stops));
+                        routes.add(new MapRoute(route.getName(), route.getColor(), circular, stops, List.of()));
                     }
                 } catch (Throwable e) {
                     MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to build map data for route: {}", e.getMessage());

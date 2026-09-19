@@ -190,6 +190,9 @@ public class XaeroRouteRenderer {
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
         final float halfWidth = worldLineWidth(ROUTE_HALF_WIDTH_PX, scale);
+        // Lateral distance between parallel routes sharing the same track,
+        // expressed in world units (one full line width per lane step).
+        final float laneWidth = 2 * halfWidth;
 
         for (MapRoute route : routes) {
             // Cheap rejection: skip routes entirely outside the view.
@@ -202,18 +205,75 @@ public class XaeroRouteRenderer {
             final int g = (argb >> 8) & 0xFF;
             final int b = argb & 0xFF;
 
-            final int pointCount = route.stops.size() + (route.circular ? 1 : 0);
-            for (int i = 0; i < pointCount - 1; i++) {
-                final MapRoute.Stop p1 = route.stops.get(i);
-                final MapRoute.Stop p2 = route.stops.get((i + 1) % route.stops.size());
-                drawSegment(matrix, consumer, p1.x, p1.z, p2.x, p2.z, halfWidth, r, g, b, ROUTE_ALPHA);
+            if (route.path.size() >= 2) {
+                // Snapped track geometry with per-point lane offsets
+                drawSnappedRoute(matrix, consumer, route, halfWidth, laneWidth, r, g, b, minX, minZ, maxX, maxZ);
+            } else {
+                // Straight fallback (client-only mode): stop-to-stop lines
+                final int pointCount = route.stops.size() + (route.circular ? 1 : 0);
+                for (int i = 0; i < pointCount - 1; i++) {
+                    final MapRoute.Stop p1 = route.stops.get(i);
+                    final MapRoute.Stop p2 = route.stops.get((i + 1) % route.stops.size());
+                    drawSegment(matrix, consumer, p1.x, p1.z, p2.x, p2.z, halfWidth, r, g, b, ROUTE_ALPHA);
+                }
+
+                // Square caps at each stop so joints and endpoints look clean.
+                for (MapRoute.Stop stop : route.stops) {
+                    fillQuad(matrix, consumer, stop.x - halfWidth, stop.z - halfWidth,
+                            stop.x + halfWidth, stop.z + halfWidth, r, g, b, ROUTE_ALPHA);
+                }
+            }
+        }
+    }
+
+    /**
+     * Draw a route whose geometry follows the real rails. Each point carries a
+     * lane offset index: the segment is shifted sideways by lane * laneWidth
+     * along its own normal, so routes sharing the same track render as
+     * parallel lines instead of stacking.
+     */
+    private static void drawSnappedRoute(Matrix4f matrix, VertexConsumer consumer, MapRoute route,
+            float halfWidth, float laneWidth, int r, int g, int b,
+            double minX, double minZ, double maxX, double maxZ) {
+        final List<MapRoute.PathPoint> path = route.path;
+        double prevEndX = Double.NaN;
+        double prevEndZ = Double.NaN;
+
+        for (int i = 0; i < path.size() - 1; i++) {
+            final MapRoute.PathPoint p1 = path.get(i);
+            final MapRoute.PathPoint p2 = path.get(i + 1);
+            if (segmentOutsideView(p1.x(), p1.z(), p2.x(), p2.z(), minX, minZ, maxX, maxZ)) {
+                prevEndX = Double.NaN;
+                continue;
             }
 
-            // Square caps at each stop so joints and endpoints look clean.
-            for (MapRoute.Stop stop : route.stops) {
-                fillQuad(matrix, consumer, stop.x - halfWidth, stop.z - halfWidth,
-                        stop.x + halfWidth, stop.z + halfWidth, r, g, b, ROUTE_ALPHA);
+            // Perpendicular unit normal of this segment
+            final double dx = p2.x() - p1.x();
+            final double dz = p2.z() - p1.z();
+            final double len = Math.sqrt(dx * dx + dz * dz);
+            if (len < 1.0E-4) {
+                continue;
             }
+            final double nx = -dz / len;
+            final double nz = dx / len;
+
+            final double off1 = p1.lane() * laneWidth;
+            final double off2 = p2.lane() * laneWidth;
+            final double ax = p1.x() + nx * off1;
+            final double az = p1.z() + nz * off1;
+            final double bx = p2.x() + nx * off2;
+            final double bz = p2.z() + nz * off2;
+
+            drawSegment(matrix, consumer, ax, az, bx, bz, halfWidth, r, g, b, ROUTE_ALPHA);
+
+            // Bridge to the previous segment's offset endpoint (same underlying
+            // vertex, but a different lane or curve normal) so the line stays
+            // connected through kinks and lane changes.
+            if (!Double.isNaN(prevEndX)) {
+                drawSegment(matrix, consumer, prevEndX, prevEndZ, ax, az, halfWidth, r, g, b, ROUTE_ALPHA);
+            }
+            prevEndX = bx;
+            prevEndZ = bz;
         }
     }
 

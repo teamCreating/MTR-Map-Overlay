@@ -5,8 +5,8 @@
 
 ## 当前版本
 
-- **v1.3.0**（统一版：Xaero + JourneyMap 单 jar）
-- 最后更新：2026-09-16 02:20，操作者：ZCode（Ben 的主力 agent）
+- **v1.4.0**（路线寻路吸附 + 车道偏移）
+- 最后更新：2026-09-20 03:10，操作者：ZCode（Ben 的主力 agent）
 
 ## 平台与依赖
 
@@ -26,6 +26,7 @@
 - 全网同步（C2S RequestNetworkSync → Simulator 线程采集 → 200KB 分块 S2C → MapDataCache）——稳定
 - 纯客户端回退（无服务端组件时用 MTR 半径数据）——稳定
 - JourneyMap 地标（v2 API MarkerOverlay，station/platform/depot，自动检测）——稳定（实机验证）
+- 路线寻路吸附（服务端 Dijkstra + 车道偏移，协议 v2）——稳定（实机验证）
 
 ## 已验证功能（最近一次实机测试）
 
@@ -40,9 +41,10 @@
 - 只渲染 TRAIN 模式轨道（路径层；JourneyMap 地标不受限）
 - 列车实时位置未上地图（数据已具备：`MinecraftClientData.vehicles`）
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
-- 路线层为站台折线，不沿轨道走线
 
 ## 历史要点
+
+- 2026-09-20：v1.4.0 路线寻路吸附上线（RoutePathfinder + 协议 v2 + 车道偏移），实机截图验证三线并行。
 
 - 2026-09-16：v1.3.0 统一版——JourneyMap 集成并入主 mod（v2 API），实机验证通过。
 

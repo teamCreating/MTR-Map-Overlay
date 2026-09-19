@@ -64,7 +64,9 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
      *   UTF dimensionId
      *   int routeCount
      *   per route: UTF name, int color, boolean circular, int stopCount,
-     *              per stop: float x, float z, UTF stationName, UTF destination
+     *              per stop: float x, float z, UTF stationName, UTF destination,
+     *              int pathPointCount,
+     *              per path point: float x, float z, int lane
      *   int trackCount
      *   per track: int pointCount, per point: float x, float z
      * </pre>
@@ -85,6 +87,12 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     out.writeFloat((float) stop.z);
                     out.writeUTF(stop.stationName == null ? "" : stop.stationName);
                     out.writeUTF(stop.destination == null ? "" : stop.destination);
+                }
+                out.writeInt(route.path.size());
+                for (MapRoute.PathPoint point : route.path) {
+                    out.writeFloat((float) point.x());
+                    out.writeFloat((float) point.z());
+                    out.writeInt(point.lane());
                 }
             }
             out.writeInt(dimension.tracks.size());
@@ -119,7 +127,12 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     final String destination = in.readUTF();
                     stops.add(new MapRoute.Stop(x, z, stationName, destination));
                 }
-                routes.add(new MapRoute(name, color, circular, stops));
+                final int pathCount = in.readInt();
+                final List<MapRoute.PathPoint> path = new ArrayList<>(pathCount);
+                for (int p = 0; p < pathCount; p++) {
+                    path.add(new MapRoute.PathPoint(in.readFloat(), in.readFloat(), in.readInt()));
+                }
+                routes.add(new MapRoute(name, color, circular, stops, path));
             }
 
             final int trackCount = in.readInt();

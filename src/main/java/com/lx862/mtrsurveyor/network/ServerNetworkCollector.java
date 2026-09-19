@@ -3,6 +3,7 @@ package com.lx862.mtrsurveyor.network;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
+import com.lx862.mtrsurveyor.mapdata.RoutePathfinder;
 import com.lx862.mtrsurveyor.mapdata.TrackSampler;
 import com.lx862.mtrsurveyor.mixin.MainAccessorMixin;
 import com.lx862.mtrsurveyor.mixin.MTRAccessorMixin;
@@ -73,7 +74,13 @@ public final class ServerNetworkCollector {
     private static NetworkSyncChunk.PendingDimension collect(Simulator simulator, long requestTime) {
         final NetworkSyncChunk.PendingDimension result = new NetworkSyncChunk.PendingDimension(simulator.dimension);
 
-        // Routes: stop order, colors and names straight from the authoritative dataset.
+        // Rail network graph for route snapping (built once per snapshot)
+        final RoutePathfinder.Graph graph =
+                RoutePathfinder.buildGraph(simulator.rails, simulator.positionsToRail);
+
+        // Routes: stop order, colors and names straight from the authoritative dataset,
+        // with the geometry snapped onto the actual rails (Dijkstra between platforms).
+        final List<PendingRoute> pendingRoutes = new ArrayList<>();
         simulator.routes.forEach(route -> {
             try {
                 final List<RoutePlatformData> routePlatforms = route.getRoutePlatforms();
@@ -81,22 +88,54 @@ public final class ServerNetworkCollector {
                     return;
                 }
                 final List<MapRoute.Stop> stops = new ArrayList<>(routePlatforms.size());
+                final List<org.mtr.core.data.Platform> platforms = new ArrayList<>(routePlatforms.size());
                 for (RoutePlatformData routePlatform : routePlatforms) {
+                    // Resolves the platformId against this simulator's platform map
+                    routePlatform.writePlatformCache(route, simulator.platformIdMap);
                     final org.mtr.core.data.Platform platform = routePlatform.getPlatform();
                     if (platform == null) {
                         return; // unresolved platform - skip this route entirely
                     }
+                    platforms.add(platform);
                     final Position pos = platform.getMidPosition();
                     stops.add(new MapRoute.Stop(pos.getX(), pos.getZ(),
                             platform.getStationName(), routePlatform.getCustomDestination()));
                 }
                 final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                         || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-                result.routes.add(new MapRoute(route.getName(), route.getColor(), circular, stops));
+
+                final List<RoutePathfinder.SegmentPath> segments =
+                        RoutePathfinder.findRoutePath(graph, platforms, circular);
+                pendingRoutes.add(new PendingRoute(route.getName(), route.getColor(), circular, stops, platforms,
+                        segments));
             } catch (Throwable e) {
                 MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to collect route on server: {}", e.getMessage());
             }
         });
+
+        // Assign parallel-route lanes across all routes, then flatten to render points
+        final List<List<RoutePathfinder.SegmentPath>> segmentList = new ArrayList<>(pendingRoutes.size());
+        for (PendingRoute pendingRoute : pendingRoutes) {
+            segmentList.add(pendingRoute.segments);
+        }
+        RoutePathfinder.assignLanes(segmentList);
+        for (int i = 0; i < pendingRoutes.size(); i++) {
+            final PendingRoute pendingRoute = pendingRoutes.get(i);
+            try {
+                final List<double[]> path = RoutePathfinder.flattenToPoints(graph, pendingRoute.platforms,
+                        pendingRoute.segments, pendingRoute.circular);
+                final List<MapRoute.PathPoint> pathPoints = new ArrayList<>(path.size());
+                for (double[] point : path) {
+                    pathPoints.add(new MapRoute.PathPoint(point[0], point[1], (int) point[2]));
+                }
+                result.routes.add(new MapRoute(pendingRoute.name, pendingRoute.color, pendingRoute.circular,
+                        pendingRoute.stops, pathPoints));
+            } catch (Throwable e) {
+                MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to flatten route path: {}", e.getMessage());
+                result.routes.add(new MapRoute(pendingRoute.name, pendingRoute.color, pendingRoute.circular,
+                        pendingRoute.stops, List.of()));
+            }
+        }
 
         // Tracks: sample the real rail geometry.
         simulator.rails.forEach(rail -> {
@@ -107,6 +146,11 @@ public final class ServerNetworkCollector {
         });
 
         return result;
+    }
+
+    /** A route pending lane assignment and geometry flattening. */
+    private record PendingRoute(String name, int color, boolean circular, List<MapRoute.Stop> stops,
+            List<org.mtr.core.data.Platform> platforms, List<RoutePathfinder.SegmentPath> segments) {
     }
 
     private static void send(ServerPlayer player, NetworkSyncChunk.PendingDimension dimension, long requestTime,
