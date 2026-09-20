@@ -36,6 +36,16 @@ class TestWorldGeneratorTest {
     private static final Path WORLD_MTR = Path.of("run/saves/TestWorld/mtr");
     private static final String DIMENSION = "minecraft/overworld";
 
+    private static void deleteRecursively(java.io.File file) {
+        final java.io.File[] children = file.listFiles();
+        if (children != null) {
+            for (java.io.File child : children) {
+                deleteRecursively(child);
+            }
+        }
+        file.delete();
+    }
+
     private static Position node(long x, long z) {
         return new Position(x, 64, z);
     }
@@ -58,6 +68,49 @@ class TestWorldGeneratorTest {
         final double deg = Math.toDegrees(Math.atan2(to.getZ() - from.getZ(), to.getX() - from.getX()));
         final int idx = ((int) Math.round(deg / 22.5) + 16) % 16;
         return Angle.values()[idx];
+    }
+
+    /**
+     * Tangent (travel direction) at polyline point i, smoothed so consecutive
+     * rails join without kinks: interior points use the angle bisector of the
+     * incoming and outgoing segments - this is what MTR's rail placement does,
+     * and its route path finder requires tangent continuity at joints.
+     */
+    private static Angle tangentAt(List<Position> polyline, int i) {
+        if (i == 0) {
+            return angleOf(polyline.get(0), polyline.get(1));
+        }
+        if (i == polyline.size() - 1) {
+            return angleOf(polyline.get(i - 1), polyline.get(i));
+        }
+        final int inAngle = angleIndex(angleOf(polyline.get(i - 1), polyline.get(i)));
+        final int outAngle = angleIndex(angleOf(polyline.get(i), polyline.get(i + 1)));
+        int diff = outAngle - inAngle;
+        if (diff > 8) {
+            diff -= 16;
+        } else if (diff < -8) {
+            diff += 16;
+        }
+        int bisector = inAngle + diff / 2;
+        return Angle.values()[((bisector % 16) + 16) % 16];
+    }
+
+    private static int angleIndex(Angle angle) {
+        return ((int) Math.round(Math.toDegrees(angle.angleDegrees) / 22.5)) % 16;
+    }
+
+    private static Rail railOnSegment(List<Position> polyline, int seg, boolean platform) {
+        final Position a = polyline.get(seg);
+        final Position b = polyline.get(seg + 1);
+        final Angle ta = tangentAt(polyline, seg);
+        final Angle tb = tangentAt(polyline, seg + 1);
+        if (platform) {
+            return Rail.newPlatformRail(a, ta, b, tb,
+                    Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    new ObjectArrayList<>(), TransportMode.TRAIN);
+        }
+        return Rail.newRail(a, ta, b, tb, Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                new ObjectArrayList<String>(), 1, 2, false, false, true, false, true, TransportMode.TRAIN);
     }
 
     private static Rail makePlatformRail(Position p1, Position p2) {
@@ -93,6 +146,8 @@ class TestWorldGeneratorTest {
         // IMPORTANT: every MTR object must be constructed with the Simulator as
         // its Data back-reference, otherwise updateRailCache reads the wrong
         // positionsToRail and the platforms are pruned as invalid on sync.
+        // Start from a clean save: stale files would leak old ids into sync
+        deleteRecursively(WORLD_MTR.toFile());
         final Simulator simulator = new Simulator(DIMENSION, new String[]{DIMENSION}, WORLD_MTR, false);
         // Corridor nodes along z=0, then a bend down to the south
         final Position n0 = node(0, 0);
@@ -102,12 +157,15 @@ class TestWorldGeneratorTest {
         final Position n4 = node(380, 0);
         final Position n5 = node(480, 0);
 
+        // One tangent-continuous polyline: n0..n5 then the siding straight on
+        final List<Position> polyline = List.of(n0, n1, n2, n3, n4, n5,
+                node(600, 0));
         // Rails: platform rails at each station + plain connecting rails
-        final Rail railAlpha = makePlatformRail(n0, n1);
-        final Rail shared = makeRail(n1, n2);
-        final Rail railBravo = makePlatformRail(n2, n3);
-        final Rail bend = makeRail(n3, n4);
-        final Rail railCharlie = makePlatformRail(n4, n5);
+        final Rail railAlpha = railOnSegment(polyline, 0, true);
+        final Rail shared = railOnSegment(polyline, 1, false);
+        final Rail railBravo = railOnSegment(polyline, 2, true);
+        final Rail bend = railOnSegment(polyline, 3, false);
+        final Rail railCharlie = railOnSegment(polyline, 4, true);
 
         // Platforms (one per platform rail); MTR generates a random unique id
         final Platform alpha = platform(simulator, n0, n1, railAlpha, "Alpha Platform");
@@ -116,21 +174,20 @@ class TestWorldGeneratorTest {
 
         // Stations covering their platforms (for JourneyMap landmarks + waypoints)
         final Station stationAlpha = station(simulator, "Alpha", 15073280, node(-20, -20), node(100, 20));
-        final Station stationBravo = station(simulator, "Bravo", 28440, node(360, -20), node(500, 20));
-        final Station stationCharlie = station(simulator, "Charlie", 22016, node(160, 60), node(300, 110));
+        final Station stationBravo = station(simulator, "Bravo", 28440, node(200, 60), node(340, 100));
+        final Station stationCharlie = station(simulator, "Charlie", 22016, node(360, -20), node(500, 20));
 
         // Routes: Express (Alpha->Bravo), Local (Alpha->Bravo->Charlie), Local Return
         final Route express = route(simulator, "Express", 15073280, List.of(alpha, bravo));
         final Route local = route(simulator, "Local", 28440, List.of(alpha, bravo, charlie));
         final Route localReturn = route(simulator, "Local Return", 28440, List.of(charlie, bravo, alpha));
 
-        // Siding + depot: instant deploy makes MTR generate the real driving
-        // path (Depot.path) for the Local route, which the map colors follow.
+        // Siding continues the polyline (segment 5) with tangent continuity
         final Position s0 = node(480, 0);
         final Position s1 = node(600, 0);
-        final Rail sidingRail = Rail.newSidingRail(s0, angleOf(s0, s1), s1, angleOf(s1, s0),
+        final Rail sidingRail = Rail.newSidingRail(s0, tangentAt(polyline, 5), s1, tangentAt(polyline, 6),
                 Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                new ObjectArrayList<>(), TransportMode.TRAIN);
+                new ObjectArrayList<String>(), TransportMode.TRAIN);
         final org.mtr.core.data.Siding siding = new org.mtr.core.data.Siding(s0, s1, 0, TransportMode.TRAIN, simulator);
         siding.rail = sidingRail;
         simulator.sidings.add(siding);
@@ -168,13 +225,24 @@ class TestWorldGeneratorTest {
                 + " alpha.rail=" + (alpha.rail == null ? "NULL" : "ok")
                 + " positionsToRailContainsN0=" + simulator.positionsToRail.containsKey(n0));
         simulator.sync();
-        System.out.println("[TestWorldGenerator] pre-deploy: depot path size=" + depot.getPath().size()
-                + " depot routes=" + depot.routes.size() + " depot routeIds=" + depot.getRouteIds()
+        System.out.println("[TestWorldGenerator] platform ids: alpha=" + alpha.getId()
+                + " bravo=" + bravo.getId() + " charlie=" + charlie.getId()
+                + " sidingId=" + siding.getId());
+        System.out.println("[TestWorldGenerator] pre-generate: depot path size=" + depot.getPath().size()
+                + " depot savedRails=" + depot.savedRails.size()
                 + " siding valid=" + sidingRail.isValid() + " isSiding=" + sidingRail.isSiding());
-        simulator.instantDeployDepots(new ObjectArrayList<>(List.of(depot)));
-        System.out.println("[TestWorldGenerator] post-deploy: depot path size=" + depot.getPath().size()
-                + " status=" + depot.getLastGeneratedStatus()
-                + " millis=" + depot.getLastGeneratedMillis());
+        // Drive MTR's own route generation to completion: generateDepots()
+        // queues the path finders (generateMainRoute), tick() progresses them
+        // (findPathTick - normally driven by the server's tick loop).
+        org.mtr.core.data.Depot.generateDepots(simulator, new ObjectArrayList<>(List.of(depot)));
+        for (int i = 0; i < 5000 && depot.getPath().isEmpty(); i++) {
+            simulator.tick();
+        }
+        System.out.println("[TestWorldGenerator] post-generate: depot path size=" + depot.getPath().size()
+                + " status=" + depot.getLastGeneratedStatus());
+        depot.getFailedPlatformIds(
+                (startId, endId) -> System.out.println("[TestWorldGenerator] failed stretch: " + startId + " -> " + endId),
+                sidingCount -> System.out.println("[TestWorldGenerator] failed siding count: " + sidingCount));
         System.out.println("[TestWorldGenerator] post-sync positionsToRail keys:");
         simulator.positionsToRail.keySet().forEach(k ->
                 System.out.println("[TestWorldGenerator]   key: " + k.getX() + "," + k.getY() + "," + k.getZ()));

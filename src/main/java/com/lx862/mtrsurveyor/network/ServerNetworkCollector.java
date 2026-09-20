@@ -3,6 +3,7 @@ package com.lx862.mtrsurveyor.network;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
+import com.lx862.mtrsurveyor.mapdata.RoutePathfinder;
 import com.lx862.mtrsurveyor.mapdata.TrackSampler;
 import com.lx862.mtrsurveyor.mixin.MainAccessorMixin;
 import com.lx862.mtrsurveyor.mixin.MTRAccessorMixin;
@@ -23,7 +24,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Server-side collector for the full-network map snapshot.
@@ -148,32 +151,61 @@ public final class ServerNetworkCollector {
             }
         });
 
-        // Fallback for routes whose depot path is not (yet) generated: plain
-        // stop-to-stop polylines so every saved route still appears on the map.
+        // Fallback for routes whose depot path is not (yet) generated: snap
+        // them onto the rail network (Dijkstra over positionsToRail) so the
+        // color still follows the exact track geometry.
+        final RoutePathfinder.Graph graph =
+                RoutePathfinder.buildGraph(simulator.rails, simulator.positionsToRail);
+        final List<Route> fallbackRoutes = new ArrayList<>();
+        final List<List<RoutePathfinder.SegmentPath>> fallbackSegments = new ArrayList<>();
+        final Map<Long, List<MapRoute.Stop>> fallbackStops = new HashMap<>();
+        final Map<Long, List<Platform>> fallbackPlatforms = new HashMap<>();
         simulator.routes.forEach(route -> {
             try {
                 if (result.hasRealPath(route.getId())) {
-                    return;
+                    return; // covered by a real depot driving path
                 }
                 final List<RoutePlatformData> routePlatforms = route.getRoutePlatforms();
                 if (routePlatforms == null || routePlatforms.size() < 2) {
                     return;
                 }
                 final List<MapRoute.Stop> stops = new ArrayList<>(routePlatforms.size());
+                final List<Platform> platforms = new ArrayList<>(routePlatforms.size());
                 for (RoutePlatformData routePlatform : routePlatforms) {
                     final Platform platform = routePlatform.getPlatform();
                     if (platform == null) {
                         return;
                     }
+                    platforms.add(platform);
                     final Position pos = platform.getMidPosition();
                     stops.add(new MapRoute.Stop(pos.getX(), pos.getZ(),
                             platform.getStationName(), routePlatform.getCustomDestination()));
                 }
-                result.routes.add(MapRoute.ofStops(route.getName(), route.getColor(), false, stops));
+                final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
+                        || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
+                fallbackRoutes.add(route);
+                fallbackSegments.add(RoutePathfinder.findRoutePath(graph, platforms, circular));
+                fallbackStops.put(route.getId(), stops);
+                fallbackPlatforms.put(route.getId(), platforms);
             } catch (Throwable e) {
                 MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to collect route on server: {}", e.getMessage());
             }
         });
+        for (int i = 0; i < fallbackRoutes.size(); i++) {
+            final Route route = fallbackRoutes.get(i);
+            final List<RoutePathfinder.SegmentPath> segments = fallbackSegments.get(i);
+            final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
+                    || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
+            final List<double[]> points =
+                    RoutePathfinder.flattenToPoints(graph, fallbackPlatforms.get(route.getId()), segments, circular);
+            if (points.size() < 2) {
+                MTRSurveyor.LOGGER.warn("[MTRSurveyor] No complete track path for route {}; skipping straight-line fallback",
+                        route.getName());
+                continue;
+            }
+            result.routes.add(MapRoute.ofPath(route.getName(), route.getColor(),
+                    fallbackStops.getOrDefault(route.getId(), List.of()), points));
+        }
 
         // Tracks: sample the real rail geometry.
         simulator.rails.forEach(rail -> {

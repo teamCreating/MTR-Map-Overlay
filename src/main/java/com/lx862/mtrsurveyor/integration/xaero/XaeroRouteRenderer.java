@@ -198,16 +198,8 @@ public class XaeroRouteRenderer {
             final int b = argb & 0xFF;
 
             if (route.path.size() < 2) {
-                // No real driving path for this route (depot not generated or
-                // client-only mode without synced paths): fall back to simple
-                // stop-to-stop lines so the network stays visible.
-                final int pointCount = route.stops.size() + (route.circular ? 1 : 0);
-                for (int i = 0; i < pointCount - 1; i++) {
-                    final MapRoute.Stop p1 = route.stops.get(i);
-                    final MapRoute.Stop p2 = route.stops.get((i + 1) % route.stops.size());
-                    drawSegment(matrix, consumer, p1.x, p1.z, p2.x, p2.z, halfWidth, r, g, b,
-                            (int) (ROUTE_ALPHA * 0.6f));
-                }
+                // Never invent station-to-station chords. A route is drawn
+                // only when its color can follow actual sampled rail geometry.
                 continue;
             }
 

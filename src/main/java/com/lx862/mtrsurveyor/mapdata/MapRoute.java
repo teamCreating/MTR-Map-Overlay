@@ -12,8 +12,8 @@ import java.util.List;
  *       (station name + destination);</li>
  *   <li>{@code path} - the snapped track geometry (points sampled along the
  *       real rails, each carrying a lane offset index for parallel routes).
- *       When empty, the renderer falls back to straight stop-to-stop lines
- *       (client-only mode without server-synced data).</li>
+ *       When empty, the renderer omits the route rather than inventing a
+ *       station-to-station chord that does not follow track.</li>
  * </ul>
  */
 public class MapRoute {

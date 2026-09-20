@@ -172,7 +172,7 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 
 ## 9. 发布流程
 
-1. 改 `gradle.properties` 的 `mod_version`（语义化：beta 期间 x.y.0）。
+1. 改 `gradle.properties` 的 `mod_version`（默认只增加 patch 位；minor 位仅在用户明确要求时增加）。
 2. 更新 `RELEASE_NOTES.md`（新版本小节置顶）与 `README.md`（功能/依赖表）。
 3. `./gradlew build` → 验证 `build/libs/*.jar`。
 4. **每完成一个逻辑步骤就 commit & push**（本项目的既定约定），commit message 说明动机与验证方式。
