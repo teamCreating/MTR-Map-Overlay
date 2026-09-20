@@ -7,6 +7,14 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-20 18:35] Codex — 接管 ZCode 中断工作并完成 v1.4.2 严格贴轨回退
+- 已从 ZCode session `sess_48dca44a-81eb-4a22-a9d7-b45b673d658f` 接管因配额中断的未提交改动。
+- Depot 真实路径仍优先；无 Depot 路径时在 `positionsToRail` 上寻路，并逐轨复用
+  `TrackSampler.sample()`，保证路线顶点与灰色轨道层采样一致、lane=0。
+- 移除所有站点间直线回退：断路时跳过该路线并记录 warning；环线末站→首站独立寻路。
+- `gradlew build --rerun-tasks --no-daemon` 通过；产物 pack 与 mod 元数据均为 v1.4.2。
+- 按 Ben 要求未启动 Minecraft，实机视觉验证由 Ben 手动执行。实现 commit `e436796`。
+
 ## [2026-09-20 05:10] ZCode — v1.5.0：真实路径染色 + 哈希探测热更
 - 按需求移除自研 Dijkstra 寻路，路线颜色改用 MTR 车辆段生成的真实驾驶路径
   （`Depot.getPath()`，公开 getter；`writePathCache()` 刷新轨道引用）。
