@@ -94,7 +94,7 @@ processResources {
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "mtr_version", project.mtr_version
 
-    filesMatching("META-INF/neoforge.mods.toml") {
+    filesMatching(["META-INF/neoforge.mods.toml", "pack.mcmeta"]) {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
                 "mtr_version": project.mtr_version

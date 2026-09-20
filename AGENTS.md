@@ -12,6 +12,8 @@
    请先读 `docs/agents/STATE.md` 和 `walkthrough.md`，而不是"修复"它。
 2. **版本号默认叠加小版本（patch）**：每次功能/修复发布把 `mod_version` 的第三位 +1
    （如 1.4.0 → 1.4.1）。第二位（如 1.4.x 的 4）只在用户明确指示时才 +1。
+   版本号会自动展开进 `META-INF/neoforge.mods.toml` 和 `pack.mcmeta` 的 description
+   （`pack.mcmeta` 用 `${version}` 占位符，不要手写死版本号）。
 3. **禁止破坏性 git 操作**：不得执行 `git reset --hard`、`git checkout <ref> -- .`、`git push --force`、
    `git clean -fd`、`git branch -D`。工作区与 HEAD 不一致时，用 `git stash`（加说明）或先 diff 确认再逐文件处理。
 4. **先领任务，再动代码**：任何非 trivial 修改，必须先在 `docs/agents/TASKS.md` 认领（claim），

@@ -1,6 +1,6 @@
 {
   "pack": {
-    "description": "[CRTools]MTR:Xaero Mapper - Station & Depot Waypoints",
+    "description": "[CRTools]MTR:Xaero Mapper v${version} - Station & Depot Waypoints",
     "pack_format": 34
   }
 }
