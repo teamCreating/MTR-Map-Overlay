@@ -10,9 +10,11 @@
    main 分支上不存在 Forge 1.20.1 代码（旧代码只存在于 git 历史 `77121f5` 之前）。
    如果你发现工作区/代码"看起来像 Forge 1.20.1"或与你记忆中的项目不符——**是你的认知过时了**，
    请先读 `docs/agents/STATE.md` 和 `walkthrough.md`，而不是"修复"它。
-2. **禁止破坏性 git 操作**：不得执行 `git reset --hard`、`git checkout <ref> -- .`、`git push --force`、
+2. **版本号默认叠加小版本（patch）**：每次功能/修复发布把 `mod_version` 的第三位 +1
+   （如 1.4.0 → 1.4.1）。第二位（如 1.4.x 的 4）只在用户明确指示时才 +1。
+3. **禁止破坏性 git 操作**：不得执行 `git reset --hard`、`git checkout <ref> -- .`、`git push --force`、
    `git clean -fd`、`git branch -D`。工作区与 HEAD 不一致时，用 `git stash`（加说明）或先 diff 确认再逐文件处理。
-3. **先领任务，再动代码**：任何非 trivial 修改，必须先在 `docs/agents/TASKS.md` 认领（claim），
+4. **先领任务，再动代码**：任何非 trivial 修改，必须先在 `docs/agents/TASKS.md` 认领（claim），
    完成后释放。两个 agent 不要同时改同一批文件。
 
 ## 1. 工作流程（每个 agent 每次会话执行）
