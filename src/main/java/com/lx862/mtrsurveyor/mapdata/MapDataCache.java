@@ -150,25 +150,29 @@ public class MapDataCache {
             try {
                 final MinecraftClientData live = MinecraftClientData.getInstance();
                 if (live != null) {
-                    final Map<String, List<double[]>> vehiclePaths = new HashMap<>();
-                    final Map<String, List<MapRoute.Stop>> vehicleStops = new HashMap<>();
+                    final Map<String, List<MapTrack>> vehicleTracks = new HashMap<>();
+                    final Map<String, java.util.Set<String>> vehicleRailIds = new HashMap<>();
                     for (VehicleExtension vehicle : live.vehicles) {
                         final String routeName = vehicle.vehicleExtraData.getThisRouteName();
                         final int routeColor = vehicle.vehicleExtraData.getThisRouteColor();
                         final String key = routeName + "#" + routeColor;
-                        final List<double[]> path = vehiclePaths.computeIfAbsent(key,
+                        final List<MapTrack> routeTracks = vehicleTracks.computeIfAbsent(key,
                                 k -> new ArrayList<>());
                         for (org.mtr.core.data.PathData pathData : vehicle.vehicleExtraData.immutablePath) {
-                            final List<double[]> sampled = TrackSampler.samplePathData(pathData);
-                            if (sampled != null) {
-                                path.addAll(sampled);
+                            final org.mtr.core.data.Rail rail = pathData.getRail();
+                            if (rail != null && vehicleRailIds.computeIfAbsent(key, ignored -> new java.util.HashSet<>())
+                                    .add(rail.getHexId())) {
+                                final List<double[]> sampled = TrackSampler.sample(rail);
+                                if (sampled != null) {
+                                    routeTracks.add(new MapTrack(sampled));
+                                }
                             }
                         }
                     }
-                    for (Map.Entry<String, List<double[]>> entry : vehiclePaths.entrySet()) {
+                    for (Map.Entry<String, List<MapTrack>> entry : vehicleTracks.entrySet()) {
                         final String key = entry.getKey();
                         final int sep = key.lastIndexOf('#');
-                        routes.add(MapRoute.ofPath(key.substring(0, sep),
+                        routes.add(MapRoute.ofTracks(key.substring(0, sep),
                                 Integer.parseInt(key.substring(sep + 1)), new ArrayList<>(), entry.getValue()));
                     }
                 }

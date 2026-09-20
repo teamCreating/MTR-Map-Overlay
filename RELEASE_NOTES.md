@@ -1,3 +1,17 @@
+# v1.4.3 Release Notes (2026-09-20)
+
+## ROUTE 直接复用 TRACK 轨道折线与绘制管线
+
+- 路线几何由单条拼接 path 改为 `List<MapTrack>`：每根属于路线的物理轨道直接复用 TRACK 层的
+  `TrackSampler.sample()` 结果，不再对 Depot 路径另行采样或跨轨拼接。
+- ROUTE 与 TRACK 统一调用同一个 `drawPolyline()`：相同的逐段视口裁剪、quad 生成、线宽和透明度；
+  两层现在只有颜色不同。
+- 纯客户端车辆路径和无 Depot 路径的服务器回退也统一输出 `MapTrack`，不再存在另一套路线折线格式。
+- 网络快照协议升级为 v4，按路线传输独立的轨道折线，避免客户端重新拼接产生伪连接。
+- 验证：`gradlew test --rerun-tasks --no-daemon` 通过；按 Ben 要求未启动 Minecraft。
+
+---
+
 # v1.4.2 Release Notes (2026-09-20)
 
 ## 无车辆段路径时仍严格贴轨

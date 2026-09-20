@@ -145,7 +145,7 @@ Xaero GuiMap.render
 | 1 | mod 加载 | `MTR:Xaero Mapper 1.2.0 (mtrsurveyor)` |
 | 2 | Xaero 检测 | `Xaero's World Map detected - map path layer mixins will be applied` |
 | 3 | mixin 应用 | `Applied XaeroWorldMapMixin to GuiMap` |
-| 4 | payload 注册 | `Full-network sync payloads registered (protocol 1)` |
+| 4 | payload 注册 | `Full-network sync payloads registered (protocol 4)` |
 | 5 | 进世界 | `Dev joined the game` |
 | 6 | 服务端发送 | `Sent full-network snapshot for minecraft/overworld to Dev` |
 | 7 | 客户端入库 | `Full-network snapshot applied for minecraft/overworld` |

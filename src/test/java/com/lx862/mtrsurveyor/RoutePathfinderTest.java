@@ -1,6 +1,7 @@
 package com.lx862.mtrsurveyor;
 
 import com.lx862.mtrsurveyor.mapdata.RoutePathfinder;
+import com.lx862.mtrsurveyor.mapdata.MapTrack;
 import com.lx862.mtrsurveyor.mapdata.TrackSampler;
 import org.junit.jupiter.api.Test;
 import org.mtr.core.data.ClientData;
@@ -83,17 +84,18 @@ class RoutePathfinderTest {
 
         final List<RoutePathfinder.SegmentPath> segments =
                 RoutePathfinder.findRoutePath(graph, platforms, false);
-        final List<double[]> routePoints = RoutePathfinder.flattenToPoints(graph, platforms, segments, false);
-        assertFalse(routePoints.isEmpty());
+        final List<MapTrack> routeTracks = RoutePathfinder.toTracks(graph, platforms, segments, false);
+        assertFalse(routeTracks.isEmpty());
 
         final Set<String> grayTrackSamples = new HashSet<>();
         for (Rail rail : List.of(first, middle, last)) {
             TrackSampler.sample(rail).forEach(point -> grayTrackSamples.add(key(point)));
         }
-        for (double[] routePoint : routePoints) {
-            assertTrue(grayTrackSamples.contains(key(routePoint)),
-                    "route point must be one of the exact gray-track samples");
-            assertTrue(routePoint[2] == 0, "route must stay on the track centerline");
+        for (MapTrack routeTrack : routeTracks) {
+            for (double[] routePoint : routeTrack.points) {
+                assertTrue(grayTrackSamples.contains(key(routePoint)),
+                        "route point must be one of the exact gray-track samples");
+            }
         }
     }
 
@@ -106,9 +108,9 @@ class RoutePathfinderTest {
 
         final List<RoutePathfinder.SegmentPath> segments =
                 RoutePathfinder.findRoutePath(graph, platforms, false);
-        final List<double[]> routePoints = RoutePathfinder.flattenToPoints(graph, platforms, segments, false);
+        final List<MapTrack> routeTracks = RoutePathfinder.toTracks(graph, platforms, segments, false);
 
-        assertTrue(routePoints.isEmpty(), "an unroutable route must be omitted instead of drawn as a straight line");
+        assertTrue(routeTracks.isEmpty(), "an unroutable route must be omitted instead of drawn as a straight line");
     }
 
     @Test
@@ -120,16 +122,9 @@ class RoutePathfinderTest {
 
         final List<RoutePathfinder.SegmentPath> segments =
                 RoutePathfinder.findRoutePath(graph, platforms, false);
-        final List<double[]> routePoints = RoutePathfinder.flattenToPoints(graph, platforms, segments, false);
+        final List<MapTrack> routeTracks = RoutePathfinder.toTracks(graph, platforms, segments, false);
 
-        assertFalse(routePoints.isEmpty());
-        final List<double[]> firstTrack = TrackSampler.sample(first);
-        final List<double[]> lastTrack = TrackSampler.sample(last);
-        final double[] routeStart = routePoints.get(0);
-        final double[] expectedStart = lastTrack.get(lastTrack.size() - 1);
-        final double[] routeEnd = routePoints.get(routePoints.size() - 1);
-        final double[] expectedEnd = firstTrack.get(0);
-        assertTrue(Math.abs(routeStart[0] - expectedStart[0]) < 1.0E-6);
-        assertTrue(Math.abs(routeEnd[0] - expectedEnd[0]) < 1.0E-6);
+        assertFalse(routeTracks.isEmpty());
+        assertTrue(routeTracks.stream().allMatch(track -> track.points.size() >= 2));
     }
 }

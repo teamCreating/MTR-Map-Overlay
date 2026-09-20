@@ -67,8 +67,8 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
      *   int routeCount
      *   per route: UTF name, int color, boolean circular, int stopCount,
      *              per stop: float x, float z, UTF stationName, UTF destination,
-     *              int pathPointCount,
-     *              per path point: float x, float z, int lane
+     *              int routeTrackCount,
+     *              per route track: int pointCount, per point: float x, float z
      *   int trackCount
      *   per track: int pointCount, per point: float x, float z
      * </pre>
@@ -91,11 +91,13 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     out.writeUTF(stop.stationName == null ? "" : stop.stationName);
                     out.writeUTF(stop.destination == null ? "" : stop.destination);
                 }
-                out.writeInt(route.path.size());
-                for (MapRoute.PathPoint point : route.path) {
-                    out.writeFloat((float) point.x());
-                    out.writeFloat((float) point.z());
-                    out.writeInt(point.lane());
+                out.writeInt(route.tracks.size());
+                for (MapTrack track : route.tracks) {
+                    out.writeInt(track.points.size());
+                    for (double[] point : track.points) {
+                        out.writeFloat((float) point[0]);
+                        out.writeFloat((float) point[1]);
+                    }
                 }
             }
             out.writeInt(dimension.tracks.size());
@@ -131,12 +133,17 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     final String destination = in.readUTF();
                     stops.add(new MapRoute.Stop(x, z, stationName, destination));
                 }
-                final int pathCount = in.readInt();
-                final List<MapRoute.PathPoint> path = new ArrayList<>(pathCount);
-                for (int p = 0; p < pathCount; p++) {
-                    path.add(new MapRoute.PathPoint(in.readFloat(), in.readFloat(), in.readInt()));
+                final int routeTrackCount = in.readInt();
+                final List<MapTrack> routeTracks = new ArrayList<>(routeTrackCount);
+                for (int t = 0; t < routeTrackCount; t++) {
+                    final int pointCount = in.readInt();
+                    final List<double[]> points = new ArrayList<>(pointCount);
+                    for (int p = 0; p < pointCount; p++) {
+                        points.add(new double[]{in.readFloat(), in.readFloat()});
+                    }
+                    routeTracks.add(new MapTrack(points));
                 }
-                routes.add(new MapRoute(name, color, circular, stops, path));
+                routes.add(new MapRoute(name, color, circular, stops, routeTracks));
             }
 
             final int trackCount = in.readInt();

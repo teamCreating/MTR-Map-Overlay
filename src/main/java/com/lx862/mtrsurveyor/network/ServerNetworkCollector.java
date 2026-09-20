@@ -25,8 +25,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Server-side collector for the full-network map snapshot.
@@ -44,9 +46,6 @@ public final class ServerNetworkCollector {
 
     /** Max bytes of payload per S2C chunk (well under the 1 MiB custom payload limit). */
     private static final int CHUNK_SIZE = 200_000;
-    /** World-block distance between samples along a driving path. */
-    private static final double SAMPLE_INTERVAL = 8.0;
-
     private ServerNetworkCollector() {
     }
 
@@ -196,15 +195,15 @@ public final class ServerNetworkCollector {
             final List<RoutePathfinder.SegmentPath> segments = fallbackSegments.get(i);
             final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                     || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-            final List<double[]> points =
-                    RoutePathfinder.flattenToPoints(graph, fallbackPlatforms.get(route.getId()), segments, circular);
-            if (points.size() < 2) {
+            final List<MapTrack> routeTracks =
+                    RoutePathfinder.toTracks(graph, fallbackPlatforms.get(route.getId()), segments, circular);
+            if (routeTracks.isEmpty()) {
                 MTRSurveyor.LOGGER.warn("[MTRSurveyor] No complete track path for route {}; skipping straight-line fallback",
                         route.getName());
                 continue;
             }
-            result.routes.add(MapRoute.ofPath(route.getName(), route.getColor(),
-                    fallbackStops.getOrDefault(route.getId(), List.of()), points));
+            result.routes.add(MapRoute.ofTracks(route.getName(), route.getColor(),
+                    fallbackStops.getOrDefault(route.getId(), List.of()), routeTracks));
         }
 
         // Tracks: sample the real rail geometry.
@@ -238,7 +237,8 @@ public final class ServerNetworkCollector {
         String currentRouteName = null;
         int currentColor = 0;
         List<MapRoute.Stop> stops = new ArrayList<>();
-        List<double[]> points = new ArrayList<>();
+        List<MapTrack> routeTracks = new ArrayList<>();
+        Set<String> routeRailIds = new HashSet<>();
         long lastPlatformId = 0;
 
         for (PathData pathData : path) {
@@ -261,25 +261,25 @@ public final class ServerNetworkCollector {
 
                 if (currentRouteName != null && (!routeName.equals(currentRouteName) || routeColor != currentColor)) {
                     // Color change: flush the finished stretch
-                    result.routes.add(MapRoute.ofPath(currentRouteName, currentColor, stops, points));
+                    if (!routeTracks.isEmpty()) {
+                        result.routes.add(MapRoute.ofTracks(currentRouteName, currentColor, stops, routeTracks));
+                    }
                     stops = new ArrayList<>();
-                    points = new ArrayList<>();
+                    routeTracks = new ArrayList<>();
+                    routeRailIds = new HashSet<>();
                 }
                 currentRouteName = routeName;
                 currentColor = routeColor;
                 lastPlatformId = savedRailId;
             }
 
-            // Sample the rail stretch between the two distances
-            final double d1 = pathData.getStartDistance();
-            final double d2 = pathData.getEndDistance();
-            final double from = Math.max(0, Math.min(d1, d2));
-            final double to = Math.min(length, Math.max(d1, d2));
-            final int samples = (int) Math.min(64, Math.max(2, Math.ceil((to - from) / SAMPLE_INTERVAL) + 1));
-            for (int i = 0; i <= samples; i++) {
-                final double d = from + (to - from) * i / samples;
-                final org.mtr.core.tool.Vector pos = rail.railMath.getPosition(d, false);
-                appendPoint(points, pos.x(), pos.z());
+            // Reuse the exact full-rail MapTrack geometry. Direction and path
+            // distances affect train movement, not how the physical rail is drawn.
+            if (routeRailIds.add(rail.getHexId())) {
+                final List<double[]> railPoints = TrackSampler.sample(rail);
+                if (railPoints != null && railPoints.size() >= 2) {
+                    routeTracks.add(new MapTrack(railPoints));
+                }
             }
 
             if (platform != null) {
@@ -289,9 +289,9 @@ public final class ServerNetworkCollector {
             }
         }
 
-        if (points.size() >= 2) {
+        if (!routeTracks.isEmpty()) {
             final String name = currentRouteName == null ? depot.getName() : currentRouteName;
-            result.routes.add(MapRoute.ofPath(name, currentColor, stops, points));
+            result.routes.add(MapRoute.ofTracks(name, currentColor, stops, routeTracks));
         }
     }
 
@@ -307,14 +307,6 @@ public final class ServerNetworkCollector {
             }
         }
         return null;
-    }
-
-    private static void appendPoint(List<double[]> points, double x, double z) {
-        final double[] last = points.isEmpty() ? null : points.get(points.size() - 1);
-        if (last != null && Math.abs(last[0] - x) < 1.0E-3 && Math.abs(last[1] - z) < 1.0E-3) {
-            return;
-        }
-        points.add(new double[]{x, z});
     }
 
     private static void appendStop(List<MapRoute.Stop> stops, double x, double z, String stationName) {

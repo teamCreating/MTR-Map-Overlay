@@ -1,6 +1,5 @@
 package com.lx862.mtrsurveyor.mapdata;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,8 +9,8 @@ import java.util.List;
  * <ul>
  *   <li>{@code stops} - one point per platform stop, used for hover tooltips
  *       (station name + destination);</li>
- *   <li>{@code path} - the snapped track geometry (points sampled along the
- *       real rails, each carrying a lane offset index for parallel routes).
+ *   <li>{@code tracks} - the physical rail strokes used by this route. These
+ *       are {@link MapTrack} objects, identical to the gray TRACK layer data.
  *       When empty, the renderer omits the route rather than inventing a
  *       station-to-station chord that does not follow track.</li>
  * </ul>
@@ -23,28 +22,24 @@ public class MapRoute {
     /** True when the route is circular, in which case the polyline closes back to the first stop. */
     public final boolean circular;
     public final List<Stop> stops;
-    public final List<PathPoint> path;
+    public final List<MapTrack> tracks;
 
-    public MapRoute(String name, int color, boolean circular, List<Stop> stops, List<PathPoint> path) {
+    public MapRoute(String name, int color, boolean circular, List<Stop> stops, List<MapTrack> tracks) {
         this.name = name;
         this.color = color;
         this.circular = circular;
         this.stops = stops;
-        this.path = path == null ? List.of() : path;
+        this.tracks = tracks == null ? List.of() : tracks;
     }
 
-    /** A route represented only by its stop anchors (rendered as a plain polyline). */
+    /** A route represented only by stop metadata; it is not rendered without physical tracks. */
     public static MapRoute ofStops(String name, int color, boolean circular, List<Stop> stops) {
         return new MapRoute(name, color, circular, stops, List.of());
     }
 
-    /** A route stretch with real driving-path geometry (depot PathData sampling). */
-    public static MapRoute ofPath(String name, int color, List<Stop> stops, List<double[]> points) {
-        final List<PathPoint> path = new ArrayList<>(points.size());
-        for (double[] point : points) {
-            path.add(new PathPoint(point[0], point[1], 0));
-        }
-        return new MapRoute(name, color, false, stops, path);
+    /** A route represented by the same physical rail strokes as the TRACK layer. */
+    public static MapRoute ofTracks(String name, int color, List<Stop> stops, List<MapTrack> tracks) {
+        return new MapRoute(name, color, false, stops, tracks);
     }
 
     /** One stop on a route: its world position plus display strings for tooltips. */
@@ -63,7 +58,4 @@ public class MapRoute {
         }
     }
 
-    /** One render point of the snapped track geometry; lane is the parallel-route offset index. */
-    public record PathPoint(double x, double z, int lane) {
-    }
 }

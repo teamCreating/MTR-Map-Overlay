@@ -5,8 +5,8 @@
 
 ## 当前版本
 
-- **v1.4.2**（MTR 真实路径染色 + 严格贴轨回退 + 哈希探测热更）
-- 最后更新：2026-09-20 18:35，操作者：Codex（接管 ZCode 中断工作）
+- **v1.4.3**（ROUTE 直接复用 TRACK 的 MapTrack 数据与绘制管线）
+- 最后更新：2026-09-20 22:33，操作者：Codex
 
 ## 平台与依赖
 
@@ -26,8 +26,8 @@
 - 全网同步（C2S RequestNetworkSync → Simulator 线程采集 → 200KB 分块 S2C → MapDataCache）——稳定
 - 纯客户端回退（无服务端组件时用 MTR 半径数据）——稳定
 - JourneyMap 地标（v2 API MarkerOverlay，station/platform/depot，自动检测）——稳定（实机验证）
-- 路线颜色染色（服务端 depot 真实路径 + 协议 v3 哈希探测热更）——稳定（实机验证）
-- 无 Depot 路径回退（铁路网最短路 + 与 TrackSampler 完全相同的几何采样）——无头测试通过，待 Ben 实机验证
+- 路线颜色染色（服务端 depot 真实路径 + 协议 v4；ROUTE/TRACK 共用 MapTrack 与 drawPolyline）——无头测试通过，待 Ben 实机验证
+- 无 Depot 路径回退（铁路网最短路，直接返回 TRACK 层 MapTrack）——无头测试通过，待 Ben 实机验证
 
 ## 已验证功能（最近一次实机测试）
 
@@ -44,6 +44,9 @@
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 
 ## 历史要点
+
+- 2026-09-20：v1.4.3 删除独立路线折线绘制模型；ROUTE 改为物理轨道 `MapTrack` 列表，
+  与 TRACK 共用同一 `drawPolyline`、线宽、透明度和视口裁剪。快照协议升级 v4。
 
 - 2026-09-20：v1.4.2 修复无 Depot 路径时的站点直线回退；回退路径必须来自铁路网且逐点复用
   轨道层采样，断路时不绘制伪造直线。无头测试通过，未由 agent 启动 Minecraft。

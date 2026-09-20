@@ -7,6 +7,7 @@ import org.mtr.core.data.TransportMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -352,28 +353,43 @@ public final class RoutePathfinder {
     }
 
     /**
-     * Flatten a complete route path into render points {x, z, lane}. Every
-     * point is sampled by {@link TrackSampler}, exactly like the gray track
-     * layer. If any segment cannot be routed, this returns an empty list rather
-     * than drawing a misleading straight chord between stations.
+     * Resolve a complete route to the exact {@link MapTrack} strokes used by
+     * the gray TRACK layer. No rails are concatenated and no new sampling is
+     * performed; ROUTE therefore renders the same immutable polylines.
      */
-    public static List<double[]> flattenToPoints(Graph graph, List<Platform> platforms,
+    public static List<MapTrack> toTracks(Graph graph, List<Platform> platforms,
             List<SegmentPath> segments, boolean circular) {
-        final List<double[]> points = new ArrayList<>();
         final int expectedSegments = platforms.size() - 1 + (circular ? 1 : 0);
         if (segments == null || segments.size() != expectedSegments || !isComplete(segments)) {
-            return points;
+            return List.of();
         }
+
+        final LinkedHashSet<String> railIds = new LinkedHashSet<>();
         for (int i = 0; i < segments.size(); i++) {
-            final SegmentPath segment = segments.get(i);
-            final int fromIndex = i;
-            final int toIndex = (i + 1) % platforms.size();
-            if (segment == null) {
+            final Platform from = platforms.get(i);
+            final Platform to = platforms.get((i + 1) % platforms.size());
+            final Rail fromRail = getPlatformRail(graph, from);
+            final Rail toRail = getPlatformRail(graph, to);
+            if (fromRail == null || toRail == null) {
                 return List.of();
             }
-            appendSegmentGeometry(points, graph, segment, platforms.get(fromIndex), platforms.get(toIndex));
+            railIds.add(fromRail.getHexId());
+            for (PathEdge edge : segments.get(i).edges) {
+                railIds.add(edge.hexId);
+            }
+            railIds.add(toRail.getHexId());
         }
-        return points;
+
+        final List<MapTrack> tracks = new ArrayList<>(railIds.size());
+        for (String railId : railIds) {
+            final Rail rail = graph.railById.get(railId);
+            final List<double[]> points = rail == null ? null : TrackSampler.sample(rail);
+            if (points == null || points.size() < 2) {
+                return List.of();
+            }
+            tracks.add(new MapTrack(points));
+        }
+        return tracks;
     }
 
     private static boolean isComplete(List<SegmentPath> segments) {
@@ -383,69 +399,5 @@ public final class RoutePathfinder {
             }
         }
         return true;
-    }
-
-    private static void appendSegmentGeometry(List<double[]> points, Graph graph, SegmentPath segment,
-            Platform fromStop, Platform toStop) {
-        final Rail fromRail = getPlatformRail(graph, fromStop);
-        final Rail toRail = getPlatformRail(graph, toStop);
-        if (fromRail == null || toRail == null) {
-            return;
-        }
-        if (fromRail.getHexId().equals(toRail.getHexId())) {
-            appendRailGeometry(points, fromRail, false, !points.isEmpty());
-            return;
-        }
-
-        // Include both platform rails. Sampling the full rail may extend beyond
-        // its midpoint, but it guarantees every colored pixel lies on the same
-        // geometry used by the gray track layer.
-        appendRailEndingAt(points, graph, fromRail, segment.entryNode, !points.isEmpty());
-
-        // Network rails in traversal order (each starts at the previous edge's end node)
-        for (PathEdge pathEdge : segment.edges) {
-            appendRailGeometry(points, graph.railById.get(pathEdge.hexId), pathEdge.reversed, true);
-        }
-
-        appendRailStartingAt(points, graph, toRail, segment.exitNode, true);
-    }
-
-    private static void appendRailEndingAt(List<double[]> points, Graph graph, Rail rail,
-            Position endNode, boolean skipFirst) {
-        final Position[] ends = graph.railEnds.get(rail.getHexId());
-        if (ends == null) {
-            return;
-        }
-        appendRailGeometry(points, rail, endNode.equals(ends[0]), skipFirst);
-    }
-
-    private static void appendRailStartingAt(List<double[]> points, Graph graph, Rail rail,
-            Position startNode, boolean skipFirst) {
-        final Position[] ends = graph.railEnds.get(rail.getHexId());
-        if (ends == null) {
-            return;
-        }
-        appendRailGeometry(points, rail, startNode.equals(ends[1]), skipFirst);
-    }
-
-    /** Reuse the exact samples used by the gray track layer. */
-    private static void appendRailGeometry(List<double[]> points, Rail rail, boolean reversed, boolean skipFirst) {
-        final List<double[]> sampled = rail == null ? null : TrackSampler.sample(rail);
-        if (sampled == null || sampled.isEmpty()) {
-            return;
-        }
-        for (int i = skipFirst ? 1 : 0; i < sampled.size(); i++) {
-            final int sourceIndex = reversed ? sampled.size() - 1 - i : i;
-            final double[] point = sampled.get(sourceIndex);
-            appendPoint(points, point[0], point[1]);
-        }
-    }
-
-    private static void appendPoint(List<double[]> points, double x, double z) {
-        final double[] last = points.isEmpty() ? null : points.get(points.size() - 1);
-        if (last != null && Math.abs(last[0] - x) < 1.0E-3 && Math.abs(last[1] - z) < 1.0E-3) {
-            return;
-        }
-        points.add(new double[]{x, z, 0});
     }
 }

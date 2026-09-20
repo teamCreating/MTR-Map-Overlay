@@ -33,9 +33,7 @@ import java.util.List;
  */
 public class XaeroRouteRenderer {
 
-    private static final float ROUTE_HALF_WIDTH_PX = 3.0f;
     private static final float TRACK_HALF_WIDTH_PX = 1.25f;
-    private static final int ROUTE_ALPHA = 210;
     private static final int TRACK_COLOR = 0x404040;
     private static final int TRACK_ALPHA = 175;
     /** Stop hit radius (in blocks) for hover picking. */
@@ -189,7 +187,7 @@ public class XaeroRouteRenderer {
     private static void drawRoutes(GuiGraphics graphics, Matrix4f matrix, List<MapRoute> routes, double scale,
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        final float halfWidth = worldLineWidth(ROUTE_HALF_WIDTH_PX, scale);
+        final float halfWidth = worldLineWidth(TRACK_HALF_WIDTH_PX, scale);
 
         for (MapRoute route : routes) {
             final int argb = route.color;
@@ -197,28 +195,18 @@ public class XaeroRouteRenderer {
             final int g = (argb >> 8) & 0xFF;
             final int b = argb & 0xFF;
 
-            if (route.path.size() < 2) {
+            if (route.tracks.isEmpty()) {
                 // Never invent station-to-station chords. A route is drawn
                 // only when its color can follow actual sampled rail geometry.
                 continue;
             }
 
-            // Dyed-rail style: the route color traces the real driving path
-            // (MTR's own route generation), exactly overlaying the track
-            // geometry underneath.
-            double prevX = Double.NaN;
-            double prevZ = Double.NaN;
-            for (int i = 0; i < route.path.size(); i++) {
-                final MapRoute.PathPoint p = route.path.get(i);
-                if (p.x() < minX - 1 || p.x() > maxX + 1 || p.z() < minZ - 1 || p.z() > maxZ + 1) {
-                    prevX = Double.NaN;
-                    continue;
-                }
-                if (!Double.isNaN(prevX)) {
-                    drawSegment(matrix, consumer, prevX, prevZ, p.x(), p.z(), halfWidth, r, g, b, ROUTE_ALPHA);
-                }
-                prevX = p.x();
-                prevZ = p.z();
+            // ROUTE and TRACK deliberately share this exact drawing path.
+            // Only color differs; width, alpha, segmentation, viewport culling
+            // and quad generation are identical to TRACK.
+            for (MapTrack track : route.tracks) {
+                drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, TRACK_ALPHA,
+                        minX, minZ, maxX, maxZ);
             }
         }
     }
@@ -232,15 +220,22 @@ public class XaeroRouteRenderer {
         final int b = TRACK_COLOR & 0xFF;
 
         for (MapTrack track : tracks) {
-            final List<double[]> points = track.points;
-            for (int i = 0; i < points.size() - 1; i++) {
-                final double[] p1 = points.get(i);
-                final double[] p2 = points.get(i + 1);
-                if (segmentOutsideView(p1[0], p1[1], p2[0], p2[1], minX, minZ, maxX, maxZ)) {
-                    continue;
-                }
-                drawSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, r, g, b, TRACK_ALPHA);
+            drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, TRACK_ALPHA,
+                    minX, minZ, maxX, maxZ);
+        }
+    }
+
+    /** Shared ROUTE/TRACK polyline renderer. */
+    private static void drawPolyline(Matrix4f matrix, VertexConsumer consumer, List<double[]> points,
+            float halfWidth, int r, int g, int b, int a,
+            double minX, double minZ, double maxX, double maxZ) {
+        for (int i = 0; i < points.size() - 1; i++) {
+            final double[] p1 = points.get(i);
+            final double[] p2 = points.get(i + 1);
+            if (segmentOutsideView(p1[0], p1[1], p2[0], p2[1], minX, minZ, maxX, maxZ)) {
+                continue;
             }
+            drawSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, r, g, b, a);
         }
     }
 
