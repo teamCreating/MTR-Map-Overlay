@@ -18,6 +18,12 @@ public interface XaeroWorldMapAccessor {
     @Accessor
     double getCameraZ();
 
+    @Accessor("cameraX")
+    void setCameraX(double value);
+
+    @Accessor("cameraZ")
+    void setCameraZ(double value);
+
     @Accessor
     double getScale();
 

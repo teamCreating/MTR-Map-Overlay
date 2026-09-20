@@ -41,6 +41,7 @@ public final class ClientNetworkSync {
     private static long lastRequestMillis = 0;
     private static long lastSuccessfulSyncMillis = 0;
     private static int SCREEN_TRACE_TIMER = 0;
+    private static boolean SELF_TEST_DONE = false;
     /** Flips to true when a server answered at least once; flips back on world change. */
     private static boolean serverHasSupport = false;
     /** Set when the connected server clearly has no support, to back off requests. */

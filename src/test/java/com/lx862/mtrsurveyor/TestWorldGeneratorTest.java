@@ -96,11 +96,11 @@ class TestWorldGeneratorTest {
         final Simulator simulator = new Simulator(DIMENSION, new String[]{DIMENSION}, WORLD_MTR, false);
         // Corridor nodes along z=0, then a bend down to the south
         final Position n0 = node(0, 0);
-        final Position n1 = node(150, 0);
-        final Position n2 = node(300, 0);
-        final Position n3 = node(450, 0);
-        final Position n4 = node(600, 200);
-        final Position n5 = node(750, 200);
+        final Position n1 = node(80, 0);
+        final Position n2 = node(180, 80);
+        final Position n3 = node(280, 80);
+        final Position n4 = node(380, 0);
+        final Position n5 = node(480, 0);
 
         // Rails: platform rails at each station + plain connecting rails
         final Rail railAlpha = makePlatformRail(n0, n1);
@@ -115,9 +115,9 @@ class TestWorldGeneratorTest {
         final Platform charlie = platform(simulator, n4, n5, railCharlie, "Charlie Platform");
 
         // Stations covering their platforms (for JourneyMap landmarks + waypoints)
-        final Station stationAlpha = station(simulator, "Alpha", 15073280, node(-20, -20), node(170, 20));
-        final Station stationBravo = station(simulator, "Bravo", 28440, node(280, -20), node(470, 20));
-        final Station stationCharlie = station(simulator, "Charlie", 22016, node(580, 180), node(770, 220));
+        final Station stationAlpha = station(simulator, "Alpha", 15073280, node(-20, -20), node(100, 20));
+        final Station stationBravo = station(simulator, "Bravo", 28440, node(360, -20), node(500, 20));
+        final Station stationCharlie = station(simulator, "Charlie", 22016, node(160, 60), node(300, 110));
 
         // Routes: Express (Alpha->Bravo), Local (Alpha->Bravo->Charlie), Local Return
         final Route express = route(simulator, "Express", 15073280, List.of(alpha, bravo));
@@ -126,8 +126,8 @@ class TestWorldGeneratorTest {
 
         // Siding + depot: instant deploy makes MTR generate the real driving
         // path (Depot.path) for the Local route, which the map colors follow.
-        final Position s0 = node(750, 200);
-        final Position s1 = node(900, 200);
+        final Position s0 = node(480, 0);
+        final Position s1 = node(600, 0);
         final Rail sidingRail = Rail.newSidingRail(s0, angleOf(s0, s1), s1, angleOf(s1, s0),
                 Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 new ObjectArrayList<>(), TransportMode.TRAIN);
@@ -143,8 +143,8 @@ class TestWorldGeneratorTest {
         routeIds.add(local.getId());
         depotJson.add("routeIds", routeIds);
         depotJson.addProperty("color", 28440);
-        depotJson.add("position1", positionJson(node(740, 190)));
-        depotJson.add("position2", positionJson(node(910, 210)));
+        depotJson.add("position1", positionJson(node(470, -10)));
+        depotJson.add("position2", positionJson(node(610, 10)));
         depot.updateData(new JsonReader(depotJson));
         depot.routes.add(local);
         simulator.depots.add(depot);
