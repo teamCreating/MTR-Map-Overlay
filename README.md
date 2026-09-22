@@ -6,9 +6,9 @@ A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway
 
 ## Features
 
-- **Persistent Full-Map Waypoints** — on modded servers, every station and platform in the dimension is synced to Xaero, not only nearby data
-- **Station + Platform Mode** — station and per-platform waypoints can be shown together; platform labels include route/destination information
-- **Correct Altitude** — Waypoints are placed at actual platform level, not underground
+- **Map-Only Station Icons** — stations and platforms are drawn directly on fullscreen maps; they never enter waypoint lists, minimaps, compasses, or the in-world HUD
+- **Full-Network Markers** — on modded servers, every station and platform in the dimension is available, not only nearby client data
+- **Station + Platform Mode** — station icons stay compact; platform dots appear only when zoomed in, with route/destination information on hover
 - **Map Path Layer** — MTR route lines are drawn directly on Xaero's World Map, Create-train-map style:
   - Colored polylines following each route's stop order (circular routes are closed)
   - Track layer: actual rail geometry (arcs & slopes) sampled along each rail, drawn as a dark underlay
@@ -34,7 +34,7 @@ A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway
 | Minecraft 1.21.1 | ✅ |
 | NeoForge 21.1.x | ✅ |
 | Minecraft Transit Railway 4.x | ✅ |
-| Xaero's Minimap | ⚠️ Optional (enables waypoint sync) |
+| Xaero's Minimap | ⚠️ Optional (legacy `[MTR]` waypoint cleanup only) |
 | Xaero's World Map | ⚠️ Optional (recommended, enables the path layer; 1.40.11+) |
 | This mod on the server | ⚠️ Optional (enables full-network view) |
 
@@ -44,18 +44,17 @@ All commands are client-side and work on any server:
 
 | Command | Description |
 |---------|-------------|
-| `/mtrsurveyor syncWaypoints` | Force a waypoint sync |
 | `/mtrsurveyor syncRoutes` | Request a full-network snapshot from the server |
 | `/mtrsurveyor syncLandmarks` | Force a JourneyMap landmark refresh |
 | `/mtrsurveyor testMarker` | Place a diagnostic marker at your position (JourneyMap) |
 | `/mtrsurveyor mode` | Show current display mode |
-| `/mtrsurveyor mode station` | Switch to station mode (one waypoint per station) |
-| `/mtrsurveyor mode platform` | Switch to platform mode (one waypoint per platform) |
-| `/mtrsurveyor mode both` | Show station and platform waypoints together |
+| `/mtrsurveyor mode station` | Show station map icons only |
+| `/mtrsurveyor mode platform` | Show platform map icons only |
+| `/mtrsurveyor mode both` | Show station and platform map icons together |
 | `/mtrsurveyor config enabled <true/false>` | Enable/disable auto-sync |
-| `/mtrsurveyor config showStations <true/false>` | Show/hide station waypoints |
-| `/mtrsurveyor config showPlatforms <true/false>` | Show/hide platform waypoints |
-| `/mtrsurveyor config showDepots <true/false>` | Show/hide depot waypoints |
+| `/mtrsurveyor config showStations <true/false>` | Show/hide station map icons |
+| `/mtrsurveyor config showPlatforms <true/false>` | Show/hide platform map icons |
+| `/mtrsurveyor config showDepots <true/false>` | Show/hide depot map icons |
 | `/mtrsurveyor config routeLines <true/false>` | Show/hide route lines on the world map |
 | `/mtrsurveyor config trackLines <true/false>` | Show/hide the track layer on the world map |
 
@@ -65,14 +64,14 @@ The config file is located at `.minecraft/config/mtrsurveyor.toml`.
 
 Key options:
 - `enabled` — Master switch (default: `true`)
-- `waypointMode` — Client-only fallback mode: `"station"`, `"platform"`, or `"both"` (default: `"both"`)
+- `waypointMode` — Client-only fallback marker mode: `"station"`, `"platform"`, or `"both"` (default: `"both"`)
 - `routeLinesEnabled` — Draw route lines on the world map (default: `true`)
 - `trackLinesEnabled` — Draw the track layer on the world map (default: `true`)
 - `networkSync.enabled` — Request full-network snapshots from modded servers (default: `true`)
 - `networkSync.refreshIntervalSeconds` — Snapshot refresh interval (default: `300`)
-- `showStationLandmarks` — Show station waypoints (default: `true`)
-- `showPlatformLandmarks` — Show platform waypoints (default: `true`)
-- `showDepotLandmarks` — Show depot waypoints (default: `false`)
+- `showStationLandmarks` — Show station map icons (default: `true`)
+- `showPlatformLandmarks` — Show platform map icons when zoomed in (default: `true`)
+- `showDepotLandmarks` — Show depot map icons (default: `false`)
 - `showEmptyStation` — Show stations with no routes (default: `false`)
 - `debugLog` — Enable detailed sync logging (default: `false`)
 

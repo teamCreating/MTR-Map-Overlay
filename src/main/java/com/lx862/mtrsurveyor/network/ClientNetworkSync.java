@@ -2,7 +2,7 @@ package com.lx862.mtrsurveyor.network;
 
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
-import com.lx862.mtrsurveyor.integration.XaeroIntegration;
+import com.lx862.mtrsurveyor.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrsurveyor.mapdata.MapDataCache;
 import com.lx862.mtrsurveyor.mixin.client.ClientCommonListenerAccessor;
 import net.minecraft.client.Minecraft;
@@ -145,7 +145,7 @@ public final class ClientNetworkSync {
                         dimension.dimensionId, dimension.routes.size(), dimension.tracks.size(),
                         dimension.landmarks.size());
             }
-            XaeroIntegration.requestSync();
+            JourneyMapIntegration.requestSync();
             if (firstOnServer) {
                 showActionbar("Full-network map sync active");
             }

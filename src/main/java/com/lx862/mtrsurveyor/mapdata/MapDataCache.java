@@ -7,6 +7,8 @@ import org.mtr.core.data.SimplifiedRoute;
 import org.mtr.core.data.SimplifiedRoutePlatform;
 import org.mtr.core.data.Platform;
 import org.mtr.core.data.Route;
+import org.mtr.core.data.Station;
+import org.mtr.core.data.Depot;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.mtr.client.MinecraftClientData;
 import org.mtr.data.VehicleExtension;
@@ -56,7 +58,7 @@ public class MapDataCache {
         }
 
         public boolean isEmpty() {
-            return routes.isEmpty() && tracks.isEmpty();
+            return routes.isEmpty() && tracks.isEmpty() && landmarks.isEmpty();
         }
     }
 
@@ -126,24 +128,30 @@ public class MapDataCache {
     private static DimensionData buildClientData(long version) {
         final List<MapRoute> routes = new ArrayList<>();
         final List<MapTrack> tracks = new ArrayList<>();
+        final List<MapLandmark> landmarks = new ArrayList<>();
 
         try {
             // Aggregate both the live streaming instance and the dashboard instance,
-            // mirroring how the waypoint sync collects its data.
+            // mirroring how both map overlays collect their fallback data.
             final Map<Long, Platform> allPlatforms = new HashMap<>();
             final List<SimplifiedRoute> allRoutes = new ArrayList<>();
-            final List<MapTrack> clientTracks = new ArrayList<>();
+            final Map<String, Station> allStations = new java.util.LinkedHashMap<>();
+            final Map<String, Depot> allDepots = new java.util.LinkedHashMap<>();
             try {
                 final MinecraftClientData instance = MinecraftClientData.getInstance();
                 if (instance != null) {
                     allPlatforms.putAll(instance.platformIdMap);
                     allRoutes.addAll(instance.simplifiedRoutes);
+                    instance.stations.forEach(station -> allStations.put(station.getHexId(), station));
+                    instance.depots.forEach(depot -> allDepots.put(depot.getHexId(), depot));
                     collectClientTracks(instance, tracks);
                 }
                 final MinecraftClientData dashboard = MinecraftClientData.getDashboardInstance();
                 if (dashboard != null) {
                     allPlatforms.putAll(dashboard.platformIdMap);
                     allRoutes.addAll(dashboard.simplifiedRoutes);
+                    dashboard.stations.forEach(station -> allStations.put(station.getHexId(), station));
+                    dashboard.depots.forEach(depot -> allDepots.put(depot.getHexId(), depot));
                 }
             } catch (Throwable e) {
                 MTRSurveyor.LOGGER.error("[MTRSurveyor] Error accessing MTR client datasets", e);
@@ -215,12 +223,55 @@ public class MapDataCache {
                     MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to build map data for route: {}", e.getMessage());
                 }
             }
+
+            collectClientLandmarks(allStations.values(), allDepots.values(), allRoutes, landmarks);
         } catch (Throwable e) {
             // Never let data collection break the map render
             MTRSurveyor.LOGGER.debug("[MTRSurveyor] Error building client map data: {}", e.getMessage());
         }
 
-        return new DimensionData("", routes, tracks, List.of(), version);
+        return new DimensionData("", routes, tracks, landmarks, version);
+    }
+
+    private static void collectClientLandmarks(Iterable<Station> stations, Iterable<Depot> depots,
+            List<SimplifiedRoute> routes, List<MapLandmark> landmarks) {
+        final Map<Long, List<String>> platformRoutes = new HashMap<>();
+        for (SimplifiedRoute route : routes) {
+            for (SimplifiedRoutePlatform platform : route.getPlatforms()) {
+                String label = route.getName();
+                if (platform.getDestination() != null && !platform.getDestination().isEmpty()) {
+                    label += "→" + platform.getDestination();
+                }
+                platformRoutes.computeIfAbsent(platform.getPlatformId(), ignored -> new ArrayList<>()).add(label);
+            }
+        }
+        for (Station station : stations) {
+            long totalY = 0;
+            int count = 0;
+            final java.util.Set<String> stationRoutes = new java.util.LinkedHashSet<>();
+            for (Platform platform : station.savedRails) {
+                final Position pos = platform.getMidPosition();
+                final List<String> labels = platformRoutes.getOrDefault(platform.getId(), List.of());
+                stationRoutes.addAll(labels);
+                totalY += (long) pos.getY();
+                count++;
+                final String platformName = platform.getName() == null || platform.getName().isEmpty()
+                        ? Long.toString(platform.getId()) : platform.getName();
+                landmarks.add(new MapLandmark("platform:" + platform.getHexId(), MapLandmark.Type.PLATFORM,
+                        (int) pos.getX(), (int) pos.getY(), (int) pos.getZ(), station.getName(), platformName,
+                        String.join(", ", new java.util.LinkedHashSet<>(labels)), !labels.isEmpty()));
+            }
+            final Position center = station.getCenter();
+            landmarks.add(new MapLandmark("station:" + station.getHexId(), MapLandmark.Type.STATION,
+                    (int) center.getX(), count == 0 ? (int) station.getMaxY() : (int) (totalY / count),
+                    (int) center.getZ(), station.getName(), station.getName(), String.join(", ", stationRoutes),
+                    !stationRoutes.isEmpty()));
+        }
+        for (Depot depot : depots) {
+            final Position center = depot.getCenter();
+            landmarks.add(new MapLandmark("depot:" + depot.getHexId(), MapLandmark.Type.DEPOT,
+                    (int) center.getX(), (int) depot.getMaxY(), (int) center.getZ(), depot.getName(), "D", "", true));
+        }
     }
 
     /**

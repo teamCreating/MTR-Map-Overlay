@@ -5,8 +5,8 @@
 
 ## 当前版本
 
-- **v1.4.4**（全图站点/站台持久航点 + 共线轨道彩虹带）
-- 最后更新：2026-09-22 20:31，操作者：Codex
+- **v1.4.5**（站点/站台改为全屏地图内小图标，不创建普通 waypoint）
+- 最后更新：2026-09-23，操作者：Codex
 
 ## 平台与依赖
 
@@ -21,14 +21,14 @@
 
 ## 架构现状
 
-- 航点同步（Xaero Minimap 内部类直调）——稳定
+- Xaero 地标图标（World Map overlay 直接绘制；不进入 waypoint/Minimap/HUD）——构建通过，待 Ben 实机验证
 - 路径层（GuiMap mixin + XaeroRouteRenderer：路线层/轨道层/开关/悬停）——稳定
 - 全网同步（C2S RequestNetworkSync → Simulator 线程采集 → 200KB 分块 S2C → MapDataCache）——稳定
 - 纯客户端回退（无服务端组件时用 MTR 半径数据）——稳定
 - JourneyMap 地标（v2 API MarkerOverlay，station/platform/depot，自动检测）——稳定（实机验证）
 - 路线颜色染色（服务端 depot 真实路径 + 协议 v4；ROUTE/TRACK 共用 MapTrack 与 drawPolyline）——无头测试通过，待 Ben 实机验证
 - 无 Depot 路径回退（铁路网最短路，直接返回 TRACK 层 MapTrack）——无头测试通过，待 Ben 实机验证
-- 全图 Xaero 航点（协议 v5 服务端地标快照；站点+站台可同时显示；半径回退不删除远处航点）——构建/测试通过，待 Ben 实机验证
+- 全图地图地标（协议 v5 服务端地标快照；Xaero 直接绘制，JourneyMap 仅 Fullscreen）——构建/测试通过，待 Ben 实机验证
 - 共线彩虹带（唯一物理轨道一次绘制；route ID 稳定排序的横向色带；真实轨道悬停）——构建/测试通过，待 Ben 实机验证
 
 ## 已验证功能（最近一次实机测试）
@@ -46,6 +46,10 @@
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 
 ## 历史要点
+
+- 2026-09-23：v1.4.5 撤销将全量地标写入 Xaero waypoint 的方案。Xaero 改为在 `GuiMap`
+  直接绘制固定像素小图标；JourneyMap `MarkerOverlay` 限定 `Fullscreen`，不在 Minimap 显示。
+  旧 `[MTR]` Xaero waypoint 首次进入世界时自动清理。
 
 - 2026-09-22：v1.4.4 协议升级 v5，完整快照新增站点/站台/车辆段；路线改为引用唯一 rail ID。
   Xaero 对全维度地标做增量对账，附近客户端回退不再清除远处持久航点。共享物理轨道沿 TRACK

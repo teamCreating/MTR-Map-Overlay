@@ -7,7 +7,7 @@ issueTrackerURL = "https://github.com/BenLi06/mtrsurveyor/issues"
 modId = "mtrsurveyor"
 version = "${version}"
 displayName = "[CRTools]MTR:Xaero Mapper"
-description = '''Displays MTR route lines and track geometry on Xaero's World Map and syncs MTR stations, platforms & depots as waypoints to Xaero's Minimap. Supports optional full-network sync when installed on the server.'''
+description = '''Displays MTR route ribbons, track geometry and map-only station/platform icons on Xaero's World Map and JourneyMap. Supports optional full-network sync when installed on the server.'''
 logoFile = "assets/mtrsurveyor/icon.png"
 authors = "BenLi06"
 

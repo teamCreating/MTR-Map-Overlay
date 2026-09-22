@@ -3,6 +3,9 @@ package com.lx862.mtrsurveyor.integration.journeymap;
 import com.lx862.mtrsurveyor.MTRDataSummary;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
+import com.lx862.mtrsurveyor.mapdata.MapDataCache;
+import com.lx862.mtrsurveyor.mapdata.MapLandmark;
+import journeymap.api.v2.client.display.Context;
 import journeymap.api.v2.client.IClientAPI;
 import journeymap.api.v2.client.display.MarkerOverlay;
 import journeymap.api.v2.client.model.MapImage;
@@ -62,13 +65,19 @@ final class JourneyMapLandmarkManager {
         final Map<String, MarkerOverlay> desiredMarkers = new LinkedHashMap<>();
         if (config.enabled.get()) {
             final MTRDataSummary dataSummary = MTRDataSummary.of(clientData);
-            if ("platform".equalsIgnoreCase(config.waypointMode.get())) {
-                collectPlatformMarkers(desiredMarkers, world);
-            } else if ("both".equalsIgnoreCase(config.waypointMode.get())) {
-                collectStationMarkers(desiredMarkers, dataSummary, world);
-                collectPlatformMarkers(desiredMarkers, world);
+            final String dimensionKey = world.dimension().location().getNamespace() + "/"
+                    + world.dimension().location().getPath();
+            if (MapDataCache.hasServerData(dimensionKey)) {
+                collectNetworkMarkers(desiredMarkers, MapDataCache.get(dimensionKey).landmarks, world);
             } else {
-                collectStationMarkers(desiredMarkers, dataSummary, world);
+                if ("platform".equalsIgnoreCase(config.waypointMode.get())) {
+                    collectPlatformMarkers(desiredMarkers, world);
+                } else if ("both".equalsIgnoreCase(config.waypointMode.get())) {
+                    collectStationMarkers(desiredMarkers, dataSummary, world);
+                    collectPlatformMarkers(desiredMarkers, world);
+                } else {
+                    collectStationMarkers(desiredMarkers, dataSummary, world);
+                }
             }
 
             if (config.showDepotLandmarks.get()) {
@@ -107,6 +116,50 @@ final class JourneyMapLandmarkManager {
         }
     }
 
+    private static void collectNetworkMarkers(Map<String, MarkerOverlay> out, List<MapLandmark> landmarks,
+            Level world) {
+        for (MapLandmark landmark : landmarks) {
+            if (!shouldShow(landmark)) {
+                continue;
+            }
+            final boolean depot = landmark.type() == MapLandmark.Type.DEPOT;
+            final int size = landmark.type() == MapLandmark.Type.PLATFORM ? 6 : depot ? 10 : 12;
+            final ResourceLocation iconLocation = markerIcon("train", depot);
+            final MapImage icon = new MapImage(iconLocation, 16, 16);
+            icon.centerAnchors();
+            icon.setDisplayWidth(size);
+            icon.setDisplayHeight(size);
+
+            final StringBuilder title = new StringBuilder(landmark.name());
+            if (landmark.type() == MapLandmark.Type.PLATFORM) {
+                title.append("\nPlatform ").append(landmark.symbol());
+            }
+            if (!landmark.description().isEmpty()) {
+                title.append("\nRoutes:\n- ").append(landmark.description().replace(", ", "\n- "));
+            }
+
+            final MarkerOverlay marker = new MarkerOverlay(MTRSurveyor.MOD_ID,
+                    new BlockPos(landmark.x(), landmark.y(), landmark.z()), icon);
+            marker.setDimension(world.dimension());
+            marker.setLabel("");
+            marker.setTitle(title.toString());
+            marker.setActiveUIs(Context.UI.Fullscreen);
+            out.put(landmark.id(), marker);
+        }
+    }
+
+    private static boolean shouldShow(MapLandmark landmark) {
+        if (!landmark.hasRoutes() && !MTRSurveyorConfig.INSTANCE.showEmptyStation.get()
+                && landmark.type() != MapLandmark.Type.DEPOT) {
+            return false;
+        }
+        return switch (landmark.type()) {
+            case STATION -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.get();
+            case PLATFORM -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get();
+            case DEPOT -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.get();
+        };
+    }
+
     static void placeTestMarker(BlockPos pos, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension) {
         final IClientAPI api = getJourneyMapAPI();
         if (api == null) {
@@ -120,6 +173,7 @@ final class JourneyMapLandmarkManager {
         icon.setColor(0xFF00AAFF);
         final MarkerOverlay marker = new MarkerOverlay(MTRSurveyor.MOD_ID, pos, icon);
         marker.setDimension(dimension);
+        marker.setActiveUIs(Context.UI.Fullscreen);
         marker.setLabel("[MTR] Test marker");
         marker.setTitle("MTR:Xaero Mapper JourneyMap integration works!");
 
@@ -308,12 +362,15 @@ final class JourneyMapLandmarkManager {
         icon.setAnchorX(8);
         icon.setAnchorY(8);
         icon.setColor(color | 0xFF000000); // ensure alpha
+        icon.setDisplayWidth(isDepot ? 10 : 12);
+        icon.setDisplayHeight(isDepot ? 10 : 12);
 
         // v2 API generates the marker id internally; markerId is kept for logging only
         MarkerOverlay marker = new MarkerOverlay(MTRSurveyor.MOD_ID, pos, icon);
         marker.setDimension(world.dimension());
-        marker.setLabel(label);
+        marker.setLabel("");
         marker.setTitle(title);
+        marker.setActiveUIs(Context.UI.Fullscreen);
         return marker;
     }
 

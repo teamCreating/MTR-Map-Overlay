@@ -3,6 +3,7 @@ package com.lx862.mtrsurveyor.integration.xaero;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
 import com.lx862.mtrsurveyor.mapdata.MapDataCache;
+import com.lx862.mtrsurveyor.mapdata.MapLandmark;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
 import com.lx862.mtrsurveyor.mapdata.TrackRoutePalette;
@@ -16,6 +17,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import org.joml.Matrix4f;
 import xaero.map.gui.GuiMap;
@@ -43,6 +45,14 @@ public class XaeroRouteRenderer {
     /** Segment hit distance (in blocks) for hover picking. */
     private static final double SEGMENT_PICK_RADIUS = 10.0;
     private static final int MAX_TOOLTIP_ROUTES = 4;
+    private static final ResourceLocation STATION_ICON = ResourceLocation.fromNamespaceAndPath(MTRSurveyor.MOD_ID,
+            "textures/atlas/marker/train_station.png");
+    private static final ResourceLocation DEPOT_ICON = ResourceLocation.fromNamespaceAndPath(MTRSurveyor.MOD_ID,
+            "textures/atlas/marker/train_depot.png");
+    private static final int STATION_ICON_SIZE = 12;
+    private static final int DEPOT_ICON_SIZE = 10;
+    private static final int PLATFORM_ICON_SIZE = 5;
+    private static final double PLATFORM_MIN_SCALE = 0.15;
 
     private static final int WIDGET_X = 5;
     private static final int WIDGET_Y = 60;
@@ -169,17 +179,98 @@ public class XaeroRouteRenderer {
 
         stack.popPose();
 
+        // Landmarks are a map-only overlay. They are deliberately not Xaero
+        // waypoints, so they never enter the waypoint list, compass or HUD.
+        final MapLandmark hoveredLandmark = drawLandmarks(graphics, data.landmarks, scale, cameraX, cameraZ,
+                mcScreen.width, mcScreen.height, mouseX, mouseY);
+
         renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
 
         // Hover picking & tooltip (in screen space, drawn after the batch flush).
-        if (mc.screen != null && MTRSurveyorConfig.INSTANCE.routeLinesEnabled.get()) {
+        if (mc.screen != null) {
             final double mouseWorldX = (mouseX - mcScreen.width / 2.0) / scale + cameraX;
             final double mouseWorldZ = (mouseY - mcScreen.height / 2.0) / scale + cameraZ;
-            final List<Component> tooltip = pickTooltip(data, mouseWorldX, mouseWorldZ);
+            final List<Component> tooltip = hoveredLandmark == null
+                    ? (MTRSurveyorConfig.INSTANCE.routeLinesEnabled.get()
+                            ? pickTooltip(data, mouseWorldX, mouseWorldZ) : List.of())
+                    : landmarkTooltip(hoveredLandmark);
             if (!tooltip.isEmpty()) {
                 graphics.renderComponentTooltip(mc.font, tooltip, mouseX, mouseY);
             }
         }
+    }
+
+    private static MapLandmark drawLandmarks(GuiGraphics graphics, List<MapLandmark> landmarks, double scale,
+            double cameraX, double cameraZ, int screenWidth, int screenHeight, int mouseX, int mouseY) {
+        MapLandmark hovered = null;
+        double hoveredDistance = Double.MAX_VALUE;
+        for (MapLandmark landmark : landmarks) {
+            if (!shouldDrawLandmark(landmark, scale)) {
+                continue;
+            }
+            final int screenX = (int) Math.round(screenWidth / 2.0 + (landmark.x() - cameraX) * scale);
+            final int screenY = (int) Math.round(screenHeight / 2.0 + (landmark.z() - cameraZ) * scale);
+            final int size = landmark.type() == MapLandmark.Type.STATION ? STATION_ICON_SIZE
+                    : landmark.type() == MapLandmark.Type.DEPOT ? DEPOT_ICON_SIZE : PLATFORM_ICON_SIZE;
+            if (screenX < -size || screenY < -size || screenX > screenWidth + size || screenY > screenHeight + size) {
+                continue;
+            }
+
+            if (landmark.type() == MapLandmark.Type.PLATFORM) {
+                final int half = size / 2;
+                graphics.fill(screenX - half - 1, screenY - half - 1, screenX + half + 2, screenY + half + 2,
+                        0xDD101010);
+                graphics.fill(screenX - half, screenY - half, screenX + half + 1, screenY + half + 1,
+                        0xFFE6D25A);
+            } else {
+                final ResourceLocation icon = landmark.type() == MapLandmark.Type.DEPOT ? DEPOT_ICON : STATION_ICON;
+                graphics.blit(icon, screenX - size / 2, screenY - size / 2,
+                        0, 0, size, size, 16, 16);
+            }
+
+            final double dx = mouseX - screenX;
+            final double dy = mouseY - screenY;
+            final double distance = dx * dx + dy * dy;
+            final double radius = Math.max(4, size / 2.0 + 2);
+            if (distance <= radius * radius && distance < hoveredDistance) {
+                hovered = landmark;
+                hoveredDistance = distance;
+            }
+        }
+        return hovered;
+    }
+
+    private static boolean shouldDrawLandmark(MapLandmark landmark, double scale) {
+        if (!landmark.hasRoutes() && !MTRSurveyorConfig.INSTANCE.showEmptyStation.get()
+                && landmark.type() != MapLandmark.Type.DEPOT) {
+            return false;
+        }
+        return switch (landmark.type()) {
+            case STATION -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.get();
+            case PLATFORM -> scale >= PLATFORM_MIN_SCALE
+                    && MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get();
+            case DEPOT -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.get();
+        };
+    }
+
+    private static List<Component> landmarkTooltip(MapLandmark landmark) {
+        final List<Component> tooltip = new ArrayList<>();
+        tooltip.add(Component.literal(landmark.name()).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD));
+        if (landmark.type() == MapLandmark.Type.PLATFORM) {
+            tooltip.add(Component.literal("Platform " + landmark.symbol()).withStyle(ChatFormatting.GRAY));
+        } else if (landmark.type() == MapLandmark.Type.DEPOT) {
+            tooltip.add(Component.literal("Depot").withStyle(ChatFormatting.GRAY));
+        }
+        if (!landmark.description().isEmpty()) {
+            tooltip.add(Component.literal("Routes:").withStyle(ChatFormatting.GRAY));
+            for (String route : landmark.description().split(", ")) {
+                tooltip.add(Component.literal("- " + route));
+                if (tooltip.size() >= 8) {
+                    break;
+                }
+            }
+        }
+        return tooltip;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package com.lx862.mtrsurveyor;
 
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
-import com.lx862.mtrsurveyor.integration.XaeroIntegration;
 import com.lx862.mtrsurveyor.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrsurveyor.network.ClientNetworkSync;
 import com.mojang.brigadier.CommandDispatcher;
@@ -19,25 +18,6 @@ public class CommandRegistration {
         public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
                 LiteralArgumentBuilder<CommandSourceStack> rootNode = Commands.literal("mtrsurveyor");
 
-                // /mtrsurveyor syncWaypoints
-                LiteralArgumentBuilder<CommandSourceStack> forceSyncNode = Commands.literal("syncWaypoints");
-                forceSyncNode
-                                .executes(ctx -> {
-                                        if (!XaeroIntegration.isXaeroLoaded()) {
-                                                ctx.getSource().sendFailure(
-                                                                Component.literal("Xaero's Minimap is not installed!")
-                                                                                .withStyle(ChatFormatting.RED));
-                                                return 1;
-                                        }
-                                        XaeroIntegration.requestSync();
-                                        ctx.getSource().sendSuccess(
-                                                        () -> Component.literal(
-                                                                        "Waypoint sync requested! Waypoints will update shortly.")
-                                                                        .withStyle(ChatFormatting.GREEN),
-                                                        true);
-                                        return 1;
-                                });
-
                 // /mtrsurveyor mode station|platform
                 LiteralArgumentBuilder<CommandSourceStack> modeNode = Commands.literal("mode");
 
@@ -45,10 +25,10 @@ public class CommandRegistration {
                         MTRSurveyorConfig.INSTANCE.waypointMode.set("station");
                         MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(true);
                         MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(false);
-                        XaeroIntegration.requestSync();
+                        JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
                                         () -> Component.literal(
-                                                        "Waypoint mode set to: station (one waypoint per station)")
+                                                        "Map marker mode set to: station")
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -58,10 +38,10 @@ public class CommandRegistration {
                         MTRSurveyorConfig.INSTANCE.waypointMode.set("platform");
                         MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(false);
                         MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(true);
-                        XaeroIntegration.requestSync();
+                        JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
                                         () -> Component.literal(
-                                                        "Waypoint mode set to: platform (one waypoint per platform with route info)")
+                                                        "Map marker mode set to: platform")
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -71,9 +51,9 @@ public class CommandRegistration {
                         MTRSurveyorConfig.INSTANCE.waypointMode.set("both");
                         MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(true);
                         MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(true);
-                        XaeroIntegration.requestSync();
+                        JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal("Waypoint mode set to: both (stations and platforms)")
+                                        () -> Component.literal("Map marker mode set to: both (stations and platforms)")
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -83,7 +63,7 @@ public class CommandRegistration {
                 modeNode.executes(ctx -> {
                         String currentMode = MTRSurveyorConfig.INSTANCE.waypointMode.get();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal("Current waypoint mode: " + currentMode)
+                                        () -> Component.literal("Current map marker mode: " + currentMode)
                                                         .withStyle(ChatFormatting.AQUA),
                                         false);
                         return 1;
@@ -141,16 +121,16 @@ public class CommandRegistration {
 
                 // Config sub-commands
                 LiteralArgumentBuilder<CommandSourceStack> configNode = Commands.literal("config");
-                configNode.then(createBoolConfigNode("enabled", "Waypoint sync",
+                configNode.then(createBoolConfigNode("enabled", "MTR map overlays",
                                 () -> MTRSurveyorConfig.INSTANCE.enabled.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.enabled.set(v)));
-                configNode.then(createBoolConfigNode("showStations", "Station waypoints",
+                configNode.then(createBoolConfigNode("showStations", "Station map icons",
                                 () -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(v)));
-                configNode.then(createBoolConfigNode("showPlatforms", "Platform waypoints",
+                configNode.then(createBoolConfigNode("showPlatforms", "Platform map icons",
                                 () -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(v)));
-                configNode.then(createBoolConfigNode("showDepots", "Depot waypoints",
+                configNode.then(createBoolConfigNode("showDepots", "Depot map icons",
                                 () -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.set(v)));
                 configNode.then(createBoolConfigNode("routeLines", "Map route lines",
@@ -160,7 +140,6 @@ public class CommandRegistration {
                                 () -> MTRSurveyorConfig.INSTANCE.trackLinesEnabled.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.trackLinesEnabled.set(v)));
 
-                rootNode.then(forceSyncNode);
                 rootNode.then(modeNode);
                 rootNode.then(syncRoutesNode);
                 rootNode.then(syncLandmarksNode);

@@ -292,7 +292,7 @@ public final class ServerNetworkCollector {
         }
     }
 
-    /** Collect complete, dimension-wide waypoint data from the authoritative simulator. */
+    /** Collect complete, dimension-wide map landmark data from the authoritative simulator. */
     private static void collectLandmarks(Simulator simulator, NetworkSnapshotCodec.PendingDimension result) {
         final Map<Long, List<String>> platformRoutes = new HashMap<>();
         for (Route route : simulator.routes) {
@@ -319,6 +319,7 @@ public final class ServerNetworkCollector {
             long totalY = 0;
             int platformCount = 0;
             boolean hasRoutes = false;
+            final Set<String> stationRouteLabels = new java.util.LinkedHashSet<>();
             for (Platform platform : station.savedRails) {
                 totalY += (long) platform.getMidPosition().getY();
                 platformCount++;
@@ -328,6 +329,7 @@ public final class ServerNetworkCollector {
                 final String platformName = platform.getName() == null || platform.getName().isEmpty()
                         ? Long.toString(platform.getId()) : platform.getName();
                 final List<String> routeLabels = platformRoutes.getOrDefault(platform.getId(), List.of());
+                stationRouteLabels.addAll(routeLabels);
                 final String description = String.join(", ", new java.util.LinkedHashSet<>(routeLabels));
                 result.landmarks.add(new MapLandmark("platform:" + platform.getHexId(),
                         MapLandmark.Type.PLATFORM, (int) platformPosition.getX(), (int) platformPosition.getY(),
@@ -338,7 +340,8 @@ public final class ServerNetworkCollector {
             final Position center = station.getCenter();
             final int y = platformCount == 0 ? (int) station.getMaxY() : (int) (totalY / platformCount);
             result.landmarks.add(new MapLandmark("station:" + station.getHexId(), MapLandmark.Type.STATION,
-                    (int) center.getX(), y, (int) center.getZ(), station.getName(), station.getName(), "", hasRoutes));
+                    (int) center.getX(), y, (int) center.getZ(), station.getName(), station.getName(),
+                    String.join(", ", stationRouteLabels), hasRoutes));
         }
 
         for (Depot depot : simulator.depots) {

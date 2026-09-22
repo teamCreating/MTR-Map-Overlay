@@ -50,11 +50,11 @@ public class MTRSurveyorConfig {
                                 .define("debugLog", false);
 
                 enabled = builder
-                                .comment("Whether waypoints should be automatically created & synced when an MTR-related change occurs")
+                                .comment("Whether MTR routes, tracks and map-only landmark icons should be displayed")
                                 .define("enabled", true);
 
                 waypointMode = builder
-                                .comment("Client-only fallback waypoint mode: 'station', 'platform', or 'both'. Full-network snapshots use the independent visibility switches below")
+                                .comment("Client-only fallback marker mode: 'station', 'platform', or 'both'. Full-network snapshots use the independent visibility switches below")
                                 .define("waypointMode", "both");
 
                 routeLinesEnabled = builder
@@ -76,15 +76,15 @@ public class MTRSurveyorConfig {
                 builder.push("visibility");
 
                 showStationLandmarks = builder
-                                .comment("Whether station waypoints should be added to the map")
+                                .comment("Whether station icons should be drawn on fullscreen maps")
                                 .define("showStationLandmarks", true);
 
                 showPlatformLandmarks = builder
-                                .comment("Whether platform waypoints should be added alongside station waypoints")
+                                .comment("Whether platform icons should be drawn on fullscreen maps when zoomed in")
                                 .define("showPlatformLandmarks", true);
 
                 showDepotLandmarks = builder
-                                .comment("Whether depot waypoints should be added to the map")
+                                .comment("Whether depot icons should be drawn on fullscreen maps")
                                 .define("showDepotLandmarks", false);
 
                 showEmptyStation = builder

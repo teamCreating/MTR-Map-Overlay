@@ -1,8 +1,5 @@
 package com.lx862.mtrsurveyor.mixin;
 
-import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
-import com.lx862.mtrsurveyor.integration.XaeroIntegration;
-import com.lx862.mtrsurveyor.MTRSurveyor;
 import org.mtr.core.data.Data;
 import org.mtr.core.simulation.Simulator;
 import org.spongepowered.asm.mixin.Mixin;

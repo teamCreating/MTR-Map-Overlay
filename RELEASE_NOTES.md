@@ -1,3 +1,17 @@
+# v1.4.5 Release Notes (2026-09-23)
+
+## 地标改为地图图层小图标
+
+- 移除 v1.4.4 的 Xaero 普通 waypoint 创建逻辑；站点、站台和车辆段现在直接由 Xaero World Map
+  overlay 绘制，不进入路标列表、指南针、Minimap 或世界内 HUD。
+- Xaero 站点图标固定为 12px，车辆段 10px；站台使用 5px 小点并只在放大后显示，悬停才展开名称和路线。
+- JourneyMap 的自定义 `MarkerOverlay` 限定为 `Fullscreen`，清空常驻标签并缩小图标；不会显示在 Minimap。
+- Xaero 与 JourneyMap 都优先使用协议 v5 的全量 `MapLandmark`，无服务端组件时退回附近客户端数据。
+- 首次进入各 Xaero 世界时自动删除旧版本遗留的 `[MTR]` waypoint，但此后不再创建或维护正常路标。
+- 验证：`gradlew test --rerun-tasks --no-daemon` 通过；Minecraft 实机验证留给 Ben 手动执行。
+
+---
+
 # v1.4.4 Release Notes (2026-09-22)
 
 ## 全图站点/站台航点与共线彩虹带

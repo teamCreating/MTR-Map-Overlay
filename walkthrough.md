@@ -7,13 +7,13 @@
 
 MTR:Xaero Mapper 是一个 **Minecraft NeoForge 1.21.1 客户端 mod**，把
 [Minecraft Transit Railway (MTR) 4.x](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway)
-的交通网络呈现在 [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) 上（对标 Create 6.0 的列车地图体验），并把车站/车辆段同步为 Xaero 航点。
+的交通网络呈现在 [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) 上（对标 Create 6.0 的列车地图体验），并在地图图层直接绘制站点/站台图标。
 
 核心能力（v1.2.0）：
 
 | 能力 | 说明 | 生效条件 |
 |---|---|---|
-| 航点同步 | 服务端全量站点/站台/车辆段 → Xaero 持久航点；无服务端时附近数据回退 | 客户端装 Xaero's Minimap |
+| 地图地标 | 服务端全量站点/站台/车辆段 → 全屏地图小图标；不创建正常 waypoint | Xaero World Map 或 JourneyMap |
 | 路线层 | 每条 MTR 路线一条着色折线（环线自动闭合），悬浮显示站名→终点站 | 客户端装 Xaero's World Map |
 | 轨道层 | 沿真实轨道几何（含弧线/坡度）采样的暗色底层线 | 同上 |
 | 全网同步 | 服务端把整张轨道网+路线快照分块推给客户端，任意维度全景显示 | **服务端也装本 mod** |
@@ -39,11 +39,11 @@ MTR:Xaero Mapper 是一个 **Minecraft NeoForge 1.21.1 客户端 mod**，把
 src/main/java/com/lx862/mtrsurveyor/
 ├── MTRSurveyor.java            # @Mod 入口：mod 总线/游戏总线注册、配置注册
 ├── CommandRegistration.java    # /mtrsurveyor 客户端命令树
-├── MTRDataSummary.java         # 车站→路线 摘要（航点 hover 信息用）
+├── MTRDataSummary.java         # 车站→路线 摘要（地图图标 hover 信息用）
 ├── config/MTRSurveyorConfig.java   # ModConfigSpec（TOML）
 ├── integration/
-│   ├── XaeroIntegration.java   # 航点同步（Xaero Minimap 内部类直调）
-│   └── xaero/XaeroRouteRenderer.java  # 路径层渲染主体（每帧）
+│   ├── xaero/XaeroRouteRenderer.java  # 路线、轨道与地图内地标图标
+│   └── journeymap/             # JourneyMap 全屏地图 MarkerOverlay
 ├── mapdata/
 │   ├── MapRoute.java           # 路线渲染 DTO（站点折线+名称）
 │   ├── MapTrack.java           # 轨道折线 DTO
@@ -55,7 +55,7 @@ src/main/java/com/lx862/mtrsurveyor/
 │   ├── MTRAccessorMixin.java   # @Accessor org.mtr.MTR.main（静态字段）
 │   ├── MTRSimulatorMixin.java  # Simulator.sync 钩子（当前为空操作，留作扩展点）
 │   └── client/
-│       ├── MinecraftClientDataMixin.java  # MTR 客户端数据同步 → 触发航点同步+缓存失效
+│       ├── MinecraftClientDataMixin.java  # MTR 客户端数据同步 → 刷新地图 overlay 缓存
 │       ├── ClientCommonListenerAccessor.java # 读 NeoForge ConnectionType
 │       └── xaero/
 │           ├── XaeroWorldMapAccessor.java # GuiMap.cameraX/cameraZ/scale/mapProcessor
@@ -105,9 +105,9 @@ Xaero GuiMap.render
 渲染器发现 SERVER_DATA 命中即用全网数据（含玩家没去过的区域）。
 ```
 
-### 4.3 航点同步
+### 4.3 地图内地标
 
-`MinecraftClientData.sync()`（mixin TAIL）→ `XaeroIntegration.requestSync()` → 客户端 tick 队列（每 100t 重试）→ 直调 Xaero Minimap 内部类（`XaeroMinimapSession` → `WaypointsManager` → `WaypointSet`），按 `[MTR] ` 前缀全量替换。
+协议 v5 的 `MapLandmark` 随全网快照进入 `MapDataCache`。Xaero 在 `GuiMap` overlay 中直接绘制固定像素大小的站点/站台图标；JourneyMap 使用仅限 `Fullscreen` 的 `MarkerOverlay`。两者都不创建正常 waypoint。纯客户端模式从 MTR 半径数据临时生成附近地标。
 
 ## 5. 关键设计决策（为什么这样做）
 
@@ -117,7 +117,7 @@ Xaero GuiMap.render
 4. **服务端读数据必须在 Simulator 线程**：`simulator.run(Runnable)` 入队，采集完再 `server.execute` 发包。直接在服务器线程读会与模拟竞态。
 5. **维度 key 格式是 `namespace/path`**：MTR `Init.getWorldId` 用斜杠（`minecraft/overworld`），而 `ResourceLocation.toString()` 是冒号——曾经因此 key 对不上（已在渲染端统一）。新增维度相关代码时警惕。
 6. **payload 双侧 `optional()`**：即使目标服务器是 NeoForge 但没装本 mod，发送也不会踢人；配合客户端经验性退避（30s 重试直到首包，失败退避 10 分钟）。
-7. **Xaero 界面上的图层顺序**：注入点在地图瓦片与航点之后，路径线会盖在航点图标上——Create 同样的行为（上游 issue #9590），接受。
+7. **Xaero 界面上的图层顺序**：注入点在地图瓦片之后；路线/轨道先绘制，地图内地标图标再绘制，保证图标位于线路上方。
 
 ## 6. 开发与构建
 

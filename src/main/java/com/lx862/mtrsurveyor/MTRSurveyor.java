@@ -1,13 +1,14 @@
 package com.lx862.mtrsurveyor;
 
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
-import com.lx862.mtrsurveyor.integration.XaeroIntegration;
 import com.lx862.mtrsurveyor.integration.journeymap.JourneyMapIntegration;
+import com.lx862.mtrsurveyor.integration.xaero.LegacyXaeroWaypointCleanup;
 import com.lx862.mtrsurveyor.network.MTRNetwork;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -43,16 +44,13 @@ public class MTRSurveyor {
             LOGGER.info("[{}] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<", MOD_NAME);
         }
 
-        if (XaeroIntegration.isXaeroLoaded()) {
-            LOGGER.info("[{}] Xaero's Minimap detected - waypoint sync enabled", MOD_NAME);
-        } else {
-            LOGGER.info("[{}] Xaero's Minimap not found - waypoint sync disabled", MOD_NAME);
-        }
-
         LOGGER.info("[{}] JourneyMap {} - landmark integration {}",
                 MOD_NAME,
                 JourneyMapIntegration.isJourneyMapLoaded() ? "detected" : "not found",
                 JourneyMapIntegration.isJourneyMapLoaded() ? "enabled" : "disabled");
+        if (ModList.get().isLoaded("xaeroworldmap")) {
+            LOGGER.info("[{}] Xaero's World Map detected - map-only landmark icons enabled", MOD_NAME);
+        }
     }
 
     /**
@@ -66,8 +64,8 @@ public class MTRSurveyor {
 
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Post event) {
-        if (XaeroIntegration.isXaeroLoaded()) {
-            XaeroIntegration.onClientTick();
+        if (ModList.get().isLoaded("xaerominimap")) {
+            LegacyXaeroWaypointCleanup.onClientTick();
         }
         // JourneyMap landmark sync (self-gates on JourneyMap presence)
         JourneyMapIntegration.onClientTick();

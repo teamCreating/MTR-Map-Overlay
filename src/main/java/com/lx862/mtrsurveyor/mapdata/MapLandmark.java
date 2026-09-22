@@ -1,6 +1,6 @@
 package com.lx862.mtrsurveyor.mapdata;
 
-/** A server-synced station, platform or depot waypoint. */
+/** A server-synced station, platform or depot used by map-only overlays. */
 public record MapLandmark(String id, Type type, int x, int y, int z,
         String name, String symbol, String description, boolean hasRoutes) {
 

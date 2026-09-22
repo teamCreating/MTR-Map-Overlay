@@ -12,8 +12,7 @@ import org.mtr.client.MinecraftClientData;
  * Entry point for the JourneyMap landmark integration. This class contains NO
  * JourneyMap imports so it is safe to load when JourneyMap is absent; the
  * JourneyMap-touching code lives in {@link JourneyMapLandmarkManager} and is
- * only invoked after the presence check (mirroring the XaeroIntegration
- * pattern).
+ * only invoked after the presence check.
  */
 public final class JourneyMapIntegration {
 
