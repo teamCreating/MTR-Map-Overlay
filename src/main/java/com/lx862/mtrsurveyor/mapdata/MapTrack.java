@@ -9,9 +9,12 @@ import java.util.List;
  */
 public class MapTrack {
 
+    /** Stable MTR rail hex id, shared by the track and route layers. */
+    public final String id;
     public final List<double[]> points;
 
-    public MapTrack(List<double[]> points) {
+    public MapTrack(String id, List<double[]> points) {
+        this.id = id == null ? "" : id;
         this.points = points;
     }
 }

@@ -1,6 +1,7 @@
 package com.lx862.mtrsurveyor.network;
 
 import com.lx862.mtrsurveyor.mapdata.MapDataCache;
+import com.lx862.mtrsurveyor.mapdata.MapLandmark;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
 import net.minecraft.network.FriendlyByteBuf;
@@ -65,12 +66,13 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
      * per dimension:
      *   UTF dimensionId, long snapshotHash
      *   int routeCount
-     *   per route: UTF name, int color, boolean circular, int stopCount,
+     *   per route: UTF id, UTF name, int color, boolean circular, int stopCount,
      *              per stop: float x, float z, UTF stationName, UTF destination,
-     *              int routeTrackCount,
-     *              per route track: int pointCount, per point: float x, float z
+     *              int routeTrackIdCount, per route track: UTF railId
      *   int trackCount
-     *   per track: int pointCount, per point: float x, float z
+     *   per track: UTF railId, int pointCount, per point: float x, float z
+     *   int landmarkCount
+     *   per landmark: UTF id, byte type, int x/y/z, UTF name/symbol/description, boolean hasRoutes
      * </pre>
      */
     public static void writeDimensionList(DataOutputStream out,
@@ -81,6 +83,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
             out.writeLong(dimension.snapshotHash);
             out.writeInt(dimension.routes.size());
             for (MapRoute route : dimension.routes) {
+                out.writeUTF(route.id);
                 out.writeUTF(route.name == null ? "" : route.name);
                 out.writeInt(route.color);
                 out.writeBoolean(route.circular);
@@ -91,22 +94,31 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     out.writeUTF(stop.stationName == null ? "" : stop.stationName);
                     out.writeUTF(stop.destination == null ? "" : stop.destination);
                 }
-                out.writeInt(route.tracks.size());
-                for (MapTrack track : route.tracks) {
-                    out.writeInt(track.points.size());
-                    for (double[] point : track.points) {
-                        out.writeFloat((float) point[0]);
-                        out.writeFloat((float) point[1]);
-                    }
+                out.writeInt(route.trackIds.size());
+                for (String trackId : route.trackIds) {
+                    out.writeUTF(trackId);
                 }
             }
             out.writeInt(dimension.tracks.size());
             for (MapTrack track : dimension.tracks) {
+                out.writeUTF(track.id);
                 out.writeInt(track.points.size());
                 for (double[] point : track.points) {
                     out.writeFloat((float) point[0]);
                     out.writeFloat((float) point[1]);
                 }
+            }
+            out.writeInt(dimension.landmarks.size());
+            for (MapLandmark landmark : dimension.landmarks) {
+                out.writeUTF(landmark.id());
+                out.writeByte(landmark.type().ordinal());
+                out.writeInt(landmark.x());
+                out.writeInt(landmark.y());
+                out.writeInt(landmark.z());
+                out.writeUTF(landmark.name());
+                out.writeUTF(landmark.symbol());
+                out.writeUTF(landmark.description());
+                out.writeBoolean(landmark.hasRoutes());
             }
         }
     }
@@ -121,6 +133,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
             final int routeCount = in.readInt();
             final List<MapRoute> routes = new ArrayList<>(routeCount);
             for (int r = 0; r < routeCount; r++) {
+                final String id = in.readUTF();
                 final String name = in.readUTF();
                 final int color = in.readInt();
                 final boolean circular = in.readBoolean();
@@ -134,30 +147,39 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
                     stops.add(new MapRoute.Stop(x, z, stationName, destination));
                 }
                 final int routeTrackCount = in.readInt();
-                final List<MapTrack> routeTracks = new ArrayList<>(routeTrackCount);
+                final List<String> routeTrackIds = new ArrayList<>(routeTrackCount);
                 for (int t = 0; t < routeTrackCount; t++) {
-                    final int pointCount = in.readInt();
-                    final List<double[]> points = new ArrayList<>(pointCount);
-                    for (int p = 0; p < pointCount; p++) {
-                        points.add(new double[]{in.readFloat(), in.readFloat()});
-                    }
-                    routeTracks.add(new MapTrack(points));
+                    routeTrackIds.add(in.readUTF());
                 }
-                routes.add(new MapRoute(name, color, circular, stops, routeTracks));
+                routes.add(new MapRoute(id, name, color, circular, stops, routeTrackIds));
             }
 
             final int trackCount = in.readInt();
             final List<MapTrack> tracks = new ArrayList<>(trackCount);
             for (int t = 0; t < trackCount; t++) {
+                final String trackId = in.readUTF();
                 final int pointCount = in.readInt();
                 final List<double[]> points = new ArrayList<>(pointCount);
                 for (int p = 0; p < pointCount; p++) {
                     points.add(new double[]{in.readFloat(), in.readFloat()});
                 }
-                tracks.add(new MapTrack(points));
+                tracks.add(new MapTrack(trackId, points));
             }
 
-            result.add(new MapDataCache.DimensionData(dimensionId, routes, tracks, snapshotHash));
+            final int landmarkCount = in.readInt();
+            final List<MapLandmark> landmarks = new ArrayList<>(landmarkCount);
+            for (int l = 0; l < landmarkCount; l++) {
+                final String id = in.readUTF();
+                final int typeOrdinal = in.readUnsignedByte();
+                if (typeOrdinal >= MapLandmark.Type.values().length) {
+                    throw new IOException("Unknown landmark type " + typeOrdinal);
+                }
+                landmarks.add(new MapLandmark(id, MapLandmark.Type.values()[typeOrdinal],
+                        in.readInt(), in.readInt(), in.readInt(), in.readUTF(), in.readUTF(), in.readUTF(),
+                        in.readBoolean()));
+            }
+
+            result.add(new MapDataCache.DimensionData(dimensionId, routes, tracks, landmarks, snapshotHash));
         }
         return result;
     }
@@ -169,6 +191,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         public final long snapshotHash;
         public final List<MapRoute> routes = new ArrayList<>();
         public final List<MapTrack> tracks = new ArrayList<>();
+        public final List<MapLandmark> landmarks = new ArrayList<>();
         private final it.unimi.dsi.fastutil.longs.LongOpenHashSet realPathRouteIds =
                 new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
 

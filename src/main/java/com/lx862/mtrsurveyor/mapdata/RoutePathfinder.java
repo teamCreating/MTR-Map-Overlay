@@ -387,7 +387,7 @@ public final class RoutePathfinder {
             if (points == null || points.size() < 2) {
                 return List.of();
             }
-            tracks.add(new MapTrack(points));
+            tracks.add(new MapTrack(railId, points));
         }
         return tracks;
     }

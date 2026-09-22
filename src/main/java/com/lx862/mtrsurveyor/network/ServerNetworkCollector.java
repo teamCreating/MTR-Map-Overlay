@@ -3,6 +3,7 @@ package com.lx862.mtrsurveyor.network;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
+import com.lx862.mtrsurveyor.mapdata.MapLandmark;
 import com.lx862.mtrsurveyor.mapdata.RoutePathfinder;
 import com.lx862.mtrsurveyor.mapdata.TrackSampler;
 import com.lx862.mtrsurveyor.mixin.MainAccessorMixin;
@@ -15,6 +16,7 @@ import org.mtr.core.data.Position;
 import org.mtr.core.data.RoutePlatformData;
 import org.mtr.core.data.Rail;
 import org.mtr.core.data.Route;
+import org.mtr.core.data.Station;
 import org.mtr.core.simulation.Simulator;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectImmutableList;
 import net.minecraft.server.MinecraftServer;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -108,21 +111,7 @@ public final class ServerNetworkCollector {
         final List<NetworkProbeResponse.DimensionHash> hashes = new ArrayList<>();
         for (final Simulator simulator : simulators) {
             simulator.run(() -> {
-                long hash = simulator.rails.size();
-                for (final Rail rail : simulator.rails) {
-                    hash = hash * 31 + rail.getHexId().hashCode();
-                }
-                hash = hash * 31 + simulator.routes.size();
-                for (final Route route : simulator.routes) {
-                    hash = hash * 31 + (int) route.getId();
-                    hash = hash * 31 + route.getName().hashCode();
-                }
-                hash = hash * 31 + simulator.platforms.size();
-                for (final Depot depot : simulator.depots) {
-                    hash = hash * 31 + (int) depot.getLastGeneratedMillis();
-                    final List<PathData> depotPath = depot.getPath();
-                    hash = hash * 31 + (depotPath == null ? 0 : depotPath.size());
-                }
+                final long hash = computeHash(simulator);
                 final NetworkProbeResponse.DimensionHash dimensionHash =
                         new NetworkProbeResponse.DimensionHash(simulator.dimension, hash);
                 server.execute(() -> {
@@ -202,7 +191,7 @@ public final class ServerNetworkCollector {
                         route.getName());
                 continue;
             }
-            result.routes.add(MapRoute.ofTracks(route.getName(), route.getColor(),
+            result.routes.add(MapRoute.ofTracks(Long.toHexString(route.getId()), route.getName(), route.getColor(),
                     fallbackStops.getOrDefault(route.getId(), List.of()), routeTracks));
         }
 
@@ -210,9 +199,11 @@ public final class ServerNetworkCollector {
         simulator.rails.forEach(rail -> {
             final List<double[]> points = TrackSampler.sample(rail);
             if (points != null) {
-                result.tracks.add(new MapTrack(points));
+                result.tracks.add(new MapTrack(rail.getHexId(), points));
             }
         });
+
+        collectLandmarks(simulator, result);
 
         return result;
     }
@@ -234,6 +225,7 @@ public final class ServerNetworkCollector {
             result.markRealPath(route.getId());
         }
 
+        String currentRouteId = null;
         String currentRouteName = null;
         int currentColor = 0;
         List<MapRoute.Stop> stops = new ArrayList<>();
@@ -256,18 +248,22 @@ public final class ServerNetworkCollector {
             final Platform platform = savedRailId == 0 ? null : simulator.platformIdMap.get(savedRailId);
             if (platform != null && savedRailId != lastPlatformId) {
                 final Route serving = resolveServingRoute(depot, platform);
+                final String routeId = serving == null ? "depot:" + depot.getHexId()
+                        : Long.toHexString(serving.getId());
                 final String routeName = serving == null ? depot.getName() : serving.getName();
                 final int routeColor = serving == null ? depot.getColor() : serving.getColor();
 
                 if (currentRouteName != null && (!routeName.equals(currentRouteName) || routeColor != currentColor)) {
                     // Color change: flush the finished stretch
                     if (!routeTracks.isEmpty()) {
-                        result.routes.add(MapRoute.ofTracks(currentRouteName, currentColor, stops, routeTracks));
+                        result.routes.add(MapRoute.ofTracks(currentRouteId, currentRouteName, currentColor, stops,
+                                routeTracks));
                     }
                     stops = new ArrayList<>();
                     routeTracks = new ArrayList<>();
                     routeRailIds = new HashSet<>();
                 }
+                currentRouteId = routeId;
                 currentRouteName = routeName;
                 currentColor = routeColor;
                 lastPlatformId = savedRailId;
@@ -278,7 +274,7 @@ public final class ServerNetworkCollector {
             if (routeRailIds.add(rail.getHexId())) {
                 final List<double[]> railPoints = TrackSampler.sample(rail);
                 if (railPoints != null && railPoints.size() >= 2) {
-                    routeTracks.add(new MapTrack(railPoints));
+                    routeTracks.add(new MapTrack(rail.getHexId(), railPoints));
                 }
             }
 
@@ -291,7 +287,68 @@ public final class ServerNetworkCollector {
 
         if (!routeTracks.isEmpty()) {
             final String name = currentRouteName == null ? depot.getName() : currentRouteName;
-            result.routes.add(MapRoute.ofTracks(name, currentColor, stops, routeTracks));
+            final String id = currentRouteId == null ? "depot:" + depot.getHexId() : currentRouteId;
+            result.routes.add(MapRoute.ofTracks(id, name, currentColor, stops, routeTracks));
+        }
+    }
+
+    /** Collect complete, dimension-wide waypoint data from the authoritative simulator. */
+    private static void collectLandmarks(Simulator simulator, NetworkSyncChunk.PendingDimension result) {
+        final Map<Long, List<String>> platformRoutes = new HashMap<>();
+        for (Route route : simulator.routes) {
+            final List<RoutePlatformData> routePlatforms = route.getRoutePlatforms();
+            for (int i = 0; i < routePlatforms.size(); i++) {
+                final RoutePlatformData routePlatform = routePlatforms.get(i);
+                final Platform platform = routePlatform.getPlatform();
+                if (platform == null) {
+                    continue;
+                }
+                String routeLabel = route.getName();
+                final String destination = route.getDestination(i);
+                if (destination != null && !destination.isEmpty() && !Route.destinationIsReset(destination)) {
+                    routeLabel += "→" + destination;
+                }
+                platformRoutes.computeIfAbsent(platform.getId(), ignored -> new ArrayList<>()).add(routeLabel);
+            }
+        }
+
+        for (Station station : simulator.stations) {
+            if (station.getName() == null || station.getName().isEmpty()) {
+                continue;
+            }
+            long totalY = 0;
+            int platformCount = 0;
+            boolean hasRoutes = false;
+            for (Platform platform : station.savedRails) {
+                totalY += (long) platform.getMidPosition().getY();
+                platformCount++;
+                hasRoutes |= !platformRoutes.getOrDefault(platform.getId(), List.of()).isEmpty();
+
+                final Position platformPosition = platform.getMidPosition();
+                final String platformName = platform.getName() == null || platform.getName().isEmpty()
+                        ? Long.toString(platform.getId()) : platform.getName();
+                final List<String> routeLabels = platformRoutes.getOrDefault(platform.getId(), List.of());
+                final String description = String.join(", ", new java.util.LinkedHashSet<>(routeLabels));
+                result.landmarks.add(new MapLandmark("platform:" + platform.getHexId(),
+                        MapLandmark.Type.PLATFORM, (int) platformPosition.getX(), (int) platformPosition.getY(),
+                        (int) platformPosition.getZ(), station.getName(), platformName, description,
+                        !routeLabels.isEmpty()));
+            }
+
+            final Position center = station.getCenter();
+            final int y = platformCount == 0 ? (int) station.getMaxY() : (int) (totalY / platformCount);
+            result.landmarks.add(new MapLandmark("station:" + station.getHexId(), MapLandmark.Type.STATION,
+                    (int) center.getX(), y, (int) center.getZ(), station.getName(), station.getName(), "", hasRoutes));
+        }
+
+        for (Depot depot : simulator.depots) {
+            if (depot.getName() == null || depot.getName().isEmpty()) {
+                continue;
+            }
+            final Position center = depot.getCenter();
+            result.landmarks.add(new MapLandmark("depot:" + depot.getHexId(), MapLandmark.Type.DEPOT,
+                    (int) center.getX(), (int) depot.getMaxY(), (int) center.getZ(), depot.getName(), "D", "",
+                    !depot.routes.isEmpty()));
         }
     }
 
@@ -326,10 +383,37 @@ public final class ServerNetworkCollector {
         hash = hash * 31 + simulator.routes.size();
         for (Route route : simulator.routes) {
             hash = hash * 31 + (int) route.getId();
-            hash = hash * 31 + route.getName().hashCode();
+            hash = hash * 31 + Objects.hashCode(route.getName());
+            hash = hash * 31 + route.getColor();
+            for (RoutePlatformData routePlatform : route.getRoutePlatforms()) {
+                final Platform platform = routePlatform.getPlatform();
+                hash = hash * 31 + (platform == null ? 0 : Long.hashCode(platform.getId()));
+                hash = hash * 31 + Objects.hashCode(routePlatform.getCustomDestination());
+            }
         }
         hash = hash * 31 + simulator.platforms.size();
+        for (Platform platform : simulator.platforms) {
+            final Position pos = platform.getMidPosition();
+            hash = hash * 31 + platform.getHexId().hashCode();
+            hash = hash * 31 + Objects.hashCode(platform.getName());
+            hash = hash * 31 + Long.hashCode((long) pos.getX());
+            hash = hash * 31 + Long.hashCode((long) pos.getY());
+            hash = hash * 31 + Long.hashCode((long) pos.getZ());
+        }
+        hash = hash * 31 + simulator.stations.size();
+        for (Station station : simulator.stations) {
+            final Position center = station.getCenter();
+            hash = hash * 31 + station.getHexId().hashCode();
+            hash = hash * 31 + Objects.hashCode(station.getName());
+            hash = hash * 31 + Long.hashCode((long) center.getX());
+            hash = hash * 31 + Long.hashCode((long) center.getZ());
+        }
         for (Depot depot : simulator.depots) {
+            final Position center = depot.getCenter();
+            hash = hash * 31 + depot.getHexId().hashCode();
+            hash = hash * 31 + Objects.hashCode(depot.getName());
+            hash = hash * 31 + Long.hashCode((long) center.getX());
+            hash = hash * 31 + Long.hashCode((long) center.getZ());
             hash = hash * 31 + (int) depot.getLastGeneratedMillis();
             final List<PathData> depotPath = depot.getPath();
             hash = hash * 31 + (depotPath == null ? 0 : depotPath.size());

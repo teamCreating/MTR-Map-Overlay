@@ -5,6 +5,7 @@ import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
 import com.lx862.mtrsurveyor.mapdata.MapDataCache;
 import com.lx862.mtrsurveyor.mapdata.MapRoute;
 import com.lx862.mtrsurveyor.mapdata.MapTrack;
+import com.lx862.mtrsurveyor.mapdata.TrackRoutePalette;
 import com.lx862.mtrsurveyor.mixin.client.xaero.XaeroWorldMapAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,6 +22,7 @@ import xaero.map.gui.GuiMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Renders the MTR path layer (route lines & track geometry) on Xaero's World
@@ -156,7 +158,7 @@ public class XaeroRouteRenderer {
             drawTracks(graphics, matrix, data.tracks, scale, minX, minZ, maxX, maxZ);
         }
         if (MTRSurveyorConfig.INSTANCE.routeLinesEnabled.get()) {
-            drawRoutes(graphics, matrix, data.routes, scale, minX, minZ, maxX, maxZ);
+            drawRoutes(graphics, matrix, data.tracks, data.routePalette, scale, minX, minZ, maxX, maxZ);
         }
 
         // Flush now so the path layer lands in the map, without being culled away
@@ -184,30 +186,61 @@ public class XaeroRouteRenderer {
     // Geometry drawing
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static void drawRoutes(GuiGraphics graphics, Matrix4f matrix, List<MapRoute> routes, double scale,
+    private static void drawRoutes(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks,
+            Map<String, List<TrackRoutePalette.Entry>> routeBands, double scale,
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        final float halfWidth = worldLineWidth(TRACK_HALF_WIDTH_PX, scale);
 
-        for (MapRoute route : routes) {
-            final int argb = route.color;
-            final int r = (argb >> 16) & 0xFF;
-            final int g = (argb >> 8) & 0xFF;
-            final int b = argb & 0xFF;
-
-            if (route.tracks.isEmpty()) {
-                // Never invent station-to-station chords. A route is drawn
-                // only when its color can follow actual sampled rail geometry.
+        // One physical rail, one draw pass. Shared routes divide the same
+        // TRACK-shaped ribbon across its width instead of painting over each other.
+        for (MapTrack track : tracks) {
+            final List<TrackRoutePalette.Entry> bands = routeBands.get(track.id);
+            if (bands == null || bands.isEmpty()) {
                 continue;
             }
+            final float widthMultiplier = 1.0f + Math.min(0.6f, Math.max(0, bands.size() - 3) * 0.15f);
+            final float halfWidth = worldLineWidth(TRACK_HALF_WIDTH_PX * widthMultiplier, scale);
+            drawRibbon(matrix, consumer, track.points, halfWidth, bands, minX, minZ, maxX, maxZ);
+        }
+    }
 
-            // ROUTE and TRACK deliberately share this exact drawing path.
-            // Only color differs; width, alpha, segmentation, viewport culling
-            // and quad generation are identical to TRACK.
-            for (MapTrack track : route.tracks) {
-                drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, TRACK_ALPHA,
-                        minX, minZ, maxX, maxZ);
+    private static void drawRibbon(Matrix4f matrix, VertexConsumer consumer, List<double[]> points,
+            float halfWidth, List<TrackRoutePalette.Entry> bands,
+            double minX, double minZ, double maxX, double maxZ) {
+        for (int i = 0; i < points.size() - 1; i++) {
+            final double[] p1 = points.get(i);
+            final double[] p2 = points.get(i + 1);
+            if (!segmentOutsideView(p1[0], p1[1], p2[0], p2[1], minX, minZ, maxX, maxZ)) {
+                drawRibbonSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, bands);
             }
+        }
+    }
+
+    private static void drawRibbonSegment(Matrix4f matrix, VertexConsumer consumer,
+            double x1, double z1, double x2, double z2, float halfWidth,
+            List<TrackRoutePalette.Entry> bands) {
+        final double dx = x2 - x1;
+        final double dz = z2 - z1;
+        final double length = Math.sqrt(dx * dx + dz * dz);
+        if (length < 1.0E-4) {
+            return;
+        }
+        final double nx = -dz / length;
+        final double nz = dx / length;
+        final double bandWidth = halfWidth * 2.0 / bands.size();
+        for (int i = 0; i < bands.size(); i++) {
+            final TrackRoutePalette.Entry band = bands.get(i);
+            final double left = -halfWidth + bandWidth * i;
+            final double right = i == bands.size() - 1 ? halfWidth : left + bandWidth;
+            final int color = band.color();
+            consumer.addVertex(matrix, (float) (x1 + nx * right), (float) (z1 + nz * right), 0)
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+            consumer.addVertex(matrix, (float) (x2 + nx * right), (float) (z2 + nz * right), 0)
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+            consumer.addVertex(matrix, (float) (x2 + nx * left), (float) (z2 + nz * left), 0)
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+            consumer.addVertex(matrix, (float) (x1 + nx * left), (float) (z1 + nz * left), 0)
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
         }
     }
 
@@ -305,17 +338,19 @@ public class XaeroRouteRenderer {
             }
         }
 
-        MapRoute bestRoute = null;
+        List<TrackRoutePalette.Entry> bestRoutes = List.of();
         double bestRouteDist = SEGMENT_PICK_RADIUS * SEGMENT_PICK_RADIUS;
-        for (MapRoute route : data.routes) {
-            final int pointCount = route.stops.size() + (route.circular ? 1 : 0);
-            for (int i = 0; i < pointCount - 1; i++) {
-                final MapRoute.Stop a = route.stops.get(i);
-                final MapRoute.Stop b = route.stops.get((i + 1) % route.stops.size());
-                final double distSq = distanceToSegmentSq(mouseWorldX, mouseWorldZ, a, b);
+        for (MapTrack track : data.tracks) {
+            final List<TrackRoutePalette.Entry> bands = data.routePalette.get(track.id);
+            if (bands == null) {
+                continue;
+            }
+            for (int i = 0; i < track.points.size() - 1; i++) {
+                final double distSq = distanceToSegmentSq(mouseWorldX, mouseWorldZ,
+                        track.points.get(i), track.points.get(i + 1));
                 if (distSq < bestRouteDist) {
                     bestRouteDist = distSq;
-                    bestRoute = route;
+                    bestRoutes = bands;
                 }
             }
         }
@@ -328,9 +363,9 @@ public class XaeroRouteRenderer {
                 tooltip.add(Component.literal("→ " + bestStop.destination).withStyle(ChatFormatting.GRAY));
             }
         }
-        if (bestRoute != null) {
-            tooltip.add(Component.literal(bestRoute.name == null ? "Route" : bestRoute.name)
-                    .withStyle(ChatFormatting.BOLD));
+        for (TrackRoutePalette.Entry route : bestRoutes) {
+            tooltip.add(Component.literal(route.name() == null ? "Route" : route.name())
+                    .withStyle(ChatFormatting.BOLD).withColor(route.color()));
         }
         if (tooltip.size() > MAX_TOOLTIP_ROUTES) {
             return tooltip.subList(0, MAX_TOOLTIP_ROUTES);
@@ -339,18 +374,22 @@ public class XaeroRouteRenderer {
     }
 
     private static double distanceToSegmentSq(double px, double pz, MapRoute.Stop a, MapRoute.Stop b) {
-        final double dx = b.x - a.x;
-        final double dz = b.z - a.z;
+        return distanceToSegmentSq(px, pz, new double[]{a.x, a.z}, new double[]{b.x, b.z});
+    }
+
+    private static double distanceToSegmentSq(double px, double pz, double[] a, double[] b) {
+        final double dx = b[0] - a[0];
+        final double dz = b[1] - a[1];
         final double lengthSq = dx * dx + dz * dz;
         if (lengthSq < 1.0E-6) {
-            final double ex = px - a.x;
-            final double ez = pz - a.z;
+            final double ex = px - a[0];
+            final double ez = pz - a[1];
             return ex * ex + ez * ez;
         }
-        double t = ((px - a.x) * dx + (pz - a.z) * dz) / lengthSq;
+        double t = ((px - a[0]) * dx + (pz - a[1]) * dz) / lengthSq;
         t = Math.max(0, Math.min(1, t));
-        final double cx = a.x + t * dx;
-        final double cz = a.z + t * dz;
+        final double cx = a[0] + t * dx;
+        final double cz = a[1] + t * dz;
         final double ex = px - cx;
         final double ez = pz - cz;
         return ex * ex + ez * ez;

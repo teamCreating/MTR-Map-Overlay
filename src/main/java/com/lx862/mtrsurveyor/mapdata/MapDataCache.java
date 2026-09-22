@@ -40,13 +40,18 @@ public class MapDataCache {
         public final String dimensionId;
         public final List<MapRoute> routes;
         public final List<MapTrack> tracks;
+        public final List<MapLandmark> landmarks;
+        public final Map<String, List<TrackRoutePalette.Entry>> routePalette;
         /** Monotonic version counter, used to decide when to rebuild caches. */
         public final long version;
 
-        public DimensionData(String dimensionId, List<MapRoute> routes, List<MapTrack> tracks, long version) {
+        public DimensionData(String dimensionId, List<MapRoute> routes, List<MapTrack> tracks,
+                List<MapLandmark> landmarks, long version) {
             this.dimensionId = dimensionId;
             this.routes = routes;
             this.tracks = tracks;
+            this.landmarks = landmarks;
+            this.routePalette = TrackRoutePalette.build(routes);
             this.version = version;
         }
 
@@ -55,7 +60,7 @@ public class MapDataCache {
         }
     }
 
-    private static final DimensionData EMPTY = new DimensionData("", List.of(), List.of(), 0);
+    private static final DimensionData EMPTY = new DimensionData("", List.of(), List.of(), List.of(), 0);
 
     private static final Object2ObjectOpenHashMap<String, DimensionData> SERVER_DATA = new Object2ObjectOpenHashMap<>();
     /** Bumped whenever MTR pushes new client data, invalidates the client-side cache. */
@@ -164,7 +169,7 @@ public class MapDataCache {
                                     .add(rail.getHexId())) {
                                 final List<double[]> sampled = TrackSampler.sample(rail);
                                 if (sampled != null) {
-                                    routeTracks.add(new MapTrack(sampled));
+                                    routeTracks.add(new MapTrack(rail.getHexId(), sampled));
                                 }
                             }
                         }
@@ -172,7 +177,7 @@ public class MapDataCache {
                     for (Map.Entry<String, List<MapTrack>> entry : vehicleTracks.entrySet()) {
                         final String key = entry.getKey();
                         final int sep = key.lastIndexOf('#');
-                        routes.add(MapRoute.ofTracks(key.substring(0, sep),
+                        routes.add(MapRoute.ofTracks("vehicle:" + key, key.substring(0, sep),
                                 Integer.parseInt(key.substring(sep + 1)), new ArrayList<>(), entry.getValue()));
                     }
                 }
@@ -203,7 +208,8 @@ public class MapDataCache {
                     if (allStopsResolved) {
                         final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                                 || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-                        routes.add(new MapRoute(route.getName(), route.getColor(), circular, stops, List.of()));
+                        routes.add(new MapRoute(Long.toHexString(route.getId()), route.getName(), route.getColor(),
+                                circular, stops, List.of()));
                     }
                 } catch (Throwable e) {
                     MTRSurveyor.LOGGER.debug("[MTRSurveyor] Failed to build map data for route: {}", e.getMessage());
@@ -214,7 +220,7 @@ public class MapDataCache {
             MTRSurveyor.LOGGER.debug("[MTRSurveyor] Error building client map data: {}", e.getMessage());
         }
 
-        return new DimensionData("", routes, tracks, version);
+        return new DimensionData("", routes, tracks, List.of(), version);
     }
 
     /**
@@ -226,7 +232,7 @@ public class MapDataCache {
         for (Rail rail : instance.rails) {
             final List<double[]> points = TrackSampler.sample(rail);
             if (points != null) {
-                tracks.add(new MapTrack(points));
+                tracks.add(new MapTrack(rail.getHexId(), points));
             }
         }
     }

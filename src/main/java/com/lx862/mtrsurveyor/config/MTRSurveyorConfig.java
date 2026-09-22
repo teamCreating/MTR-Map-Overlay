@@ -27,6 +27,7 @@ public class MTRSurveyorConfig {
 
         // Visibility
         public final ModConfigSpec.BooleanValue showStationLandmarks;
+        public final ModConfigSpec.BooleanValue showPlatformLandmarks;
         public final ModConfigSpec.BooleanValue showDepotLandmarks;
         public final ModConfigSpec.BooleanValue showEmptyStation;
         public final ModConfigSpec.BooleanValue showHiddenRoute;
@@ -77,6 +78,10 @@ public class MTRSurveyorConfig {
                 showStationLandmarks = builder
                                 .comment("Whether station waypoints should be added to the map")
                                 .define("showStationLandmarks", true);
+
+                showPlatformLandmarks = builder
+                                .comment("Whether platform waypoints should be added alongside station waypoints")
+                                .define("showPlatformLandmarks", true);
 
                 showDepotLandmarks = builder
                                 .comment("Whether depot waypoints should be added to the map")

@@ -3,6 +3,9 @@ package com.lx862.mtrsurveyor.integration;
 import com.lx862.mtrsurveyor.MTRDataSummary;
 import com.lx862.mtrsurveyor.MTRSurveyor;
 import com.lx862.mtrsurveyor.config.MTRSurveyorConfig;
+import com.lx862.mtrsurveyor.mapdata.MapDataCache;
+import com.lx862.mtrsurveyor.mapdata.MapLandmark;
+import net.minecraft.client.Minecraft;
 import net.neoforged.fml.ModList;
 import org.mtr.core.data.AreaBase;
 import org.mtr.core.data.Depot;
@@ -16,7 +19,7 @@ import org.mtr.client.MinecraftClientData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,8 +64,15 @@ public class XaeroIntegration {
                 return;
             }
 
-            MTRDataSummary dataSummary = MTRDataSummary.of(clientData);
-            boolean success = doSync(dataSummary);
+            final Minecraft mc = Minecraft.getInstance();
+            final String dimension = mc.level == null ? null
+                    : mc.level.dimension().location().getNamespace() + "/" + mc.level.dimension().location().getPath();
+            final boolean success;
+            if (dimension != null && MapDataCache.hasServerData(dimension)) {
+                success = doFullNetworkSync(MapDataCache.get(dimension).landmarks);
+            } else {
+                success = doSync(MTRDataSummary.of(clientData));
+            }
             if (success) {
                 needsSync = false;
                 tickCounter = 0;
@@ -93,12 +103,119 @@ public class XaeroIntegration {
         }
     }
 
+    private static boolean doFullNetworkSync(List<MapLandmark> landmarks) {
+        try {
+            return XaeroSyncHelper.performFullNetworkSync(landmarks);
+        } catch (NoClassDefFoundError e) {
+            MTRSurveyor.LOGGER.warn("[MTRSurveyor] Xaero classes not available: {}", e.getMessage());
+            needsSync = false;
+            return false;
+        }
+    }
+
     /**
      * Inner helper class that contains all Xaero class references.
      * Separated so the outer class can be loaded without triggering Xaero class
      * loading.
      */
     static class XaeroSyncHelper {
+        static boolean performFullNetworkSync(List<MapLandmark> landmarks) {
+            final List<xaero.common.minimap.waypoints.Waypoint> existingWaypoints = getCurrentWaypoints();
+            if (existingWaypoints == null) {
+                return false;
+            }
+
+            final Map<String, MapLandmark> desired = new LinkedHashMap<>();
+            int stationCount = 0;
+            int platformCount = 0;
+            int depotCount = 0;
+            for (MapLandmark landmark : landmarks) {
+                if (!shouldShow(landmark)) {
+                    continue;
+                }
+                final String label = switch (landmark.type()) {
+                    case STATION -> landmark.name();
+                    case PLATFORM -> landmark.name() + (landmark.description().isEmpty()
+                            ? " | Platform " + landmark.symbol()
+                            : " | " + landmark.symbol() + " | " + landmark.description());
+                    case DEPOT -> "Depot: " + landmark.name();
+                };
+                desired.put(WAYPOINT_PREFIX + label, landmark);
+                switch (landmark.type()) {
+                    case STATION -> stationCount++;
+                    case PLATFORM -> platformCount++;
+                    case DEPOT -> depotCount++;
+                }
+            }
+
+            // Incremental reconciliation: keep unchanged Xaero waypoint objects,
+            // update moved/renamed metadata in place, remove only stale managed
+            // entries, then append genuinely new landmarks.
+            final Set<String> applied = new HashSet<>();
+            existingWaypoints.removeIf(waypoint -> {
+                final String waypointName = waypoint.getName();
+                if (waypointName == null || !waypointName.startsWith(WAYPOINT_PREFIX)) {
+                    return false;
+                }
+                final MapLandmark landmark = desired.get(waypointName);
+                if (landmark == null || !applied.add(waypointName)) {
+                    return true;
+                }
+                waypoint.setX(landmark.x());
+                waypoint.setY(landmark.y());
+                waypoint.setZ(landmark.z());
+                waypoint.setSymbol(landmark.symbol());
+                waypoint.setColor(colorFor(landmark.type()));
+                waypoint.setDisabled(false);
+                return false;
+            });
+            desired.forEach((waypointName, landmark) -> {
+                if (applied.contains(waypointName)) {
+                    return;
+                }
+                final xaero.common.minimap.waypoints.Waypoint waypoint =
+                        new xaero.common.minimap.waypoints.Waypoint(landmark.x(), landmark.y(), landmark.z(),
+                                waypointName, landmark.symbol(), colorFor(landmark.type()), 3, false);
+                waypoint.setDisabled(false);
+                existingWaypoints.add(waypoint);
+            });
+            MTRSurveyor.LOGGER.info(
+                    "[MTRSurveyor] Full-network waypoint sync: {} stations, {} platforms, {} depots",
+                    stationCount, platformCount, depotCount);
+            return true;
+        }
+
+        private static int colorFor(MapLandmark.Type type) {
+            return switch (type) {
+                case STATION -> STATION_COLOR;
+                case PLATFORM -> PLATFORM_COLOR;
+                case DEPOT -> DEPOT_COLOR;
+            };
+        }
+
+        private static boolean shouldShow(MapLandmark landmark) {
+            if (!landmark.hasRoutes() && !MTRSurveyorConfig.INSTANCE.showEmptyStation.get()
+                    && landmark.type() != MapLandmark.Type.DEPOT) {
+                return false;
+            }
+            return switch (landmark.type()) {
+                case STATION -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.get();
+                case PLATFORM -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get();
+                case DEPOT -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.get();
+            };
+        }
+
+        private static List<xaero.common.minimap.waypoints.Waypoint> getCurrentWaypoints() {
+            final xaero.common.XaeroMinimapSession session = xaero.common.XaeroMinimapSession.getCurrentSession();
+            if (session == null || session.getWaypointsManager() == null
+                    || session.getWaypointsManager().getCurrentWorld() == null
+                    || session.getWaypointsManager().getCurrentWorld().getCurrentSet() == null) {
+                MTRSurveyor.LOGGER.debug("[MTRSurveyor] Xaero waypoint world not ready, will retry...");
+                return null;
+            }
+            return session.getWaypointsManager().getCurrentWorld().getCurrentSet().getList();
+        }
+
         static boolean performSync(MTRDataSummary data) {
             xaero.common.XaeroMinimapSession session = xaero.common.XaeroMinimapSession.getCurrentSession();
             if (session == null) {
@@ -126,14 +243,10 @@ public class XaeroIntegration {
 
             List<xaero.common.minimap.waypoints.Waypoint> existingWaypoints = currentSet.getList();
 
-            // Remove old MTR waypoints
-            Iterator<xaero.common.minimap.waypoints.Waypoint> iterator = existingWaypoints.iterator();
-            while (iterator.hasNext()) {
-                xaero.common.minimap.waypoints.Waypoint wp = iterator.next();
-                if (wp.getName() != null && wp.getName().startsWith(WAYPOINT_PREFIX)) {
-                    iterator.remove();
-                }
-            }
+            // Radius-limited client data is never authoritative for deletion.
+            // Keep saved far-away waypoints until a full server snapshot can
+            // reconcile the whole dimension; otherwise login would erase the
+            // persistent full-map set before the first network reply arrives.
 
             String mode = MTRSurveyorConfig.INSTANCE.waypointMode.get();
             if ("platform".equalsIgnoreCase(mode)) {

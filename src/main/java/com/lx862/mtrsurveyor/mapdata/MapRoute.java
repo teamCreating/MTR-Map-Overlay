@@ -9,37 +9,39 @@ import java.util.List;
  * <ul>
  *   <li>{@code stops} - one point per platform stop, used for hover tooltips
  *       (station name + destination);</li>
- *   <li>{@code tracks} - the physical rail strokes used by this route. These
- *       are {@link MapTrack} objects, identical to the gray TRACK layer data.
- *       When empty, the renderer omits the route rather than inventing a
- *       station-to-station chord that does not follow track.</li>
+ *   <li>{@code trackIds} - stable ids of the physical rails used by this route.
+ *       Geometry lives only in the dimension's {@link MapTrack} list, so a
+ *       shared rail is transmitted and rendered exactly once.</li>
  * </ul>
  */
 public class MapRoute {
 
+    public final String id;
     public final String name;
     public final int color;
     /** True when the route is circular, in which case the polyline closes back to the first stop. */
     public final boolean circular;
     public final List<Stop> stops;
-    public final List<MapTrack> tracks;
+    public final List<String> trackIds;
 
-    public MapRoute(String name, int color, boolean circular, List<Stop> stops, List<MapTrack> tracks) {
+    public MapRoute(String id, String name, int color, boolean circular, List<Stop> stops, List<String> trackIds) {
+        this.id = id == null ? "" : id;
         this.name = name;
         this.color = color;
         this.circular = circular;
         this.stops = stops;
-        this.tracks = tracks == null ? List.of() : tracks;
+        this.trackIds = trackIds == null ? List.of() : trackIds;
     }
 
     /** A route represented only by stop metadata; it is not rendered without physical tracks. */
-    public static MapRoute ofStops(String name, int color, boolean circular, List<Stop> stops) {
-        return new MapRoute(name, color, circular, stops, List.of());
+    public static MapRoute ofStops(String id, String name, int color, boolean circular, List<Stop> stops) {
+        return new MapRoute(id, name, color, circular, stops, List.of());
     }
 
     /** A route represented by the same physical rail strokes as the TRACK layer. */
-    public static MapRoute ofTracks(String name, int color, List<Stop> stops, List<MapTrack> tracks) {
-        return new MapRoute(name, color, false, stops, tracks);
+    public static MapRoute ofTracks(String id, String name, int color, List<Stop> stops, List<MapTrack> tracks) {
+        return new MapRoute(id, name, color, false, stops,
+                tracks.stream().map(track -> track.id).distinct().toList());
     }
 
     /** One stop on a route: its world position plus display strings for tooltips. */
