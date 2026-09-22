@@ -131,7 +131,8 @@ public final class ClientNetworkSync {
         try {
             final byte[] payload = buffer.assemble();
             final List<MapDataCache.DimensionData> dimensions =
-                    NetworkSyncChunk.readDimensionList(NetworkSyncChunk.wrapForRead(payload));
+                    NetworkSnapshotCodec.readDimensionList(new java.io.DataInputStream(
+                            new java.io.ByteArrayInputStream(payload)));
 
             boolean firstOnServer = !serverHasSupport;
             serverHasSupport = true;

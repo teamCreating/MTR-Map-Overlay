@@ -6,12 +6,6 @@
 
 ## 进行中
 
-### [进行中] 全图站点/站台持久航点 + 共线轨道彩虹带
-- 操作者：Codex，2026-09-22 20:15
-- 协议升级为 v5：服务端同步完整 landmark 与物理轨道/路线归属，Xaero 使用全量快照增量维护航点。
-- 共线轨道只绘制一次，沿 TRACK 相同几何绘制稳定排序的横向多色 ribbon。
-- 验收：自动化构建通过；不自动启动 Minecraft，由 Ben 手动实机验证。
-
 ### [功能] 列车实时位置上地图
 - 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
 - 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。
@@ -30,6 +24,7 @@
 
 ## 完成
 
+- [完成] 全图站点/站台持久航点 + 共线轨道彩虹带 — Codex，2026-09-22，v1.4.4，commit 6a95614；build/test 通过，MC 由 Ben 手动验证
 - [完成] ROUTE 直接复用 TRACK 的 MapTrack 数据、drawPolyline、线宽与透明度 — Codex，2026-09-20，v1.4.3，commit 46a87b9；build 通过，MC 由 Ben 手动验证
 - [完成] 无 Depot 路径时严格贴轨回退（同 TrackSampler 采样；断路不画直线）— Codex，2026-09-20，v1.4.2，commit e436796；无头测试通过，MC 由 Ben 手动验证
 - [完成] 版本哈希探测热更（协议 v3）+ 路线颜色改用 MTR 真实寻路结果（染色渲染） — ZCode，2026-09-20，v1.4.1

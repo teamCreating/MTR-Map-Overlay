@@ -6,13 +6,13 @@ A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway
 
 ## Features
 
-- **Automatic Waypoint Sync** — MTR stations and depots appear as Xaero waypoints automatically
-- **Station Mode** — One waypoint per station, showing full station name
-- **Platform Mode** — One waypoint per platform, showing platform number with route and destination info on hover
+- **Persistent Full-Map Waypoints** — on modded servers, every station and platform in the dimension is synced to Xaero, not only nearby data
+- **Station + Platform Mode** — station and per-platform waypoints can be shown together; platform labels include route/destination information
 - **Correct Altitude** — Waypoints are placed at actual platform level, not underground
 - **Map Path Layer** — MTR route lines are drawn directly on Xaero's World Map, Create-train-map style:
   - Colored polylines following each route's stop order (circular routes are closed)
   - Track layer: actual rail geometry (arcs & slopes) sampled along each rail, drawn as a dark underlay
+  - Shared rails are rendered once as a stable, transverse multi-route rainbow ribbon; route colors no longer overwrite each other
   - Hover tooltips for stops (station name → destination) and route names
   - ROUTES / TRACKS toggle widgets in the top-left corner of the map (persisted in config)
   - Dimension-aware: only draws when the map view matches the data's dimension
@@ -51,8 +51,10 @@ All commands are client-side and work on any server:
 | `/mtrsurveyor mode` | Show current display mode |
 | `/mtrsurveyor mode station` | Switch to station mode (one waypoint per station) |
 | `/mtrsurveyor mode platform` | Switch to platform mode (one waypoint per platform) |
+| `/mtrsurveyor mode both` | Show station and platform waypoints together |
 | `/mtrsurveyor config enabled <true/false>` | Enable/disable auto-sync |
 | `/mtrsurveyor config showStations <true/false>` | Show/hide station waypoints |
+| `/mtrsurveyor config showPlatforms <true/false>` | Show/hide platform waypoints |
 | `/mtrsurveyor config showDepots <true/false>` | Show/hide depot waypoints |
 | `/mtrsurveyor config routeLines <true/false>` | Show/hide route lines on the world map |
 | `/mtrsurveyor config trackLines <true/false>` | Show/hide the track layer on the world map |
@@ -63,12 +65,13 @@ The config file is located at `.minecraft/config/mtrsurveyor.toml`.
 
 Key options:
 - `enabled` — Master switch (default: `true`)
-- `waypointMode` — Display mode: `"station"` or `"platform"` (default: `"station"`)
+- `waypointMode` — Client-only fallback mode: `"station"`, `"platform"`, or `"both"` (default: `"both"`)
 - `routeLinesEnabled` — Draw route lines on the world map (default: `true`)
 - `trackLinesEnabled` — Draw the track layer on the world map (default: `true`)
 - `networkSync.enabled` — Request full-network snapshots from modded servers (default: `true`)
 - `networkSync.refreshIntervalSeconds` — Snapshot refresh interval (default: `300`)
 - `showStationLandmarks` — Show station waypoints (default: `true`)
+- `showPlatformLandmarks` — Show platform waypoints (default: `true`)
 - `showDepotLandmarks` — Show depot waypoints (default: `false`)
 - `showEmptyStation` — Show stations with no routes (default: `false`)
 - `debugLog` — Enable detailed sync logging (default: `false`)

@@ -14,7 +14,7 @@ public class MTRSurveyorConfig {
         public final ModConfigSpec.BooleanValue debugLog;
         public final ModConfigSpec.BooleanValue enabled;
 
-        // Waypoint mode: "station" or "platform"
+        // Client-only fallback mode: "station", "platform", or "both"
         public final ModConfigSpec.ConfigValue<String> waypointMode;
 
         // World map path layers
@@ -54,8 +54,8 @@ public class MTRSurveyorConfig {
                                 .define("enabled", true);
 
                 waypointMode = builder
-                                .comment("Waypoint display mode: 'station' shows one waypoint per station, 'platform' shows one waypoint per platform with route info")
-                                .define("waypointMode", "station");
+                                .comment("Client-only fallback waypoint mode: 'station', 'platform', or 'both'. Full-network snapshots use the independent visibility switches below")
+                                .define("waypointMode", "both");
 
                 routeLinesEnabled = builder
                                 .comment("Whether MTR route lines should be drawn on the Xaero's World Map")

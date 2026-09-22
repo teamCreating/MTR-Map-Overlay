@@ -78,7 +78,7 @@ public final class ServerNetworkCollector {
             // server thread to send the packets.
             simulator.run(() -> {
                 final long hash = computeHash(simulator);
-                final NetworkSyncChunk.PendingDimension dimension = collect(simulator, requestTime, hash);
+                final NetworkSnapshotCodec.PendingDimension dimension = collect(simulator, requestTime, hash);
                 server.execute(() -> {
                     if (player.connection != null) {
                         send(player, dimension, requestTime, dimensionIndex);
@@ -123,9 +123,9 @@ public final class ServerNetworkCollector {
         }
     }
 
-    private static NetworkSyncChunk.PendingDimension collect(Simulator simulator, long requestTime, long hash) {
-        final NetworkSyncChunk.PendingDimension result =
-                new NetworkSyncChunk.PendingDimension(simulator.dimension, hash);
+    private static NetworkSnapshotCodec.PendingDimension collect(Simulator simulator, long requestTime, long hash) {
+        final NetworkSnapshotCodec.PendingDimension result =
+                new NetworkSnapshotCodec.PendingDimension(simulator.dimension, hash);
 
         // Route colors painted along MTR's own generated driving paths. Each
         // depot holds the real PathData sequence its trains drive; the color
@@ -214,7 +214,7 @@ public final class ServerNetworkCollector {
      * the path passes: platform.routes ∩ depot.routes gives the serving route.
      */
     private static void collectDepotPath(Simulator simulator, Depot depot,
-            NetworkSyncChunk.PendingDimension result) {
+            NetworkSnapshotCodec.PendingDimension result) {
         final List<PathData> path = depot.getPath();
         if (path == null || path.isEmpty()) {
             return;
@@ -293,7 +293,7 @@ public final class ServerNetworkCollector {
     }
 
     /** Collect complete, dimension-wide waypoint data from the authoritative simulator. */
-    private static void collectLandmarks(Simulator simulator, NetworkSyncChunk.PendingDimension result) {
+    private static void collectLandmarks(Simulator simulator, NetworkSnapshotCodec.PendingDimension result) {
         final Map<Long, List<String>> platformRoutes = new HashMap<>();
         for (Route route : simulator.routes) {
             final List<RoutePlatformData> routePlatforms = route.getRoutePlatforms();
@@ -421,12 +421,12 @@ public final class ServerNetworkCollector {
         return hash;
     }
 
-    private static void send(ServerPlayer player, NetworkSyncChunk.PendingDimension dimension, long requestTime,
+    private static void send(ServerPlayer player, NetworkSnapshotCodec.PendingDimension dimension, long requestTime,
             int dimensionIndex) {
         try {
             final ByteArrayOutputStream byteOut = new ByteArrayOutputStream(1 << 16);
             final DataOutputStream dataOut = new DataOutputStream(byteOut);
-            NetworkSyncChunk.writeDimensionList(dataOut, List.of(dimension));
+            NetworkSnapshotCodec.writeDimensionList(dataOut, List.of(dimension));
             dataOut.flush();
             final byte[] payload = byteOut.toByteArray();
 

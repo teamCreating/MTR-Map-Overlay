@@ -13,7 +13,7 @@ MTR:Xaero Mapper 是一个 **Minecraft NeoForge 1.21.1 客户端 mod**，把
 
 | 能力 | 说明 | 生效条件 |
 |---|---|---|
-| 航点同步 | 车站/车辆段 → Xaero 航点，station/platform 两种模式 | 客户端装 Xaero's Minimap |
+| 航点同步 | 服务端全量站点/站台/车辆段 → Xaero 持久航点；无服务端时附近数据回退 | 客户端装 Xaero's Minimap |
 | 路线层 | 每条 MTR 路线一条着色折线（环线自动闭合），悬浮显示站名→终点站 | 客户端装 Xaero's World Map |
 | 轨道层 | 沿真实轨道几何（含弧线/坡度）采样的暗色底层线 | 同上 |
 | 全网同步 | 服务端把整张轨道网+路线快照分块推给客户端，任意维度全景显示 | **服务端也装本 mod** |
@@ -145,7 +145,7 @@ Xaero GuiMap.render
 | 1 | mod 加载 | `MTR:Xaero Mapper 1.2.0 (mtrsurveyor)` |
 | 2 | Xaero 检测 | `Xaero's World Map detected - map path layer mixins will be applied` |
 | 3 | mixin 应用 | `Applied XaeroWorldMapMixin to GuiMap` |
-| 4 | payload 注册 | `Full-network sync payloads registered (protocol 4)` |
+| 4 | payload 注册 | `Full-network sync payloads registered (protocol 5)` |
 | 5 | 进世界 | `Dev joined the game` |
 | 6 | 服务端发送 | `Sent full-network snapshot for minecraft/overworld to Dev` |
 | 7 | 客户端入库 | `Full-network snapshot applied for minecraft/overworld` |

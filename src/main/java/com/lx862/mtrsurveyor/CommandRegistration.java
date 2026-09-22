@@ -43,6 +43,8 @@ public class CommandRegistration {
 
                 modeNode.then(Commands.literal("station").executes(ctx -> {
                         MTRSurveyorConfig.INSTANCE.waypointMode.set("station");
+                        MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(true);
+                        MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(false);
                         XaeroIntegration.requestSync();
                         ctx.getSource().sendSuccess(
                                         () -> Component.literal(
@@ -54,10 +56,24 @@ public class CommandRegistration {
 
                 modeNode.then(Commands.literal("platform").executes(ctx -> {
                         MTRSurveyorConfig.INSTANCE.waypointMode.set("platform");
+                        MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(false);
+                        MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(true);
                         XaeroIntegration.requestSync();
                         ctx.getSource().sendSuccess(
                                         () -> Component.literal(
                                                         "Waypoint mode set to: platform (one waypoint per platform with route info)")
+                                                        .withStyle(ChatFormatting.GREEN),
+                                        true);
+                        return 1;
+                }));
+
+                modeNode.then(Commands.literal("both").executes(ctx -> {
+                        MTRSurveyorConfig.INSTANCE.waypointMode.set("both");
+                        MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(true);
+                        MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(true);
+                        XaeroIntegration.requestSync();
+                        ctx.getSource().sendSuccess(
+                                        () -> Component.literal("Waypoint mode set to: both (stations and platforms)")
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -131,6 +147,9 @@ public class CommandRegistration {
                 configNode.then(createBoolConfigNode("showStations", "Station waypoints",
                                 () -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.showStationLandmarks.set(v)));
+                configNode.then(createBoolConfigNode("showPlatforms", "Platform waypoints",
+                                () -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get(),
+                                v -> MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.set(v)));
                 configNode.then(createBoolConfigNode("showDepots", "Depot waypoints",
                                 () -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.get(),
                                 v -> MTRSurveyorConfig.INSTANCE.showDepotLandmarks.set(v)));

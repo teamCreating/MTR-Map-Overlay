@@ -251,6 +251,8 @@ public class XaeroIntegration {
             String mode = MTRSurveyorConfig.INSTANCE.waypointMode.get();
             if ("platform".equalsIgnoreCase(mode)) {
                 return syncPlatformMode(data, existingWaypoints);
+            } else if ("both".equalsIgnoreCase(mode)) {
+                return syncStationMode(data, existingWaypoints) && syncPlatformMode(data, existingWaypoints);
             } else {
                 return syncStationMode(data, existingWaypoints);
             }
@@ -358,8 +360,8 @@ public class XaeroIntegration {
                 List<xaero.common.minimap.waypoints.Waypoint> existingWaypoints) {
             int platformCount = 0;
 
-            if (!MTRSurveyorConfig.INSTANCE.showStationLandmarks.get()) {
-                MTRSurveyor.LOGGER.info("[MTRSurveyor] Platform mode: station landmarks disabled, skipping");
+            if (!MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get()) {
+                MTRSurveyor.LOGGER.info("[MTRSurveyor] Platform landmarks disabled, skipping");
                 return true;
             }
 

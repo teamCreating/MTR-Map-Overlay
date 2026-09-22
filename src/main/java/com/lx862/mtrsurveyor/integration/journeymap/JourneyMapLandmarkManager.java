@@ -64,6 +64,9 @@ final class JourneyMapLandmarkManager {
             final MTRDataSummary dataSummary = MTRDataSummary.of(clientData);
             if ("platform".equalsIgnoreCase(config.waypointMode.get())) {
                 collectPlatformMarkers(desiredMarkers, world);
+            } else if ("both".equalsIgnoreCase(config.waypointMode.get())) {
+                collectStationMarkers(desiredMarkers, dataSummary, world);
+                collectPlatformMarkers(desiredMarkers, world);
             } else {
                 collectStationMarkers(desiredMarkers, dataSummary, world);
             }
@@ -153,7 +156,7 @@ final class JourneyMapLandmarkManager {
     // Platform mode: one marker per platform, labelled with the platform
     // number and showing the station name plus route/destination info on hover
     private static void collectPlatformMarkers(Map<String, MarkerOverlay> out, Level world) {
-        if (!MTRSurveyorConfig.INSTANCE.showStationLandmarks.get()) {
+        if (!MTRSurveyorConfig.INSTANCE.showPlatformLandmarks.get()) {
             return;
         }
 
