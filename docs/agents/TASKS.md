@@ -6,6 +6,12 @@
 
 ## 进行中
 
+### [进行中] 地标改为地图内小图标，禁止写入普通路标系统
+- 操作者：Codex，2026-09-22 21:00
+- Xaero：移除 Waypoint 对接，直接在 World Map overlay 绘制全量站点/站台小图标与悬停信息。
+- JourneyMap：同样保持地图 overlay 语义，不创建普通 waypoint，并接入服务端全量地标数据。
+- 验收：地图可见、路标列表/罗盘/世界 HUD 无新增地标；不自动启动 Minecraft。
+
 ### [功能] 列车实时位置上地图
 - 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
 - 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。
