@@ -7,6 +7,15 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-23 14:09] Codex — v1.4.6 图标稳定性修复准备提交
+- 项目改名已由独立提交完成；本次仅提交 Xaero/JourneyMap 图标修复与版本、任务记录，不包含改名变更。
+- `mod_version` 升至 1.4.6，构建通过后推送；Minecraft 仍由 Ben 手动验证。
+
+## [2026-09-23 14:09] Codex — 站点/站台图标固定到地图变换并修复贴图裁切
+- Xaero 图标锚点改用与轨道相同的世界坐标 PoseStack；仅图标尺寸抵消缩放，悬停继续使用连续屏幕坐标。
+- Xaero 与 JourneyMap 的站点/车辆段贴图都改为完整采样 32×32 PNG；`gradlew build --no-daemon` 通过，未启动 Minecraft，待 Ben 手动验证。
+- 当前工作区已有另一批项目改名的暂存及未暂存改动，本修复暂未提交或推送，以免将他人的改名工作卷入提交。
+
 ## [2026-09-23 01:37] Codex — v1.4.5 地标改为全屏地图内小图标
 - 删除 Xaero 普通 waypoint 创建实现和 `syncWaypoints` 命令；Xaero World Map 直接绘制 12px 站点、5px 站台和 10px 车辆段图标。
 - JourneyMap `MarkerOverlay` 限定 `Context.UI.Fullscreen`，图标缩小且无常驻文字标签，不出现在 Minimap。

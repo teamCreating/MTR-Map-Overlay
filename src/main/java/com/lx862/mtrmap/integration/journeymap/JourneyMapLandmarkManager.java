@@ -125,7 +125,9 @@ final class JourneyMapLandmarkManager {
             final boolean depot = landmark.type() == MapLandmark.Type.DEPOT;
             final int size = landmark.type() == MapLandmark.Type.PLATFORM ? 6 : depot ? 10 : 12;
             final ResourceLocation iconLocation = markerIcon("train", depot);
-            final MapImage icon = new MapImage(iconLocation, 16, 16);
+            // The bundled marker PNGs are 32x32; declaring 16x16 samples
+            // only a corner of the station/depot icon in JourneyMap too.
+            final MapImage icon = new MapImage(iconLocation, 32, 32);
             icon.centerAnchors();
             icon.setDisplayWidth(size);
             icon.setDisplayHeight(size);

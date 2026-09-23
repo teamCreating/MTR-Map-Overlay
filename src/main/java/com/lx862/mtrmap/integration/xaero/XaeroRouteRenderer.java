@@ -176,12 +176,13 @@ public class XaeroRouteRenderer {
         RenderSystem.disableCull();
         graphics.bufferSource().endBatch(RenderType.gui());
         RenderSystem.enableCull();
-        stack.popPose();
 
         // Landmarks are a map-only overlay. They are deliberately not Xaero
         // waypoints, so they never enter the waypoint list, compass or HUD.
         final MapLandmark hoveredLandmark = drawLandmarks(graphics, data.landmarks, scale, cameraX, cameraZ,
                 mcScreen.width, mcScreen.height, mouseX, mouseY);
+        graphics.flush();
+        stack.popPose();
 
         renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
 
@@ -207,25 +208,32 @@ public class XaeroRouteRenderer {
             if (!shouldDrawLandmark(landmark, scale)) {
                 continue;
             }
-            final int screenX = (int) Math.round(screenWidth / 2.0 + (landmark.x() - cameraX) * scale);
-            final int screenY = (int) Math.round(screenHeight / 2.0 + (landmark.z() - cameraZ) * scale);
+            final double screenX = screenWidth / 2.0 + (landmark.x() - cameraX) * scale;
+            final double screenY = screenHeight / 2.0 + (landmark.z() - cameraZ) * scale;
             final int size = landmark.type() == MapLandmark.Type.STATION ? STATION_ICON_SIZE
                     : landmark.type() == MapLandmark.Type.DEPOT ? DEPOT_ICON_SIZE : PLATFORM_ICON_SIZE;
             if (screenX < -size || screenY < -size || screenX > screenWidth + size || screenY > screenHeight + size) {
                 continue;
             }
 
+            final com.mojang.blaze3d.vertex.PoseStack stack = graphics.pose();
+            stack.pushPose();
+            stack.translate(landmark.x(), landmark.z(), 0);
+            // Cancel map zoom only for the glyph's size, not its world anchor.
+            stack.scale((float) (1.0 / scale), (float) (1.0 / scale), 1);
             if (landmark.type() == MapLandmark.Type.PLATFORM) {
                 final int half = size / 2;
-                graphics.fill(screenX - half - 1, screenY - half - 1, screenX + half + 2, screenY + half + 2,
-                        0xDD101010);
-                graphics.fill(screenX - half, screenY - half, screenX + half + 1, screenY + half + 1,
-                        0xFFE6D25A);
+                graphics.fill(-half - 1, -half - 1, half + 2, half + 2, 0xDD101010);
+                graphics.fill(-half, -half, half + 1, half + 1, 0xFFE6D25A);
             } else {
                 final ResourceLocation icon = landmark.type() == MapLandmark.Type.DEPOT ? DEPOT_ICON : STATION_ICON;
-                graphics.blit(icon, screenX - size / 2, screenY - size / 2,
-                        0, 0, size, size, 16, 16);
+                // The atlas source is 32x32. Draw the entire texture, then
+                // scale its on-map size; sampling size x size from a 16x16
+                // declaration was clipping the station icon.
+                stack.scale(size / 32.0f, size / 32.0f, 1);
+                graphics.blit(icon, -16, -16, 0, 0, 32, 32, 32, 32);
             }
+            stack.popPose();
 
             final double dx = mouseX - screenX;
             final double dy = mouseY - screenY;
