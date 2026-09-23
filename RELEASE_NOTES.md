@@ -1,19 +1,15 @@
-# v1.4.7 Release Notes (2026-09-23)
-
-## Fabric 1.21.1 与 NeoForge 双平台
-
-- 新增独立 Fabric 构建，依赖 Fabric Loader、Fabric API 与 MTR 4.1.0-beta.2 Fabric 版；Xaero's World Map / Minimap 与 JourneyMap 仍为可选地图集成。
-- 两个平台共用地图数据、轨道/路线绘制与 v5 全网快照协议；Fabric 单独提供入口、客户端命令、配置和网络注册。
-- 两个平台分别构建、不可把两个 JAR 同时安装。Fabric 配置为 `config/mtrmap.properties`，NeoForge 配置仍为 `config/mtrmap.toml`。
-- 构建和静态产物检查通过；按 Ben 要求未自动启动 Minecraft，Fabric 实机画面及跨端联机尚待手动验证。
-
----
-
 # v1.4.6 Release Notes (2026-09-23)
 
-- Xaero 站点、站台和车辆段图标沿用轨道的世界坐标地图变换，拖动与缩放不再因屏幕坐标取整而跳动；图标保持固定屏幕尺寸。
-- Xaero 与 JourneyMap 的站点/车辆段图标按实际 32×32 PNG 完整采样，修复图案被截断。
-- 无头构建及测试通过；Minecraft 画面由 Ben 手动验证。
+相较上一正式发布版 [v1.4.4](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.4)：
+
+- **新增 Fabric 1.21.1 构建**：与 NeoForge 版分别出包；两者共用地图数据、绘图逻辑和 v5 快照协议，Fabric 单独实现入口、客户端命令、配置及网络适配。Fabric 需要 Fabric API 与同平台的 MTR 4.1.0-beta.2。
+- **地标不再是普通 Xaero 路标**：站点、站台、车辆段改为仅在全屏地图内绘制的小图标，不进入路标列表、指南针、Minimap 或世界 HUD；旧版留下的 `[MTR]` 路标会自动清理。JourneyMap 地标也限定在全屏地图显示。
+- **地图图标稳定性与完整性**：Xaero 图标与轨道共用地图坐标变换，拖动和缩放时不再按屏幕整数像素跳动；Xaero/JourneyMap 的 32×32 站点贴图改为完整采样，修复截断。
+- **项目标识更名**：mod ID、Java 包、资源命名空间与客户端命令统一为 `mtrmap` / `/mtrmap`，不再使用 `mtrsurveyor` 标识。NeoForge 首次启动可从旧的 `mtrsurveyor.toml` 复制配置；全网同步需客户端和服务端安装使用新 mod ID 的版本。
+
+请按加载器只安装一个 JAR。NeoForge 使用 `config/mtrmap.toml`，Fabric 使用 `config/mtrmap.properties`。两平台构建及 NeoForge 单元测试通过；未自动启动 Minecraft，Fabric 地图显示与联机同步仍待手动验证。
+
+[查看 v1.4.4 到 v1.4.6 的完整差异](https://github.com/teamCreating/MTR-Xareo-Mapper/compare/v1.4.4...v1.4.6)
 
 ---
 

@@ -6,6 +6,8 @@
 
 ## 进行中
 
+- [进行中] 更正双平台发布版本为 v1.4.6，并按上一正式版 v1.4.4 的 diff 重写 release message — Codex，2026-09-23；替换误发的 v1.4.7 预发布。
+
 ### [功能] 列车实时位置上地图
 - 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
 - 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。
@@ -24,7 +26,7 @@
 
 ## 完成
 
-- [完成] Fabric 1.21.1 并行构建与 NeoForge 双平台 v1.4.7 GitHub 预发布 — Codex，2026-09-23 15:36，commit f41e62e；两平台构建通过，NeoForge 测试通过，MC 留给 Ben 手动验证。
+- [完成] Fabric 1.21.1 并行构建与 NeoForge 双平台构建 — Codex，2026-09-23 15:36，commit f41e62e；原 v1.4.7 预发布版本号有误，正在更正为 v1.4.6；MC 留给 Ben 手动验证。
 - [完成] Xaero 站点/站台图标与轨道共用地图变换，修复 Xaero/JourneyMap 站点纹理裁切 — Codex，2026-09-23 14:09，v1.4.6；`gradlew build` 通过，游戏由 Ben 手动验证。
 - [完成] 地标改为地图内小图标，禁止写入普通路标系统 — Codex，2026-09-23 01:37，v1.4.5，commit 4b6146d；build/test 通过，MC 由 Ben 手动验证
 - [完成] 全图站点/站台持久航点 + 共线轨道彩虹带 — Codex，2026-09-22，v1.4.4，commit 6a95614；build/test 通过，MC 由 Ben 手动验证
