@@ -1,5 +1,10 @@
 # v1.4.5 Release Notes (2026-09-23)
 
+## 独立项目标识
+
+- 统一使用 `mtrmap` mod ID、Java 包、配置名、资源命名空间和 `/mtrmap` 客户端命令；项目直接读取 MTR 数据并绘制 Xaero / JourneyMap 地图覆盖层，不接入 MTR Surveyor 的地图。
+- 首次启动时，如果新配置不存在，会从旧的 `mtrsurveyor.toml` 复制设置。全网同步需要客户端与服务端都安装使用 `mtrmap` ID 的版本。
+
 ## 地标改为地图图层小图标
 
 - 移除 v1.4.4 的 Xaero 普通 waypoint 创建逻辑；站点、站台和车辆段现在直接由 Xaero World Map

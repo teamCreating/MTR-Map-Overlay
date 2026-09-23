@@ -1,52 +1,52 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
 license = "MIT"
-issueTrackerURL = "https://github.com/BenLi06/mtrsurveyor/issues"
+issueTrackerURL = "https://github.com/teamCreating/MTR-Xareo-Mapper/issues"
 
 [[mods]]
-modId = "mtrsurveyor"
+modId = "mtrmap"
 version = "${version}"
-displayName = "[CRTools]MTR:Xaero Mapper"
+displayName = "MTR Map Overlay"
 description = '''Displays MTR route ribbons, track geometry and map-only station/platform icons on Xaero's World Map and JourneyMap. Supports optional full-network sync when installed on the server.'''
-logoFile = "assets/mtrsurveyor/icon.png"
+logoFile = "assets/mtrmap/icon.png"
 authors = "BenLi06"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "neoforge"
 type = "required"
 versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1,1.21.2)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "mtr"
 type = "required"
 versionRange = "[${mtr_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "xaerominimap"
 type = "optional"
 versionRange = "*"
 ordering = "AFTER"
 side = "CLIENT"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "xaeroworldmap"
 type = "optional"
 versionRange = "[1.45.0,)"
 ordering = "AFTER"
 side = "CLIENT"
 
-[[dependencies.mtrsurveyor]]
+[[dependencies.mtrmap]]
 modId = "journeymap"
 type = "optional"
 versionRange = "[1.21.1-6.0.8,)"
@@ -54,4 +54,4 @@ ordering = "AFTER"
 side = "CLIENT"
 
 [[mixins]]
-config = "mtrsurveyor.mixins.json"
+config = "mtrmap.mixins.json"

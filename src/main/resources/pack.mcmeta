@@ -1,6 +1,6 @@
 {
   "pack": {
-    "description": "[CRTools]MTR:Xaero Mapper v${version} - Map Icons & Route Ribbons",
+    "description": "MTR Map Overlay v${version} - Map Icons & Route Ribbons",
     "pack_format": 34
   }
 }

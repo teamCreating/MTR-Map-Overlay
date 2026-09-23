@@ -42,7 +42,8 @@
 
 ## 3. 项目速览（详情见 walkthrough.md，速览可能滞后，以 STATE.md 为准）
 
-- **是什么**：把 MTR 交通网络画到 Xaero's World Map 上的 NeoForge 客户端 mod（对标 Create 列车地图）。
+- **是什么**：独立的 MTR 地图叠加 mod，直接读取 MTR 网络数据并绘制到 Xaero's World Map / JourneyMap；不集成 MTR Surveyor 的地图。
+- **当前标识**：mod ID `mtrmap`，Java 包 `com.lx862.mtrmap`，客户端命令 `/mtrmap`。
 - **平台**：NeoForge 21.1.249 / MC 1.21.1 / MTR 4.1.0-beta.2 / Xaero World Map 1.45.0 / Minimap 26.4.2。
 - **构建**：JDK 21，`./gradlew build`（详见 walkthrough.md §6）。
 - **测试**：`./gradlew runClient -Pquickplay=TestWorld`，日志检查清单见 walkthrough.md §7。

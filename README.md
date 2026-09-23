@@ -1,8 +1,10 @@
-# [CRTools] MTR:Xaero Mapper
+# MTR Map Overlay
 
 > **AI Agent / 多人协作必读**：[AGENTS.md](AGENTS.md)（协作协议与项目状态索引）、[walkthrough.md](walkthrough.md)（开发全导览）、[docs/agents/STATE.md](docs/agents/STATE.md)（当前权威状态）。
 
 A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on your map - Create-train-map style. One jar supports every major map mod: **Xaero's World Map / Minimap** and **JourneyMap** are auto-detected, and whichever you have installed is what gets enabled (both can be used side by side, just like Create itself).
+
+This is a standalone MTR-to-map overlay maintained by BenLi06. It reads MTR's own network data and draws directly on Xaero's World Map or JourneyMap; it has no integration with MTR Surveyor's map.
 
 ## Features
 
@@ -36,7 +38,7 @@ A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway
 | Minecraft Transit Railway 4.x | ✅ |
 | Xaero's Minimap | ⚠️ Optional (legacy `[MTR]` waypoint cleanup only) |
 | Xaero's World Map | ⚠️ Optional (recommended, enables the path layer; 1.40.11+) |
-| This mod on the server | ⚠️ Optional (enables full-network view) |
+| MTR Map Overlay on the server | ⚠️ Optional (enables full-network view; client and server must both use the `mtrmap` mod ID) |
 
 ## Commands
 
@@ -44,23 +46,23 @@ All commands are client-side and work on any server:
 
 | Command | Description |
 |---------|-------------|
-| `/mtrsurveyor syncRoutes` | Request a full-network snapshot from the server |
-| `/mtrsurveyor syncLandmarks` | Force a JourneyMap landmark refresh |
-| `/mtrsurveyor testMarker` | Place a diagnostic marker at your position (JourneyMap) |
-| `/mtrsurveyor mode` | Show current display mode |
-| `/mtrsurveyor mode station` | Show station map icons only |
-| `/mtrsurveyor mode platform` | Show platform map icons only |
-| `/mtrsurveyor mode both` | Show station and platform map icons together |
-| `/mtrsurveyor config enabled <true/false>` | Enable/disable auto-sync |
-| `/mtrsurveyor config showStations <true/false>` | Show/hide station map icons |
-| `/mtrsurveyor config showPlatforms <true/false>` | Show/hide platform map icons |
-| `/mtrsurveyor config showDepots <true/false>` | Show/hide depot map icons |
-| `/mtrsurveyor config routeLines <true/false>` | Show/hide route lines on the world map |
-| `/mtrsurveyor config trackLines <true/false>` | Show/hide the track layer on the world map |
+| `/mtrmap syncRoutes` | Request a full-network snapshot from the server |
+| `/mtrmap syncLandmarks` | Force a JourneyMap landmark refresh |
+| `/mtrmap testMarker` | Place a diagnostic marker at your position (JourneyMap) |
+| `/mtrmap mode` | Show current display mode |
+| `/mtrmap mode station` | Show station map icons only |
+| `/mtrmap mode platform` | Show platform map icons only |
+| `/mtrmap mode both` | Show station and platform map icons together |
+| `/mtrmap config enabled <true/false>` | Enable/disable auto-sync |
+| `/mtrmap config showStations <true/false>` | Show/hide station map icons |
+| `/mtrmap config showPlatforms <true/false>` | Show/hide platform map icons |
+| `/mtrmap config showDepots <true/false>` | Show/hide depot map icons |
+| `/mtrmap config routeLines <true/false>` | Show/hide route lines on the world map |
+| `/mtrmap config trackLines <true/false>` | Show/hide the track layer on the world map |
 
 ## Configuration
 
-The config file is located at `.minecraft/config/mtrsurveyor.toml`.
+The config file is located at `.minecraft/config/mtrmap.toml`. On first launch, settings are copied from the legacy `mtrsurveyor.toml` file when it exists and the new file does not.
 
 Key options:
 - `enabled` — Master switch (default: `true`)
@@ -96,4 +98,4 @@ This project is licensed under the MIT License.
 
 ## Author
 
-**BenLi06** — Based on [mtrsurveyor](https://github.com/AmberIsFrozen/mtrsurveyor) by AmberFrost
+**BenLi06**

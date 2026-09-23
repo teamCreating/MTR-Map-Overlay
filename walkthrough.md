@@ -1,11 +1,11 @@
-# walkthrough.md — MTR:Xaero Mapper 开发全导览
+# walkthrough.md — MTR Map Overlay 开发全导览
 
 > 面向接手本项目的开发者或 AI agent。读完这一篇，你应当能独立完成构建、测试、排错和二次开发。
 > **开始任何工作前，请先阅读 [AGENTS.md](AGENTS.md)（多 agent 协作协议）。**
 
 ## 1. 项目是什么
 
-MTR:Xaero Mapper 是一个 **Minecraft NeoForge 1.21.1 客户端 mod**，把
+MTR Map Overlay 是一个 **Minecraft NeoForge 1.21.1 mod**，把
 [Minecraft Transit Railway (MTR) 4.x](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway)
 的交通网络呈现在 [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) 上（对标 Create 6.0 的列车地图体验），并在地图图层直接绘制站点/站台图标。
 
@@ -36,11 +36,11 @@ MTR:Xaero Mapper 是一个 **Minecraft NeoForge 1.21.1 客户端 mod**，把
 ## 3. 目录结构
 
 ```
-src/main/java/com/lx862/mtrsurveyor/
-├── MTRSurveyor.java            # @Mod 入口：mod 总线/游戏总线注册、配置注册
-├── CommandRegistration.java    # /mtrsurveyor 客户端命令树
+src/main/java/com/lx862/mtrmap/
+├── MTRMap.java            # @Mod 入口：mod 总线/游戏总线注册、配置注册
+├── CommandRegistration.java    # /mtrmap 客户端命令树
 ├── MTRDataSummary.java         # 车站→路线 摘要（地图图标 hover 信息用）
-├── config/MTRSurveyorConfig.java   # ModConfigSpec（TOML）
+├── config/MTRMapConfig.java   # ModConfigSpec（TOML）
 ├── integration/
 │   ├── xaero/XaeroRouteRenderer.java  # 路线、轨道与地图内地标图标
 │   └── journeymap/             # JourneyMap 全屏地图 MarkerOverlay
@@ -68,7 +68,7 @@ src/main/java/com/lx862/mtrsurveyor/
     └── ClientNetworkSync.java      # 客户端请求调度/重组/缓存写入
 src/main/resources/
 ├── META-INF/neoforge.mods.toml # mod 元数据 + 依赖 + mixin 注册
-└── mtrsurveyor.mixins.json     # mixin 清单（plugin: XaeroMixinPlugin）
+└── mtrmap.mixins.json     # mixin 清单（plugin: XaeroMixinPlugin）
 ```
 
 ## 4. 运行时架构（数据流）
@@ -92,7 +92,7 @@ Xaero GuiMap.render
 ### 4.2 全网同步（方案 C，对标 Create TrainMapSync）
 
 ```
-客户端 LoggingIn → +3s / 每 refreshIntervalSeconds / /mtrsurveyor syncRoutes
+客户端 LoggingIn → +3s / 每 refreshIntervalSeconds / /mtrmap syncRoutes
   → 检查 ConnectionType == NEOFORGE（否则退避 10 分钟，走纯客户端回退）
   → PacketDistributor.sendToServer(RequestNetworkSync)
 服务端：ctx.enqueueWork(服务器线程) → 对每个 Simulator：
@@ -123,7 +123,7 @@ Xaero GuiMap.render
 
 ```bash
 # 环境：JDK 21（gradle.properties 指定 java.home），Gradle wrapper 8.8
-./gradlew build            # 出包 build/libs/CRTools-MTR-Xaero-Mapper-<ver>.jar
+./gradlew build            # 出包 build/libs/CRTools-MTR-Map-Overlay-<ver>.jar
 ./gradlew compileJava      # 只编译（快）
 ./gradlew runClient        # 开发客户端
 ./gradlew runClient -Pquickplay=TestWorld   # 直接进入 run/saves/TestWorld 世界
@@ -142,7 +142,7 @@ Xaero GuiMap.render
 
 | # | 检查点 | 期望日志（Grep 关键字） |
 |---|---|---|
-| 1 | mod 加载 | `MTR:Xaero Mapper 1.2.0 (mtrsurveyor)` |
+| 1 | mod 加载 | `MTR Map Overlay 1.4.5 (mtrmap)` |
 | 2 | Xaero 检测 | `Xaero's World Map detected - map path layer mixins will be applied` |
 | 3 | mixin 应用 | `Applied XaeroWorldMapMixin to GuiMap` |
 | 4 | payload 注册 | `Full-network sync payloads registered (protocol 5)` |
