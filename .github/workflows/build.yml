@@ -9,6 +9,18 @@ on: [pull_request, push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - loader: neoforge
+            wrapper: ./gradlew
+            build-args: build
+            artifact-path: build/libs/*.jar
+          - loader: fabric
+            wrapper: ./fabric/gradlew
+            build-args: -p fabric build
+            artifact-path: fabric/build/libs/*.jar
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -20,11 +32,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
-      - name: Build
-        run: ./gradlew build
+        run: chmod +x ${{ matrix.wrapper }}
+      - name: Build ${{ matrix.loader }}
+        run: ${{ matrix.wrapper }} ${{ matrix.build-args }}
       - name: Capture build artifacts
         uses: actions/upload-artifact@v5
         with:
-          name: Artifacts
-          path: build/libs/
+          name: ${{ matrix.loader }}-jar
+          path: ${{ matrix.artifact-path }}
+          if-no-files-found: error
