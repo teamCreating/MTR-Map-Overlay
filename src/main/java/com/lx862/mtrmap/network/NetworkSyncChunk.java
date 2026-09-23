@@ -3,7 +3,6 @@ package com.lx862.mtrmap.network;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 
 /**
@@ -39,10 +38,6 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         final long snapshotHash = buf.readLong();
         final byte[] data = buf.readByteArray();
         return new NetworkSyncChunk(transferId, chunkIndex, totalChunks, snapshotHash, data);
-    }
-
-    public static void handle(NetworkSyncChunk msg, IPayloadContext ctx) {
-        ctx.enqueueWork(() -> ClientNetworkSync.onChunkReceived(msg));
     }
 
 }

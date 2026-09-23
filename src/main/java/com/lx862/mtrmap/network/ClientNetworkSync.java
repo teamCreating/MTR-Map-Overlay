@@ -4,15 +4,8 @@ import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrmap.mapdata.MapDataCache;
-import com.lx862.mtrmap.mixin.client.ClientCommonListenerAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.network.connection.ConnectionType;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +21,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * NeoForge connections; payloads are registered as optional so even a
  * NeoForge server without this mod cannot break the client.</p>
  */
-@EventBusSubscriber(modid = MTRMap.MOD_ID, value = Dist.CLIENT)
 public final class ClientNetworkSync {
 
     /** Retry a snapshot request this often until the server answers once. */
@@ -67,14 +59,12 @@ public final class ClientNetworkSync {
             return;
         }
         try {
-            if (!(mc.getConnection() instanceof ClientCommonListenerAccessor accessor)
-                    || accessor.mtrmap$getConnectionType() != ConnectionType.NEOFORGE) {
-                // Vanilla/Forge server - this mod cannot be installed there, so
-                // fall back to client-only data without poking the connection.
+            if (!MTRNetwork.canSendToServer()) {
+                // The remote server has not registered this mod's payloads.
                 markServerUnsupported();
                 return;
             }
-            net.neoforged.neoforge.network.PacketDistributor.sendToServer(new RequestNetworkSync(dimensionFilter));
+            MTRNetwork.sendToServer(new RequestNetworkSync(dimensionFilter));
             lastRequestMillis = System.currentTimeMillis();
             if (MTRMapConfig.INSTANCE.debugLog.get()) {
                 MTRMap.LOGGER.info("[MTRMap] Requested full-network snapshot ({}, filter={})",
@@ -90,7 +80,7 @@ public final class ClientNetworkSync {
     /** Ask the server for per-dimension content hashes (cheap hot-update probe). */
     private static void requestProbe() {
         try {
-            net.neoforged.neoforge.network.PacketDistributor.sendToServer(NetworkSyncProbe.INSTANCE);
+            MTRNetwork.sendToServer(NetworkSyncProbe.INSTANCE);
             lastProbeMillis = System.currentTimeMillis();
             if (MTRMapConfig.INSTANCE.debugLog.get()) {
                 MTRMap.LOGGER.info("[MTRMap] Sent network probe");
@@ -169,8 +159,7 @@ public final class ClientNetworkSync {
     // Events & ticking
     // -----------------------------------------------------------------------------------------------------------------
 
-    @SubscribeEvent
-    public static void onClientTick(ClientTickEvent.Post event) {
+    public static void onClientTick() {
         final Minecraft mc = Minecraft.getInstance();
         if (mc.getConnection() == null || mc.player == null) {
             return;
@@ -198,8 +187,7 @@ public final class ClientNetworkSync {
         }
     }
 
-    @SubscribeEvent
-    public static void onLoggingIn(ClientPlayerNetworkEvent.LoggingIn event) {
+    public static void onLoggingIn() {
         // Fresh world/connection: reset sync state and ask for a snapshot as
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
@@ -213,8 +201,7 @@ public final class ClientNetworkSync {
                 + 3_000; // first probe ~3 seconds after login
     }
 
-    @SubscribeEvent
-    public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+    public static void onLoggingOut() {
         MapDataCache.clearServerData();
         transfers.clear();
         knownHashes.clear();

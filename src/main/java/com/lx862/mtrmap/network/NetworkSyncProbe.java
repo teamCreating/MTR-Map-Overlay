@@ -1,11 +1,8 @@
 package com.lx862.mtrmap.network;
 
-import com.lx862.mtrmap.MTRMap;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * C2S: lightweight change-detection probe. The server replies with a
@@ -29,10 +26,4 @@ public record NetworkSyncProbe() implements CustomPacketPayload {
         return TYPE;
     }
 
-    public static void handle(NetworkSyncProbe msg, IPayloadContext ctx) {
-        final ServerPlayer sender = ctx.player() instanceof ServerPlayer player ? player : null;
-        if (sender != null) {
-            ctx.enqueueWork(() -> ServerNetworkCollector.sendProbeResponse(sender));
-        }
-    }
 }

@@ -6,7 +6,7 @@
 
 ## 0. 三条铁律（违反 = 事故重演）
 
-1. **平台已定，禁止回退**：本项目当前且未来的目标是 **NeoForge 1.21.1 + MTR 4.1.0-beta.2**。
+1. **平台已定，禁止回退**：本项目须持续支持 **NeoForge 1.21.1 + MTR 4.1.0-beta.2**；另有并行的 Fabric 1.21.1 构建，不能以移植为由移除 NeoForge。
    main 分支上不存在 Forge 1.20.1 代码（旧代码只存在于 git 历史 `77121f5` 之前）。
    如果你发现工作区/代码"看起来像 Forge 1.20.1"或与你记忆中的项目不符——**是你的认知过时了**，
    请先读 `docs/agents/STATE.md` 和 `walkthrough.md`，而不是"修复"它。
@@ -44,8 +44,8 @@
 
 - **是什么**：独立的 MTR 地图叠加 mod，直接读取 MTR 网络数据并绘制到 Xaero's World Map / JourneyMap；不集成 MTR Surveyor 的地图。
 - **当前标识**：mod ID `mtrmap`，Java 包 `com.lx862.mtrmap`，客户端命令 `/mtrmap`。
-- **平台**：NeoForge 21.1.249 / MC 1.21.1 / MTR 4.1.0-beta.2 / Xaero World Map 1.45.0 / Minimap 26.4.2。
-- **构建**：JDK 21，`./gradlew build`（详见 walkthrough.md §6）。
+- **平台**：NeoForge 21.1.249 或 Fabric（MC 1.21.1）/ MTR 4.1.0-beta.2 / Xaero World Map 1.45.0 / Minimap 26.4.2。
+- **构建**：JDK 21，NeoForge `./gradlew build`，Fabric `./fabric/gradlew -p fabric build`（详见 walkthrough.md §6）。
 - **测试**：`./gradlew runClient -Pquickplay=TestWorld`，日志检查清单见 walkthrough.md §7。
 
 ## 4. 事故记录（为什么有这份协议）

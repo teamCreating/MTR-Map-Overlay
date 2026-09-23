@@ -1,3 +1,14 @@
+# v1.4.7 Release Notes (2026-09-23)
+
+## Fabric 1.21.1 与 NeoForge 双平台
+
+- 新增独立 Fabric 构建，依赖 Fabric Loader、Fabric API 与 MTR 4.1.0-beta.2 Fabric 版；Xaero's World Map / Minimap 与 JourneyMap 仍为可选地图集成。
+- 两个平台共用地图数据、轨道/路线绘制与 v5 全网快照协议；Fabric 单独提供入口、客户端命令、配置和网络注册。
+- 两个平台分别构建、不可把两个 JAR 同时安装。Fabric 配置为 `config/mtrmap.properties`，NeoForge 配置仍为 `config/mtrmap.toml`。
+- 构建和静态产物检查通过；按 Ben 要求未自动启动 Minecraft，Fabric 实机画面及跨端联机尚待手动验证。
+
+---
+
 # v1.4.6 Release Notes (2026-09-23)
 
 - Xaero 站点、站台和车辆段图标沿用轨道的世界坐标地图变换，拖动与缩放不再因屏幕坐标取整而跳动；图标保持固定屏幕尺寸。

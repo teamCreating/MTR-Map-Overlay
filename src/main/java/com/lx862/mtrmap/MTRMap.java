@@ -4,6 +4,7 @@ import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.integration.journeymap.JourneyMapIntegration;
 import com.lx862.mtrmap.integration.xaero.LegacyXaeroWaypointCleanup;
 import com.lx862.mtrmap.network.MTRNetwork;
+import com.lx862.mtrmap.network.ClientNetworkSync;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -12,6 +13,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.minecraft.server.MinecraftServer;
@@ -64,11 +66,26 @@ public class MTRMap {
 
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Post event) {
+        ClientNetworkSync.onClientTick();
         if (ModList.get().isLoaded("xaerominimap")) {
             LegacyXaeroWaypointCleanup.onClientTick();
         }
         // JourneyMap landmark sync (self-gates on JourneyMap presence)
         JourneyMapIntegration.onClientTick();
+    }
+
+    @SubscribeEvent
+    public void onLoggingIn(ClientPlayerNetworkEvent.LoggingIn event) {
+        ClientNetworkSync.onLoggingIn();
+    }
+
+    @SubscribeEvent
+    public void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+        ClientNetworkSync.onLoggingOut();
+    }
+
+    public static boolean isModLoaded(String modId) {
+        return ModList.get().isLoaded(modId);
     }
 
     public static MinecraftServer getServerInstance() {

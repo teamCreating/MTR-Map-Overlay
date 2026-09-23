@@ -7,6 +7,10 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-23 15:32] Codex — v1.4.7 Fabric 并行构建与双平台发布准备
+- 新增 Fabric Loom 独立构建；共用数据/渲染/协议 v5，平台入口、配置、客户端命令和网络适配各自实现，NeoForge 未移除。
+- Fabric 与 NeoForge 无头构建已通过，最终 1.4.7 JAR 与 GitHub Release 待完成；没有自动启动 Minecraft，待 Ben 手动实机验证。
+
 ## [2026-09-23 14:09] Codex — v1.4.6 图标稳定性修复准备提交
 - 项目改名已由独立提交完成；本次仅提交 Xaero/JourneyMap 图标修复与版本、任务记录，不包含改名变更。
 - `mod_version` 升至 1.4.6，构建通过后推送；Minecraft 仍由 Ben 手动验证。

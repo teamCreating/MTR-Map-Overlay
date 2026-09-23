@@ -1,10 +1,8 @@
 package com.lx862.mtrmap.network;
 
-import com.lx862.mtrmap.mapdata.MapDataCache;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +45,4 @@ public record NetworkProbeResponse(List<DimensionHash> hashes) implements Custom
         return new NetworkProbeResponse(hashes);
     }
 
-    public static void handle(NetworkProbeResponse msg, IPayloadContext ctx) {
-        ctx.enqueueWork(() -> ClientNetworkSync.onProbeReceived(msg.hashes()));
-    }
 }

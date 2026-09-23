@@ -1,0 +1,63 @@
+plugins {
+    id 'fabric-loom' version '1.16.3'
+}
+
+def sharedProperties = new Properties()
+file('../gradle.properties').withInputStream { sharedProperties.load(it) }
+
+version = sharedProperties.getProperty('mod_version')
+group = sharedProperties.getProperty('maven_group')
+base.archivesName = sharedProperties.getProperty('archives_base_name') + '-fabric'
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+repositories {
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
+    exclusiveContent {
+        forRepository { maven { url = 'https://jm.gserv.me/repository/maven-public' } }
+        filter { includeGroup 'info.journeymap' }
+    }
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.21.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.16.14'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.116.17+1.21.1'
+
+    modCompileOnly 'maven.modrinth:minecraft-transit-railway:FABRIC-4.1.0-beta.2+1.21.1'
+    modCompileOnly 'maven.modrinth:xaeros-minimap:fabric-1.21.1-26.4.2'
+    modCompileOnly 'maven.modrinth:xaeros-world-map:fabric-1.21.1-1.45.0'
+    modCompileOnly('info.journeymap:journeymap-api-fabric:2.0.0-1.21.1-SNAPSHOT') {
+        exclude(group: 'curse.maven')
+    }
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+sourceSets.main.resources.srcDir('../src/main/resources')
+sourceSets.main.resources.exclude('META-INF/neoforge.mods.toml', 'mtrmap.mixins.json')
+
+compileJava.source(fileTree('../src/main/java') {
+    exclude 'com/lx862/mtrmap/MTRMap.java'
+    exclude 'com/lx862/mtrmap/config/MTRMapConfig.java'
+    exclude 'com/lx862/mtrmap/network/MTRNetwork.java'
+    exclude 'com/lx862/mtrmap/CommandRegistration.java'
+    exclude 'com/lx862/mtrmap/mixin/client/ClientCommonListenerAccessor.java'
+    exclude 'com/lx862/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'
+})
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching(['fabric.mod.json', 'pack.mcmeta']) {
+        expand version: project.version
+    }
+}
+
+jar {
+    manifest.attributes('MixinConfigs': 'mtrmap.fabric.mixins.json')
+}

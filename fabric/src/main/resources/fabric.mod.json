@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "mtrmap",
+  "version": "${version}",
+  "name": "MTR Map Overlay",
+  "description": "MTR rail, route and station overlays for Xaero's World Map and JourneyMap.",
+  "authors": ["BenLi06"],
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.lx862.mtrmap.MTRMap"],
+    "client": ["com.lx862.mtrmap.MTRMapClient"]
+  },
+  "mixins": ["mtrmap.fabric.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "mtr": "*"
+  },
+  "suggests": {
+    "xaeroworldmap": "*",
+    "journeymap": "*"
+  }
+}

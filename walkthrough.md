@@ -5,7 +5,7 @@
 
 ## 1. 项目是什么
 
-MTR Map Overlay 是一个 **Minecraft NeoForge 1.21.1 mod**，把
+MTR Map Overlay 是一个 **Minecraft 1.21.1 NeoForge / Fabric 双平台 mod**，把
 [Minecraft Transit Railway (MTR) 4.x](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway)
 的交通网络呈现在 [Xaero's World Map](https://modrinth.com/mod/xaeros-world-map) 上（对标 Create 6.0 的列车地图体验），并在地图图层直接绘制站点/站台图标。
 
@@ -30,7 +30,7 @@ MTR Map Overlay 是一个 **Minecraft NeoForge 1.21.1 mod**，把
 | Xaero's Minimap | 26.4.2+ | `maven.modrinth:xaeros-minimap:neoforge-1.21.1-26.4.2`（compileOnly） |
 
 - 构建：Gradle 8.8 + **JDK 21**（`gradle.properties` 的 `org.gradle.java.home` 指向本机路径，换机器要改）。
-- 历史：项目 2026-09-05 从 Forge 1.20.1 整体移植到 NeoForge 1.21.1。**main 分支只有 NeoForge 版本**，旧的 Forge 1.20.1 代码在 git 历史里（`77121f5` 之前）。
+- 历史：项目 2026-09-05 从 Forge 1.20.1 整体移植到 NeoForge 1.21.1；2026-09-23 新增 Fabric 并行构建。旧 Forge 1.20.1 代码只在 git 历史里（`77121f5` 之前），不能移除现有 NeoForge 支持。
 - **MTR 4.1 包名注意**：mod 侧类在 `org.mtr.client.*`（不是 4.0 的 `org.mtr.mod.client.*`），入口类 `org.mtr.MTR`（持有 `private static Main main`）。mtr-core 层（`org.mtr.core.data.*`、`org.mtr.core.simulation.Simulator`）未变。
 
 ## 3. 目录结构
@@ -128,6 +128,9 @@ Xaero GuiMap.render
 ./gradlew runClient        # 开发客户端
 ./gradlew runClient -Pquickplay=TestWorld   # 直接进入 run/saves/TestWorld 世界
 ./gradlew runServer        # 开发服务器（游戏目录 run-server/）
+
+# Fabric 使用独立的 Loom / Gradle wrapper，版本号读取仓库根目录 gradle.properties
+./fabric/gradlew -p fabric build   # 出包 fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-<ver>.jar
 ```
 
 测试环境准备（本仓库 `run/mods/` 已就绪，换机器需重新下载）：
@@ -174,7 +177,7 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 
 1. 改 `gradle.properties` 的 `mod_version`（默认只增加 patch 位；minor 位仅在用户明确要求时增加）。
 2. 更新 `RELEASE_NOTES.md`（新版本小节置顶）与 `README.md`（功能/依赖表）。
-3. `./gradlew build` → 验证 `build/libs/*.jar`。
+3. `./gradlew build` 与 `./fabric/gradlew -p fabric build` → 分别验证 `build/libs/`、`fabric/build/libs/` 的 JAR。
 4. **每完成一个逻辑步骤就 commit & push**（本项目的既定约定），commit message 说明动机与验证方式。
 5. 打 tag（历史上有 `V1.0.0`/`v1.0.1` 先例）。
 

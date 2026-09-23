@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lx862.mtrmap.mixin",
+  "plugin": "com.lx862.mtrmap.mixin.XaeroMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "client.MinecraftClientDataMixin",
+    "client.xaero.XaeroWorldMapAccessor",
+    "client.xaero.XaeroWorldMapMixin"
+  ],
+  "mixins": [
+    "MainAccessorMixin",
+    "MTRAccessorMixin",
+    "MTRSimulatorMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

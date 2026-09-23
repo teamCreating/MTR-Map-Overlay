@@ -5,7 +5,6 @@ import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
-import net.neoforged.fml.ModList;
 import org.mtr.client.MinecraftClientData;
 
 /**
@@ -30,7 +29,7 @@ public final class JourneyMapIntegration {
      */
     public static boolean isJourneyMapLoaded() {
         try {
-            return ModList.get().isLoaded("journeymap");
+            return MTRMap.isModLoaded("journeymap");
         } catch (Throwable e) {
             return false;
         }

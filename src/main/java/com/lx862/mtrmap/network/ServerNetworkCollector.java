@@ -21,7 +21,6 @@ import org.mtr.core.simulation.Simulator;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectImmutableList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -116,7 +115,7 @@ public final class ServerNetworkCollector {
                         new NetworkProbeResponse.DimensionHash(simulator.dimension, hash);
                 server.execute(() -> {
                     if (player.connection != null) {
-                        PacketDistributor.sendToPlayer(player, new NetworkProbeResponse(List.of(dimensionHash)));
+                        MTRNetwork.sendToPlayer(player, new NetworkProbeResponse(List.of(dimensionHash)));
                     }
                 });
             });
@@ -441,7 +440,7 @@ public final class ServerNetworkCollector {
                 final int to = Math.min(payload.length, from + CHUNK_SIZE);
                 final byte[] slice = new byte[to - from];
                 System.arraycopy(payload, from, slice, 0, slice.length);
-                PacketDistributor.sendToPlayer(player,
+                MTRNetwork.sendToPlayer(player,
                         new NetworkSyncChunk(transferId, chunk, (short) totalChunks, dimension.snapshotHash, slice));
             }
 

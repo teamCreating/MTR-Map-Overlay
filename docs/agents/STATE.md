@@ -5,7 +5,7 @@
 
 ## 当前版本
 
-- **v1.4.6**（站点/站台图标固定到地图变换，修复图标裁切）
+- **v1.4.7**（新增 Fabric 1.21.1 并行构建，保留 NeoForge）
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
 - 最后更新：2026-09-23 14:09，操作者：Codex
 
@@ -13,16 +13,17 @@
 
 | 项 | 值 |
 |---|---|
-| 目标平台 | NeoForge 21.1.249 / Minecraft 1.21.1 |
+| 目标平台 | NeoForge 21.1.249 或 Fabric Loader 0.16.14 + Fabric API 0.116.17 / Minecraft 1.21.1 |
 | MTR | 4.1.0-beta.2（NEOFORGE-4.1.0-beta.2+1.21.1） |
 | Xaero's World Map | 1.45.0+（neoforge-1.21.1） |
 | Xaero's Minimap | 26.4.2+（neoforge-1.21.1） |
 | JourneyMap | 1.21.1-6.0.8+（可选；v2 API 2.0.0-1.21.1） |
-| 构建 | ModDevGradle 2.0.146 / Gradle 8.8 / JDK 21 |
+| 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
 
 - 独立 MTR 地图叠加项目，直接读取 MTR 数据并绘制到 Xaero / JourneyMap；不集成 MTR Surveyor 地图。
+- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v5。Fabric 首版无头构建通过，待 Ben 实机验证。
 - 旧 `mtrsurveyor.toml` 在新配置不存在时复制为 `mtrmap.toml`；全网同步需客户端和服务端都运行 `mtrmap` ID 版本。
 - Xaero 地标图标（World Map overlay 直接绘制；不进入 waypoint/Minimap/HUD）——构建通过，待 Ben 实机验证
 - Xaero 地标与轨道共用世界坐标变换，站点/站台拖动缩放不再按屏幕像素取整；Xaero/JourneyMap 站点纹理按实际 32×32 完整采样——构建/测试通过，待 Ben 实机验证

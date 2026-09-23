@@ -2,7 +2,7 @@
 
 > **AI Agent / 多人协作必读**：[AGENTS.md](AGENTS.md)（协作协议与项目状态索引）、[walkthrough.md](walkthrough.md)（开发全导览）、[docs/agents/STATE.md](docs/agents/STATE.md)（当前权威状态）。
 
-A unified Minecraft NeoForge 1.21.1 mod that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on your map - Create-train-map style. One jar supports every major map mod: **Xaero's World Map / Minimap** and **JourneyMap** are auto-detected, and whichever you have installed is what gets enabled (both can be used side by side, just like Create itself).
+A Minecraft 1.21.1 mod for **NeoForge and Fabric** that displays [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) networks on your map - Create-train-map style. Choose the JAR for your loader. Each JAR supports **Xaero's World Map / Minimap** and **JourneyMap**; map mods are auto-detected and may be used together.
 
 This is a standalone MTR-to-map overlay maintained by BenLi06. It reads MTR's own network data and draws directly on Xaero's World Map or JourneyMap; it has no integration with MTR Surveyor's map.
 
@@ -34,11 +34,13 @@ This is a standalone MTR-to-map overlay maintained by BenLi06. It reads MTR's ow
 | Mod | Required |
 |-----|----------|
 | Minecraft 1.21.1 | ✅ |
-| NeoForge 21.1.x | ✅ |
-| Minecraft Transit Railway 4.x | ✅ |
+| NeoForge 21.1.x **or** Fabric Loader + Fabric API | ✅ (choose one loader and its matching JAR) |
+| Minecraft Transit Railway 4.1.0-beta.2 for the same loader | ✅ |
 | Xaero's Minimap | ⚠️ Optional (legacy `[MTR]` waypoint cleanup only) |
 | Xaero's World Map | ⚠️ Optional (recommended, enables the path layer; 1.40.11+) |
 | MTR Map Overlay on the server | ⚠️ Optional (enables full-network view; client and server must both use the `mtrmap` mod ID) |
+
+Build with `./gradlew build` for NeoForge and `./fabric/gradlew -p fabric build` for Fabric. Do not put both MTR Map Overlay JARs in the same `mods` directory. Fabric uses `.minecraft/config/mtrmap.properties`; NeoForge uses `.minecraft/config/mtrmap.toml`.
 
 ## Commands
 
@@ -62,7 +64,7 @@ All commands are client-side and work on any server:
 
 ## Configuration
 
-The config file is located at `.minecraft/config/mtrmap.toml`. On first launch, settings are copied from the legacy `mtrsurveyor.toml` file when it exists and the new file does not.
+NeoForge's config is `.minecraft/config/mtrmap.toml`; on first launch, settings are copied from legacy `mtrsurveyor.toml` when applicable. Fabric uses `.minecraft/config/mtrmap.properties` and currently starts with its own defaults.
 
 Key options:
 - `enabled` — Master switch (default: `true`)

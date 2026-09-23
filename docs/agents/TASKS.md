@@ -6,6 +6,8 @@
 
 ## 进行中
 
+- [进行中] 制作 Fabric 1.21.1 版本并发布双平台 release — Codex，2026-09-23 14:30；保持 NeoForge 现有功能，分别构建验证并发布。
+
 ### [功能] 列车实时位置上地图
 - 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
 - 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。

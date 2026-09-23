@@ -1,11 +1,8 @@
 package com.lx862.mtrmap.network;
 
-import com.lx862.mtrmap.MTRMap;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * C2S: client asks the server for a full-network map snapshot.
@@ -43,13 +40,4 @@ public record RequestNetworkSync(String dimensionFilter) implements CustomPacket
         return ALL;
     }
 
-    public static void handle(RequestNetworkSync msg, IPayloadContext ctx) {
-        if (ctx.player() instanceof ServerPlayer sender) {
-            // Jump to the server thread first; the collector then hops onto each
-            // simulator thread for thread-safe MTR data reads.
-            ctx.enqueueWork(() -> ServerNetworkCollector.collectAndSend(sender, msg.dimensionFilter));
-        } else {
-            MTRMap.LOGGER.warn("[MTRMap] Received network sync request from a non-player");
-        }
-    }
 }
