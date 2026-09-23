@@ -7,6 +7,11 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-23 21:12] Codex — 版本更正为 v1.4.6 并重新发布
+- 按 Ben 指示保留版本 1.4.6，没有继续升 patch。以 v1.4.4 为上一正式版核对 git diff，发布说明只列出此后新增/变化的内容。
+- 正式 release：https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6，附 NeoForge/Fabric 两个 JAR；tag 指向 8357133。
+- 误发的 v1.4.7 预发布及 tag 已删除，旧链接和附件不可恢复；源码提交仍在 git 历史中。两平台无头构建通过，实机验证由 Ben 完成。
+
 ## [2026-09-23 15:36] Codex — v1.4.7 双平台预发布完成
 - GitHub Release: https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.7；附 NeoForge 与 Fabric 两个 JAR，tag 指向 f41e62e。
 - 两平台构建、JAR 元数据及跨加载器依赖静态检查通过；NeoForge 测试通过。未启动 Minecraft；Fabric Xaero 图层与跨端联机由 Ben 手动验证。
