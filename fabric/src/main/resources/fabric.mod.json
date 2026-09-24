@@ -4,6 +4,7 @@
   "version": "${version}",
   "name": "MTR Map Overlay",
   "description": "MTR rail, route and station overlays for Xaero's World Map and JourneyMap.",
+  "icon": "assets/mtrmap/icon.png",
   "authors": ["BenLi06"],
   "environment": "*",
   "entrypoints": {

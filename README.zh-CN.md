@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/main/resources/assets/mtrmap/icon.png" alt="MTR Map Overlay 标志" width="128" height="128">
+  <img src="src/main/resources/pack.png" alt="MTR Map Overlay 标志" width="128" height="128">
 
   <h1>MTR Map Overlay</h1>
 
@@ -70,7 +70,7 @@ NeoForge 构建会运行共用的 JUnit 测试。构建成功不能替代游戏�
 
 ## 源码结构与数据流
 
-NeoForge 源码在 [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mtrmap)；[`fabric/`](fabric) 放置 Fabric 专用入口和适配代码，并编译共用的 Java 源码。两种构建共用纹理与 `mtrmap` 标识。
+NeoForge 源码在 [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mtrmap)；[`fabric/`](fabric) 放置 Fabric 专用入口和适配代码，并编译共用的 Java 源码。两种构建共用纹理、128×128 模组/资源包 Logo 与 `mtrmap` 标识。
 
 | 模块 | 主要职责 |
 | --- | --- |

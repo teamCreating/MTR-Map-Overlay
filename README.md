@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/main/resources/assets/mtrmap/icon.png" alt="MTR Map Overlay logo" width="128" height="128">
+  <img src="src/main/resources/pack.png" alt="MTR Map Overlay logo" width="128" height="128">
 
   <h1>MTR Map Overlay</h1>
 
@@ -70,7 +70,7 @@ The NeoForge build runs the shared JUnit tests. A successful build does not repl
 
 ## Source guide
 
-The NeoForge sources are under [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mtrmap); [`fabric/`](fabric) contains Fabric-specific entry points and adapters and compiles the shared Java sources. The two builds share textures and the same `mtrmap` identity.
+The NeoForge sources are under [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mtrmap); [`fabric/`](fabric) contains Fabric-specific entry points and adapters and compiles the shared Java sources. The two builds share textures, the 128×128 mod/pack logo, and the same `mtrmap` identity.
 
 | Area | Main responsibility |
 | --- | --- |
