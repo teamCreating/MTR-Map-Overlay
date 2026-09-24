@@ -19,6 +19,7 @@ public final class JourneyMapIntegration {
     private static int tickCounter = 0;
     private static final int SYNC_INTERVAL_TICKS = 100; // 5 seconds
     private static Object lastDimension = null;
+    private static int lastSettingsSignature = -1;
     private static boolean journeyMapMissingLogged = false;
 
     private JourneyMapIntegration() {
@@ -62,10 +63,19 @@ public final class JourneyMapIntegration {
             requestSync();
         }
 
-        if (!needsSync) {
-            return;
+        final MTRMapConfig config = MTRMapConfig.INSTANCE;
+        final int settingsSignature = (config.enabled.get() ? 1 : 0)
+                | (config.trackLinesEnabled.get() ? 2 : 0)
+                | (config.routeLinesEnabled.get() ? 4 : 0)
+                | (config.showStationLandmarks.get() ? 8 : 0)
+                | (config.showPlatformLandmarks.get() ? 16 : 0)
+                | (config.showDepotLandmarks.get() ? 32 : 0);
+        if (settingsSignature != lastSettingsSignature) {
+            lastSettingsSignature = settingsSignature;
+            requestSync();
         }
-        if (!MTRMapConfig.INSTANCE.enabled.get()) {
+
+        if (!needsSync) {
             return;
         }
         if (!isJourneyMapLoaded()) {

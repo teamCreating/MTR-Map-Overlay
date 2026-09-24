@@ -109,6 +109,9 @@ final class JourneyMapLandmarkManager {
             }
         }
 
+        JourneyMapPathManager.sync(api, world, MapDataCache.get(world.dimension().location().getNamespace()
+                + "/" + world.dimension().location().getPath()));
+
         if (config.debugLog.get() || failures > 0) {
             MTRMap.LOGGER.info("[MTRMap] Landmark sync ({}): {} markers active, {} failed (mode: {}, {}ms)",
                     reason, activeMarkers.size(), failures, config.waypointMode.get(),

@@ -15,7 +15,7 @@ MTR Map Overlay 是适用于 **Minecraft 1.21.1 NeoForge 或 Fabric** 的地图�
 | 地图 | 显示内容 |
 | --- | --- |
 | Xaero's World Map | 真实轨道几何、路线色带，以及小型车站、站台、车辆段图标；悬停查看详情。 |
-| JourneyMap | 仅在全屏地图显示车站、站台和车辆段标记。 |
+| JourneyMap | 仅在全屏地图显示真实轨道、共线路线色带，以及车站、站台和车辆段标记。 |
 
 这些是**地图内图标**，不是普通 Xaero 路标，不会挤满路标列表、指南针、小地图或游戏内 HUD。同一条物理轨道有多条路线时，颜色并排显示，不再互相覆盖。拖动和缩放 Xaero 地图时，站点与站台图标和轨道使用同一地图坐标变换。
 
@@ -34,7 +34,7 @@ MTR Map Overlay 是适用于 **Minecraft 1.21.1 NeoForge 或 Fabric** 的地图�
 1. 从 [Releases](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6) 下载与你的加载器对应的 **NeoForge 或 Fabric JAR**，放入客户端 `mods` 目录。**不要同时安装两个版本。**
 2. 安装同一加载器的 MTR 和所需地图 mod；Fabric 还必须安装 Fabric API。
 3. 如需全网地图，可选地在服务器安装对应加载器版本的 MTR Map Overlay 和 MTR。客户端与服务端都必须使用新的 `mtrmap` mod ID；旧的 `mtrsurveyor` 版本与本版不兼容。
-4. 打开 Xaero's World Map 或 JourneyMap 全屏地图。Xaero 左上角的 `ROUTES`、`TRACKS` 按钮可切换图层；悬停在线路或图标上可查看详情。
+4. 打开 Xaero's World Map 或 JourneyMap 全屏地图。Xaero 左上角的 `ROUTES`、`TRACKS` 按钮可切换图层；`/mtrmap config routeLines` 和 `trackLines` 开关对两种地图都生效。悬停在线路或图标上可查看详情。
 
 纯客户端使用不要求服务端安装。v1.4.6 的 Fabric 构建和 JAR 静态检查已通过，但 Xaero 渲染钩子与跨机器联机尚未手动实机验证，详见[发布说明](RELEASE_NOTES.md)。
 
@@ -52,8 +52,8 @@ MTR Map Overlay 是适用于 **Minecraft 1.21.1 NeoForge 或 Fabric** 的地图�
 | `/mtrmap config showStations <true\|false>` | 显示或隐藏车站图标。 |
 | `/mtrmap config showPlatforms <true\|false>` | 显示或隐藏站台图标。 |
 | `/mtrmap config showDepots <true\|false>` | 显示或隐藏车辆段图标。 |
-| `/mtrmap config routeLines <true\|false>` | 显示或隐藏 Xaero 路线色带。 |
-| `/mtrmap config trackLines <true\|false>` | 显示或隐藏 Xaero 轨道层。 |
+| `/mtrmap config routeLines <true\|false>` | 显示或隐藏两种地图的路线色带。 |
+| `/mtrmap config trackLines <true\|false>` | 显示或隐藏两种地图的轨道层。 |
 
 NeoForge 配置位于 `config/mtrmap.toml`；如果新配置不存在，首次启动会从旧 `mtrsurveyor.toml` 复制设置。Fabric 使用 `config/mtrmap.properties`，从自身默认值开始；两种配置格式不会自动互转。主要配置包括 `networkSync.enabled`（默认 `true`）、`networkSync.refreshIntervalSeconds`（默认 `300`）及车站、站台、车辆段可见性开关。
 
@@ -77,11 +77,11 @@ NeoForge 源码在 [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mt
 | [`mapdata/`](src/main/java/com/lx862/mtrmap/mapdata) | `MapDataCache` 优先使用服务器快照，否则回退到 MTR 客户端附近数据；`TrackSampler` 采样真实轨道，`TrackRoutePalette` 为共线轨道分配稳定色带。 |
 | [`network/`](src/main/java/com/lx862/mtrmap/network) | v5 协议和 `NetworkSnapshotCodec` 传输路线、轨道与地标；`ServerNetworkCollector` 在 MTR 模拟器线程读数据，`ClientNetworkSync` 探测变化、请求并重组分块快照。 |
 | [`integration/xaero/`](src/main/java/com/lx862/mtrmap/integration/xaero) | `XaeroRouteRenderer` 按世界坐标绘制轨道、路线色带和地图内图标，处理悬停提示。 |
-| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | 可选的 JourneyMap v2 插件及全屏 `MarkerOverlay` 生命周期。 |
+| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | 可选的 JourneyMap v2 插件、全屏 `MarkerOverlay` 地标，以及 `PolygonOverlay` 轨道/路线色带。 |
 | [`mixin/`](src/main/java/com/lx862/mtrmap/mixin) | 读取 MTR 数据并接入 Xaero 绘制流程；Fabric 有专用的 Xaero mixin。 |
 | [`config/`](src/main/java/com/lx862/mtrmap/config) 与 [`fabric/src/main/java/`](fabric/src/main/java) | 两种加载器各自的配置、初始化、客户端命令及网络注册。 |
 
-数据流：MTR 模拟器或客户端数据 → 按维度管理的 `MapDataCache` → Xaero 绘制器或 JourneyMap 标记。有服务端组件时，客户端先探测各维度内容哈希，只请求变化的快照，再重组分块数据并更新缓存；否则使用 MTR 客户端半径范围内的数据。
+数据流：MTR 模拟器或客户端数据 → 按维度管理的 `MapDataCache` → Xaero 绘制器或 JourneyMap 覆盖层。有服务端组件时，客户端先探测各维度内容哈希，只请求变化的快照，再重组分块数据并更新缓存；否则使用 MTR 客户端半径范围内的数据。
 
 ## 常见问题
 

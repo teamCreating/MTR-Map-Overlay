@@ -15,7 +15,7 @@ MTR Map Overlay is a Minecraft 1.21.1 add-on for **NeoForge or Fabric**. It read
 | Map | Overlay |
 | --- | --- |
 | Xaero's World Map | Physical rail geometry, route-coloured ribbons, and compact station, platform and depot icons. Hover to inspect routes and landmarks. |
-| JourneyMap | Station, platform and depot markers on the fullscreen map. |
+| JourneyMap | Physical rails, shared-route colour bands, and station, platform and depot markers on the fullscreen map. |
 
 These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. The station and platform icons follow the same map transform as the rails while panning and zooming.
 
@@ -34,7 +34,7 @@ When the mod is installed on the server as well as the client, it can request a 
 1. Download the **NeoForge** or **Fabric** JAR from [Releases](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6). Install **one**, not both, in the client's `mods` directory.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
-4. Open Xaero's World Map or JourneyMap's fullscreen map. On Xaero, use the `ROUTES` and `TRACKS` buttons at the top left to toggle those layers. Hover over a line or icon for details.
+4. Open Xaero's World Map or JourneyMap's fullscreen map. On Xaero, use the `ROUTES` and `TRACKS` buttons at the top left to toggle those layers. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
 
 The server component is not required for client-only use. Fabric gameplay, including Xaero's render hook and cross-machine networking, has not yet been manually verified for v1.4.6; the build and static JAR checks passed. See [release notes](RELEASE_NOTES.md).
 
@@ -52,8 +52,8 @@ Commands are registered on the **client**, so they are available even when the s
 | `/mtrmap config showStations <true\|false>` | Show or hide station icons. |
 | `/mtrmap config showPlatforms <true\|false>` | Show or hide platform icons. |
 | `/mtrmap config showDepots <true\|false>` | Show or hide depot icons. |
-| `/mtrmap config routeLines <true\|false>` | Show or hide route ribbons on Xaero. |
-| `/mtrmap config trackLines <true\|false>` | Show or hide physical rails on Xaero. |
+| `/mtrmap config routeLines <true\|false>` | Show or hide route ribbons on both maps. |
+| `/mtrmap config trackLines <true\|false>` | Show or hide physical rails on both maps. |
 
 NeoForge stores settings in `config/mtrmap.toml` and copies an existing `mtrsurveyor.toml` on first launch when the new file is absent. Fabric uses `config/mtrmap.properties` with its own defaults. The two formats are not automatically interchangeable. Important options include `networkSync.enabled` (default `true`), `networkSync.refreshIntervalSeconds` (default `300`), and the station/platform/depot visibility switches.
 
@@ -77,11 +77,11 @@ The NeoForge sources are under [`src/main/java/com/lx862/mtrmap`](src/main/java/
 | [`mapdata/`](src/main/java/com/lx862/mtrmap/mapdata) | `MapDataCache` selects server snapshots or nearby MTR client data. `TrackSampler` samples physical rails; `TrackRoutePalette` assigns stable colour bands to shared rails. |
 | [`network/`](src/main/java/com/lx862/mtrmap/network) | Protocol-v5 payloads and `NetworkSnapshotCodec` transfer routes, tracks and landmarks. `ServerNetworkCollector` reads MTR simulators on their own threads; `ClientNetworkSync` probes, requests and reassembles snapshots. |
 | [`integration/xaero/`](src/main/java/com/lx862/mtrmap/integration/xaero) | `XaeroRouteRenderer` draws tracks, route ribbons and map-only icons in world-map coordinates and handles hover tooltips. |
-| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | Optional JourneyMap v2 plugin and fullscreen `MarkerOverlay` lifecycle. |
+| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | Optional JourneyMap v2 plugin, fullscreen `MarkerOverlay` landmarks, and `PolygonOverlay` track/route ribbons. |
 | [`mixin/`](src/main/java/com/lx862/mtrmap/mixin) | Access to MTR data and the Xaero render hook; Fabric supplies its own Xaero hook variant. |
 | [`config/`](src/main/java/com/lx862/mtrmap/config) and [`fabric/src/main/java/`](fabric/src/main/java) | Loader-specific configuration, initialization, client commands and network registration. |
 
-Data flow: MTR simulator/client data → dimension-specific `MapDataCache` → Xaero renderer or JourneyMap markers. With a modded server, the client first probes dimension hashes, requests changed snapshots, reassembles chunked payloads and updates the cache. Without one, the cache falls back to MTR's radius-limited client data.
+Data flow: MTR simulator/client data → dimension-specific `MapDataCache` → Xaero renderer or JourneyMap overlays. With a modded server, the client first probes dimension hashes, requests changed snapshots, reassembles chunked payloads and updates the cache. Without one, the cache falls back to MTR's radius-limited client data.
 
 ## Troubleshooting
 
