@@ -7,6 +7,12 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-09-25 00:32] Codex — 共用轨道采样与寻路热路径优化
+
+- 服务端快照的 TRACK 几何一次采样后供 Depot 实际路径和无 Depot 回退路线复用；没有回退路线时不构建铁路图。
+- 客户端车辆路线复用当前 TRACK 几何；Dijkstra 遍历不再为每个节点分配过滤边列表，建图时复用已知轨道方向；修正路径片段采样上限的一点越界。
+- 新增共享几何及缺失轨道的单测；NeoForge 和 Fabric 的 `build --no-daemon` 均通过。代码 commit `78ae6fc`；未改协议或发布版本，未进行 Minecraft 实机验证。
+
 ## [2026-09-23 21:12] Codex — 版本更正为 v1.4.6 并重新发布
 - 按 Ben 指示保留版本 1.4.6，没有继续升 patch。以 v1.4.4 为上一正式版核对 git diff，发布说明只列出此后新增/变化的内容。
 - 正式 release：https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6，附 NeoForge/Fabric 两个 JAR；tag 指向 8357133。
