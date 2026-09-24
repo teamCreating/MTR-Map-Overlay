@@ -62,23 +62,6 @@ public final class RoutePathfinder {
         final Map<String, Rail> railById = new HashMap<>();
         /** hexId -> [naturalStart, naturalEnd] node positions. */
         final Map<String, Position[]> railEnds = new HashMap<>();
-
-        List<Edge> edgesFrom(Position node, Set<String> skipRailIds) {
-            final List<Edge> all = adjacency.get(node);
-            if (all == null) {
-                return List.of();
-            }
-            if (skipRailIds == null || skipRailIds.isEmpty()) {
-                return all;
-            }
-            final List<Edge> result = new ArrayList<>(all.size());
-            for (Edge edge : all) {
-                if (!skipRailIds.contains(edge.rail.getHexId())) {
-                    result.add(edge);
-                }
-            }
-            return result;
-        }
     }
 
     /**
@@ -108,7 +91,7 @@ public final class RoutePathfinder {
         }
 
         // Add reverse traversals for any rail that only has one direction indexed
-        for (Rail rail : new ArrayList<>(graph.railById.values())) {
+        for (Rail rail : graph.railById.values()) {
             final Position[] ends = graph.railEnds.get(rail.getHexId());
             if (ends != null) {
                 boolean hasReverse = false;
@@ -137,9 +120,17 @@ public final class RoutePathfinder {
 
         // Determine the rail's own geometry orientation by comparing the
         // traversal start with the rail's parameterized start point.
-        boolean natural = isNaturalOrientation(rail, from, to);
+        final Position[] knownEnds = graph.railEnds.get(rail.getHexId());
+        final boolean natural;
+        if (knownEnds != null && from.equals(knownEnds[0]) && to.equals(knownEnds[1])) {
+            natural = true;
+        } else if (knownEnds != null && from.equals(knownEnds[1]) && to.equals(knownEnds[0])) {
+            natural = false;
+        } else {
+            natural = isNaturalOrientation(rail, from, to);
+        }
 
-        if (!graph.railEnds.containsKey(rail.getHexId())) {
+        if (knownEnds == null) {
             graph.railEnds.put(rail.getHexId(),
                     natural ? new Position[]{from, to} : new Position[]{to, from});
         }
@@ -280,7 +271,10 @@ public final class RoutePathfinder {
                 break;
             }
 
-            for (Edge edge : graph.edgesFrom(current, skip)) {
+            for (Edge edge : graph.adjacency.getOrDefault(current, List.of())) {
+                if (skip.contains(edge.rail.getHexId())) {
+                    continue;
+                }
                 final double nextDist = entry.dist + edge.length;
                 final Double known = dist.get(edge.to);
                 if (known == null || nextDist < known) {
@@ -359,6 +353,16 @@ public final class RoutePathfinder {
      */
     public static List<MapTrack> toTracks(Graph graph, List<Platform> platforms,
             List<SegmentPath> segments, boolean circular) {
+        return toTracks(graph, platforms, segments, circular, null);
+    }
+
+    /**
+     * Resolve route rails against an already sampled track layer. A snapshot
+     * collector can share one geometry per physical rail across every route.
+     * If no lookup is supplied, the rails are sampled on demand.
+     */
+    public static List<MapTrack> toTracks(Graph graph, List<Platform> platforms,
+            List<SegmentPath> segments, boolean circular, Map<String, MapTrack> sampledTracks) {
         final int expectedSegments = platforms.size() - 1 + (circular ? 1 : 0);
         if (segments == null || segments.size() != expectedSegments || !isComplete(segments)) {
             return List.of();
@@ -382,12 +386,18 @@ public final class RoutePathfinder {
 
         final List<MapTrack> tracks = new ArrayList<>(railIds.size());
         for (String railId : railIds) {
-            final Rail rail = graph.railById.get(railId);
-            final List<double[]> points = rail == null ? null : TrackSampler.sample(rail);
-            if (points == null || points.size() < 2) {
+            final MapTrack track;
+            if (sampledTracks == null) {
+                final Rail rail = graph.railById.get(railId);
+                final List<double[]> points = rail == null ? null : TrackSampler.sample(rail);
+                track = points == null ? null : new MapTrack(railId, points);
+            } else {
+                track = sampledTracks.get(railId);
+            }
+            if (track == null || track.points.size() < 2) {
                 return List.of();
             }
-            tracks.add(new MapTrack(railId, points));
+            tracks.add(track);
         }
         return tracks;
     }

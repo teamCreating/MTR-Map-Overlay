@@ -129,6 +129,7 @@ public class MapDataCache {
         final List<MapRoute> routes = new ArrayList<>();
         final List<MapTrack> tracks = new ArrayList<>();
         final List<MapLandmark> landmarks = new ArrayList<>();
+        final Map<String, MapTrack> sampledTracks = new HashMap<>();
 
         try {
             // Aggregate both the live streaming instance and the dashboard instance,
@@ -144,7 +145,7 @@ public class MapDataCache {
                     allRoutes.addAll(instance.simplifiedRoutes);
                     instance.stations.forEach(station -> allStations.put(station.getHexId(), station));
                     instance.depots.forEach(depot -> allDepots.put(depot.getHexId(), depot));
-                    collectClientTracks(instance, tracks);
+                    collectClientTracks(instance, tracks, sampledTracks);
                 }
                 final MinecraftClientData dashboard = MinecraftClientData.getDashboardInstance();
                 if (dashboard != null) {
@@ -175,9 +176,9 @@ public class MapDataCache {
                             final org.mtr.core.data.Rail rail = pathData.getRail();
                             if (rail != null && vehicleRailIds.computeIfAbsent(key, ignored -> new java.util.HashSet<>())
                                     .add(rail.getHexId())) {
-                                final List<double[]> sampled = TrackSampler.sample(rail);
-                                if (sampled != null) {
-                                    routeTracks.add(new MapTrack(rail.getHexId(), sampled));
+                                final MapTrack track = sampledTracks.get(rail.getHexId());
+                                if (track != null) {
+                                    routeTracks.add(track);
                                 }
                             }
                         }
@@ -279,11 +280,18 @@ public class MapDataCache {
      * polylines. Rails follow real curves (arcs, slopes), so each rail is
      * sampled along its length via {@link RailMath#getPosition(double, boolean)}.
      */
-    private static void collectClientTracks(MinecraftClientData instance, List<MapTrack> tracks) {
+    private static void collectClientTracks(MinecraftClientData instance, List<MapTrack> tracks,
+            Map<String, MapTrack> sampledTracks) {
         for (Rail rail : instance.rails) {
+            final String railId = rail.getHexId();
+            if (sampledTracks.containsKey(railId)) {
+                continue;
+            }
             final List<double[]> points = TrackSampler.sample(rail);
             if (points != null) {
-                tracks.add(new MapTrack(rail.getHexId(), points));
+                final MapTrack track = new MapTrack(railId, points);
+                tracks.add(track);
+                sampledTracks.put(railId, track);
             }
         }
     }

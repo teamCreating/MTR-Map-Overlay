@@ -77,7 +77,7 @@ public final class ServerNetworkCollector {
             // server thread to send the packets.
             simulator.run(() -> {
                 final long hash = computeHash(simulator);
-                final NetworkSnapshotCodec.PendingDimension dimension = collect(simulator, requestTime, hash);
+                final NetworkSnapshotCodec.PendingDimension dimension = collect(simulator, hash);
                 server.execute(() -> {
                     if (player.connection != null) {
                         send(player, dimension, requestTime, dimensionIndex);
@@ -122,9 +122,22 @@ public final class ServerNetworkCollector {
         }
     }
 
-    private static NetworkSnapshotCodec.PendingDimension collect(Simulator simulator, long requestTime, long hash) {
+    private static NetworkSnapshotCodec.PendingDimension collect(Simulator simulator, long hash) {
         final NetworkSnapshotCodec.PendingDimension result =
                 new NetworkSnapshotCodec.PendingDimension(simulator.dimension, hash);
+
+        // Build the canonical TRACK layer first. Depot paths and fallback
+        // routes can then reuse its polylines instead of sampling the same
+        // physical rail again for each route or vehicle depot.
+        final Map<String, MapTrack> sampledTracks = new HashMap<>();
+        simulator.rails.forEach(rail -> {
+            final List<double[]> points = TrackSampler.sample(rail);
+            if (points != null) {
+                final MapTrack track = new MapTrack(rail.getHexId(), points);
+                result.tracks.add(track);
+                sampledTracks.put(track.id, track);
+            }
+        });
 
         // Route colors painted along MTR's own generated driving paths. Each
         // depot holds the real PathData sequence its trains drive; the color
@@ -132,7 +145,7 @@ public final class ServerNetworkCollector {
         simulator.depots.forEach(depot -> {
             try {
                 depot.writePathCache(); // refresh PathData rail references
-                collectDepotPath(simulator, depot, result);
+                collectDepotPath(simulator, depot, result, sampledTracks);
             } catch (Throwable e) {
                 MTRMap.LOGGER.debug("[MTRMap] Failed to collect depot path on server: {}", e.getMessage());
             }
@@ -141,12 +154,7 @@ public final class ServerNetworkCollector {
         // Fallback for routes whose depot path is not (yet) generated: snap
         // them onto the rail network (Dijkstra over positionsToRail) so the
         // color still follows the exact track geometry.
-        final RoutePathfinder.Graph graph =
-                RoutePathfinder.buildGraph(simulator.rails, simulator.positionsToRail);
-        final List<Route> fallbackRoutes = new ArrayList<>();
-        final List<List<RoutePathfinder.SegmentPath>> fallbackSegments = new ArrayList<>();
-        final Map<Long, List<MapRoute.Stop>> fallbackStops = new HashMap<>();
-        final Map<Long, List<Platform>> fallbackPlatforms = new HashMap<>();
+        final List<FallbackRoute> fallbackRoutes = new ArrayList<>();
         simulator.routes.forEach(route -> {
             try {
                 if (result.hasRealPath(route.getId())) {
@@ -170,41 +178,37 @@ public final class ServerNetworkCollector {
                 }
                 final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                         || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-                fallbackRoutes.add(route);
-                fallbackSegments.add(RoutePathfinder.findRoutePath(graph, platforms, circular));
-                fallbackStops.put(route.getId(), stops);
-                fallbackPlatforms.put(route.getId(), platforms);
+                fallbackRoutes.add(new FallbackRoute(route, stops, platforms, circular));
             } catch (Throwable e) {
                 MTRMap.LOGGER.debug("[MTRMap] Failed to collect route on server: {}", e.getMessage());
             }
         });
-        for (int i = 0; i < fallbackRoutes.size(); i++) {
-            final Route route = fallbackRoutes.get(i);
-            final List<RoutePathfinder.SegmentPath> segments = fallbackSegments.get(i);
-            final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
-                    || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
-            final List<MapTrack> routeTracks =
-                    RoutePathfinder.toTracks(graph, fallbackPlatforms.get(route.getId()), segments, circular);
-            if (routeTracks.isEmpty()) {
-                MTRMap.LOGGER.warn("[MTRMap] No complete track path for route {}; skipping straight-line fallback",
-                        route.getName());
-                continue;
+        if (!fallbackRoutes.isEmpty()) {
+            final RoutePathfinder.Graph graph =
+                    RoutePathfinder.buildGraph(simulator.rails, simulator.positionsToRail);
+            for (FallbackRoute fallback : fallbackRoutes) {
+                final Route route = fallback.route();
+                final List<RoutePathfinder.SegmentPath> segments =
+                        RoutePathfinder.findRoutePath(graph, fallback.platforms(), fallback.circular());
+                final List<MapTrack> routeTracks = RoutePathfinder.toTracks(graph, fallback.platforms(), segments,
+                        fallback.circular(), sampledTracks);
+                if (routeTracks.isEmpty()) {
+                    MTRMap.LOGGER.warn("[MTRMap] No complete track path for route {}; skipping straight-line fallback",
+                            route.getName());
+                    continue;
+                }
+                result.routes.add(MapRoute.ofTracks(Long.toHexString(route.getId()), route.getName(), route.getColor(),
+                        fallback.stops(), routeTracks));
             }
-            result.routes.add(MapRoute.ofTracks(Long.toHexString(route.getId()), route.getName(), route.getColor(),
-                    fallbackStops.getOrDefault(route.getId(), List.of()), routeTracks));
         }
-
-        // Tracks: sample the real rail geometry.
-        simulator.rails.forEach(rail -> {
-            final List<double[]> points = TrackSampler.sample(rail);
-            if (points != null) {
-                result.tracks.add(new MapTrack(rail.getHexId(), points));
-            }
-        });
 
         collectLandmarks(simulator, result);
 
         return result;
+    }
+
+    private record FallbackRoute(Route route, List<MapRoute.Stop> stops, List<Platform> platforms,
+                                 boolean circular) {
     }
 
     /**
@@ -213,7 +217,7 @@ public final class ServerNetworkCollector {
      * the path passes: platform.routes ∩ depot.routes gives the serving route.
      */
     private static void collectDepotPath(Simulator simulator, Depot depot,
-            NetworkSnapshotCodec.PendingDimension result) {
+            NetworkSnapshotCodec.PendingDimension result, Map<String, MapTrack> sampledTracks) {
         final List<PathData> path = depot.getPath();
         if (path == null || path.isEmpty()) {
             return;
@@ -271,9 +275,9 @@ public final class ServerNetworkCollector {
             // Reuse the exact full-rail MapTrack geometry. Direction and path
             // distances affect train movement, not how the physical rail is drawn.
             if (routeRailIds.add(rail.getHexId())) {
-                final List<double[]> railPoints = TrackSampler.sample(rail);
-                if (railPoints != null && railPoints.size() >= 2) {
-                    routeTracks.add(new MapTrack(rail.getHexId(), railPoints));
+                final MapTrack track = sampledTracks.get(rail.getHexId());
+                if (track != null && track.points.size() >= 2) {
+                    routeTracks.add(track);
                 }
             }
 

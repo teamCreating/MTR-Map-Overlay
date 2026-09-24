@@ -35,7 +35,7 @@ public final class TrackSampler {
                 return null;
             }
             final double length = rail.railMath.getLength();
-            if (length <= 0) {
+            if (!Double.isFinite(length) || length <= 0) {
                 return null;
             }
             final double d1 = Math.max(0, Math.min(length, pathData.getStartDistance()));
@@ -46,8 +46,8 @@ public final class TrackSampler {
             final int sampleCount = (int) Math.min(MAX_SAMPLES_PER_RAIL,
                     Math.max(2, Math.ceil(Math.abs(d2 - d1) / SAMPLE_INTERVAL) + 1));
             final ArrayList<double[]> points = new ArrayList<>(sampleCount);
-            for (int i = 0; i <= sampleCount; i++) {
-                final double d = d1 + (d2 - d1) * i / sampleCount;
+            for (int i = 0; i < sampleCount; i++) {
+                final double d = d1 + (d2 - d1) * i / (sampleCount - 1);
                 final Vector pos = rail.railMath.getPosition(d, false);
                 points.add(new double[]{pos.x(), pos.z()});
             }
@@ -68,7 +68,7 @@ public final class TrackSampler {
             }
             final RailMath railMath = rail.railMath;
             final double length = railMath.getLength();
-            if (length <= 0 || Double.isNaN(length)) {
+            if (!Double.isFinite(length) || length <= 0) {
                 return null;
             }
 

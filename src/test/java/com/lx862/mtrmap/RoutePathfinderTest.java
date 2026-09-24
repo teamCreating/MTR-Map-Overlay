@@ -20,6 +20,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Headless verification for the no-depot route fallback. */
@@ -126,5 +127,31 @@ class RoutePathfinderTest {
 
         assertFalse(routeTracks.isEmpty());
         assertTrue(routeTracks.stream().allMatch(track -> track.points.size() >= 2));
+    }
+
+    @Test
+    void fallbackReusesTheCanonicalTrackLayer() {
+        final Rail first = rail(node(0, 0), node(100, 0));
+        final Rail middle = rail(node(100, 0), node(200, 0));
+        final Rail last = rail(node(200, 0), node(300, 0));
+        final RoutePathfinder.Graph graph = graph(first, middle, last);
+        final List<Platform> platforms = List.of(platform(first), platform(last));
+        final List<RoutePathfinder.SegmentPath> segments =
+                RoutePathfinder.findRoutePath(graph, platforms, false);
+        final Map<String, MapTrack> sampledTracks = new HashMap<>();
+        for (Rail rail : List.of(first, middle, last)) {
+            sampledTracks.put(rail.getHexId(), new MapTrack(rail.getHexId(), TrackSampler.sample(rail)));
+        }
+
+        final List<MapTrack> routeTracks =
+                RoutePathfinder.toTracks(graph, platforms, segments, false, sampledTracks);
+        assertFalse(routeTracks.isEmpty());
+        for (MapTrack routeTrack : routeTracks) {
+            assertSame(sampledTracks.get(routeTrack.id), routeTrack);
+        }
+
+        sampledTracks.remove(middle.getHexId());
+        assertTrue(RoutePathfinder.toTracks(graph, platforms, segments, false, sampledTracks).isEmpty(),
+                "a route must not reference a rail missing from the track layer");
     }
 }
