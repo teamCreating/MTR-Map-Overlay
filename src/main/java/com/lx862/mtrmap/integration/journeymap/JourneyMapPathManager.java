@@ -22,6 +22,8 @@ import java.util.List;
 final class JourneyMapPathManager {
 
     private static final int TRACK_COLOR = 0x404040;
+    private static final int TRACK_DISPLAY_ORDER = -20;
+    private static final int ROUTE_DISPLAY_ORDER = -10;
     private static final List<PolygonOverlay> activePaths = new ArrayList<>();
     private static MapDataCache.DimensionData displayedData;
     private static ResourceKey<Level> displayedDimension;
@@ -57,23 +59,36 @@ final class JourneyMapPathManager {
         }
 
         int failures = 0;
-        for (MapTrack track : data.tracks) {
-            if (track.points.size() < 2) {
-                continue;
-            }
-            final List<TrackRoutePalette.Entry> bands = data.routePalette.getOrDefault(track.id, List.of());
-            final double halfWidth = Math.max(2.0, bands.size());
-            if (tracksEnabled) {
+        // Submit whole layers in order, not track-by-track. JourneyMap batches
+        // polygon geometry, so a later rail must never paint over an earlier
+        // route at a junction. Landmark markers are submitted after both passes.
+        if (tracksEnabled) {
+            for (MapTrack track : data.tracks) {
+                if (track.points.size() < 2) {
+                    continue;
+                }
+                final int routeCount = data.routePalette.getOrDefault(track.id, List.of()).size();
+                final double halfWidth = Math.max(2.0, routeCount);
                 failures += showBand(api, world.dimension(), track, -halfWidth - 0.75, halfWidth + 0.75,
-                        TRACK_COLOR, 1.0f, -20, "MTR track");
+                        TRACK_COLOR, 1.0f, TRACK_DISPLAY_ORDER, "MTR track");
             }
-            if (routesEnabled && !bands.isEmpty()) {
+        }
+        if (routesEnabled) {
+            for (MapTrack track : data.tracks) {
+                if (track.points.size() < 2) {
+                    continue;
+                }
+                final List<TrackRoutePalette.Entry> bands = data.routePalette.getOrDefault(track.id, List.of());
+                if (bands.isEmpty()) {
+                    continue;
+                }
+                final double halfWidth = Math.max(2.0, bands.size());
                 final double bandWidth = 2 * halfWidth / bands.size();
                 for (int i = 0; i < bands.size(); i++) {
                     final TrackRoutePalette.Entry band = bands.get(i);
                     final double left = -halfWidth + i * bandWidth;
                     failures += showBand(api, world.dimension(), track, left, left + bandWidth,
-                            band.color(), 1.0f, -10, band.name());
+                            band.color(), 1.0f, ROUTE_DISPLAY_ORDER, band.name());
                 }
             }
         }

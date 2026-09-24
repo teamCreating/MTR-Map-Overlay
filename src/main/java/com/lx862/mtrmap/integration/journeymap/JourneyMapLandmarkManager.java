@@ -97,9 +97,9 @@ final class JourneyMapLandmarkManager {
         }
         activeMarkers.clear();
 
-        // Rebuild polygons before markers. JourneyMap can batch filled shapes
-        // separately; adding the markers last keeps them visible when both
-        // path layers are enabled.
+        // Paths are submitted first (all tracks, then all routes); every
+        // station/platform/depot marker is submitted last and has a higher
+        // display order than either path layer.
         JourneyMapPathManager.sync(api, world, MapDataCache.get(world.dimension().location().getNamespace()
                 + "/" + world.dimension().location().getPath()));
 
