@@ -73,6 +73,9 @@ public final class JourneyMapIntegration {
         if (settingsSignature != lastSettingsSignature) {
             lastSettingsSignature = settingsSignature;
             requestSync();
+            if (isJourneyMapLoaded()) {
+                JourneyMapToolbar.refreshButtons();
+            }
         }
 
         if (!needsSync) {

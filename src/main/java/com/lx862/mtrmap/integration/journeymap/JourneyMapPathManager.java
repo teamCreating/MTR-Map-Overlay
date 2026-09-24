@@ -65,7 +65,7 @@ final class JourneyMapPathManager {
             final double halfWidth = Math.max(2.0, bands.size());
             if (tracksEnabled) {
                 failures += showBand(api, world.dimension(), track, -halfWidth - 0.75, halfWidth + 0.75,
-                        TRACK_COLOR, 0.7f, -20, "MTR track");
+                        TRACK_COLOR, 1.0f, -20, "MTR track");
             }
             if (routesEnabled && !bands.isEmpty()) {
                 final double bandWidth = 2 * halfWidth / bands.size();
@@ -73,7 +73,7 @@ final class JourneyMapPathManager {
                     final TrackRoutePalette.Entry band = bands.get(i);
                     final double left = -halfWidth + i * bandWidth;
                     failures += showBand(api, world.dimension(), track, left, left + bandWidth,
-                            band.color(), 0.85f, -10, band.name());
+                            band.color(), 1.0f, -10, band.name());
                 }
             }
         }
@@ -83,12 +83,17 @@ final class JourneyMapPathManager {
 
     private static int showBand(IClientAPI api, ResourceKey<Level> dimension, MapTrack track,
             double left, double right, int color, float opacity, int order, String title) {
-        final List<double[]> outline = TrackRibbonGeometry.band(track.points, left, right);
-        if (outline.isEmpty()) {
-            return 0;
+        int failures = 0;
+        for (List<double[]> section : TrackRibbonGeometry.sections(track.points, left, right)) {
+            failures += showSection(api, dimension, track.id, section, color, opacity, order, title);
         }
-        final List<BlockPos> vertices = new ArrayList<>(outline.size());
-        for (double[] point : outline) {
+        return failures;
+    }
+
+    private static int showSection(IClientAPI api, ResourceKey<Level> dimension, String trackId,
+            List<double[]> section, int color, float opacity, int order, String title) {
+        final List<BlockPos> vertices = new ArrayList<>(section.size());
+        for (double[] point : section) {
             final BlockPos vertex = new BlockPos((int) Math.round(point[0]), 64, (int) Math.round(point[1]));
             if (vertices.isEmpty() || !vertices.getLast().equals(vertex)) {
                 vertices.add(vertex);
@@ -113,7 +118,7 @@ final class JourneyMapPathManager {
             activePaths.add(overlay);
             return 0;
         } catch (Exception e) {
-            MTRMap.LOGGER.debug("[MTRMap] JourneyMap path overlay failed for rail {}: {}", track.id, e.getMessage());
+            MTRMap.LOGGER.debug("[MTRMap] JourneyMap path overlay failed for rail {}: {}", trackId, e.getMessage());
             return 1;
         }
     }
