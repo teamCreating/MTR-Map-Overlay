@@ -46,7 +46,6 @@ final class JourneyMapLandmarkManager {
 
     // Track currently displayed markers so we can clean them up on the next sync
     private static final List<MarkerOverlay> activeMarkers = new ArrayList<>();
-    private static final int LANDMARK_DISPLAY_ORDER = 100;
     private static MarkerOverlay testMarker;
 
     private JourneyMapLandmarkManager() {
@@ -153,7 +152,7 @@ final class JourneyMapLandmarkManager {
             marker.setLabel("");
             marker.setTitle(title.toString());
             marker.setActiveUIs(Context.UI.Fullscreen);
-            marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
+            marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
             out.put(landmark.id(), marker);
         }
     }
@@ -183,7 +182,7 @@ final class JourneyMapLandmarkManager {
         final MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);
         marker.setDimension(dimension);
         marker.setActiveUIs(Context.UI.Fullscreen);
-        marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
+        marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
         marker.setLabel("[MTR] Test marker");
         marker.setTitle("MTR Map Overlay JourneyMap integration works!");
 
@@ -380,7 +379,7 @@ final class JourneyMapLandmarkManager {
         marker.setLabel("");
         marker.setTitle(title);
         marker.setActiveUIs(Context.UI.Fullscreen);
-        marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
+        marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
         return marker;
     }
 
