@@ -34,7 +34,7 @@ When the mod is installed on the server as well as the client, it can request a 
 1. Download the **NeoForge** or **Fabric** JAR from [Releases](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6). Install **one**, not both, in the client's `mods` directory.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
-4. Open Xaero's World Map or JourneyMap's fullscreen map. Xaero has `ROUTES` and `TRACKS` buttons at the top left; JourneyMap has `ROUTE` and `TRACK` buttons in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
+4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
 
 The server component is not required for client-only use. Fabric gameplay, including Xaero's render hook and cross-machine networking, has not yet been manually verified for v1.4.6; the build and static JAR checks passed. See [release notes](RELEASE_NOTES.md).
 

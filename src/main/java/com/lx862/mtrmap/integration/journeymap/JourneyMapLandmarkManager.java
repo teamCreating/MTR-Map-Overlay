@@ -46,6 +46,7 @@ final class JourneyMapLandmarkManager {
 
     // Track currently displayed markers so we can clean them up on the next sync
     private static final List<MarkerOverlay> activeMarkers = new ArrayList<>();
+    private static final int LANDMARK_DISPLAY_ORDER = 100;
     private static MarkerOverlay testMarker;
 
     private JourneyMapLandmarkManager() {
@@ -96,6 +97,12 @@ final class JourneyMapLandmarkManager {
         }
         activeMarkers.clear();
 
+        // Rebuild polygons before markers. JourneyMap can batch filled shapes
+        // separately; adding the markers last keeps them visible when both
+        // path layers are enabled.
+        JourneyMapPathManager.sync(api, world, MapDataCache.get(world.dimension().location().getNamespace()
+                + "/" + world.dimension().location().getPath()));
+
         int failures = 0;
         for (Map.Entry<String, MarkerOverlay> entry : desiredMarkers.entrySet()) {
             try {
@@ -108,9 +115,6 @@ final class JourneyMapLandmarkManager {
                 }
             }
         }
-
-        JourneyMapPathManager.sync(api, world, MapDataCache.get(world.dimension().location().getNamespace()
-                + "/" + world.dimension().location().getPath()));
 
         if (config.debugLog.get() || failures > 0) {
             MTRMap.LOGGER.info("[MTRMap] Landmark sync ({}): {} markers active, {} failed (mode: {}, {}ms)",
@@ -149,6 +153,7 @@ final class JourneyMapLandmarkManager {
             marker.setLabel("");
             marker.setTitle(title.toString());
             marker.setActiveUIs(Context.UI.Fullscreen);
+            marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
             out.put(landmark.id(), marker);
         }
     }
@@ -172,13 +177,13 @@ final class JourneyMapLandmarkManager {
             return;
         }
 
-        final MapImage icon = new MapImage(markerIcon("train", false), 16, 16);
-        icon.setAnchorX(8);
-        icon.setAnchorY(8);
+        final MapImage icon = new MapImage(markerIcon("train", false), 32, 32);
+        icon.centerAnchors();
         icon.setColor(0xFF00AAFF);
         final MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);
         marker.setDimension(dimension);
         marker.setActiveUIs(Context.UI.Fullscreen);
+        marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
         marker.setLabel("[MTR] Test marker");
         marker.setTitle("MTR Map Overlay JourneyMap integration works!");
 
@@ -363,9 +368,8 @@ final class JourneyMapLandmarkManager {
     private static MarkerOverlay createMarker(String markerId, BlockPos pos, String label, String title,
             TransportMode transportMode, boolean isDepot, int color, Level world) {
         ResourceLocation iconRL = getMarkerIcon(transportMode, isDepot);
-        MapImage icon = new MapImage(iconRL, 16, 16);
-        icon.setAnchorX(8);
-        icon.setAnchorY(8);
+        MapImage icon = new MapImage(iconRL, 32, 32);
+        icon.centerAnchors();
         icon.setColor(color | 0xFF000000); // ensure alpha
         icon.setDisplayWidth(isDepot ? 10 : 12);
         icon.setDisplayHeight(isDepot ? 10 : 12);
@@ -376,6 +380,7 @@ final class JourneyMapLandmarkManager {
         marker.setLabel("");
         marker.setTitle(title);
         marker.setActiveUIs(Context.UI.Fullscreen);
+        marker.setDisplayOrder(LANDMARK_DISPLAY_ORDER);
         return marker;
     }
 

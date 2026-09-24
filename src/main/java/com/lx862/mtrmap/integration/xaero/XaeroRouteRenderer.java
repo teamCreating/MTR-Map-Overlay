@@ -56,9 +56,13 @@ public class XaeroRouteRenderer {
 
     private static final int WIDGET_X = 5;
     private static final int WIDGET_Y = 60;
-    private static final int WIDGET_WIDTH = 44;
-    private static final int WIDGET_HEIGHT = 14;
-    private static final int WIDGET_SPACING = 4;
+    private static final int WIDGET_WIDTH = 78;
+    private static final int WIDGET_HEIGHT = 23;
+    private static final int WIDGET_SPACING = 5;
+    private static final ResourceLocation ROUTE_ICON_ON = toggleIcon("route_on");
+    private static final ResourceLocation ROUTE_ICON_OFF = toggleIcon("route_off");
+    private static final ResourceLocation TRACK_ICON_ON = toggleIcon("track_on");
+    private static final ResourceLocation TRACK_ICON_OFF = toggleIcon("track_off");
 
     /** Set once the render hook is known to work, so users can diagnose silent mixin failures. */
     private static boolean renderHookVerified = false;
@@ -498,29 +502,37 @@ public class XaeroRouteRenderer {
     // -----------------------------------------------------------------------------------------------------------------
 
     private static void renderToggleWidgets(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
-        drawToggle(graphics, font, mouseX, mouseY, 0, "ROUTES",
+        drawToggle(graphics, font, mouseX, mouseY, 0,
                 MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
                 Component.literal("Toggle MTR route lines"));
-        drawToggle(graphics, font, mouseX, mouseY, 1, "TRACKS",
+        drawToggle(graphics, font, mouseX, mouseY, 1,
                 MTRMapConfig.INSTANCE.trackLinesEnabled.get(),
                 Component.literal("Toggle MTR track layer"));
     }
 
     private static void drawToggle(GuiGraphics graphics, Font font, int mouseX, int mouseY, int index,
-            String label, boolean enabled, Component tooltip) {
+            boolean enabled, Component tooltip) {
         final int x = WIDGET_X;
         final int y = WIDGET_Y + index * (WIDGET_HEIGHT + WIDGET_SPACING);
-        final int color = enabled ? 0xAA228822 : 0xAA882222;
         final int borderColor = isHovered(mouseX, mouseY, index) ? 0xFFFFFFFF : 0xFF000000;
+        final ResourceLocation icon = index == 0
+                ? (enabled ? ROUTE_ICON_ON : ROUTE_ICON_OFF)
+                : (enabled ? TRACK_ICON_ON : TRACK_ICON_OFF);
 
         graphics.fill(x - 1, y - 1, x + WIDGET_WIDTH + 1, y + WIDGET_HEIGHT + 1, borderColor);
-        graphics.fill(x, y, x + WIDGET_WIDTH, y + WIDGET_HEIGHT, color);
-        graphics.drawCenteredString(font, label, x + WIDGET_WIDTH / 2,
-                y + (WIDGET_HEIGHT - font.lineHeight) / 2, 0xFFFFFF);
+        graphics.pose().pushPose();
+        graphics.pose().translate(x, y, 0);
+        graphics.pose().scale(0.5f, 0.5f, 1);
+        graphics.blit(icon, 0, 0, 0, 0, 156, 45, 156, 45);
+        graphics.pose().popPose();
 
         if (isHovered(mouseX, mouseY, index)) {
             graphics.renderComponentTooltip(font, List.of(tooltip), mouseX, mouseY + 12);
         }
+    }
+
+    private static ResourceLocation toggleIcon(String name) {
+        return ResourceLocation.fromNamespaceAndPath(MTRMap.MOD_ID, "textures/gui/" + name + ".png");
     }
 
     private static boolean isHovered(double mouseX, double mouseY, int index) {

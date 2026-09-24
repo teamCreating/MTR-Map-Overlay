@@ -34,7 +34,7 @@ MTR Map Overlay 是适用于 **Minecraft 1.21.1 NeoForge 或 Fabric** 的地图�
 1. 从 [Releases](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6) 下载与你的加载器对应的 **NeoForge 或 Fabric JAR**，放入客户端 `mods` 目录。**不要同时安装两个版本。**
 2. 安装同一加载器的 MTR 和所需地图 mod；Fabric 还必须安装 Fabric API。
 3. 如需全网地图，可选地在服务器安装对应加载器版本的 MTR Map Overlay 和 MTR。客户端与服务端都必须使用新的 `mtrmap` mod ID；旧的 `mtrsurveyor` 版本与本版不兼容。
-4. 打开 Xaero's World Map 或 JourneyMap 全屏地图。Xaero 左上角有 `ROUTES`、`TRACKS` 按钮；JourneyMap 的附加按钮栏有 `ROUTE`、`TRACK` 开关。`/mtrmap config routeLines` 和 `trackLines` 也对两种地图生效。悬停在线路或图标上可查看详情。
+4. 打开 Xaero's World Map 或 JourneyMap 全屏地图。两端使用配套的 `ROUTES`、`TRACKS` 图标：左侧亮条绿色表示开、红色表示关；JourneyMap 的按钮位于附加按钮栏。`/mtrmap config routeLines` 和 `trackLines` 也对两种地图生效。悬停在线路或图标上可查看详情。
 
 纯客户端使用不要求服务端安装。v1.4.6 的 Fabric 构建和 JAR 静态检查已通过，但 Xaero 渲染钩子与跨机器联机尚未手动实机验证，详见[发布说明](RELEASE_NOTES.md)。
 
