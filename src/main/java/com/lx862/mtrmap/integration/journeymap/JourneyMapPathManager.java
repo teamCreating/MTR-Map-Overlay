@@ -88,27 +88,15 @@ final class JourneyMapPathManager {
             if (track.points.size() < 2) {
                 continue;
             }
-            double minX = Double.POSITIVE_INFINITY;
-            double maxX = Double.NEGATIVE_INFINITY;
-            double minZ = Double.POSITIVE_INFINITY;
-            double maxZ = Double.NEGATIVE_INFINITY;
-            for (double[] point : track.points) {
-                minX = Math.min(minX, point[0]);
-                maxX = Math.max(maxX, point[0]);
-                minZ = Math.min(minZ, point[1]);
-                maxZ = Math.max(maxZ, point[1]);
-            }
-            next.add(new PreparedTrack(track, data.routePalette.getOrDefault(track.id, List.of()),
-                    minX, minZ, maxX, maxZ));
+            next.add(new PreparedTrack(track, data.routePalette.getOrDefault(track.id, List.of())));
         }
         preparedTracks = next;
         preparedData = data;
     }
 
-    private record PreparedTrack(MapTrack track, List<TrackRoutePalette.Entry> bands,
-            double minX, double minZ, double maxX, double maxZ) {
+    private record PreparedTrack(MapTrack track, List<TrackRoutePalette.Entry> bands) {
         boolean visible(JourneyMapScreenProjection.WorldBounds view) {
-            return view.intersects(minX, minZ, maxX, maxZ);
+            return track.intersects(view.minX(), view.minZ(), view.maxX(), view.maxZ());
         }
     }
 

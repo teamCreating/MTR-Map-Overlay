@@ -294,6 +294,9 @@ public class XaeroRouteRenderer {
         // One physical rail, one draw pass. Shared routes divide the same
         // TRACK-shaped ribbon across its width instead of painting over each other.
         for (MapTrack track : tracks) {
+            if (!track.intersects(minX, minZ, maxX, maxZ)) {
+                continue;
+            }
             final List<TrackRoutePalette.Entry> bands = routeBands.get(track.id);
             if (bands == null || bands.isEmpty()) {
                 continue;
@@ -353,6 +356,9 @@ public class XaeroRouteRenderer {
         final int b = RailRenderStyle.TRACK_COLOR & 0xFF;
 
         for (MapTrack track : tracks) {
+            if (!track.intersects(minX, minZ, maxX, maxZ)) {
+                continue;
+            }
             drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, RailRenderStyle.TRACK_ALPHA,
                     minX, minZ, maxX, maxZ);
         }
@@ -435,6 +441,10 @@ public class XaeroRouteRenderer {
         List<TrackRoutePalette.Entry> bestRoutes = List.of();
         double bestRouteDist = SEGMENT_PICK_RADIUS * SEGMENT_PICK_RADIUS;
         for (MapTrack track : data.tracks) {
+            if (!track.intersects(mouseWorldX - SEGMENT_PICK_RADIUS, mouseWorldZ - SEGMENT_PICK_RADIUS,
+                    mouseWorldX + SEGMENT_PICK_RADIUS, mouseWorldZ + SEGMENT_PICK_RADIUS)) {
+                continue;
+            }
             final List<TrackRoutePalette.Entry> bands = data.routePalette.get(track.id);
             if (bands == null) {
                 continue;

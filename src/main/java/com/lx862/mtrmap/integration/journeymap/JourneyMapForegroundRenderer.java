@@ -9,6 +9,7 @@ import journeymap.api.v2.client.model.MapImage;
 import journeymap.api.v2.common.event.FullscreenEventRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 
 import java.awt.geom.Point2D;
 import java.lang.reflect.Field;
@@ -60,6 +61,9 @@ final class JourneyMapForegroundRenderer {
                 RenderSystem.setShaderColor(1, 1, 1, 1);
                 JourneyMapPathManager.render(graphics, MapDataCache.get(dimensionId), projection);
                 graphics.flush();
+                ResourceLocation currentTexture = null;
+                int currentColor = 0;
+                float currentOpacity = Float.NaN;
                 for (MarkerOverlay marker : JourneyMapLandmarkManager.displayedMarkers()) {
                     final MapImage icon = marker.getIcon();
                     if (!minecraft.level.dimension().equals(marker.getDimension()) || icon.getImageLocation() == null) {
@@ -75,15 +79,22 @@ final class JourneyMapForegroundRenderer {
                         continue;
                     }
                     final int color = icon.getColor();
-                    RenderSystem.setShaderColor(((color >> 16) & 255) / 255f,
-                            ((color >> 8) & 255) / 255f, (color & 255) / 255f,
-                            icon.getOpacity());
+                    final float opacity = icon.getOpacity();
+                    final ResourceLocation texture = icon.getImageLocation();
+                    if (!texture.equals(currentTexture) || color != currentColor || opacity != currentOpacity) {
+                        // Buffered blits use the shader tint at flush time. Keep
+                        // adjacent icons with the same state in one batch.
+                        graphics.flush();
+                        RenderSystem.setShaderColor(((color >> 16) & 255) / 255f,
+                                ((color >> 8) & 255) / 255f, (color & 255) / 255f, opacity);
+                        currentTexture = texture;
+                        currentColor = color;
+                        currentOpacity = opacity;
+                    }
                     graphics.blit(icon.getImageLocation(), x, y, width, height,
                             (float) icon.getTextureX(), (float) icon.getTextureY(),
                             icon.getTextureWidth(), icon.getTextureHeight(),
                             icon.getTextureWidth(), icon.getTextureHeight());
-                    // Shader tint is global state; flush before changing it for the next icon.
-                    graphics.flush();
                 }
             } finally {
                 graphics.flush();

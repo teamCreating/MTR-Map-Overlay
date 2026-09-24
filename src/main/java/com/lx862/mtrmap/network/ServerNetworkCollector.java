@@ -46,8 +46,6 @@ import java.util.Set;
  */
 public final class ServerNetworkCollector {
 
-    /** Max bytes of payload per S2C chunk (well under the 1 MiB custom payload limit). */
-    private static final int CHUNK_SIZE = 200_000;
     private ServerNetworkCollector() {
     }
 
@@ -435,17 +433,24 @@ public final class ServerNetworkCollector {
             NetworkSnapshotCodec.writeDimensionList(dataOut, List.of(dimension));
             dataOut.flush();
             final byte[] payload = byteOut.toByteArray();
+            if (payload.length > NetworkChunkAssembler.MAX_BYTES) {
+                throw new IllegalArgumentException("Snapshot exceeds transfer size limit: " + payload.length);
+            }
 
-            final int totalChunks = (int) Math.max(1, Math.ceil((double) payload.length / CHUNK_SIZE));
+            final int totalChunks = Math.max(1, (payload.length - 1) / NetworkChunkAssembler.CHUNK_SIZE + 1);
+            if (totalChunks > Short.MAX_VALUE) {
+                throw new IllegalArgumentException("Snapshot requires too many chunks: " + totalChunks);
+            }
             final int transferId = (int) (requestTime ^ (31 * payload.length) ^ (dimensionIndex * 1_000_003))
                     ^ player.getUUID().hashCode();
-            for (short chunk = 0; chunk < totalChunks; chunk++) {
-                final int from = chunk * CHUNK_SIZE;
-                final int to = Math.min(payload.length, from + CHUNK_SIZE);
+            for (int chunk = 0; chunk < totalChunks; chunk++) {
+                final int from = chunk * NetworkChunkAssembler.CHUNK_SIZE;
+                final int to = Math.min(payload.length, from + NetworkChunkAssembler.CHUNK_SIZE);
                 final byte[] slice = new byte[to - from];
                 System.arraycopy(payload, from, slice, 0, slice.length);
                 MTRNetwork.sendToPlayer(player,
-                        new NetworkSyncChunk(transferId, chunk, (short) totalChunks, dimension.snapshotHash, slice));
+                        new NetworkSyncChunk(transferId, (short) chunk, (short) totalChunks,
+                                dimension.snapshotHash, slice));
             }
 
             MTRMap.LOGGER.info("[MTRMap] Sent full-network snapshot for {} to {} ({} routes, {} rails, {} bytes, {} chunk(s))",

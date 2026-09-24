@@ -49,6 +49,9 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double d = d1 + (d2 - d1) * i / (sampleCount - 1);
                 final Vector pos = rail.railMath.getPosition(d, false);
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                    return null;
+                }
                 points.add(new double[]{pos.x(), pos.z()});
             }
             return points;
@@ -78,6 +81,9 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double distance = Math.min(length, i * (length / (sampleCount - 1)));
                 final Vector pos = railMath.getPosition(distance, false);
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                    return null;
+                }
                 points.add(new double[]{pos.x(), pos.z()});
             }
             return points;

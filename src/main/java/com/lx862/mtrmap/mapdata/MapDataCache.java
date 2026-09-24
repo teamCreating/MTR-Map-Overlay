@@ -68,9 +68,17 @@ public class MapDataCache {
     /** Bumped whenever MTR pushes new client data, invalidates the client-side cache. */
     private static volatile long clientDataVersion = 0;
     private static volatile DimensionData clientDataBuilt = null;
+    private static volatile boolean clientDataReady = false;
 
     public static void onClientDataSynced() {
         clientDataVersion++;
+        clientDataReady = true;
+    }
+
+    /** Prevent the previous world's radius-limited data from appearing after a connection change. */
+    public static void clearClientData() {
+        clientDataReady = false;
+        clientDataBuilt = null;
     }
 
     /**
@@ -115,6 +123,9 @@ public class MapDataCache {
      * fallback only covers the area around the player.
      */
     public static DimensionData getClientData() {
+        if (!clientDataReady) {
+            return EMPTY;
+        }
         final long version = clientDataVersion;
         DimensionData data = clientDataBuilt;
         if (data != null && data.version == version) {

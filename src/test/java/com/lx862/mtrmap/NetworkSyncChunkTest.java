@@ -10,9 +10,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NetworkSyncChunkTest {
 
@@ -36,5 +38,14 @@ class NetworkSyncChunkTest {
         assertEquals("rail-a", decoded.tracks.getFirst().id);
         assertEquals(MapLandmark.Type.PLATFORM, decoded.landmarks.getFirst().type());
         assertEquals("Red→Terminus", decoded.landmarks.getFirst().description());
+    }
+
+    @Test
+    void rejectsCountsThatCannotFitInThePayload() throws Exception {
+        final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        new DataOutputStream(bytes).writeInt(Integer.MAX_VALUE);
+
+        assertThrows(IOException.class, () -> NetworkSnapshotCodec.readDimensionList(
+                new DataInputStream(new ByteArrayInputStream(bytes.toByteArray()))));
     }
 }

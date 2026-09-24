@@ -65,24 +65,24 @@ public final class NetworkSnapshotCodec {
     }
 
     public static List<MapDataCache.DimensionData> readDimensionList(DataInputStream in) throws IOException {
-        final int dimensionCount = in.readInt();
+        final int dimensionCount = readCount(in, 22);
         final List<MapDataCache.DimensionData> result = new ArrayList<>(dimensionCount);
         for (int d = 0; d < dimensionCount; d++) {
             final String dimensionId = in.readUTF();
             final long snapshotHash = in.readLong();
-            final int routeCount = in.readInt();
+            final int routeCount = readCount(in, 17);
             final List<MapRoute> routes = new ArrayList<>(routeCount);
             for (int r = 0; r < routeCount; r++) {
                 final String id = in.readUTF();
                 final String name = in.readUTF();
                 final int color = in.readInt();
                 final boolean circular = in.readBoolean();
-                final int stopCount = in.readInt();
+                final int stopCount = readCount(in, 12);
                 final List<MapRoute.Stop> stops = new ArrayList<>(stopCount);
                 for (int s = 0; s < stopCount; s++) {
                     stops.add(new MapRoute.Stop(in.readFloat(), in.readFloat(), in.readUTF(), in.readUTF()));
                 }
-                final int routeTrackCount = in.readInt();
+                final int routeTrackCount = readCount(in, 2);
                 final List<String> routeTrackIds = new ArrayList<>(routeTrackCount);
                 for (int t = 0; t < routeTrackCount; t++) {
                     routeTrackIds.add(in.readUTF());
@@ -90,11 +90,11 @@ public final class NetworkSnapshotCodec {
                 routes.add(new MapRoute(id, name, color, circular, stops, routeTrackIds));
             }
 
-            final int trackCount = in.readInt();
+            final int trackCount = readCount(in, 6);
             final List<MapTrack> tracks = new ArrayList<>(trackCount);
             for (int t = 0; t < trackCount; t++) {
                 final String trackId = in.readUTF();
-                final int pointCount = in.readInt();
+                final int pointCount = readCount(in, 8);
                 final List<double[]> points = new ArrayList<>(pointCount);
                 for (int p = 0; p < pointCount; p++) {
                     points.add(new double[]{in.readFloat(), in.readFloat()});
@@ -102,7 +102,7 @@ public final class NetworkSnapshotCodec {
                 tracks.add(new MapTrack(trackId, points));
             }
 
-            final int landmarkCount = in.readInt();
+            final int landmarkCount = readCount(in, 22);
             final List<MapLandmark> landmarks = new ArrayList<>(landmarkCount);
             for (int l = 0; l < landmarkCount; l++) {
                 final String id = in.readUTF();
@@ -117,6 +117,15 @@ public final class NetworkSnapshotCodec {
             result.add(new MapDataCache.DimensionData(dimensionId, routes, tracks, landmarks, snapshotHash));
         }
         return result;
+    }
+
+    /** The caller provides an in-memory payload, so available() bounds allocations before decoding. */
+    private static int readCount(DataInputStream in, int minimumBytesPerEntry) throws IOException {
+        final int count = in.readInt();
+        if (count < 0 || count > in.available() / minimumBytesPerEntry) {
+            throw new IOException("Invalid snapshot element count: " + count);
+        }
+        return count;
     }
 
     public static final class PendingDimension {

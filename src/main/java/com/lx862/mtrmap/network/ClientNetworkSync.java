@@ -23,18 +23,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class ClientNetworkSync {
 
-    /** Retry a snapshot request this often until the server answers once. */
-    private static final long INITIAL_RETRY_MILLIS = 30_000;
     /** After the first successful sync, refresh at least this often while playing. */
     private static final long MIN_REFRESH_MILLIS = 60_000;
 
-    private static final Map<Integer, TransferBuffer> transfers = new ConcurrentHashMap<>();
+    private static final Map<Integer, NetworkChunkAssembler> transfers = new ConcurrentHashMap<>();
     private static final Map<String, Long> knownHashes = new ConcurrentHashMap<>();
     private static long lastProbeMillis = 0;
-    private static long lastRequestMillis = 0;
-    private static long lastSuccessfulSyncMillis = 0;
     private static int SCREEN_TRACE_TIMER = 0;
-    private static boolean SELF_TEST_DONE = false;
     /** Flips to true when a server answered at least once; flips back on world change. */
     private static boolean serverHasSupport = false;
     /** Set when the connected server clearly has no support, to back off requests. */
@@ -65,7 +60,6 @@ public final class ClientNetworkSync {
                 return;
             }
             MTRNetwork.sendToServer(new RequestNetworkSync(dimensionFilter));
-            lastRequestMillis = System.currentTimeMillis();
             if (MTRMapConfig.INSTANCE.debugLog.get()) {
                 MTRMap.LOGGER.info("[MTRMap] Requested full-network snapshot ({}, filter={})",
                         trigger, dimensionFilter);
@@ -80,6 +74,10 @@ public final class ClientNetworkSync {
     /** Ask the server for per-dimension content hashes (cheap hot-update probe). */
     private static void requestProbe() {
         try {
+            if (!MTRNetwork.canSendToServer()) {
+                markServerUnsupported();
+                return;
+            }
             MTRNetwork.sendToServer(NetworkSyncProbe.INSTANCE);
             lastProbeMillis = System.currentTimeMillis();
             if (MTRMapConfig.INSTANCE.debugLog.get()) {
@@ -93,7 +91,6 @@ public final class ClientNetworkSync {
     /** Hot-update: pull full snapshots only for dimensions whose hash changed. */
     static void onProbeReceived(List<NetworkProbeResponse.DimensionHash> hashes) {
         serverHasSupport = true;
-        lastSuccessfulSyncMillis = System.currentTimeMillis();
         for (NetworkProbeResponse.DimensionHash entry : hashes) {
             final Long known = knownHashes.get(entry.dimensionId());
             if (known == null || known.longValue() != entry.hash()) {
@@ -106,27 +103,25 @@ public final class ClientNetworkSync {
         // Ignore stale transfers.
         transfers.values().removeIf(t -> t.ageMillis() > 120_000);
 
-        final TransferBuffer buffer = transfers.computeIfAbsent(chunk.transferId(), id -> new TransferBuffer());
-        if (buffer.done) {
-            return;
-        }
-        buffer.store(chunk.chunkIndex(), chunk);
-        if (buffer.receivedCount < chunk.totalChunks()) {
-            return;
-        }
-
-        // All chunks present - reassemble.
-        buffer.done = true;
-        transfers.remove(chunk.transferId());
         try {
+            final NetworkChunkAssembler buffer = transfers.computeIfAbsent(chunk.transferId(),
+                    id -> new NetworkChunkAssembler(chunk.totalChunks(), chunk.snapshotHash()));
+            if (!buffer.add(chunk.chunkIndex(), chunk.totalChunks(), chunk.snapshotHash(), chunk.data())) {
+                return;
+            }
+
+            // All chunks present - reassemble.
+            transfers.remove(chunk.transferId(), buffer);
             final byte[] payload = buffer.assemble();
             final List<MapDataCache.DimensionData> dimensions =
                     NetworkSnapshotCodec.readDimensionList(new java.io.DataInputStream(
                             new java.io.ByteArrayInputStream(payload)));
+            if (dimensions.size() != 1 || dimensions.getFirst().version != buffer.snapshotHash()) {
+                throw new IOException("Snapshot dimension count or hash does not match its chunks");
+            }
 
             boolean firstOnServer = !serverHasSupport;
             serverHasSupport = true;
-            lastSuccessfulSyncMillis = System.currentTimeMillis();
             for (MapDataCache.DimensionData dimension : dimensions) {
                 MapDataCache.putServerData(dimension.dimensionId, dimension);
                 knownHashes.put(dimension.dimensionId, dimension.version);
@@ -141,6 +136,9 @@ public final class ClientNetworkSync {
             }
         } catch (IOException e) {
             MTRMap.LOGGER.error("[MTRMap] Failed to decode network snapshot", e);
+        } catch (IllegalArgumentException e) {
+            transfers.remove(chunk.transferId());
+            MTRMap.LOGGER.warn("[MTRMap] Rejected invalid snapshot chunk: {}", e.getMessage());
         }
     }
 
@@ -182,7 +180,7 @@ public final class ClientNetworkSync {
         // regular cadence; full snapshots are pulled only when a hash changes.
         final long interval = Math.max(MIN_REFRESH_MILLIS,
                 MTRMapConfig.INSTANCE.networkSyncIntervalSeconds.get() * 1000L);
-        if (now - lastProbeMillis >= interval) {
+        if (now >= serverUnsupportedBackoffUntil && now - lastProbeMillis >= interval) {
             requestProbe();
         }
     }
@@ -191,11 +189,11 @@ public final class ClientNetworkSync {
         // Fresh world/connection: reset sync state and ask for a snapshot as
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
+        MapDataCache.clearClientData();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;
         serverUnsupportedBackoffUntil = 0;
-        lastSuccessfulSyncMillis = 0;
         lastProbeMillis = System.currentTimeMillis()
                 - Math.max(MIN_REFRESH_MILLIS, MTRMapConfig.INSTANCE.networkSyncIntervalSeconds.get() * 1000L)
                 + 3_000; // first probe ~3 seconds after login
@@ -203,47 +201,11 @@ public final class ClientNetworkSync {
 
     public static void onLoggingOut() {
         MapDataCache.clearServerData();
+        MapDataCache.clearClientData();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;
         serverUnsupportedBackoffUntil = 0;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Reassembly buffer
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static final class TransferBuffer {
-
-        private final Map<Short, NetworkSyncChunk> chunks = new ConcurrentHashMap<>();
-        private final long createdMillis = System.currentTimeMillis();
-        private volatile boolean done;
-        private volatile int receivedCount;
-
-        void store(short index, NetworkSyncChunk chunk) {
-            if (chunks.put(index, chunk) == null) {
-                receivedCount++;
-            }
-        }
-
-        long ageMillis() {
-            return System.currentTimeMillis() - createdMillis;
-        }
-
-        byte[] assemble() {
-            final short total = chunks.values().iterator().next().totalChunks();
-            int size = 0;
-            for (short i = 0; i < total; i++) {
-                size += chunks.get(i).data().length;
-            }
-            final byte[] payload = new byte[size];
-            int offset = 0;
-            for (short i = 0; i < total; i++) {
-                final byte[] part = chunks.get(i).data();
-                System.arraycopy(part, 0, payload, offset, part.length);
-                offset += part.length;
-            }
-            return payload;
-        }
-    }
 }
