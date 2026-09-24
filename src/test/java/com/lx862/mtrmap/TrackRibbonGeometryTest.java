@@ -14,8 +14,8 @@ class TrackRibbonGeometryTest {
     @Test
     void adjacentBandsShareOnlyTheirBoundary() {
         final List<double[]> rail = List.of(new double[] {0, 0}, new double[] {10, 0});
-        final List<double[]> first = TrackRibbonGeometry.band(rail, -2, 0);
-        final List<double[]> second = TrackRibbonGeometry.band(rail, 0, 2);
+        final List<double[]> first = TrackRibbonGeometry.sections(rail, -2, 0).getFirst();
+        final List<double[]> second = TrackRibbonGeometry.sections(rail, 0, 2).getFirst();
         assertEquals(4, first.size());
         assertEquals(4, second.size());
         assertEquals(0, first.get(0)[1]);
@@ -26,8 +26,8 @@ class TrackRibbonGeometryTest {
 
     @Test
     void duplicateSamplesDoNotProduceDegenerateBand() {
-        final List<double[]> polygon = TrackRibbonGeometry.band(
-                List.of(new double[] {0, 0}, new double[] {0, 0}, new double[] {3, 4}), -1, 1);
+        final List<double[]> polygon = TrackRibbonGeometry.sections(
+                List.of(new double[] {0, 0}, new double[] {0, 0}, new double[] {3, 4}), -1, 1).getFirst();
         assertEquals(4, polygon.size());
     }
 
@@ -44,20 +44,38 @@ class TrackRibbonGeometryTest {
     }
 
     @Test
-    void curvedRailSectionsOverlapWithoutGaps() {
+    void curvedRailUsesConvexSegmentQuads() {
         final List<double[]> rail = IntStream.range(0, 30)
                 .mapToObj(i -> new double[] {i * 8.0, (i % 2) * 3.0})
                 .toList();
         final List<List<double[]>> sections = TrackRibbonGeometry.sections(rail, -2, 2);
         assertTrue(sections.size() > 1);
-        for (int i = 0; i < sections.size() - 1; i++) {
-            final List<double[]> current = sections.get(i);
-            final List<double[]> next = sections.get(i + 1);
-            assertEquals(next.getFirst()[0], current.get(current.size() / 2 - 2)[0]);
-            assertEquals(next.getFirst()[1], current.get(current.size() / 2 - 2)[1]);
-            assertEquals(next.get(1)[0], current.get(current.size() / 2 - 1)[0]);
-            assertEquals(next.get(1)[1], current.get(current.size() / 2 - 1)[1]);
+        for (List<double[]> quad : sections) {
+            assertEquals(4, quad.size());
+            double winding = 0;
+            for (int i = 0; i < 4; i++) {
+                final double[] a = quad.get(i);
+                final double[] b = quad.get((i + 1) % 4);
+                final double[] c = quad.get((i + 2) % 4);
+                final double cross = (b[0] - a[0]) * (c[1] - b[1])
+                        - (b[1] - a[1]) * (c[0] - b[0]);
+                assertTrue(Math.abs(cross) > 1.0E-4);
+                if (i == 0) {
+                    winding = Math.signum(cross);
+                } else {
+                    assertEquals(winding, Math.signum(cross));
+                }
+            }
         }
+    }
+
+    @Test
+    void neighbouringStraightQuadsOverlapAtJoin() {
+        final List<List<double[]>> sections = TrackRibbonGeometry.sections(List.of(
+                new double[] {0, 0}, new double[] {8, 0}, new double[] {16, 0.8}), -2, 2);
+        assertEquals(2, sections.size());
+        assertTrue(sections.get(0).get(1)[0] > 8);
+        assertTrue(sections.get(1).get(0)[0] < 8);
     }
 
     @Test

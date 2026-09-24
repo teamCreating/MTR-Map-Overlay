@@ -3,92 +3,50 @@ package com.lx862.mtrmap.mapdata;
 import java.util.ArrayList;
 import java.util.List;
 
-/** World-space ribbon around the same sampled physical rail used by Xaero. */
+/** JourneyMap strip geometry around the physical rail sampled for Xaero. */
 public final class TrackRibbonGeometry {
 
-    private static final int MAX_SEGMENTS_PER_POLYGON = 6;
     private static final double SIMPLIFY_TOLERANCE = 0.35;
 
     private TrackRibbonGeometry() {
     }
 
     /**
-     * Builds one continuous band, ordered along its right edge and back along
-     * its left edge. Offsets are measured in world blocks from the rail center.
-     */
-    public static List<double[]> band(List<double[]> sampled, double left, double right) {
-        if (sampled == null || sampled.size() < 2 || right <= left) {
-            return List.of();
-        }
-        final List<double[]> points = validPoints(sampled);
-        if (points.size() < 2) {
-            return List.of();
-        }
-
-        // Adjacent MTR rails meet at their centerline endpoints. A short cap
-        // makes independently rendered ribbons overlap instead of exposing a
-        // one-pixel seam after JourneyMap rounds coordinates to whole blocks.
-        final double cap = Math.min(1.0, (right - left) * 0.25);
-        final double[] first = points.getFirst();
-        final double[] second = points.get(1);
-        final double firstLength = Math.hypot(second[0] - first[0], second[1] - first[1]);
-        final double[] last = points.getLast();
-        final double[] beforeLast = points.get(points.size() - 2);
-        final double lastLength = Math.hypot(last[0] - beforeLast[0], last[1] - beforeLast[1]);
-        points.set(0, new double[] {first[0] - (second[0] - first[0]) * cap / firstLength,
-                first[1] - (second[1] - first[1]) * cap / firstLength});
-        points.set(points.size() - 1, new double[] {last[0] + (last[0] - beforeLast[0]) * cap / lastLength,
-                last[1] + (last[1] - beforeLast[1]) * cap / lastLength});
-
-        final List<double[]> rightEdge = new ArrayList<>(points.size());
-        final List<double[]> leftEdge = new ArrayList<>(points.size());
-        for (int i = 0; i < points.size(); i++) {
-            final double[] before = points.get(Math.max(0, i - 1));
-            final double[] after = points.get(Math.min(points.size() - 1, i + 1));
-            final double dx = after[0] - before[0];
-            final double dz = after[1] - before[1];
-            final double length = Math.hypot(dx, dz);
-            if (length < 1.0E-4) {
-                return List.of();
-            }
-            final double nx = -dz / length;
-            final double nz = dx / length;
-            rightEdge.add(new double[] {points.get(i)[0] + nx * right, points.get(i)[1] + nz * right});
-            leftEdge.add(new double[] {points.get(i)[0] + nx * left, points.get(i)[1] + nz * left});
-        }
-        rightEdge.addAll(leftEdge.reversed());
-        return rightEdge;
-    }
-
-    /**
-     * JourneyMap triangulates each PolygonOverlay independently. Long, thin
-     * outlines with many nearly collinear samples are unstable there, so use
-     * short polygons whose adjoining edge vertices are exactly identical.
+     * JourneyMap triangulates PolygonOverlay outlines. A ribbon with multiple
+     * bends can be concave or self-intersecting, including when split into
+     * short multi-segment pieces. Match Xaero's per-segment normal instead:
+     * every overlay is one convex four-corner strip. Small end caps overlap
+     * adjacent strips and independently sampled rails after integer rounding.
      */
     public static List<List<double[]>> sections(List<double[]> sampled, double left, double right) {
         final List<double[]> simplified = simplify(sampled);
-        final List<double[]> outline = band(simplified, left, right);
-        if (outline.isEmpty()) {
+        if (simplified.size() < 2 || right <= left) {
             return List.of();
         }
-        final int count = outline.size() / 2;
         final List<List<double[]>> result = new ArrayList<>();
-        for (int start = 0; start < count - 1;) {
-            final int end = Math.min(count - 1, start + MAX_SEGMENTS_PER_POLYGON);
-            final List<double[]> section = new ArrayList<>(2 * (end - start + 1));
-            for (int i = start; i <= end; i++) {
-                section.add(outline.get(i));
+        for (int i = 0; i < simplified.size() - 1; i++) {
+            final double[] start = simplified.get(i);
+            final double[] end = simplified.get(i + 1);
+            final double dx = end[0] - start[0];
+            final double dz = end[1] - start[1];
+            final double length = Math.hypot(dx, dz);
+            if (length < 1.0E-4) {
+                continue;
             }
-            for (int i = end; i >= start; i--) {
-                section.add(outline.get(2 * count - 1 - i));
-            }
-            result.add(section);
-            if (end == count - 1) {
-                break;
-            }
-            // An opaque, one-segment overlap hides rasterization seams at the
-            // boundary between two independently triangulated overlays.
-            start = end - 1;
+            final double ux = dx / length;
+            final double uz = dz / length;
+            final double nx = -uz;
+            final double nz = ux;
+            final double cap = Math.min(0.75, length * 0.25);
+            final double x1 = start[0] - ux * cap;
+            final double z1 = start[1] - uz * cap;
+            final double x2 = end[0] + ux * cap;
+            final double z2 = end[1] + uz * cap;
+            result.add(List.of(
+                    new double[] {x1 + nx * right, z1 + nz * right},
+                    new double[] {x2 + nx * right, z2 + nz * right},
+                    new double[] {x2 + nx * left, z2 + nz * left},
+                    new double[] {x1 + nx * left, z1 + nz * left}));
         }
         return result;
     }
