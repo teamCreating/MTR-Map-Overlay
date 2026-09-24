@@ -6,6 +6,7 @@ import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
+import com.lx862.mtrmap.mapdata.RailRenderStyle;
 import com.lx862.mtrmap.mapdata.TrackRoutePalette;
 import com.lx862.mtrmap.mixin.client.xaero.XaeroWorldMapAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -37,9 +38,6 @@ import java.util.Map;
  */
 public class XaeroRouteRenderer {
 
-    private static final float TRACK_HALF_WIDTH_PX = 1.25f;
-    private static final int TRACK_COLOR = 0x404040;
-    private static final int TRACK_ALPHA = 175;
     /** Stop hit radius (in blocks) for hover picking. */
     private static final double STOP_PICK_RADIUS = 20.0;
     /** Segment hit distance (in blocks) for hover picking. */
@@ -300,8 +298,8 @@ public class XaeroRouteRenderer {
             if (bands == null || bands.isEmpty()) {
                 continue;
             }
-            final float widthMultiplier = 1.0f + Math.min(0.6f, Math.max(0, bands.size() - 3) * 0.15f);
-            final float halfWidth = worldLineWidth(TRACK_HALF_WIDTH_PX * widthMultiplier, scale);
+            final float widthMultiplier = RailRenderStyle.routeWidthMultiplier(bands.size());
+            final float halfWidth = RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX * widthMultiplier, scale);
             drawRibbon(matrix, consumer, track.points, halfWidth, bands, minX, minZ, maxX, maxZ);
         }
     }
@@ -336,26 +334,26 @@ public class XaeroRouteRenderer {
             final double right = i == bands.size() - 1 ? halfWidth : left + bandWidth;
             final int color = band.color();
             consumer.addVertex(matrix, (float) (x1 + nx * right), (float) (z1 + nz * right), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
             consumer.addVertex(matrix, (float) (x2 + nx * right), (float) (z2 + nz * right), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
             consumer.addVertex(matrix, (float) (x2 + nx * left), (float) (z2 + nz * left), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
             consumer.addVertex(matrix, (float) (x1 + nx * left), (float) (z1 + nz * left), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, TRACK_ALPHA);
+                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
         }
     }
 
     private static void drawTracks(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks, double scale,
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        final float halfWidth = worldLineWidth(TRACK_HALF_WIDTH_PX, scale);
-        final int r = (TRACK_COLOR >> 16) & 0xFF;
-        final int g = (TRACK_COLOR >> 8) & 0xFF;
-        final int b = TRACK_COLOR & 0xFF;
+        final float halfWidth = RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX, scale);
+        final int r = (RailRenderStyle.TRACK_COLOR >> 16) & 0xFF;
+        final int g = (RailRenderStyle.TRACK_COLOR >> 8) & 0xFF;
+        final int b = RailRenderStyle.TRACK_COLOR & 0xFF;
 
         for (MapTrack track : tracks) {
-            drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, TRACK_ALPHA,
+            drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, RailRenderStyle.TRACK_ALPHA,
                     minX, minZ, maxX, maxZ);
         }
     }
@@ -372,12 +370,6 @@ public class XaeroRouteRenderer {
             }
             drawSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, r, g, b, a);
         }
-    }
-
-    private static float worldLineWidth(float px, double scale) {
-        // Keep the line a constant screen width, but never thinner than a third
-        // of a block when zoomed all the way in.
-        return (float) Math.max(px / scale, 0.33);
     }
 
     private static void drawSegment(Matrix4f matrix, VertexConsumer consumer,

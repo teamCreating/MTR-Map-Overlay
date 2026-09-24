@@ -48,6 +48,15 @@ final class JourneyMapLandmarkManager {
     private static final List<MarkerOverlay> activeMarkers = new ArrayList<>();
     private static MarkerOverlay testMarker;
 
+    static List<MarkerOverlay> displayedMarkers() {
+        if (testMarker == null) {
+            return activeMarkers;
+        }
+        final List<MarkerOverlay> markers = new ArrayList<>(activeMarkers);
+        markers.add(testMarker);
+        return markers;
+    }
+
     private JourneyMapLandmarkManager() {
     }
 
@@ -96,12 +105,6 @@ final class JourneyMapLandmarkManager {
         }
         activeMarkers.clear();
 
-        // Paths are submitted first (all tracks, then all routes); every
-        // station/platform/depot marker is submitted last and has a higher
-        // display order than either path layer.
-        JourneyMapPathManager.sync(api, world, MapDataCache.get(world.dimension().location().getNamespace()
-                + "/" + world.dimension().location().getPath()));
-
         int failures = 0;
         for (Map.Entry<String, MarkerOverlay> entry : desiredMarkers.entrySet()) {
             try {
@@ -134,9 +137,9 @@ final class JourneyMapLandmarkManager {
             // The bundled marker PNGs are 32x32; declaring 16x16 samples
             // only a corner of the station/depot icon in JourneyMap too.
             final MapImage icon = new MapImage(iconLocation, 32, 32);
-            icon.centerAnchors();
             icon.setDisplayWidth(size);
             icon.setDisplayHeight(size);
+            icon.centerAnchors();
 
             final StringBuilder title = new StringBuilder(landmark.name());
             if (landmark.type() == MapLandmark.Type.PLATFORM) {
@@ -177,6 +180,8 @@ final class JourneyMapLandmarkManager {
         }
 
         final MapImage icon = new MapImage(markerIcon("train", false), 32, 32);
+        icon.setDisplayWidth(12);
+        icon.setDisplayHeight(12);
         icon.centerAnchors();
         icon.setColor(0xFF00AAFF);
         final MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);
@@ -368,10 +373,10 @@ final class JourneyMapLandmarkManager {
             TransportMode transportMode, boolean isDepot, int color, Level world) {
         ResourceLocation iconRL = getMarkerIcon(transportMode, isDepot);
         MapImage icon = new MapImage(iconRL, 32, 32);
-        icon.centerAnchors();
         icon.setColor(color | 0xFF000000); // ensure alpha
         icon.setDisplayWidth(isDepot ? 10 : 12);
         icon.setDisplayHeight(isDepot ? 10 : 12);
+        icon.centerAnchors();
 
         // v2 API generates the marker id internally; markerId is kept for logging only
         MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);

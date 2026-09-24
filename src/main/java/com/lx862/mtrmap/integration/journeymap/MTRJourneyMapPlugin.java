@@ -26,6 +26,7 @@ public class MTRJourneyMapPlugin implements IClientPlugin {
     public void initialize(IClientAPI api) {
         clientAPI = api;
         JourneyMapToolbar.register();
+        JourneyMapForegroundRenderer.register();
         MTRMap.LOGGER.info("[{}] JourneyMap v2 API initialized!", MTRMap.MOD_NAME);
     }
 

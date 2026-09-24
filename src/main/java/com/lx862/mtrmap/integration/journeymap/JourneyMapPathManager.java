@@ -1,137 +1,185 @@
 package com.lx862.mtrmap.integration.journeymap;
 
-import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.MapTrack;
-import com.lx862.mtrmap.mapdata.TrackRibbonGeometry;
+import com.lx862.mtrmap.mapdata.RailRenderStyle;
 import com.lx862.mtrmap.mapdata.TrackRoutePalette;
-import journeymap.api.v2.client.IClientAPI;
-import journeymap.api.v2.client.display.Context;
-import journeymap.api.v2.client.display.PolygonOverlay;
-import journeymap.api.v2.client.model.MapPolygon;
-import journeymap.api.v2.client.model.ShapeProperties;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.Level;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
+import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/** Static fullscreen-map rail ribbons; never creates JourneyMap waypoints. */
+/** Draws JourneyMap tracks and routes in pixel space, like the Xaero layer. */
 final class JourneyMapPathManager {
 
-    private static final int TRACK_COLOR = 0x404040;
-    private static final List<PolygonOverlay> activePaths = new ArrayList<>();
-    private static MapDataCache.DimensionData displayedData;
-    private static ResourceKey<Level> displayedDimension;
-    private static boolean displayedTracks;
-    private static boolean displayedRoutes;
+    private static MapDataCache.DimensionData preparedData;
+    private static List<PreparedTrack> preparedTracks = List.of();
 
     private JourneyMapPathManager() {
     }
 
-    static void sync(IClientAPI api, Level world, MapDataCache.DimensionData data) {
+    static void render(GuiGraphics graphics, MapDataCache.DimensionData data,
+            JourneyMapScreenProjection projection) {
         final MTRMapConfig config = MTRMapConfig.INSTANCE;
         final boolean tracksEnabled = config.enabled.get() && config.trackLinesEnabled.get();
         final boolean routesEnabled = config.enabled.get() && config.routeLinesEnabled.get();
-        if (displayedData == data && displayedDimension == world.dimension()
-                && displayedTracks == tracksEnabled && displayedRoutes == routesEnabled) {
+        if ((!tracksEnabled && !routesEnabled) || projection.pixelsPerBlock() <= 0) {
             return;
         }
 
-        for (PolygonOverlay path : activePaths) {
-            try {
-                api.remove(path);
-            } catch (Exception e) {
-                MTRMap.LOGGER.debug("[MTRMap] Could not remove an old JourneyMap path: {}", e.getMessage());
-            }
-        }
-        activePaths.clear();
-        displayedData = data;
-        displayedDimension = world.dimension();
-        displayedTracks = tracksEnabled;
-        displayedRoutes = routesEnabled;
-        if (!tracksEnabled && !routesEnabled) {
+        final double scale = projection.pixelsPerBlock();
+        final int width = graphics.guiWidth();
+        final int height = graphics.guiHeight();
+        final JourneyMapScreenProjection.WorldBounds view = projection.visibleWorldBounds(width, height, 16);
+        if (view == null) {
             return;
         }
+        prepare(data);
 
-        int failures = 0;
-        // Submit whole layers, not track-by-track. Their display orders put
-        // routes in front of tracks even when both switches are enabled.
+        final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
+        final Matrix4f matrix = graphics.pose().last().pose();
+
+        // One RenderType and one flush give an unambiguous order on every map:
+        // all physical rails first, all coloured route lanes second.
         if (tracksEnabled) {
-            for (MapTrack track : data.tracks) {
-                if (track.points.size() < 2) {
+            for (PreparedTrack prepared : preparedTracks) {
+                if (!prepared.visible(view)) {
                     continue;
                 }
-                final int routeCount = data.routePalette.getOrDefault(track.id, List.of()).size();
-                final double halfWidth = Math.max(2.0, routeCount);
-                failures += showBand(api, world.dimension(), track, -halfWidth - 0.75, halfWidth + 0.75,
-                        TRACK_COLOR, 1.0f, JourneyMapLayerOrder.TRACK, "MTR track");
+                final MapTrack track = prepared.track;
+                final List<TrackRoutePalette.Entry> bands = prepared.bands;
+                float halfWidth = RailRenderStyle.screenHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX, scale);
+                if (routesEnabled && !bands.isEmpty()) {
+                    final float routeWidth = routeHalfWidth(bands.size(), scale);
+                    halfWidth = Math.max(halfWidth, routeWidth + RailRenderStyle.TRACK_SHOULDER_PX);
+                }
+                drawTrack(matrix, consumer, track, projection, halfWidth, width, height);
             }
         }
         if (routesEnabled) {
-            for (MapTrack track : data.tracks) {
-                if (track.points.size() < 2) {
+            for (PreparedTrack prepared : preparedTracks) {
+                if (!prepared.visible(view)) {
                     continue;
                 }
-                final List<TrackRoutePalette.Entry> bands = data.routePalette.getOrDefault(track.id, List.of());
-                if (bands.isEmpty()) {
-                    continue;
-                }
-                final double halfWidth = Math.max(2.0, bands.size());
-                final double bandWidth = 2 * halfWidth / bands.size();
-                for (int i = 0; i < bands.size(); i++) {
-                    final TrackRoutePalette.Entry band = bands.get(i);
-                    final double left = -halfWidth + i * bandWidth;
-                    failures += showBand(api, world.dimension(), track, left, left + bandWidth,
-                            band.color(), 1.0f, JourneyMapLayerOrder.ROUTE, band.name());
+                final MapTrack track = prepared.track;
+                final List<TrackRoutePalette.Entry> bands = prepared.bands;
+                if (!bands.isEmpty()) {
+                    drawRoutes(matrix, consumer, track, bands, projection,
+                            routeHalfWidth(bands.size(), scale), width, height);
                 }
             }
         }
-        MTRMap.LOGGER.info("[MTRMap] JourneyMap paths: {} rail/route bands, {} failed in {}",
-                activePaths.size(), failures, world.dimension().location());
+        RenderSystem.disableCull();
+        graphics.bufferSource().endBatch(RenderType.gui());
+        RenderSystem.enableCull();
     }
 
-    private static int showBand(IClientAPI api, ResourceKey<Level> dimension, MapTrack track,
-            double left, double right, int color, float opacity, int order, String title) {
-        int failures = 0;
-        for (List<double[]> section : TrackRibbonGeometry.sections(track.points, left, right)) {
-            failures += showSection(api, dimension, track.id, section, color, opacity, order, title);
+    private static void prepare(MapDataCache.DimensionData data) {
+        if (preparedData == data) {
+            return;
         }
-        return failures;
+        final List<PreparedTrack> next = new ArrayList<>(data.tracks.size());
+        for (MapTrack track : data.tracks) {
+            if (track.points.size() < 2) {
+                continue;
+            }
+            double minX = Double.POSITIVE_INFINITY;
+            double maxX = Double.NEGATIVE_INFINITY;
+            double minZ = Double.POSITIVE_INFINITY;
+            double maxZ = Double.NEGATIVE_INFINITY;
+            for (double[] point : track.points) {
+                minX = Math.min(minX, point[0]);
+                maxX = Math.max(maxX, point[0]);
+                minZ = Math.min(minZ, point[1]);
+                maxZ = Math.max(maxZ, point[1]);
+            }
+            next.add(new PreparedTrack(track, data.routePalette.getOrDefault(track.id, List.of()),
+                    minX, minZ, maxX, maxZ));
+        }
+        preparedTracks = next;
+        preparedData = data;
     }
 
-    private static int showSection(IClientAPI api, ResourceKey<Level> dimension, String trackId,
-            List<double[]> section, int color, float opacity, int order, String title) {
-        final List<BlockPos> vertices = new ArrayList<>(section.size());
-        for (double[] point : section) {
-            final BlockPos vertex = new BlockPos((int) Math.round(point[0]), 64, (int) Math.round(point[1]));
-            if (vertices.isEmpty() || !vertices.getLast().equals(vertex)) {
-                vertices.add(vertex);
+    private record PreparedTrack(MapTrack track, List<TrackRoutePalette.Entry> bands,
+            double minX, double minZ, double maxX, double maxZ) {
+        boolean visible(JourneyMapScreenProjection.WorldBounds view) {
+            return view.intersects(minX, minZ, maxX, maxZ);
+        }
+    }
+
+    private static float routeHalfWidth(int routeCount, double scale) {
+        return RailRenderStyle.screenHalfWidth(
+                RailRenderStyle.TRACK_HALF_WIDTH_PX * RailRenderStyle.routeWidthMultiplier(routeCount), scale);
+    }
+
+    private static void drawTrack(Matrix4f matrix, VertexConsumer consumer, MapTrack track,
+            JourneyMapScreenProjection projection, float halfWidth, int viewWidth, int viewHeight) {
+        final int color = RailRenderStyle.TRACK_COLOR;
+        for (int i = 0; i + 1 < track.points.size(); i++) {
+            final double[] start = track.points.get(i);
+            final double[] end = track.points.get(i + 1);
+            final double x1 = projection.x(start[0], start[1]);
+            final double y1 = projection.y(start[0], start[1]);
+            final double x2 = projection.x(end[0], end[1]);
+            final double y2 = projection.y(end[0], end[1]);
+            if (outsideView(x1, y1, x2, y2, viewWidth, viewHeight)) {
+                continue;
+            }
+            drawSegment(matrix, consumer, x1, y1, x2, y2, -halfWidth, halfWidth, color);
+        }
+    }
+
+    private static void drawRoutes(Matrix4f matrix, VertexConsumer consumer, MapTrack track,
+            List<TrackRoutePalette.Entry> bands, JourneyMapScreenProjection projection,
+            float halfWidth, int viewWidth, int viewHeight) {
+        final double bandWidth = 2.0 * halfWidth / bands.size();
+        for (int i = 0; i + 1 < track.points.size(); i++) {
+            final double[] start = track.points.get(i);
+            final double[] end = track.points.get(i + 1);
+            final double x1 = projection.x(start[0], start[1]);
+            final double y1 = projection.y(start[0], start[1]);
+            final double x2 = projection.x(end[0], end[1]);
+            final double y2 = projection.y(end[0], end[1]);
+            if (outsideView(x1, y1, x2, y2, viewWidth, viewHeight)) {
+                continue;
+            }
+            for (int lane = 0; lane < bands.size(); lane++) {
+                final double left = -halfWidth + lane * bandWidth;
+                final double right = lane == bands.size() - 1 ? halfWidth : left + bandWidth;
+                drawSegment(matrix, consumer, x1, y1, x2, y2, left, right, bands.get(lane).color());
             }
         }
-        if (vertices.size() > 1 && vertices.getFirst().equals(vertices.getLast())) {
-            vertices.removeLast();
-        }
-        if (vertices.stream().distinct().limit(3).count() < 3) {
-            return 0;
-        }
+    }
 
-        final ShapeProperties style = new ShapeProperties().setFillColor(color & 0xFFFFFF)
-                .setFillOpacity(opacity).setStrokeOpacity(0);
-        final PolygonOverlay overlay = new PolygonOverlay(MTRMap.MOD_ID, dimension, style, new MapPolygon(vertices));
-        overlay.setActiveUIs(Context.UI.Fullscreen);
-        overlay.setDisplayOrder(order);
-        overlay.setLabel("");
-        overlay.setTitle(title);
-        try {
-            api.show(overlay);
-            activePaths.add(overlay);
-            return 0;
-        } catch (Exception e) {
-            MTRMap.LOGGER.debug("[MTRMap] JourneyMap path overlay failed for rail {}: {}", trackId, e.getMessage());
-            return 1;
+    private static boolean outsideView(double x1, double y1, double x2, double y2, int width, int height) {
+        final double margin = 8;
+        return !Double.isFinite(x1) || !Double.isFinite(y1) || !Double.isFinite(x2) || !Double.isFinite(y2)
+                || (x1 < -margin && x2 < -margin) || (x1 > width + margin && x2 > width + margin)
+                || (y1 < -margin && y2 < -margin) || (y1 > height + margin && y2 > height + margin);
+    }
+
+    private static void drawSegment(Matrix4f matrix, VertexConsumer consumer,
+            double x1, double y1, double x2, double y2, double left, double right, int color) {
+        final double dx = x2 - x1;
+        final double dy = y2 - y1;
+        final double length = Math.hypot(dx, dy);
+        if (length < 1.0E-4) {
+            return;
         }
+        final double nx = -dy / length;
+        final double ny = dx / length;
+        final int r = (color >> 16) & 0xFF;
+        final int g = (color >> 8) & 0xFF;
+        final int b = color & 0xFF;
+        final int a = RailRenderStyle.TRACK_ALPHA;
+        consumer.addVertex(matrix, (float) (x1 + nx * right), (float) (y1 + ny * right), 0).setColor(r, g, b, a);
+        consumer.addVertex(matrix, (float) (x2 + nx * right), (float) (y2 + ny * right), 0).setColor(r, g, b, a);
+        consumer.addVertex(matrix, (float) (x2 + nx * left), (float) (y2 + ny * left), 0).setColor(r, g, b, a);
+        consumer.addVertex(matrix, (float) (x1 + nx * left), (float) (y1 + ny * left), 0).setColor(r, g, b, a);
     }
 }
