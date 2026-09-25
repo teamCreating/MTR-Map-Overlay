@@ -1,3 +1,22 @@
+# v1.5.0 Release Notes (2026-09-25)
+
+Compared with the previous official release, [v1.4.6](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.4.6):
+
+- **JourneyMap now has the full rail and route layer.** Its fullscreen map draws sampled physical rails and adjacent colour bands for routes sharing a rail. Independent TRACKS and ROUTES buttons use the same red/off and green/on icon convention as Xaero. With both enabled, routes sit over tracks; station and platform icons remain on top in every switch combination.
+- **Map-anchored rendering.** JourneyMap uses Xaero-matched screen-pixel track width and the map's live pan, drag and zoom projection. The path and landmark layer stays aligned while dragging instead of floating or tearing.
+- **Lighter rendering and data handling.** Route paths reuse sampled track geometry; rail bounds cull offscreen work on both maps; JourneyMap batches compatible icons. Snapshot chunk assembly validates order, size and metadata, and client fallback caches are cleared when changing servers.
+- **Project presentation and builds.** The new 128×128 logo is used for the mod pack and both READMEs. GitHub Actions builds NeoForge and Fabric with Java 21; the English and Chinese guides now describe JourneyMap's actual renderer and controls.
+
+Minecraft 1.21.1, MTR 4.1.0-beta.2, and the v5 network snapshot protocol remain unchanged. Install only the JAR matching your loader. For whole-network data, the matching mod must run on the server as well as the client; client-only use is limited to MTR's nearby data. Both loader builds and NeoForge unit tests passed; Fabric in-game rendering and cross-machine networking have not been independently verified for this release.
+
+[Full diff: v1.4.6...v1.5.0](https://github.com/teamCreating/MTR-Map-Overlay/compare/v1.4.6...v1.5.0)
+
+## 中文摘要
+
+相较 [v1.4.6](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.4.6)，JourneyMap 全屏地图补齐 TRACK/ROUTE 轨道与共线路线色带，提供与 Xaero 一致的红/绿开关图标；双层开启时路线叠在轨道上，站点与站台图标始终位于最上层。整层跟随地图实时拖动与缩放，轨道线宽与 Xaero 一致。此版还复用轨道采样、剔除视窗外轨道、合批图标，并加强快照分块校验及跨服务器缓存清理。两端 README 已更新并使用新 Logo。全网视图仍需服务端安装对应版本；纯客户端只能显示 MTR 同步到附近的数据。协议保持 v5，版本号为 1.5.0。
+
+---
+
 # v1.4.6 Release Notes (2026-09-23)
 
 相较上一正式发布版 [v1.4.4](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.4)：

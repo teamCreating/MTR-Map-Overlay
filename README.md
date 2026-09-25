@@ -5,7 +5,7 @@
 
   <p>Minecraft Transit Railway routes, rails and stations on your map.</p>
 
-  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6">Download v1.4.6</a></p>
+  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.0">Download v1.5.0</a></p>
 </div>
 
 MTR Map Overlay is a Minecraft 1.21.1 add-on for **NeoForge or Fabric**. It reads [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) data and integrates with Xaero's World Map and JourneyMap. It does not depend on MTR Surveyor's map.
@@ -15,9 +15,9 @@ MTR Map Overlay is a Minecraft 1.21.1 add-on for **NeoForge or Fabric**. It read
 | Map | Overlay |
 | --- | --- |
 | Xaero's World Map | Physical rail geometry, route-coloured ribbons, and compact station, platform and depot icons. Hover to inspect routes and landmarks. |
-| JourneyMap | Physical rails, shared-route colour bands, and station, platform and depot markers on the fullscreen map. |
+| JourneyMap | Physical rails, shared-route colour bands, and station, platform and depot icons on the fullscreen map, with separate TRACKS and ROUTES controls. |
 
-These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. The station and platform icons follow the same map transform as the rails while panning and zooming.
+These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. Both map integrations draw physical rails first, coloured routes on top, and station/platform icons last. In JourneyMap, the entire layer follows the map's live drag and zoom transform; track width matches Xaero's screen-pixel style.
 
 When the mod is installed on the server as well as the client, it can request a **whole-network snapshot** for each dimension. Without the server component it still works, but can show only the nearby data MTR has sent to the client. Xaero and JourneyMap are optional integrations; install either or both.
 
@@ -31,12 +31,12 @@ When the mod is installed on the server as well as the client, it can request a 
 | Map mod | Xaero's World Map 1.45.0+ and/or JourneyMap 6.0.8+ for the respective loader |
 | Xaero's Minimap | Optional; used only to remove old `[MTR]` waypoints created by earlier releases |
 
-1. Download the **NeoForge** or **Fabric** JAR from [Releases](https://github.com/teamCreating/MTR-Xareo-Mapper/releases/tag/v1.4.6). Install **one**, not both, in the client's `mods` directory.
+1. Download the **NeoForge** or **Fabric** JAR from [Releases](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.0). Install **one**, not both, in the client's `mods` directory.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
 4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
 
-The server component is not required for client-only use. Fabric gameplay, including Xaero's render hook and cross-machine networking, has not yet been manually verified for v1.4.6; the build and static JAR checks passed. See [release notes](RELEASE_NOTES.md).
+The server component is not required for client-only use. NeoForge and Fabric builds and the shared headless tests are checked for this release; Fabric map rendering and cross-machine network behaviour still need in-game validation. See [release notes](RELEASE_NOTES.md).
 
 ## Commands and configuration
 
@@ -63,8 +63,8 @@ Use a Java 21 toolchain. The loader builds have separate Gradle wrappers because
 
 | Loader | Windows | macOS / Linux | Output |
 | --- | --- | --- | --- |
-| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.4.6.jar` |
-| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.4.6.jar` |
+| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.0.jar` |
+| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.0.jar` |
 
 The NeoForge build runs the shared JUnit tests. A successful build does not replace an in-game compatibility check, especially when Xaero's internal map renderer changes.
 
@@ -74,14 +74,14 @@ The NeoForge sources are under [`src/main/java/com/lx862/mtrmap`](src/main/java/
 
 | Area | Main responsibility |
 | --- | --- |
-| [`mapdata/`](src/main/java/com/lx862/mtrmap/mapdata) | `MapDataCache` selects server snapshots or nearby MTR client data. `TrackSampler` samples physical rails; `TrackRoutePalette` assigns stable colour bands to shared rails. |
-| [`network/`](src/main/java/com/lx862/mtrmap/network) | Protocol-v5 payloads and `NetworkSnapshotCodec` transfer routes, tracks and landmarks. `ServerNetworkCollector` reads MTR simulators on their own threads; `ClientNetworkSync` probes, requests and reassembles snapshots. |
+| [`mapdata/`](src/main/java/com/lx862/mtrmap/mapdata) | `MapDataCache` selects server snapshots or nearby MTR client data. `TrackSampler` samples each physical rail, reused by route paths; `TrackRoutePalette` assigns stable colour bands and `MapTrack` caches bounds for viewport culling. |
+| [`network/`](src/main/java/com/lx862/mtrmap/network) | Protocol-v5 payloads and `NetworkSnapshotCodec` transfer routes, tracks and landmarks. `ServerNetworkCollector` reads MTR simulators on their own threads; `ClientNetworkSync` probes and requests snapshots, while `NetworkChunkAssembler` validates and reassembles chunks. |
 | [`integration/xaero/`](src/main/java/com/lx862/mtrmap/integration/xaero) | `XaeroRouteRenderer` draws tracks, route ribbons and map-only icons in world-map coordinates and handles hover tooltips. |
-| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | Optional JourneyMap v2 plugin, fullscreen `MarkerOverlay` landmarks, and `PolygonOverlay` track/route ribbons. |
+| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | Optional JourneyMap v2 plugin. `JourneyMapToolbar` supplies TRACKS/ROUTES buttons; `JourneyMapScreenProjection` follows pan/drag/zoom; `JourneyMapPathManager` draws viewport-culled pixel-width track and route quads; `JourneyMapForegroundRenderer` keeps landmark icons above both layers. Fullscreen `MarkerOverlay` objects retain hover information. |
 | [`mixin/`](src/main/java/com/lx862/mtrmap/mixin) | Access to MTR data and the Xaero render hook; Fabric supplies its own Xaero hook variant. |
 | [`config/`](src/main/java/com/lx862/mtrmap/config) and [`fabric/src/main/java/`](fabric/src/main/java) | Loader-specific configuration, initialization, client commands and network registration. |
 
-Data flow: MTR simulator/client data → dimension-specific `MapDataCache` → Xaero renderer or JourneyMap overlays. With a modded server, the client first probes dimension hashes, requests changed snapshots, reassembles chunked payloads and updates the cache. Without one, the cache falls back to MTR's radius-limited client data.
+Data flow: MTR simulator/client data → dimension-specific `MapDataCache` → Xaero or JourneyMap fullscreen renderer. With a modded server, the client first probes dimension hashes, requests changed snapshots, validates and reassembles chunked payloads, then updates the cache. Without one, the cache falls back to MTR's radius-limited client data.
 
 ## Troubleshooting
 
