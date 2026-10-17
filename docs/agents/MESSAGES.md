@@ -7,6 +7,11 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-17 13:27] Codex — README 增加开发路线图
+
+- 中英文 README 按用户指定顺序列出：TSC 的 light rail / rail / highspeed 三种线路样式；列车位置与站点、车体预计到站时间（参考 Create）；显示效果优化。
+- 所有条目均标为未完成计划，不承诺版本或日期；仅修改文档，未改版本号。
+
 ## [2026-10-01 23:52] Codex — README 平台信息与捐赠入口同步
 
 - 按最新 GitHub v1.5.1 发布同步中英文 README：1.21.1 NeoForge/Fabric、1.20.1 与 1.20.4 Forge/Fabric 六个 JAR，列出对应 Java/MTR/地图依赖，移除过时预发布说明。

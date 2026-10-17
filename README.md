@@ -26,6 +26,14 @@ These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the
 
 When the mod is installed on the server as well as the client, it can request a **whole-network snapshot** for each dimension. Without the server component it still works, but can show only the nearby data MTR has sent to the client. Xaero and JourneyMap are optional integrations; install either or both.
 
+## Roadmap
+
+Planned work, in priority order. These features are not yet implemented; scope and timing may change.
+
+- [ ] **Next: TSC line types** — Integrate TSC's `light rail`, `rail` and `highspeed` line types, with a distinct map style for each.
+- [ ] **Then: live trains and arrival estimates** — Show train positions on the map and estimated arrival times in both station and train body information, with an experience inspired by Create's train map.
+- [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
+
 ## Requirements and installation
 
 | Minecraft | Loader | Java | MTR | Optional maps |
