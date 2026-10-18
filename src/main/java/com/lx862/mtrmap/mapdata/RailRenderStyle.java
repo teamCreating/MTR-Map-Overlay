@@ -13,7 +13,9 @@ public final class RailRenderStyle {
     }
 
     public static float routeWidthMultiplier(int routeCount) {
-        return 1.0f + Math.min(0.6f, Math.max(0, routeCount - 3) * 0.15f);
+        // Give the common two-to-four-route bundle legible individual lanes.
+        // Beyond four routes, subdivide the same bounded ribbon instead of widening forever.
+        return Math.max(1, Math.min(4, routeCount));
     }
 
     public static float worldHalfWidth(float pixels, double screenPixelsPerBlock) {

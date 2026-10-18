@@ -7,6 +7,14 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-18 23:50] Codex — main v1.5.2 三种路线样式
+
+- Core 路线类型贯通服务端、客户端回退、快照与 palette。普通实线；轻铁 70%；高铁 140%，彩白交替矩形块及连续线路色描边。
+- Xaero/JourneyMap 共用纯 Java 几何；混合共线按类型宽度分配，连续链累计块相位、反向轨道保持顺序、闭环无相位接缝；低缩放或色带过窄时简化。
+- 快照协议 v6，四种 payload 改用 `_v6` 通道，防止 Fabric 新旧包误解码；NeoForge registrar 同步升级。全网视图需要匹配的客户端/服务端版本。
+- NeoForge/Fabric 构建通过，29 项测试通过；`tools/RouteStylePreview.java` 用实际几何生成预览。未启动 Minecraft，游戏内验证待 Ben 完成。
+- 仅 main；兼容 worktree 保持 v1.5.1。详情见 `docs/validation/route-styles.md`。
+
 ## [2026-10-17 13:27] Codex — README 增加开发路线图
 
 - 中英文 README 按用户指定顺序列出：TSC 的 light rail / rail / highspeed 三种线路样式；列车位置与站点、车体预计到站时间（参考 Create）；显示效果优化。

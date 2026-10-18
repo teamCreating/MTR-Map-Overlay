@@ -3,6 +3,7 @@ package com.lx862.mtrmap;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
+import com.lx862.mtrmap.mapdata.RouteLineStyle;
 import com.lx862.mtrmap.network.NetworkSnapshotCodec;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class NetworkSyncChunkTest {
 
     @Test
-    void protocolFiveRoundTripsRailReferencesAndLandmarks() throws Exception {
+    void protocolSixRoundTripsRouteStylesRailReferencesAndLandmarks() throws Exception {
         final NetworkSnapshotCodec.PendingDimension source =
                 new NetworkSnapshotCodec.PendingDimension("minecraft/overworld", 42L);
         source.tracks.add(new MapTrack("rail-a", List.of(new double[]{1, 2}, new double[]{3, 4})));
-        source.routes.add(new MapRoute("route-a", "Red", 0xFF0000, false,
+        source.routes.add(new MapRoute("route-a", "Red", 0xFF0000, RouteLineStyle.HIGH_SPEED, false,
                 List.of(new MapRoute.Stop(2, 3, "Central", "Terminus")), List.of("rail-a")));
         source.landmarks.add(new MapLandmark("platform:a", MapLandmark.Type.PLATFORM,
                 2, 64, 3, "Central", "1", "Red→Terminus", true));
@@ -35,6 +36,8 @@ class NetworkSyncChunkTest {
 
         assertEquals("minecraft/overworld", decoded.dimensionId);
         assertEquals(List.of("rail-a"), decoded.routes.getFirst().trackIds);
+        assertEquals(RouteLineStyle.HIGH_SPEED, decoded.routes.getFirst().style);
+        assertEquals(RouteLineStyle.HIGH_SPEED, decoded.routePalette.get("rail-a").getFirst().style());
         assertEquals("rail-a", decoded.tracks.getFirst().id);
         assertEquals(MapLandmark.Type.PLATFORM, decoded.landmarks.getFirst().type());
         assertEquals("Red→Terminus", decoded.landmarks.getFirst().description());

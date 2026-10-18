@@ -19,15 +19,22 @@ public class MapRoute {
     public final String id;
     public final String name;
     public final int color;
+    public final RouteLineStyle style;
     /** True when the route is circular, in which case the polyline closes back to the first stop. */
     public final boolean circular;
     public final List<Stop> stops;
     public final List<String> trackIds;
 
     public MapRoute(String id, String name, int color, boolean circular, List<Stop> stops, List<String> trackIds) {
+        this(id, name, color, RouteLineStyle.NORMAL, circular, stops, trackIds);
+    }
+
+    public MapRoute(String id, String name, int color, RouteLineStyle style, boolean circular,
+            List<Stop> stops, List<String> trackIds) {
         this.id = id == null ? "" : id;
         this.name = name;
         this.color = color;
+        this.style = style == null ? RouteLineStyle.NORMAL : style;
         this.circular = circular;
         this.stops = stops;
         this.trackIds = trackIds == null ? List.of() : trackIds;
@@ -40,7 +47,12 @@ public class MapRoute {
 
     /** A route represented by the same physical rail strokes as the TRACK layer. */
     public static MapRoute ofTracks(String id, String name, int color, List<Stop> stops, List<MapTrack> tracks) {
-        return new MapRoute(id, name, color, false, stops,
+        return ofTracks(id, name, color, RouteLineStyle.NORMAL, stops, tracks);
+    }
+
+    public static MapRoute ofTracks(String id, String name, int color, RouteLineStyle style,
+            List<Stop> stops, List<MapTrack> tracks) {
+        return new MapRoute(id, name, color, style, false, stops,
                 tracks.stream().map(track -> track.id).distinct().toList());
     }
 

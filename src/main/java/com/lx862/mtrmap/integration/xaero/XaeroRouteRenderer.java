@@ -8,6 +8,8 @@ import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
 import com.lx862.mtrmap.mapdata.RailRenderStyle;
 import com.lx862.mtrmap.mapdata.TrackRoutePalette;
+import com.lx862.mtrmap.mapdata.TrackPatternLayout;
+import com.lx862.mtrmap.mapdata.RouteRibbonGeometry;
 import com.lx862.mtrmap.mixin.client.xaero.XaeroWorldMapAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -167,10 +169,10 @@ public class XaeroRouteRenderer {
         final double maxZ = cameraZ + halfH;
 
         if (MTRMapConfig.INSTANCE.trackLinesEnabled.get()) {
-            drawTracks(graphics, matrix, data.tracks, scale, minX, minZ, maxX, maxZ);
+            drawTracks(graphics, matrix, data.tracks, data.routePalette, scale, minX, minZ, maxX, maxZ);
         }
         if (MTRMapConfig.INSTANCE.routeLinesEnabled.get()) {
-            drawRoutes(graphics, matrix, data.tracks, data.routePalette, scale, minX, minZ, maxX, maxZ);
+            drawRoutes(graphics, matrix, data.tracks, data.routePalette, data.trackPatterns, scale, minX, minZ, maxX, maxZ);
         }
 
         // Flush now so the path layer lands in the map, without being culled away
@@ -287,67 +289,28 @@ public class XaeroRouteRenderer {
     // -----------------------------------------------------------------------------------------------------------------
 
     private static void drawRoutes(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks,
-            Map<String, List<TrackRoutePalette.Entry>> routeBands, double scale,
+            Map<String, List<TrackRoutePalette.Entry>> routeBands,
+            Map<String, TrackPatternLayout.Placement> patterns, double scale,
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-
-        // One physical rail, one draw pass. Shared routes divide the same
-        // TRACK-shaped ribbon across its width instead of painting over each other.
+        final RouteRibbonGeometry.QuadSink sink = (x1, z1, x2, z2, x3, z3, x4, z4, color, alpha) -> {
+            final int r = (color >> 16) & 255;
+            final int g = (color >> 8) & 255;
+            final int b = color & 255;
+            consumer.addVertex(matrix, (float) x1, (float) z1, 0).setColor(r, g, b, alpha);
+            consumer.addVertex(matrix, (float) x2, (float) z2, 0).setColor(r, g, b, alpha);
+            consumer.addVertex(matrix, (float) x3, (float) z3, 0).setColor(r, g, b, alpha);
+            consumer.addVertex(matrix, (float) x4, (float) z4, 0).setColor(r, g, b, alpha);
+        };
         for (MapTrack track : tracks) {
-            if (!track.intersects(minX, minZ, maxX, maxZ)) {
-                continue;
-            }
-            final List<TrackRoutePalette.Entry> bands = routeBands.get(track.id);
-            if (bands == null || bands.isEmpty()) {
-                continue;
-            }
-            final float widthMultiplier = RailRenderStyle.routeWidthMultiplier(bands.size());
-            final float halfWidth = RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX * widthMultiplier, scale);
-            drawRibbon(matrix, consumer, track.points, halfWidth, bands, minX, minZ, maxX, maxZ);
+            final List<TrackRoutePalette.Entry> bands = routeBands.getOrDefault(track.id, List.of());
+            RouteRibbonGeometry.draw(track, bands, patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT),
+                    scale, minX, minZ, maxX, maxZ, sink);
         }
     }
 
-    private static void drawRibbon(Matrix4f matrix, VertexConsumer consumer, List<double[]> points,
-            float halfWidth, List<TrackRoutePalette.Entry> bands,
-            double minX, double minZ, double maxX, double maxZ) {
-        for (int i = 0; i < points.size() - 1; i++) {
-            final double[] p1 = points.get(i);
-            final double[] p2 = points.get(i + 1);
-            if (!segmentOutsideView(p1[0], p1[1], p2[0], p2[1], minX, minZ, maxX, maxZ)) {
-                drawRibbonSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, bands);
-            }
-        }
-    }
-
-    private static void drawRibbonSegment(Matrix4f matrix, VertexConsumer consumer,
-            double x1, double z1, double x2, double z2, float halfWidth,
-            List<TrackRoutePalette.Entry> bands) {
-        final double dx = x2 - x1;
-        final double dz = z2 - z1;
-        final double length = Math.sqrt(dx * dx + dz * dz);
-        if (length < 1.0E-4) {
-            return;
-        }
-        final double nx = -dz / length;
-        final double nz = dx / length;
-        final double bandWidth = halfWidth * 2.0 / bands.size();
-        for (int i = 0; i < bands.size(); i++) {
-            final TrackRoutePalette.Entry band = bands.get(i);
-            final double left = -halfWidth + bandWidth * i;
-            final double right = i == bands.size() - 1 ? halfWidth : left + bandWidth;
-            final int color = band.color();
-            consumer.addVertex(matrix, (float) (x1 + nx * right), (float) (z1 + nz * right), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
-            consumer.addVertex(matrix, (float) (x2 + nx * right), (float) (z2 + nz * right), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
-            consumer.addVertex(matrix, (float) (x2 + nx * left), (float) (z2 + nz * left), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
-            consumer.addVertex(matrix, (float) (x1 + nx * left), (float) (z1 + nz * left), 0)
-                    .setColor((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF, RailRenderStyle.TRACK_ALPHA);
-        }
-    }
-
-    private static void drawTracks(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks, double scale,
+    private static void drawTracks(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks,
+            Map<String, List<TrackRoutePalette.Entry>> routeBands, double scale,
             double minX, double minZ, double maxX, double maxZ) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
         final float halfWidth = RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX, scale);
@@ -359,7 +322,11 @@ public class XaeroRouteRenderer {
             if (!track.intersects(minX, minZ, maxX, maxZ)) {
                 continue;
             }
-            drawPolyline(matrix, consumer, track.points, halfWidth, r, g, b, RailRenderStyle.TRACK_ALPHA,
+            final double routeWidth = MTRMapConfig.INSTANCE.routeLinesEnabled.get()
+                    ? RouteRibbonGeometry.halfWidth(routeBands.getOrDefault(track.id, List.of()), scale) : 0;
+            final float trackWidth = routeWidth > 0
+                    ? (float) Math.max(halfWidth, routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale) : halfWidth;
+            drawPolyline(matrix, consumer, track.points, trackWidth, r, g, b, RailRenderStyle.TRACK_ALPHA,
                     minX, minZ, maxX, maxZ);
         }
     }

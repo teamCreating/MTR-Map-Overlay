@@ -1,3 +1,14 @@
+# v1.5.2 Development Notes (2026-10-18)
+
+MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
+
+- Route types now reach both map renderers: light rail uses 70% width, normal rail 100%, and high speed 140% with alternating line-colour/white blocks inside continuous coloured edges.
+- Shared rails retain distinct weighted route lanes. Bundle width is capped beyond four routes; narrow lanes and low zoom omit white blocks. Continuous rail chains retain direction and stripe phase, including reversed rail storage; loops fit whole block pairs.
+- Whole-network snapshots now use protocol v6 and distinct payload channels. Install matching 1.5.2 client/server builds for a whole-network view. Radius-limited MTR fallback remains available.
+- NeoForge/Fabric builds and 29 NeoForge tests passed. Actual shared geometry was checked using a headless preview. Minecraft visual and multiplayer compatibility checks are pending.
+
+---
+
 # v1.5.1 Pre-release Notes (2026-09-28)
 
 Compared with [v1.5.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.0), this pre-release fixes NeoForge Dedicated Server startup:

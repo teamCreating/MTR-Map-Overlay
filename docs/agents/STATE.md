@@ -5,9 +5,9 @@
 
 ## 当前版本
 
-- **v1.5.1**（NeoForge 专用服务器启动修复；GitHub 最新发布版）
+- **v1.5.2 开发版（main）**：三种路线样式；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-01 23:52，操作者：Codex
+- 最后更新：2026-10-18 23:50，操作者：Codex
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 
@@ -25,7 +25,7 @@
 ## 架构现状
 
 - 独立 MTR 地图叠加项目，直接读取 MTR 数据并绘制到 Xaero / JourneyMap；不集成 MTR Surveyor 地图。
-- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v5。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
+- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v6（独立 `_v6` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
 - 旧 `mtrsurveyor.toml` 在新配置不存在时复制为 `mtrmap.toml`；全网同步需客户端和服务端都运行 `mtrmap` ID 版本。
 - Xaero 地标图标（World Map overlay 直接绘制；不进入 waypoint/Minimap/HUD）——构建通过，待 Ben 实机验证
 - Xaero 地标与轨道共用世界坐标变换，站点/站台拖动缩放不再按屏幕像素取整；Xaero/JourneyMap 站点纹理按实际 32×32 完整采样——构建/测试通过，待 Ben 实机验证
@@ -39,6 +39,9 @@
 - 共线彩虹带（唯一物理轨道一次绘制；route ID 稳定排序的横向色带；真实轨道悬停）——构建/测试通过，待 Ben 实机验证
 - 轨道采样复用（服务端每个快照按物理轨道采样一次，客户端车辆路径复用 TRACK 几何；仅有回退路线时构建寻路图）——NeoForge/Fabric 构建及单测通过，待实机验证
 - 渲染与同步边界检查（轨道包围盒用于 Xaero/JourneyMap 视口剔除；JourneyMap 图标按纹理/颜色/透明度合批；分块重组限制大小并校验元数据；切服清理客户端回退缓存）——NeoForge/Fabric 构建及单测通过，待实机验证
+
+- 2026-10-18 三种路线样式：Core RouteType 进入服务端、客户端车辆回退、路线 palette 和协议 v6；更改类型会触发哈希更新。轻铁 70%、普通 100%、高铁 140% 且彩白交替、连续色边。共线权重分配，四条以内保留单独宽度，更多路线限制总宽；物理连续链统一方向及累计相位，环线适配完整块对，低缩放/窄色带简化。
+- 2026-10-18 验证：NeoForge 与 Fabric 构建通过，NeoForge 29 项测试通过；共用几何生成无头 PNG 预览并检查。未启动 Minecraft，尚未做游戏内视觉及新旧客户端混连验证。详见 `docs/validation/route-styles.md`。MC 1.20 兼容分支本次未改动，仍为 v1.5.1。
 
 ## 已验证功能（最近一次实机测试）
 

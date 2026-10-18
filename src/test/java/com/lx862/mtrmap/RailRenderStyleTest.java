@@ -20,10 +20,10 @@ class RailRenderStyleTest {
     }
 
     @Test
-    void sharedRoutesStayWithinTheSmallWidthMultiplier() {
+    void sharedRoutesHaveLegibleLanesWithoutUnboundedBundleGrowth() {
         assertEquals(1.0f, RailRenderStyle.routeWidthMultiplier(1));
-        assertEquals(1.0f, RailRenderStyle.routeWidthMultiplier(3));
-        assertEquals(1.15f, RailRenderStyle.routeWidthMultiplier(4), 1.0E-5);
-        assertTrue(RailRenderStyle.routeWidthMultiplier(20) <= 1.6f);
+        assertEquals(3.0f, RailRenderStyle.routeWidthMultiplier(3));
+        assertEquals(4.0f, RailRenderStyle.routeWidthMultiplier(4), 1.0E-5);
+        assertTrue(RailRenderStyle.routeWidthMultiplier(20) <= 4.0f);
     }
 }

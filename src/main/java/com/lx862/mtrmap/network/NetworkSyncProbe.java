@@ -16,7 +16,7 @@ public record NetworkSyncProbe() implements CustomPacketPayload {
     public static final NetworkSyncProbe INSTANCE = new NetworkSyncProbe();
 
     public static final Type<NetworkSyncProbe> TYPE =
-            new Type<>(MTRNetwork.id("network_sync_probe"));
+            new Type<>(MTRNetwork.id("network_sync_probe_v6"));
 
     public static final StreamCodec<FriendlyByteBuf, NetworkSyncProbe> STREAM_CODEC =
             StreamCodec.unit(INSTANCE);

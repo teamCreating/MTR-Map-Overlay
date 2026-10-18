@@ -5,6 +5,8 @@ import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.MapTrack;
 import com.lx862.mtrmap.mapdata.RailRenderStyle;
 import com.lx862.mtrmap.mapdata.TrackRoutePalette;
+import com.lx862.mtrmap.mapdata.TrackPatternLayout;
+import com.lx862.mtrmap.mapdata.RouteRibbonGeometry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.gui.GuiGraphics;
@@ -55,7 +57,7 @@ final class JourneyMapPathManager {
                 final List<TrackRoutePalette.Entry> bands = prepared.bands;
                 float halfWidth = RailRenderStyle.screenHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX, scale);
                 if (routesEnabled && !bands.isEmpty()) {
-                    final float routeWidth = routeHalfWidth(bands.size(), scale);
+                    final float routeWidth = (float) (RouteRibbonGeometry.halfWidth(bands, scale) * scale);
                     halfWidth = Math.max(halfWidth, routeWidth + RailRenderStyle.TRACK_SHOULDER_PX);
                 }
                 drawTrack(matrix, consumer, track, projection, halfWidth, width, height);
@@ -70,7 +72,7 @@ final class JourneyMapPathManager {
                 final List<TrackRoutePalette.Entry> bands = prepared.bands;
                 if (!bands.isEmpty()) {
                     drawRoutes(matrix, consumer, track, bands, projection,
-                            routeHalfWidth(bands.size(), scale), width, height);
+                            data.trackPatterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT), view);
                 }
             }
         }
@@ -100,11 +102,6 @@ final class JourneyMapPathManager {
         }
     }
 
-    private static float routeHalfWidth(int routeCount, double scale) {
-        return RailRenderStyle.screenHalfWidth(
-                RailRenderStyle.TRACK_HALF_WIDTH_PX * RailRenderStyle.routeWidthMultiplier(routeCount), scale);
-    }
-
     private static void drawTrack(Matrix4f matrix, VertexConsumer consumer, MapTrack track,
             JourneyMapScreenProjection projection, float halfWidth, int viewWidth, int viewHeight) {
         final int color = RailRenderStyle.TRACK_COLOR;
@@ -124,24 +121,22 @@ final class JourneyMapPathManager {
 
     private static void drawRoutes(Matrix4f matrix, VertexConsumer consumer, MapTrack track,
             List<TrackRoutePalette.Entry> bands, JourneyMapScreenProjection projection,
-            float halfWidth, int viewWidth, int viewHeight) {
-        final double bandWidth = 2.0 * halfWidth / bands.size();
-        for (int i = 0; i + 1 < track.points.size(); i++) {
-            final double[] start = track.points.get(i);
-            final double[] end = track.points.get(i + 1);
-            final double x1 = projection.x(start[0], start[1]);
-            final double y1 = projection.y(start[0], start[1]);
-            final double x2 = projection.x(end[0], end[1]);
-            final double y2 = projection.y(end[0], end[1]);
-            if (outsideView(x1, y1, x2, y2, viewWidth, viewHeight)) {
-                continue;
-            }
-            for (int lane = 0; lane < bands.size(); lane++) {
-                final double left = -halfWidth + lane * bandWidth;
-                final double right = lane == bands.size() - 1 ? halfWidth : left + bandWidth;
-                drawSegment(matrix, consumer, x1, y1, x2, y2, left, right, bands.get(lane).color());
-            }
-        }
+            TrackPatternLayout.Placement pattern, JourneyMapScreenProjection.WorldBounds view) {
+        RouteRibbonGeometry.draw(track, bands, pattern, projection.pixelsPerBlock(),
+                view.minX(), view.minZ(), view.maxX(), view.maxZ(),
+                (x1, z1, x2, z2, x3, z3, x4, z4, color, alpha) -> {
+                    final int r = (color >> 16) & 255;
+                    final int g = (color >> 8) & 255;
+                    final int b = color & 255;
+                    consumer.addVertex(matrix, (float) projection.x(x1, z1), (float) projection.y(x1, z1), 0)
+                            .setColor(r, g, b, alpha);
+                    consumer.addVertex(matrix, (float) projection.x(x2, z2), (float) projection.y(x2, z2), 0)
+                            .setColor(r, g, b, alpha);
+                    consumer.addVertex(matrix, (float) projection.x(x3, z3), (float) projection.y(x3, z3), 0)
+                            .setColor(r, g, b, alpha);
+                    consumer.addVertex(matrix, (float) projection.x(x4, z4), (float) projection.y(x4, z4), 0)
+                            .setColor(r, g, b, alpha);
+                });
     }
 
     private static boolean outsideView(double x1, double y1, double x2, double y2, int width, int height) {

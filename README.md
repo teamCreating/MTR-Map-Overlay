@@ -28,9 +28,9 @@ When the mod is installed on the server as well as the client, it can request a 
 
 ## Roadmap
 
-Planned work, in priority order. These features are not yet implemented; scope and timing may change.
+Development progress, in priority order. Unfinished items may change in scope and timing.
 
-- [ ] **Next: TSC line types** — Integrate TSC's `light rail`, `rail` and `highspeed` line types, with a distinct map style for each.
+- [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width, rail uses standard width, and high speed uses 140% width with alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching 1.5.2 client and server builds (protocol v6); existing 1.5.1 release downloads are unchanged. In-game visual verification is pending.
 - [ ] **Then: live trains and arrival estimates** — Show train positions on the map and estimated arrival times in both station and train body information, with an experience inspired by Create's train map.
 - [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
 

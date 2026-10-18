@@ -24,7 +24,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
  */
 public class MTRNetwork {
 
-    private static final String PROTOCOL_VERSION = "5";
+    private static final String PROTOCOL_VERSION = "6";
 
     public static void register(RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar(PROTOCOL_VERSION).optional();

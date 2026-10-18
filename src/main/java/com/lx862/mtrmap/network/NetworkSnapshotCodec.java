@@ -4,6 +4,7 @@ import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
+import com.lx862.mtrmap.mapdata.RouteLineStyle;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Pure-Java protocol-v5 snapshot codec, kept independent of Minecraft payload classes for testing. */
+/** Pure-Java protocol-v6 snapshot codec, kept independent of Minecraft payload classes for testing. */
 public final class NetworkSnapshotCodec {
 
     private NetworkSnapshotCodec() {
@@ -27,6 +28,7 @@ public final class NetworkSnapshotCodec {
                 out.writeUTF(route.id);
                 out.writeUTF(route.name == null ? "" : route.name);
                 out.writeInt(route.color);
+                out.writeUTF(route.style.name());
                 out.writeBoolean(route.circular);
                 out.writeInt(route.stops.size());
                 for (MapRoute.Stop stop : route.stops) {
@@ -70,12 +72,13 @@ public final class NetworkSnapshotCodec {
         for (int d = 0; d < dimensionCount; d++) {
             final String dimensionId = in.readUTF();
             final long snapshotHash = in.readLong();
-            final int routeCount = readCount(in, 17);
+            final int routeCount = readCount(in, 19);
             final List<MapRoute> routes = new ArrayList<>(routeCount);
             for (int r = 0; r < routeCount; r++) {
                 final String id = in.readUTF();
                 final String name = in.readUTF();
                 final int color = in.readInt();
+                final RouteLineStyle style = RouteLineStyle.fromName(in.readUTF());
                 final boolean circular = in.readBoolean();
                 final int stopCount = readCount(in, 12);
                 final List<MapRoute.Stop> stops = new ArrayList<>(stopCount);
@@ -87,7 +90,7 @@ public final class NetworkSnapshotCodec {
                 for (int t = 0; t < routeTrackCount; t++) {
                     routeTrackIds.add(in.readUTF());
                 }
-                routes.add(new MapRoute(id, name, color, circular, stops, routeTrackIds));
+                routes.add(new MapRoute(id, name, color, style, circular, stops, routeTrackIds));
             }
 
             final int trackCount = readCount(in, 6);

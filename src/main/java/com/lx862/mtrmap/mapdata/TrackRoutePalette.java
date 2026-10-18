@@ -15,7 +15,7 @@ public final class TrackRoutePalette {
     public static Map<String, List<Entry>> build(List<MapRoute> routes) {
         final Map<String, Map<String, Entry>> grouped = new HashMap<>();
         for (MapRoute route : routes) {
-            final Entry entry = new Entry(route.id, route.name, route.color);
+            final Entry entry = new Entry(route.id, route.name, route.color, route.style);
             for (String trackId : route.trackIds) {
                 grouped.computeIfAbsent(trackId, ignored -> new LinkedHashMap<>()).putIfAbsent(route.id, entry);
             }
@@ -26,6 +26,6 @@ public final class TrackRoutePalette {
         return result;
     }
 
-    public record Entry(String id, String name, int color) {
+    public record Entry(String id, String name, int color, RouteLineStyle style) {
     }
 }
