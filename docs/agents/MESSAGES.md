@@ -7,6 +7,10 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-20 00:04] Codex — 真实 XYZ 绘制交付记录
+
+- 功能提交 `45cc002`；37 项测试零失败，最终 NeoForge/Fabric 构建通过，已复制 MC 1.21.1 测试包及合成预览至工作区 `test-builds/v1.5.3-train-height/`。未创建发布或修改 MC 1.20 兼容分支。
+
 ## [2026-10-19 23:52] Codex — main v1.5.3 真实 XYZ 附近车厢与高度排序
 
 - 用户要求先做绘制，本次不接 ETA、不实现全网列车动态流。MTR 原生 getVehicleCarsAndPositions/PositionAndRotation 保留真实车体 XYZ、坡度/侧倾及转向架偏移；悬停显示线路、目的地、车型 ID、车厢序号和 XYZ，标注附近数据。
