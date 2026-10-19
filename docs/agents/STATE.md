@@ -5,9 +5,9 @@
 
 ## 当前版本
 
-- **v1.5.2 开发版（main）**：三种路线样式；GitHub 已发布版本仍为 v1.5.1。
+- **v1.5.3 开发版（main）**：真实 XYZ 附近车厢及高度叠放；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-19 20:50，操作者：Codex
+- 最后更新：2026-10-20 00:04，操作者：Codex
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 
@@ -25,7 +25,7 @@
 ## 架构现状
 
 - 独立 MTR 地图叠加项目，直接读取 MTR 数据并绘制到 Xaero / JourneyMap；不集成 MTR Surveyor 地图。
-- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v6（独立 `_v6` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
+- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v7（轨道 double XYZ，独立 `_v7` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
 - 旧 `mtrsurveyor.toml` 在新配置不存在时复制为 `mtrmap.toml`；全网同步需客户端和服务端都运行 `mtrmap` ID 版本。
 - Xaero 地标图标（World Map overlay 直接绘制；不进入 waypoint/Minimap/HUD）——构建通过，待 Ben 实机验证
 - Xaero 地标与轨道共用世界坐标变换，站点/站台拖动缩放不再按屏幕像素取整；Xaero/JourneyMap 站点纹理按实际 32×32 完整采样——构建/测试通过，待 Ben 实机验证
@@ -43,6 +43,9 @@
 - 2026-10-18 三种路线样式：Core RouteType 进入服务端、客户端车辆回退、路线 palette 和协议 v6；更改类型会触发哈希更新。轻铁 70%、普通 100%、高铁 140% 且彩白交替、连续色边。共线权重分配，四条以内保留单独宽度，更多路线限制总宽；物理连续链统一方向及累计相位，环线适配完整块对，低缩放/窄色带简化。
 - 2026-10-18 验证：NeoForge 与 Fabric 构建通过，NeoForge 29 项测试通过；共用几何生成无头 PNG 预览并检查。未启动 Minecraft，尚未做游戏内视觉及新旧客户端混连验证。详见 `docs/validation/route-styles.md`。MC 1.20 兼容分支本次未改动，仍为 v1.5.1。
 
+- 2026-10-19，Codex：MTR 原生车体/转向架姿态 → MapCar XYZ，两个地图共用 HeightMapScene，坡道片段按高度排序，上层轨道遮挡下穿车厢及其悬停；配置/命令 trainCars，默认开启。仅附近玩家维度数据，不含 ETA。轨道采样与静态快照保留原生 Y，协议 v7 double XYZ；负高度及远坐标精度已验证。
+- 验证：37 项测试、NeoForge/Fabric 构建通过，实际共用几何的合成高度预览已检查；未启动 Minecraft，未做性能基准。完整限制和待验项目见 `docs/validation/train-height.md`。MC 1.20 兼容分支未改动。
+
 ## 已验证功能（最近一次实机测试）
 
 - 2026-09-05，runClient + quickplay TestWorld + MTR/Xaero 实装：
@@ -51,14 +54,14 @@
   - 会话无 mod 相关报错
 - 回归测试清单：见 `walkthrough.md` §7
 
-## 下一阶段设计（尚未实现）
+## 后续设计（部分实现）
 
-- 2026-10-19，Codex：列车车厢/位置/所属线路/ETA 规划见 `docs/plans/train-map-design.md`，按实际 Core 4.1 API 核验，分 P0–P4 验收。只有设计与待办更新，未改变 v1.5.2 功能或新增测试成绩。
+- 2026-10-19，Codex：列车车厢/位置/所属线路/ETA 规划见 `docs/plans/train-map-design.md`，按实际 Core 4.1 API 核验，分 P0–P4 验收。后续按用户要求先实现附近车厢 XYZ 和高度绘制；全网动态流及 ETA 仍待实现。
 
 ## 已知限制
 
 - 只渲染 TRAIN 模式轨道（路径层；JourneyMap 地标不受限）
-- 列车实时位置未上地图（数据已具备：`MinecraftClientData.vehicles`）
+- 附近车厢已有真实 XYZ 绘制；全网动态列车同步与 ETA 未实现。只做叠加层高度排序，不做地形/建筑/隧道顶板遮挡；游戏内姿态与遮挡待验证。
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 
 ## 历史要点

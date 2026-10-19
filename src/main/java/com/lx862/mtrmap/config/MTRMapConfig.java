@@ -27,6 +27,7 @@ public class MTRMapConfig {
         // World map path layers
         public final ModConfigSpec.BooleanValue routeLinesEnabled;
         public final ModConfigSpec.BooleanValue trackLinesEnabled;
+        public final ModConfigSpec.BooleanValue trainCarsEnabled;
 
         // Full-network sync (requires the mod on the server)
         public final ModConfigSpec.BooleanValue networkSyncEnabled;
@@ -71,6 +72,10 @@ public class MTRMapConfig {
                 trackLinesEnabled = builder
                                 .comment("Whether the MTR track layer (actual rail geometry) should be drawn on the Xaero's World Map")
                                 .define("trackLinesEnabled", true);
+
+                trainCarsEnabled = builder
+                                .comment("Draw actual nearby MTR train cars on fullscreen maps, ordered by measured world height")
+                                .define("trainCarsEnabled", true);
 
                 networkSyncEnabled = builder
                                 .comment("Request full-network snapshots from servers that also run this mod (Create-train-map-style whole-network view). Client-only servers fall back to radius-limited MTR data automatically")

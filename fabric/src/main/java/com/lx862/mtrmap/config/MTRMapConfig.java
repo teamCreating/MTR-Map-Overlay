@@ -22,6 +22,7 @@ public final class MTRMapConfig {
     public final Value<Boolean> enabled = bool("enabled", true);
     public final Value<String> waypointMode = value("waypointMode", "both", s -> s);
     public final Value<Boolean> routeLinesEnabled = bool("routeLinesEnabled", true);
+    public final Value<Boolean> trainCarsEnabled = bool("trainCarsEnabled", true);
     public final Value<Boolean> trackLinesEnabled = bool("trackLinesEnabled", true);
     public final Value<Boolean> networkSyncEnabled = bool("networkSync.enabled", true);
     public final Value<Integer> networkSyncIntervalSeconds = value("networkSync.refreshIntervalSeconds", 300,

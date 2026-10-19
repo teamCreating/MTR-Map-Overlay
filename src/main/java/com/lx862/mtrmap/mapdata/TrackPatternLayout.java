@@ -19,9 +19,10 @@ public final class TrackPatternLayout {
         public static final Placement DEFAULT = new Placement(false, 0, BLOCK_LENGTH);
     }
 
-    private record Endpoint(double x, double z) {
+    private record Endpoint(double x, double y, double z) {
         static Endpoint at(double[] point) {
-            return new Endpoint(point[0] == 0 ? 0 : point[0], point[1] == 0 ? 0 : point[1]);
+            return new Endpoint(point[0] == 0 ? 0 : point[0], point.length >= 3 ? point[2] : Double.NaN,
+                    point[1] == 0 ? 0 : point[1]);
         }
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public record NetworkProbeResponse(List<DimensionHash> hashes) implements CustomPacketPayload {
 
     public static final Type<NetworkProbeResponse> TYPE =
-            new Type<>(MTRNetwork.id("network_probe_response_v6"));
+            new Type<>(MTRNetwork.id("network_probe_response_v7"));
 
     public static final StreamCodec<FriendlyByteBuf, NetworkProbeResponse> STREAM_CODEC =
             StreamCodec.of(NetworkProbeResponse::write, NetworkProbeResponse::read);

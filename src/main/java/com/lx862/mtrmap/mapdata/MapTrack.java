@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * Render-ready representation of one stretch of physical rail for the map
  * track layer. Points are sampled along the rail's actual curve (including
- * arcs and slopes projected to X/Z).
+ * arcs and slopes). Points store X/Z/Y so existing planar geometry keeps its indices.
+ * The third component is the measured world Y; legacy two-component points have unknown height.
  */
 public class MapTrack {
 
@@ -30,7 +31,8 @@ public class MapTrack {
         double maxZ = Double.NEGATIVE_INFINITY;
         boolean validGeometry = true;
         for (double[] point : points) {
-            if (point == null || point.length < 2 || !Double.isFinite(point[0]) || !Double.isFinite(point[1])) {
+            if (point == null || point.length < 2 || !Double.isFinite(point[0]) || !Double.isFinite(point[1])
+                    || (point.length >= 3 && Double.isInfinite(point[2]))) {
                 validGeometry = false;
                 break;
             }
@@ -77,6 +79,12 @@ public class MapTrack {
                 }
             }
         }
+    }
+
+    /** Unknown heights remain NaN; a missing Y must never be invented from X/Z. */
+    public double height(int index) {
+        final double[] point = points.get(index);
+        return point.length >= 3 ? point[2] : Double.NaN;
     }
 
     public double length() {

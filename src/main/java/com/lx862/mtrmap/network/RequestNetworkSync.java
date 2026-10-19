@@ -16,7 +16,7 @@ public record RequestNetworkSync(String dimensionFilter) implements CustomPacket
     public static final RequestNetworkSync ALL = new RequestNetworkSync(null);
 
     public static final Type<RequestNetworkSync> TYPE =
-            new Type<>(MTRNetwork.id("request_network_sync_v6"));
+            new Type<>(MTRNetwork.id("request_network_sync_v7"));
 
     public static final StreamCodec<FriendlyByteBuf, RequestNetworkSync> STREAM_CODEC =
             StreamCodec.of(RequestNetworkSync::write, RequestNetworkSync::read);

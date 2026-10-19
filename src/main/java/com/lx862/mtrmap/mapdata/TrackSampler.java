@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Samples a rail's real geometry (arcs, slopes) into an X/Z polyline.
+ * Samples a rail's real geometry (arcs, slopes) into a height-bearing map polyline (X/Z/Y storage).
  * Shared by the client-side collector and the server-side network collector
  * so both produce identical track data.
  */
@@ -49,10 +49,10 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double d = d1 + (d2 - d1) * i / (sampleCount - 1);
                 final Vector pos = rail.railMath.getPosition(d, false);
-                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.y()) || !Double.isFinite(pos.z())) {
                     return null;
                 }
-                points.add(new double[]{pos.x(), pos.z()});
+                points.add(new double[]{pos.x(), pos.z(), pos.y()});
             }
             return points;
         } catch (Throwable e) {
@@ -81,10 +81,10 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double distance = Math.min(length, i * (length / (sampleCount - 1)));
                 final Vector pos = railMath.getPosition(distance, false);
-                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.y()) || !Double.isFinite(pos.z())) {
                     return null;
                 }
-                points.add(new double[]{pos.x(), pos.z()});
+                points.add(new double[]{pos.x(), pos.z(), pos.y()});
             }
             return points;
         } catch (Throwable e) {

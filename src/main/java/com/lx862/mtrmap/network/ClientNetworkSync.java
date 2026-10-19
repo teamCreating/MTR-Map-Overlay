@@ -190,6 +190,7 @@ public final class ClientNetworkSync {
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
+        com.lx862.mtrmap.mapdata.ClientTrainCollector.clear();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;
@@ -202,6 +203,7 @@ public final class ClientNetworkSync {
     public static void onLoggingOut() {
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
+        com.lx862.mtrmap.mapdata.ClientTrainCollector.clear();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;

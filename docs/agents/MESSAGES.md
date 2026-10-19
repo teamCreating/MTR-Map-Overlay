@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-19 23:52] Codex — main v1.5.3 真实 XYZ 附近车厢与高度排序
+
+- 用户要求先做绘制，本次不接 ETA、不实现全网列车动态流。MTR 原生 getVehicleCarsAndPositions/PositionAndRotation 保留真实车体 XYZ、坡度/侧倾及转向架偏移；悬停显示线路、目的地、车型 ID、车厢序号和 XYZ，标注附近数据。
+- 轨道采样保留真实 Y，快照 v7 double XYZ、独立 _v7 通道；静态纹理连接点也区分高度。两地图改用 HeightMapScene，使上层轨道/线路覆盖下穿车厢，遮挡后的车辆不被悬停选中。trainCars 默认启用，可通过客户端 config 命令关闭。
+- 高度排序为坡道细分的画家算法，不是像素级三维深度，也不含地形、建筑或隧道顶板遮挡。仅玩家所在维度附近车辆，MTR 客户端模拟外的列车暂不显示。
+- 37 项测试及 NeoForge/Fabric 构建通过；合成 XYZ 无头预览已检查，未启动游戏或做性能基准。见 docs/validation/train-height.md。MC 1.20 worktree 未修改。
+
 ## [2026-10-19 20:50] Codex — 列车车厢、运行线路和 ETA 深度规划（未实现）
 
 - 新增 `docs/plans/train-map-design.md`；核对实际 MTR 4.1.0-beta.2 JAR，而非把旧 Core JAR/master 当作当前依赖。

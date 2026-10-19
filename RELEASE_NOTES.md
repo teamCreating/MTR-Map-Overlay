@@ -1,3 +1,14 @@
+# v1.5.3 Development Notes (2026-10-19)
+
+MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
+
+- Nearby train cars use MTR's actual bogie/body transforms and world XYZ, including pitch/roll. Hover shows route, destination, model ID, car index and measured XYZ; no arrival estimate is invented. Toggle with `/mtrmap config trainCars false`.
+- Both maps share height-ordered railway/route/car geometry. Upper railways mask underpassing cars and their hover targets. Native track Y is retained, and static snapshot protocol v7 uses double XYZ with independent channels. Matching development client/server builds are required for full-network static geometry.
+- Height order uses subdivided painter fragments, not per-pixel 3D depth. Terrain/building/tunnel-roof occlusion and cave-slice filtering are not implemented. Live train coverage is nearby and limited to the player dimension, even with a full-network static map.
+- 37 tests and both loader builds passed; synthetic fixtures exercise the production geometry for underpass/overpass/slope ordering. Minecraft runtime alignment and performance checks remain manual.
+
+---
+
 # v1.5.2 Development Notes (2026-10-18)
 
 MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.

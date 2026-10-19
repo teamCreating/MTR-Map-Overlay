@@ -3,13 +3,14 @@ package com.lx862.mtrmap.integration.xaero;
 import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
+import com.lx862.mtrmap.mapdata.ClientTrainCollector;
+import com.lx862.mtrmap.mapdata.HeightMapScene;
+import com.lx862.mtrmap.mapdata.MapCar;
+import com.lx862.mtrmap.integration.TrainMapTooltip;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
-import com.lx862.mtrmap.mapdata.RailRenderStyle;
 import com.lx862.mtrmap.mapdata.TrackRoutePalette;
-import com.lx862.mtrmap.mapdata.TrackPatternLayout;
-import com.lx862.mtrmap.mapdata.RouteRibbonGeometry;
 import com.lx862.mtrmap.mixin.client.xaero.XaeroWorldMapAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -134,7 +135,9 @@ public class XaeroRouteRenderer {
         }
 
         final MapDataCache.DimensionData data = MapDataCache.get(dimensionKey);
-        if (data.isEmpty()) {
+        final List<MapCar> cars = MTRMapConfig.INSTANCE.trainCarsEnabled.get()
+                ? ClientTrainCollector.get(dimensionKey) : List.of();
+        if (data.isEmpty() && cars.isEmpty()) {
             renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
             if (!warnedNoData && playerDimension) {
                 warnedNoData = true;
@@ -154,12 +157,11 @@ public class XaeroRouteRenderer {
         // GuiMap inherits width/height from Screen; cast so we compile against
         // mapped Screen fields (the Xaero jar itself ships SRG-named members).
         final net.minecraft.client.gui.screens.Screen mcScreen = (net.minecraft.client.gui.screens.Screen) (Object) screen;
+        final Matrix4f screenMatrix = new Matrix4f(stack.last().pose());
         stack.pushPose();
         stack.translate(mcScreen.width / 2.0f, mcScreen.height / 2.0f, 0);
         stack.scale((float) scale, (float) scale, 1);
         stack.translate(-cameraX, -cameraZ, 0);
-        final Matrix4f matrix = stack.last().pose();
-
         // Visible world bounds for segment culling.
         final double halfW = mcScreen.width / 2.0 / scale;
         final double halfH = mcScreen.height / 2.0 / scale;
@@ -168,12 +170,10 @@ public class XaeroRouteRenderer {
         final double maxX = cameraX + halfW;
         final double maxZ = cameraZ + halfH;
 
-        if (MTRMapConfig.INSTANCE.trackLinesEnabled.get()) {
-            drawTracks(graphics, matrix, data.tracks, data.routePalette, scale, minX, minZ, maxX, maxZ);
-        }
-        if (MTRMapConfig.INSTANCE.routeLinesEnabled.get()) {
-            drawRoutes(graphics, matrix, data.tracks, data.routePalette, data.trackPatterns, scale, minX, minZ, maxX, maxZ);
-        }
+        final HeightMapScene scene = HeightMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
+                cars, MTRMapConfig.INSTANCE.trackLinesEnabled.get(), MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
+                scale, minX, minZ, maxX, maxZ);
+        drawScene(graphics, screenMatrix, scene, scale, cameraX, cameraZ, mcScreen.width, mcScreen.height);
 
         // Flush now so the path layer lands in the map, without being culled away
         // by later GUI batch usage.
@@ -194,7 +194,8 @@ public class XaeroRouteRenderer {
         if (mc.screen != null) {
             final double mouseWorldX = (mouseX - mcScreen.width / 2.0) / scale + cameraX;
             final double mouseWorldZ = (mouseY - mcScreen.height / 2.0) / scale + cameraZ;
-            final List<Component> tooltip = hoveredLandmark == null
+            final MapCar hoveredCar = hoveredLandmark == null ? scene.pick(mouseWorldX, mouseWorldZ) : null;
+            final List<Component> tooltip = hoveredCar != null ? TrainMapTooltip.lines(hoveredCar) : hoveredLandmark == null
                     ? (MTRMapConfig.INSTANCE.routeLinesEnabled.get()
                             ? pickTooltip(data, mouseWorldX, mouseWorldZ) : List.of())
                     : landmarkTooltip(hoveredLandmark);
@@ -288,78 +289,20 @@ public class XaeroRouteRenderer {
     // Geometry drawing
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static void drawRoutes(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks,
-            Map<String, List<TrackRoutePalette.Entry>> routeBands,
-            Map<String, TrackPatternLayout.Placement> patterns, double scale,
-            double minX, double minZ, double maxX, double maxZ) {
+    private static void drawScene(GuiGraphics graphics, Matrix4f matrix, HeightMapScene scene,
+            double scale, double cameraX, double cameraZ, int width, int height) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        final RouteRibbonGeometry.QuadSink sink = (x1, z1, x2, z2, x3, z3, x4, z4, color, alpha) -> {
-            final int r = (color >> 16) & 255;
-            final int g = (color >> 8) & 255;
-            final int b = color & 255;
-            consumer.addVertex(matrix, (float) x1, (float) z1, 0).setColor(r, g, b, alpha);
-            consumer.addVertex(matrix, (float) x2, (float) z2, 0).setColor(r, g, b, alpha);
-            consumer.addVertex(matrix, (float) x3, (float) z3, 0).setColor(r, g, b, alpha);
-            consumer.addVertex(matrix, (float) x4, (float) z4, 0).setColor(r, g, b, alpha);
-        };
-        for (MapTrack track : tracks) {
-            final List<TrackRoutePalette.Entry> bands = routeBands.getOrDefault(track.id, List.of());
-            RouteRibbonGeometry.draw(track, bands, patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT),
-                    scale, minX, minZ, maxX, maxZ, sink);
-        }
-    }
-
-    private static void drawTracks(GuiGraphics graphics, Matrix4f matrix, List<MapTrack> tracks,
-            Map<String, List<TrackRoutePalette.Entry>> routeBands, double scale,
-            double minX, double minZ, double maxX, double maxZ) {
-        final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        final float halfWidth = RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX, scale);
-        final int r = (RailRenderStyle.TRACK_COLOR >> 16) & 0xFF;
-        final int g = (RailRenderStyle.TRACK_COLOR >> 8) & 0xFF;
-        final int b = RailRenderStyle.TRACK_COLOR & 0xFF;
-
-        for (MapTrack track : tracks) {
-            if (!track.intersects(minX, minZ, maxX, maxZ)) {
-                continue;
+        for (HeightMapScene.Quad quad : scene.quads()) {
+            final int color = quad.color();
+            final int r = (color >> 16) & 255, g = (color >> 8) & 255, b = color & 255;
+            for (var point : List.of(quad.a(), quad.b(), quad.c(), quad.d())) {
+                // Subtract the camera in doubles before converting to screen floats.
+                // World Y controls painter order, not GUI Z (which belongs to the map/UI).
+                consumer.addVertex(matrix, (float) (width / 2.0 + (point.x() - cameraX) * scale),
+                                (float) (height / 2.0 + (point.z() - cameraZ) * scale), 0)
+                        .setColor(r, g, b, quad.alpha());
             }
-            final double routeWidth = MTRMapConfig.INSTANCE.routeLinesEnabled.get()
-                    ? RouteRibbonGeometry.halfWidth(routeBands.getOrDefault(track.id, List.of()), scale) : 0;
-            final float trackWidth = routeWidth > 0
-                    ? (float) Math.max(halfWidth, routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale) : halfWidth;
-            drawPolyline(matrix, consumer, track.points, trackWidth, r, g, b, RailRenderStyle.TRACK_ALPHA,
-                    minX, minZ, maxX, maxZ);
         }
-    }
-
-    /** Shared ROUTE/TRACK polyline renderer. */
-    private static void drawPolyline(Matrix4f matrix, VertexConsumer consumer, List<double[]> points,
-            float halfWidth, int r, int g, int b, int a,
-            double minX, double minZ, double maxX, double maxZ) {
-        for (int i = 0; i < points.size() - 1; i++) {
-            final double[] p1 = points.get(i);
-            final double[] p2 = points.get(i + 1);
-            if (segmentOutsideView(p1[0], p1[1], p2[0], p2[1], minX, minZ, maxX, maxZ)) {
-                continue;
-            }
-            drawSegment(matrix, consumer, p1[0], p1[1], p2[0], p2[1], halfWidth, r, g, b, a);
-        }
-    }
-
-    private static void drawSegment(Matrix4f matrix, VertexConsumer consumer,
-            double x1, double z1, double x2, double z2, float halfWidth, int r, int g, int b, int a) {
-        final double dx = x2 - x1;
-        final double dz = z2 - z1;
-        final double length = Math.sqrt(dx * dx + dz * dz);
-        if (length < 1.0E-4) {
-            return;
-        }
-        final double px = -dz / length * halfWidth;
-        final double pz = dx / length * halfWidth;
-
-        consumer.addVertex(matrix, (float) (x1 + px), (float) (z1 + pz), 0).setColor(r, g, b, a);
-        consumer.addVertex(matrix, (float) (x2 + px), (float) (z2 + pz), 0).setColor(r, g, b, a);
-        consumer.addVertex(matrix, (float) (x2 - px), (float) (z2 - pz), 0).setColor(r, g, b, a);
-        consumer.addVertex(matrix, (float) (x1 - px), (float) (z1 - pz), 0).setColor(r, g, b, a);
     }
 
     private static void fillQuad(Matrix4f matrix, VertexConsumer consumer,

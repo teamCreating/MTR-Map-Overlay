@@ -8,7 +8,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
-/** Fabric transport for the same version-6 snapshot payloads as NeoForge. */
+/** Fabric transport for the same version-7 snapshot payloads as NeoForge. */
 public final class MTRNetwork {
     private MTRNetwork() {
     }
@@ -24,7 +24,7 @@ public final class MTRNetwork {
                         context.player(), msg.dimensionFilter())));
         ServerPlayNetworking.registerGlobalReceiver(NetworkSyncProbe.TYPE, (msg, context) ->
                 context.server().execute(() -> ServerNetworkCollector.sendProbeResponse(context.player())));
-        MTRMap.LOGGER.info("[MTRMap] Fabric full-network sync payloads registered (protocol 6)");
+        MTRMap.LOGGER.info("[MTRMap] Fabric full-network sync payloads registered (protocol 7)");
     }
 
     public static void registerClient() {

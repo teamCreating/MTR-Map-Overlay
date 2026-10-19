@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Pure-Java protocol-v6 snapshot codec, kept independent of Minecraft payload classes for testing. */
+/** Pure-Java protocol-v7 snapshot codec, kept independent of Minecraft payload classes for testing. */
 public final class NetworkSnapshotCodec {
 
     private NetworkSnapshotCodec() {
@@ -46,9 +46,11 @@ public final class NetworkSnapshotCodec {
             for (MapTrack track : dimension.tracks) {
                 out.writeUTF(track.id);
                 out.writeInt(track.points.size());
-                for (double[] point : track.points) {
-                    out.writeFloat((float) point[0]);
-                    out.writeFloat((float) point[1]);
+                for (int i = 0; i < track.points.size(); i++) {
+                    // Wire order is true XYZ, with doubles preserving distant coordinates.
+                    out.writeDouble(track.points.get(i)[0]);
+                    out.writeDouble(track.height(i));
+                    out.writeDouble(track.points.get(i)[1]);
                 }
             }
             out.writeInt(dimension.landmarks.size());
@@ -97,10 +99,16 @@ public final class NetworkSnapshotCodec {
             final List<MapTrack> tracks = new ArrayList<>(trackCount);
             for (int t = 0; t < trackCount; t++) {
                 final String trackId = in.readUTF();
-                final int pointCount = readCount(in, 8);
+                final int pointCount = readCount(in, 24);
                 final List<double[]> points = new ArrayList<>(pointCount);
                 for (int p = 0; p < pointCount; p++) {
-                    points.add(new double[]{in.readFloat(), in.readFloat()});
+                    final double x = in.readDouble();
+                    final double y = in.readDouble();
+                    final double z = in.readDouble();
+                    if (!Double.isFinite(x) || !Double.isFinite(z) || Double.isInfinite(y)) {
+                        throw new IOException("Invalid rail XYZ coordinate");
+                    }
+                    points.add(new double[]{x, z, y});
                 }
                 tracks.add(new MapTrack(trackId, points));
             }
