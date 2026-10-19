@@ -7,10 +7,11 @@
 ## 进行中
 
 
-### [功能] 列车实时位置上地图
-- 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
-- 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。
-- 验收：世界地图上看到移动的列车点，随快照/vehicles 刷新。
+### [功能，待实现] 列车车厢、运行线路与到站预测
+- 详细设计：[train-map-design.md](../plans/train-map-design.md)，Codex，2026-10-19 20:50；本轮只有规划。
+- 先做 P0 实际 Core 4.1 API、this/next 语义和车辆/班次/停靠身份验证；再依次做 P1 附近车厢、P2 全网动态同步、P3 可靠 ETA、P4 兼容验证。
+- 位置采用有序原生路径里程及编组定义，不能直接沿二维地图线或按线路颜色定位；ETA 不能仅用 departureIndex/routeId 关联。
+- 验收、性能预算、协议与回退边界见设计文档，均尚未实测；不能沿用旧“小圆点预计工作量小”的判断。
 
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
@@ -24,6 +25,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 列车车厢、运行线路与 ETA 深度规划 — Codex，2026-10-19 20:50；核对实际 MTR 4.1.0-beta.2 JAR 和当前 main，新增 `docs/plans/train-map-design.md`。确认公开车辆遍历、ETA关联上下文缺失及现有二维地图模型边界；制定 P0–P4 验收与性能预算。只改文档，未改功能、版本，未运行新功能测试。
 
 - [完成] 三种线路样式 — Codex，2026-10-18 23:50，commit `5dce52c`；main v1.5.2 开发版，Core 路线类型、协议 v6、客户端回退、Xaero/JourneyMap 共用几何；轻铁细线、高铁宽彩白矩形块及连续色边，共线宽度和纹理缩放简化。NeoForge/Fabric 构建、29 项单测及无头几何预览通过，待游戏内验证。MC 1.20 兼容分支未改动。
 

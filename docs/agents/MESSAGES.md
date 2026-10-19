@@ -7,6 +7,14 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-19 20:50] Codex — 列车车厢、运行线路和 ETA 深度规划（未实现）
+
+- 新增 `docs/plans/train-map-design.md`；核对实际 MTR 4.1.0-beta.2 JAR，而非把旧 Core JAR/master 当作当前依赖。
+- 当前已公开 Siding.iterateVehicles/getVehicleById，4.1姿态结构与4.0不同；railProgress仍受保护。ArrivalResponse未保留实际车辆、Siding、班次偏移及完整停靠 occurrence，需要先验证稳定桥接/唯一关联。
+- 路径和编组定义＋进度流为首选正式方案，逐车厢姿态作原型及对照。现有二维 MapTrack 长度、去重 MapRoute.trackIds、静态纹理方向均不能直接当列车路径。
+- P0身份/API验证 → P1附近车厢 → P2全网动态流 → P3可靠ETA → P4兼容。ETA为Core预测，显式区分时刻表/无数据/过期；不按距离÷速度或线路颜色猜测。
+- 更新旧列车待办范围；未修改功能源码/版本，未构建、运行游戏或做性能基准。文档中的频率、带宽、耗时是方案参数和验收目标，不是测试成绩。
+
 ## [2026-10-18 23:50] Codex — main v1.5.2 三种路线样式
 
 - 代码 commit：`5dce52c`。
