@@ -1,4 +1,4 @@
-# v1.5.3 Development Notes (2026-10-19)
+# v1.5.2 Development Notes (updated 2026-10-20)
 
 MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
 
@@ -7,16 +7,9 @@ MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 c
 - Height order uses subdivided painter fragments, not per-pixel 3D depth. Terrain/building/tunnel-roof occlusion and cave-slice filtering are not implemented. Live train coverage is nearby and limited to the player dimension, even with a full-network static map.
 - 37 tests and both loader builds passed; synthetic fixtures exercise the production geometry for underpass/overpass/slope ordering. Minecraft runtime alignment and performance checks remain manual.
 
----
-
-# v1.5.2 Development Notes (2026-10-18)
-
-MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
-
 - Route types now reach both map renderers: light rail uses 70% width, normal rail 100%, and high speed 140% with alternating line-colour/white blocks inside continuous coloured edges.
 - Shared rails retain distinct weighted route lanes. Bundle width is capped beyond four routes; narrow lanes and low zoom omit white blocks. Continuous rail chains retain direction and stripe phase, including reversed rail storage; loops fit whole block pairs.
-- Whole-network snapshots now use protocol v6 and distinct payload channels. Install matching 1.5.2 client/server builds for a whole-network view. Radius-limited MTR fallback remains available.
-- NeoForge/Fabric builds and 29 NeoForge tests passed. Actual shared geometry was checked using a headless preview. Minecraft visual and multiplayer compatibility checks are pending.
+- Whole-network snapshots use protocol v7 and distinct payload channels. Install matching current 1.5.2 client/server builds for a whole-network view; earlier 1.5.2 development builds used v6. Radius-limited MTR fallback remains available.
 
 ---
 

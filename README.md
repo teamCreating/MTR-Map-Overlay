@@ -30,11 +30,11 @@ When the mod is installed on the server as well as the client, it can request a 
 
 Development progress, in priority order. Unfinished items may change in scope and timing.
 
-- [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width, rail uses standard width, and high speed uses 140% width with alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching development client and server builds (currently 1.5.3 / protocol v7); existing 1.5.1 release downloads are unchanged. In-game visual verification is pending.
-- [ ] **Live trains and arrival estimates (partially implemented)** — Main 1.5.3 draws nearby MTR car bodies from actual XYZ, with height-ordered railway/car overlays and service/coordinate tooltips. Whole-network dynamic train sync and arrival estimates are still planned.
+- [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width, rail uses standard width, and high speed uses 140% width with alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching development client and server builds (currently 1.5.2 / protocol v7); existing 1.5.1 release downloads are unchanged. In-game visual verification is pending.
+- [ ] **Live trains and arrival estimates (partially implemented)** — Main 1.5.2 draws nearby MTR car bodies from actual XYZ, with height-ordered railway/car overlays and service/coordinate tooltips. Whole-network dynamic train sync and arrival estimates are still planned.
 - [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
 
-### Nearby train cars (main 1.5.3 development)
+### Nearby train cars (main 1.5.2 development)
 
 Car bodies use MTR's actual body/bogie transforms, including pitch and roll. Hover shows the route, destination, model ID, car index and measured XYZ. Use `/mtrmap config trainCars false` to hide them (default: enabled). Cars currently cover only the player's dimension and vehicles MTR has synced nearby; a whole-network static map does not imply whole-network live trains.
 

@@ -5,9 +5,10 @@
 
 ## 当前版本
 
-- **v1.5.3 开发版（main）**：真实 XYZ 附近车厢及高度叠放；GitHub 已发布版本仍为 v1.5.1。
+- **v1.5.2 开发版（main）**：真实 XYZ 附近车厢及高度叠放；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-20 00:04，操作者：Codex
+- 最后更新：2026-10-20 00:06，操作者：Codex
+- 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 

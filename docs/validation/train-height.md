@@ -1,6 +1,6 @@
 # True XYZ and nearby car drawing — 2026-10-20
 
-Scope: main 1.5.3 development, MC 1.21.1, MTR 4.1.0-beta.2, NeoForge/Fabric. No ETA, no global dynamic train feed, no change to the MC 1.20 worktree.
+Scope: main 1.5.2 development, MC 1.21.1, MTR 4.1.0-beta.2, NeoForge/Fabric. No ETA, no global dynamic train feed, no change to the MC 1.20 worktree.
 
 ## Data and geometry
 
