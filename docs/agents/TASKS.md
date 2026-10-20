@@ -28,7 +28,7 @@
 
 ## 完成
 
-- [完成] 真实高度下穿遮挡时空复杂度分析 — Codex，2026-10-21 00:32；报告 `docs/plans/underpass-complexity.md`，生产几何数量工具 `tools/HeightComplexityProbe.java` 编译/运行通过。当前每帧含全输入扫描及 O(Q log Q) 排序、O(Q) 工作空间；合成平地/坡道 52000→209000 quads，不是帧时间实测。明确缓存/索引/独立深度通道的成本与精度边界；运行代码和 1.5.2 不变。
+- [完成] 真实高度下穿遮挡时空复杂度分析 — Codex，2026-10-21 00:32，commit `208cb9d`；报告 `docs/plans/underpass-complexity.md`，生产几何数量工具 `tools/HeightComplexityProbe.java` 编译/运行通过。当前每帧含全输入扫描及 O(Q log Q) 排序、O(Q) 工作空间；合成平地/坡道 52000→209000 quads，不是帧时间实测。明确缓存/索引/独立深度通道的成本与精度边界；运行代码和 1.5.2 不变。
 
 - [完成] Create 列车地图源码研究与可借鉴实现 — Codex，2026-10-21 00:25，commit `6a93a4c`；固定 Create `7ff2760`，追踪全局数据/定义、租约/动态 codec、插值、图集、静态缓存、高度、悬停和图校验修复。报告 `docs/plans/create-train-map-research.md`；更新 G0 顺序与静态缓存优先级。仅文档、未运行功能/性能测试；版本 1.5.2 不变。
 
