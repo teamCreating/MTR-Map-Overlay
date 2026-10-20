@@ -8,6 +8,7 @@
 
 
 ### [功能，部分实现] 列车车厢、运行线路与到站预测
+- 2026-10-21，Codex：用户要求已改为纯 2D；下穿遮挡与高度排序验收取消。真实 XYZ 保留，全图动态流与 PIDS ETA 的目标不变，当前仍仅附近数据。
 - 全图为用户明确要求；附近仅回退。P2 细化方案：[global-train-sync.md](../plans/global-train-sync.md)。2026-10-20，Codex；下一步 G0 权威适配→G1 全图概要→G2 远处完整车厢→G3 异常/性能验收，尚未实现。
 - 2026-10-21，Codex：依据 [Create 源码研究](../plans/create-train-map-research.md)，G0 前移全网原生姿态端到端原型和真值对照，路径进度优化时机按规模实测决定；静态几何缓存也应前移。并未实现全网动态流。
 - 详细设计：[train-map-design.md](../plans/train-map-design.md)。2026-10-19 23:52 已实现附近真实 XYZ 车厢及高度绘制；全网动态流和 ETA 待实现。
@@ -27,6 +28,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 地图绘制改为纯 2D — Codex，2026-10-21 00:44；固定底衬→色带→白块→车厢，primitive 平面四边形、无高度细分或排序、车厢专用 hover 目标；XYZ/协议 v7/版本 1.5.2 保留。39 测试及 NeoForge/Fabric 构建通过，坡度数量实验均 52000 quads，合成预览检查通过，未游戏内实测。
 
 - [完成] 真实高度下穿遮挡时空复杂度分析 — Codex，2026-10-21 00:32，commit `208cb9d`；报告 `docs/plans/underpass-complexity.md`，生产几何数量工具 `tools/HeightComplexityProbe.java` 编译/运行通过。当前每帧含全输入扫描及 O(Q log Q) 排序、O(Q) 工作空间；合成平地/坡道 52000→209000 quads，不是帧时间实测。明确缓存/索引/独立深度通道的成本与精度边界；运行代码和 1.5.2 不变。
 

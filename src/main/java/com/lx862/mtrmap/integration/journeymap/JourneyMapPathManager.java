@@ -1,7 +1,7 @@
 package com.lx862.mtrmap.integration.journeymap;
 
 import com.lx862.mtrmap.config.MTRMapConfig;
-import com.lx862.mtrmap.mapdata.HeightMapScene;
+import com.lx862.mtrmap.mapdata.PlanarMapScene;
 import com.lx862.mtrmap.mapdata.MapCar;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -10,28 +10,32 @@ import net.minecraft.client.renderer.RenderType;
 
 import java.util.List;
 
-/** Height-ordered physical rails, route lanes and actual nearby car poses. */
+/** Pure 2D physical rails, route lanes and actual nearby car footprints. */
 final class JourneyMapPathManager {
     private JourneyMapPathManager() {
     }
 
-    static HeightMapScene render(GuiGraphics graphics, MapDataCache.DimensionData data,
+    static PlanarMapScene render(GuiGraphics graphics, MapDataCache.DimensionData data,
             JourneyMapScreenProjection projection, List<MapCar> cars) {
         final var config = MTRMapConfig.INSTANCE;
         final var view = projection.visibleWorldBounds(graphics.guiWidth(), graphics.guiHeight(), 16);
         if (view == null || !config.enabled.get()) return null;
-        final HeightMapScene scene = HeightMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
+        final PlanarMapScene scene = PlanarMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
                 cars, config.trackLinesEnabled.get(), config.routeLinesEnabled.get(), projection.pixelsPerBlock(),
                 view.minX(), view.minZ(), view.maxX(), view.maxZ());
         final var consumer = graphics.bufferSource().getBuffer(RenderType.gui());
         final var matrix = graphics.pose().last().pose();
-        for (HeightMapScene.Quad quad : scene.quads()) {
+        for (PlanarMapScene.Quad quad : scene.quads()) {
             final int color = quad.color();
             final int r = (color >> 16) & 255, g = (color >> 8) & 255, b = color & 255;
-            for (var point : List.of(quad.a(), quad.b(), quad.c(), quad.d())) {
-                consumer.addVertex(matrix, (float) projection.x(point.x(), point.z()),
-                        (float) projection.y(point.x(), point.z()), 0).setColor(r, g, b, quad.alpha());
-            }
+            consumer.addVertex(matrix, (float) projection.x(quad.x1(), quad.z1()),
+                    (float) projection.y(quad.x1(), quad.z1()), 0).setColor(r, g, b, quad.alpha());
+            consumer.addVertex(matrix, (float) projection.x(quad.x2(), quad.z2()),
+                    (float) projection.y(quad.x2(), quad.z2()), 0).setColor(r, g, b, quad.alpha());
+            consumer.addVertex(matrix, (float) projection.x(quad.x3(), quad.z3()),
+                    (float) projection.y(quad.x3(), quad.z3()), 0).setColor(r, g, b, quad.alpha());
+            consumer.addVertex(matrix, (float) projection.x(quad.x4(), quad.z4()),
+                    (float) projection.y(quad.x4(), quad.z4()), 0).setColor(r, g, b, quad.alpha());
         }
         RenderSystem.disableCull();
         graphics.bufferSource().endBatch(RenderType.gui());

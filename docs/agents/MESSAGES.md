@@ -7,6 +7,12 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 00:44] Codex — 按用户要求改为纯 2D，版本仍 1.5.2
+
+- PlanarMapScene 替换 HeightMapScene，先全部底衬、再线路色带/白块、最后车厢；无高度细分/排序/下穿遮挡。渲染用 primitive X/Z quads，消除每 quad 的四个 MapVertex 及顶点 List 包装。悬停只逆序检查一个 body/marker 目标/可见车厢，重叠跟随绘制顺序。
+- XYZ 采集、原生坡度/侧倾姿态、tooltip、端点 Y 身份和协议 v7 保留。当前依旧附近车辆；全网动态流/PIDS ETA 未因本次变更而实现或取消。AGENTS 和当前文档同步，旧高度方案注明已被用户要求取代。
+- 39 测试零失败，NeoForge/Fabric 构建通过；数量工具在平地/轨道坡道/车厢坡道三个案例均 52000 quads（原最高 209000）；TrainPlanarPreview 合成预览已检查。无游戏内或帧时间实测。测试包整理到 test-builds/v1.5.2-planar/。
+
 ## [2026-10-21 00:32] Codex — 真实高度下穿时空复杂度分析
 
 - 用户要求下穿复杂度，核对 HeightMapScene/RouteRibbonGeometry/MapTrack/两渲染器。报告 `docs/plans/underpass-complexity.md`，区分全输入扫描、候选段、实际片段、色带/白块、动态分片、排序和拾取；不将包围盒剔除当空间索引，不称 O(车厢×轨道)。

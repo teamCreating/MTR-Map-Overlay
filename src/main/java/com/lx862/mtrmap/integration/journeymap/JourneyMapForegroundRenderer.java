@@ -3,7 +3,7 @@ package com.lx862.mtrmap.integration.journeymap;
 import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.ClientTrainCollector;
-import com.lx862.mtrmap.mapdata.HeightMapScene;
+import com.lx862.mtrmap.mapdata.PlanarMapScene;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.integration.TrainMapTooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -60,7 +60,7 @@ final class JourneyMapForegroundRenderer {
                     + minecraft.level.dimension().location().getPath();
             graphics.flush();
             graphics.pose().pushPose();
-            HeightMapScene scene = null;
+            PlanarMapScene scene = null;
             try {
                 graphics.pose().translate(0, 0, 400);
                 RenderSystem.setShaderColor(1, 1, 1, 1);

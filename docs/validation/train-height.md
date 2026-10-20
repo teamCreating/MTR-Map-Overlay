@@ -1,5 +1,7 @@
 # True XYZ and nearby car drawing — 2026-10-20
 
+> 2026-10-21：用户已要求改为纯 2D。本文是历史高度版本验证，当前实现见 [planar-map.md](planar-map.md)。
+
 Scope: main 1.5.2 development, MC 1.21.1, MTR 4.1.0-beta.2, NeoForge/Fabric. No ETA, no global dynamic train feed, no change to the MC 1.20 worktree.
 
 ## Data and geometry

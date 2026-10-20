@@ -1,11 +1,11 @@
-# v1.5.2 Development Notes (updated 2026-10-20)
+# v1.5.2 Development Notes (updated 2026-10-21)
 
 MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
 
 - Nearby train cars use MTR's actual bogie/body transforms and world XYZ, including pitch/roll. Hover shows route, destination, model ID, car index and measured XYZ; no arrival estimate is invented. Toggle with `/mtrmap config trainCars false`.
-- Both maps share height-ordered railway/route/car geometry. Upper railways mask underpassing cars and their hover targets. Native track Y is retained, and static snapshot protocol v7 uses double XYZ with independent channels. Matching development client/server builds are required for full-network static geometry.
-- Height order uses subdivided painter fragments, not per-pixel 3D depth. Terrain/building/tunnel-roof occlusion and cave-slice filtering are not implemented. Live train coverage is nearby and limited to the player dimension, even with a full-network static map.
-- 37 tests and both loader builds passed; synthetic fixtures exercise the production geometry for underpass/overpass/slope ordering. Minecraft runtime alignment and performance checks remain manual.
+- Both maps now use pure 2D layers: railway backing, route colours/blocks, then cars. Height subdivision, height sorting and underpass masking have been removed; car hover checks only car bodies/markers in paint order. Primitive X/Z quads avoid per-quad 3D vertex objects. Actual XYZ and static protocol v7 are retained.
+- Live train coverage is nearby and limited to the player dimension, even with a full-network static map. Global dynamic streaming and ETA remain planned.
+- 39 tests and both loader builds passed. Production-geometry fixtures now produce 52000 quads in each flat/slope case, versus up to 209000 before this change. This is a geometry count, not a timing result. Minecraft runtime alignment and performance checks remain manual.
 
 - Route types now reach both map renderers: light rail uses 70% width, normal rail 100%, and high speed 140% with alternating line-colour/white blocks inside continuous coloured edges.
 - Shared rails retain distinct weighted route lanes. Bundle width is capped beyond four routes; narrow lanes and low zoom omit white blocks. Continuous rail chains retain direction and stripe phase, including reversed rail storage; loops fit whole block pairs.

@@ -40,7 +40,7 @@ public final class HeightComplexityProbe {
                     new MapVertex(x - 10, 60, z - 1.5),
                     new MapVertex(x + 10, 60 + carRise, z - 1.5)));
         }
-        final HeightMapScene scene = HeightMapScene.build(tracks, palettes, Map.of(), cars,
+        final PlanarMapScene scene = PlanarMapScene.build(tracks, palettes, Map.of(), cars,
                 true, true, 1, -100, -100, 1000, 1000);
         final long carQuads = scene.quads().stream().filter(q -> q.car() != null).count();
         System.out.printf("%s,%d,%d,%d%n", label, scene.quads().size() - carQuads,

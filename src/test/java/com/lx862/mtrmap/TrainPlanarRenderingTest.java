@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrainHeightRenderingTest {
+class TrainPlanarRenderingTest {
     @Test
     void samplerRetainsNativeXYZOnSlopesAndBelowZero() {
         final Rail rail = Rail.newRail(new Position(0, -40, 0), Angle.E, new Position(100, 80, 0), Angle.W,
@@ -33,23 +33,22 @@ class TrainHeightRenderingTest {
     }
 
     @Test
-    void upperCarWinsRegardlessOfVehicleInputOrder() {
+    void lastPaintedCarWinsRegardlessOfHeight() {
         final MapCar lower = car(1, 60, 60);
         final MapCar upper = car(2, 80, 80);
-        assertEquals(upper, scene(List.of(), List.of(upper, lower)).pick(0, 0));
+        assertEquals(lower, scene(List.of(), List.of(upper, lower)).pick(0, 0));
         assertEquals(upper, scene(List.of(), List.of(lower, upper)).pick(0, 0));
     }
 
     @Test
-    void upperRailCoversAndBlocksHoverOfAnUnderpassingCar() {
+    void higherRailDoesNotCoverOrBlockHoverOfACar() {
         final MapCar lower = car(1, 60, 60);
         final MapTrack bridge = new MapTrack("bridge", List.of(new double[] {-20, 0, 80}, new double[] {20, 0, 80}));
-        final HeightMapScene scene = scene(List.of(bridge), List.of(lower));
-        assertNull(scene.pick(0, 0));
+        final PlanarMapScene scene = scene(List.of(bridge), List.of(lower));
+        assertEquals(lower, scene.pick(0, 0));
         assertEquals(lower, scene.pick(0, 5));
         final var atCrossing = scene.quads().stream().filter(q -> q.contains(0, 0)).toList();
-        assertNull(atCrossing.getLast().car());
-        assertEquals(80, atCrossing.getLast().height());
+        assertEquals(lower, atCrossing.getLast().car());
         assertEquals(255, atCrossing.getLast().alpha());
     }
 
@@ -61,13 +60,14 @@ class TrainHeightRenderingTest {
     }
 
     @Test
-    void slopeCrossingUsesLocalHeightInsteadOfAWholeTrainOrRailAverage() {
+    void slopesDoNotSplitCarsOrHideThemAtEitherCrossing() {
         final MapCar inclined = car(1, 40, 80);
         final MapTrack crossing = new MapTrack("bridge", List.of(new double[] {-20, -7, 55}, new double[] {20, -7, 55}));
-        // Rear half is high: the car is above this bridge even though its front is lower.
         assertEquals(inclined, scene(List.of(crossing), List.of(inclined)).pick(0, -7));
         final MapTrack crossing2 = new MapTrack("bridge", List.of(new double[] {-20, 7, 55}, new double[] {20, 7, 55}));
-        assertNull(scene(List.of(crossing2), List.of(inclined)).pick(0, 7));
+        final PlanarMapScene result = scene(List.of(crossing2), List.of(inclined));
+        assertEquals(inclined, result.pick(0, 7));
+        assertEquals(4, result.quads().stream().filter(q -> q.car() != null).count());
     }
 
     @Test
@@ -78,15 +78,38 @@ class TrainHeightRenderingTest {
     }
 
     @Test
-    void whiteBlocksAndRouteBackingShareLocalHeightOnSlopes() {
+    void routeBlocksAndGeometryAreIndependentOfHeight() {
         final MapTrack track = new MapTrack("slope", List.of(new double[] {0, 0, -20}, new double[] {64, 0, 44}));
         final var high = List.of(new TrackRoutePalette.Entry("h", "High speed", 0x008844, RouteLineStyle.HIGH_SPEED));
-        final HeightMapScene scene = HeightMapScene.build(List.of(track), Map.of(track.id, high),
+        final PlanarMapScene scene = PlanarMapScene.build(List.of(track), Map.of(track.id, high),
                 TrackPatternLayout.build(List.of(track)), List.of(), true, true, 3, -100, -100, 100, 100);
         final var atWhiteBlock = scene.quads().stream().filter(q -> q.contains(24, 0)).toList();
         assertFalse(atWhiteBlock.isEmpty());
         assertEquals(0xFFFFFF, atWhiteBlock.getLast().color());
-        assertTrue(scene.quads().stream().allMatch(q -> Double.isFinite(q.a().y())));
+        final MapTrack flat = new MapTrack("slope", List.of(new double[] {0, 0, 64}, new double[] {64, 0, 64}));
+        final PlanarMapScene flatScene = PlanarMapScene.build(List.of(flat), Map.of(flat.id, high),
+                TrackPatternLayout.build(List.of(flat)), List.of(), true, true, 3, -100, -100, 100, 100);
+        assertEquals(flatScene.quads(), scene.quads());
+    }
+
+    @Test
+    void allBackingsPrecedeRoutesEvenIfAnUncolouredRailCrossesLater() {
+        final MapTrack route = new MapTrack("route", List.of(new double[] {-20, 0, 10}, new double[] {20, 0, 10}));
+        final MapTrack bridge = new MapTrack("bridge", List.of(new double[] {0, -20, 200}, new double[] {0, 20, 200}));
+        final var band = List.of(new TrackRoutePalette.Entry("r", "route", 0xFF0000, RouteLineStyle.NORMAL));
+        final PlanarMapScene result = PlanarMapScene.build(List.of(route, bridge), Map.of(route.id, band),
+                Map.of(), List.of(), true, true, 3, -100, -100, 100, 100);
+        assertEquals(0xFF0000, result.quads().stream().filter(q -> q.contains(0, 0)).toList().getLast().color());
+    }
+
+    @Test
+    void zoomedOutCarMarkerCanBePickedBeyondItsPhysicalFootprint() {
+        final MapCar car = car(1, 10, 200);
+        final PlanarMapScene result = PlanarMapScene.build(List.of(), Map.of(), Map.of(), List.of(car),
+                false, false, 0.1, -100, -100, 100, 100);
+        assertEquals(1, result.quads().size());
+        assertEquals(car, result.pick(20, 0));
+        assertNull(result.pick(30, 0));
     }
 
     @Test
@@ -105,8 +128,8 @@ class TrainHeightRenderingTest {
                 new MapVertex(-1.5, backY, -10), new MapVertex(-1.5, frontY, 10));
     }
 
-    private static HeightMapScene scene(List<MapTrack> tracks, List<MapCar> cars) {
-        return HeightMapScene.build(tracks, Map.of(), TrackPatternLayout.build(tracks), cars,
+    private static PlanarMapScene scene(List<MapTrack> tracks, List<MapCar> cars) {
+        return PlanarMapScene.build(tracks, Map.of(), TrackPatternLayout.build(tracks), cars,
                 true, true, 3, -100, -100, 100, 100);
     }
 }

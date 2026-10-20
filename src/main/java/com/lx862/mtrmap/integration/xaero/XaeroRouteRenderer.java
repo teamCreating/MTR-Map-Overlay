@@ -4,7 +4,7 @@ import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.ClientTrainCollector;
-import com.lx862.mtrmap.mapdata.HeightMapScene;
+import com.lx862.mtrmap.mapdata.PlanarMapScene;
 import com.lx862.mtrmap.mapdata.MapCar;
 import com.lx862.mtrmap.integration.TrainMapTooltip;
 import com.lx862.mtrmap.mapdata.MapLandmark;
@@ -170,7 +170,7 @@ public class XaeroRouteRenderer {
         final double maxX = cameraX + halfW;
         final double maxZ = cameraZ + halfH;
 
-        final HeightMapScene scene = HeightMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
+        final PlanarMapScene scene = PlanarMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
                 cars, MTRMapConfig.INSTANCE.trackLinesEnabled.get(), MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
                 scale, minX, minZ, maxX, maxZ);
         drawScene(graphics, screenMatrix, scene, scale, cameraX, cameraZ, mcScreen.width, mcScreen.height);
@@ -289,20 +289,24 @@ public class XaeroRouteRenderer {
     // Geometry drawing
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static void drawScene(GuiGraphics graphics, Matrix4f matrix, HeightMapScene scene,
+    private static void drawScene(GuiGraphics graphics, Matrix4f matrix, PlanarMapScene scene,
             double scale, double cameraX, double cameraZ, int width, int height) {
         final VertexConsumer consumer = graphics.bufferSource().getBuffer(RenderType.gui());
-        for (HeightMapScene.Quad quad : scene.quads()) {
+        for (PlanarMapScene.Quad quad : scene.quads()) {
             final int color = quad.color();
             final int r = (color >> 16) & 255, g = (color >> 8) & 255, b = color & 255;
-            for (var point : List.of(quad.a(), quad.b(), quad.c(), quad.d())) {
-                // Subtract the camera in doubles before converting to screen floats.
-                // World Y controls painter order, not GUI Z (which belongs to the map/UI).
-                consumer.addVertex(matrix, (float) (width / 2.0 + (point.x() - cameraX) * scale),
-                                (float) (height / 2.0 + (point.z() - cameraZ) * scale), 0)
-                        .setColor(r, g, b, quad.alpha());
-            }
+            // Subtract the camera in doubles before converting to screen floats.
+            sceneVertex(consumer, matrix, quad.x1(), quad.z1(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
+            sceneVertex(consumer, matrix, quad.x2(), quad.z2(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
+            sceneVertex(consumer, matrix, quad.x3(), quad.z3(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
+            sceneVertex(consumer, matrix, quad.x4(), quad.z4(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
         }
+    }
+
+    private static void sceneVertex(VertexConsumer consumer, Matrix4f matrix, double x, double z,
+            double scale, double cameraX, double cameraZ, int width, int height, int r, int g, int b, int alpha) {
+        consumer.addVertex(matrix, (float) (width / 2.0 + (x - cameraX) * scale),
+                (float) (height / 2.0 + (z - cameraZ) * scale), 0).setColor(r, g, b, alpha);
     }
 
     private static void fillQuad(Matrix4f matrix, VertexConsumer consumer,

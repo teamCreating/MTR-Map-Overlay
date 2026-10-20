@@ -5,9 +5,9 @@
 
 ## 当前版本
 
-- **v1.5.2 开发版（main）**：真实 XYZ 附近车厢及高度叠放；GitHub 已发布版本仍为 v1.5.1。
+- **v1.5.2 开发版（main）**：真实 XYZ 附近车厢投影为纯 2D，固定轨道→线路→车厢层次；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 00:32，操作者：Codex
+- 最后更新：2026-10-21 00:44，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-21，Codex：按用户要求改为纯 2D，PlanarMapScene 使用 primitive X/Z 四边形，移除所有高度细分/排序和轨道遮车判断；hover 只检查每个可见车厢/标记一个目标。原生 XYZ、协议 v7、样式、实际端点连接语义保持。39 测试和双平台构建通过，三种坡度数量场景均为 52000 quads，预览已检查，未游戏内实测。见 `docs/validation/planar-map.md`；以下历史高度记录已经被此项取代。
 
 - 独立 MTR 地图叠加项目，直接读取 MTR 数据并绘制到 Xaero / JourneyMap；不集成 MTR Surveyor 地图。
 - NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v7（轨道 double XYZ，独立 `_v7` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
@@ -68,7 +70,7 @@
 ## 已知限制
 
 - 只渲染 TRAIN 模式轨道（路径层；JourneyMap 地标不受限）
-- 附近车厢已有真实 XYZ 绘制；全网动态列车同步与 ETA 未实现。只做叠加层高度排序，不做地形/建筑/隧道顶板遮挡；游戏内姿态与遮挡待验证。
+- 附近车厢已有真实 XYZ 的纯 2D 投影；全网动态列车同步与 ETA 未实现。按用户要求不再做高度/下穿遮挡；游戏内姿态与地图集成待验证。
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 
 ## 历史要点
