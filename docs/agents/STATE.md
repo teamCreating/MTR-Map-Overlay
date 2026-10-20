@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：真实 XYZ 附近车厢及高度叠放；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 00:25，操作者：Codex
+- 最后更新：2026-10-21 00:32，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -56,6 +56,8 @@
 - 回归测试清单：见 `walkthrough.md` §7
 
 ## 后续设计（部分实现）
+
+- 2026-10-21，Codex：下穿时空复杂度见 `docs/plans/underpass-complexity.md`。当前细分画家每帧 O(R+A+P+H+C+Q log Q)、工作空间 O(Q)，不做车厢/轨道全对全相交。数量 probe 确认 10000 段/4 线路/500 车厢的合成场景平地 52000、坡道最高 209000 quads；未做帧时间或实际内存测量。优先静态缓存/对象复用、段级索引，严格局部遮挡另评估独立深度；保持 1.5.2。
 
 - 2026-10-21，Codex：Create 源码研究见 `docs/plans/create-train-map-research.md`，固定 `mc1.21.1/dev` 的 `7ff2760e4924d35d4bc2e22c4b19923f0178cd16`。确认独立地图订阅、全网车厢两点 float 流、定义独立同步、到包插值与静态纹理缓存；light codec 仍含文本，高度为近似。调整 G0 先做全网原生姿态端到端原型，进度优化按实测决定，静态缓存前移。仅研究/文档，当前功能与 1.5.2 不变。
 
