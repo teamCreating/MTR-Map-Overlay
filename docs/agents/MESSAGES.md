@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 00:25] Codex — Create 列车地图源码研究及计划调整
+
+- 按用户提供仓库固定 mc1.21.1/dev 提交 `7ff2760e4924d35d4bc2e22c4b19923f0178cd16`，读取地图适配/订阅/codec/客户端/Renderer/Manager、全局铁路管理、Add/RemoveTrain 和图校验修复。报告 `docs/plans/create-train-map-research.md`。
+- 事实：定义登录先同步，地图按租约推全网两点 XYZ float/车厢，正常 20TPS 合计约 4Hz，full/light 各约 2Hz；light 的 codec 仍含文本。每轮完整集合缺失删除不可直接套到我们分片/增量。静态 128×128 纹理缓存值得借鉴。
+- 高度仅有轨道 alpha 量化和整列平均 Y 的 GUI 偏置，不是轨道/每车厢局部真实 Y 的统一遮挡；我们继续保留高度/拾取一致性。Create 所读地图悬停路径显示导航目标站距，没有 ETA，PIDS 方案不变。
+- 计划调整：G0 增加全网原生 bogie 姿态端到端原型，以实际规模和真值对照决定路径进度优化时机，静态几何缓存前移；没有实现新功能、导入第三方代码/图片、改版本或运行性能测试。版本保持 1.5.2。
+
 ## [2026-10-20 00:25] Codex — 用户要求全图列车，完成通信深度规划
 
 - 全图是正式范围；当前 nearby collector 不满足目标。实际 Core 4.1 可从 Simulator/Siding 遍历远处实际车辆，无须强制加载 Minecraft 区块。新增 `docs/plans/global-train-sync.md`，并在旧方案顶部指向更新方案。
