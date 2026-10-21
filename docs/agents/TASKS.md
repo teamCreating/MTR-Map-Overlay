@@ -28,7 +28,7 @@
 
 ## 完成
 
-- [完成] 细线原生曲线与屏幕误差控制 — Codex，2026-10-21 13:38。NativeRailCurve + 原生切向、屏幕误差细分、逐顶点 alpha 过渡、每 host 有界 LOD 缓存，静态协议升 v8、mod 仍 1.5.2。61 普通测试通过，双构建通过；NeoForge 的 Xaero 高倍绿色轻铁和 JourneyMap 曲线实机检查，详见 docs/validation/native-curves.md。全网动态车辆和 ETA 未改动。
+- [完成] 细线原生曲线与屏幕误差控制 — Codex，2026-10-21 13:38，commit ec49c1b。NativeRailCurve + 原生切向、屏幕误差细分、逐顶点 alpha 过渡、每 host 有界 LOD 缓存，静态协议升 v8、mod 仍 1.5.2。61 普通测试通过，双构建通过；NeoForge 的 Xaero 高倍绿色轻铁和 JourneyMap 曲线实机检查，详见 docs/validation/native-curves.md。全网动态车辆和 ETA 未改动。
 
 - [完成] NeoForge 1.21.1 实机调试附近列车缺失与线路拼接 — Codex，2026-10-21 12:55，commit 5c98b43。两地图实际显示 3 节停放车辆并悬停读 XYZ；修复状态过滤、缩远对比轮廓、轨道共享接头/主线相位、共线渐变/同色去重及 Depot 回退抑制。53 普通测试和双构建通过，存档生成显式 opt-in。详见 docs/validation/runtime-trains-routes.md；全网动态车辆、ETA、营运移动仍未验收，不计入本次完成范围。版本仍 1.5.2。
 
