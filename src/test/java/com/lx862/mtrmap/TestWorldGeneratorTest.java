@@ -3,6 +3,7 @@ package com.lx862.mtrmap;
 import org.mtr.libraries.it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.mtr.core.data.ClientData;
 import org.mtr.core.data.Depot;
 import org.mtr.core.data.Platform;
@@ -31,6 +32,7 @@ import java.util.Map;
  * <p>Runs as a normal JUnit test but writes into {@code run/saves/TestWorld}.
  * Re-run it whenever the test world needs to be (re)populated.</p>
  */
+@EnabledIfSystemProperty(named = "mtrmap.generateTestWorld", matches = "true")
 class TestWorldGeneratorTest {
 
     private static final Path WORLD_MTR = Path.of("run/saves/TestWorld/mtr");
@@ -47,7 +49,7 @@ class TestWorldGeneratorTest {
     }
 
     private static Position node(long x, long z) {
-        return new Position(x, 64, z);
+        return new Position(x, -59, z);
     }
 
     private static Station station(Simulator simulator, String name, int color, Position p1, Position p2) {
@@ -96,14 +98,15 @@ class TestWorldGeneratorTest {
     }
 
     private static int angleIndex(Angle angle) {
-        return ((int) Math.round(Math.toDegrees(angle.angleDegrees) / 22.5)) % 16;
+        return ((int) Math.round(angle.angleDegrees / 22.5)) % 16;
     }
 
     private static Rail railOnSegment(List<Position> polyline, int seg, boolean platform) {
         final Position a = polyline.get(seg);
         final Position b = polyline.get(seg + 1);
-        final Angle ta = tangentAt(polyline, seg);
-        final Angle tb = tangentAt(polyline, seg + 1);
+        final Angle ta = angleOf(node(0, 0), node(1, 0));
+        // Core expects the tangent pointing INTO the rail at each endpoint.
+        final Angle tb = angleOf(node(1, 0), node(0, 0));
         if (platform) {
             return Rail.newPlatformRail(a, ta, b, tb,
                     Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -174,7 +177,7 @@ class TestWorldGeneratorTest {
 
         // Stations covering their platforms (for JourneyMap landmarks + waypoints)
         final Station stationAlpha = station(simulator, "Alpha", 15073280, node(-20, -20), node(100, 20));
-        final Station stationBravo = station(simulator, "Bravo", 28440, node(200, 60), node(340, 100));
+        final Station stationBravo = station(simulator, "Bravo", 28440, node(160, 60), node(300, 100));
         final Station stationCharlie = station(simulator, "Charlie", 22016, node(360, -20), node(500, 20));
 
         // Routes: Express (Alpha->Bravo), Local (Alpha->Bravo->Charlie), Local Return
@@ -185,11 +188,16 @@ class TestWorldGeneratorTest {
         // Siding continues the polyline (segment 5) with tangent continuity
         final Position s0 = node(480, 0);
         final Position s1 = node(600, 0);
-        final Rail sidingRail = Rail.newSidingRail(s0, tangentAt(polyline, 5), s1, tangentAt(polyline, 6),
+        final Rail sidingRail = Rail.newSidingRail(s0, angleOf(s0, s1), s1, angleOf(s1, s0),
                 Rail.Shape.QUADRATIC, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 new ObjectArrayList<String>(), TransportMode.TRAIN);
-        final org.mtr.core.data.Siding siding = new org.mtr.core.data.Siding(s0, s1, 0, TransportMode.TRAIN, simulator);
+        final org.mtr.core.data.Siding siding = new org.mtr.core.data.Siding(s0, s1, sidingRail.railMath.getLength(), TransportMode.TRAIN, simulator);
         siding.rail = sidingRail;
+        final var vehicleCars = new ObjectArrayList<org.mtr.core.data.VehicleCar>();
+        for (int i = 0; i < 3; i++) vehicleCars.add(new org.mtr.core.data.VehicleCar(
+                i == 1 ? "m_train_end_1" : "m_train_head_1", 20, 3, 100, 6, -6, 0.5, 0.5));
+        siding.setVehicleCars(vehicleCars);
+        siding.setMaxVehicles(1);
         simulator.sidings.add(siding);
         simulator.rails.add(sidingRail);
 
@@ -197,13 +205,17 @@ class TestWorldGeneratorTest {
         final JsonObject depotJson = new JsonObject();
         depotJson.addProperty("name", "Test Depot");
         final org.mtr.libraries.com.google.gson.JsonArray routeIds = new org.mtr.libraries.com.google.gson.JsonArray();
+        routeIds.add(localReturn.getId());
         routeIds.add(local.getId());
         depotJson.add("routeIds", routeIds);
         depotJson.addProperty("color", 28440);
         depotJson.add("position1", positionJson(node(470, -10)));
         depotJson.add("position2", positionJson(node(610, 10)));
         depot.updateData(new JsonReader(depotJson));
+        depot.routes.add(localReturn);
         depot.routes.add(local);
+        depot.setRepeatInfinitely(true);
+        for (int hour = 0; hour < 24; hour++) depot.setFrequency(hour, 30);
         simulator.depots.add(depot);
 
         simulator.stations.add(stationAlpha);
@@ -235,7 +247,7 @@ class TestWorldGeneratorTest {
         // queues the path finders (generateMainRoute), tick() progresses them
         // (findPathTick - normally driven by the server's tick loop).
         org.mtr.core.data.Depot.generateDepots(simulator, new ObjectArrayList<>(List.of(depot)));
-        for (int i = 0; i < 5000 && depot.getPath().isEmpty(); i++) {
+        for (int i = 0; i < 5000; i++) {
             simulator.tick();
         }
         System.out.println("[TestWorldGenerator] post-generate: depot path size=" + depot.getPath().size()
@@ -280,6 +292,7 @@ class TestWorldGeneratorTest {
         final JsonObject json = new JsonObject();
         json.addProperty("name", name);
         json.addProperty("color", color);
+        json.addProperty("routeType", name.equals("Express") ? "HIGH_SPEED" : "LIGHT_RAIL");
         final org.mtr.libraries.com.google.gson.JsonArray array = new org.mtr.libraries.com.google.gson.JsonArray();
         for (Platform platform : platforms) {
             final JsonObject entry = new JsonObject();

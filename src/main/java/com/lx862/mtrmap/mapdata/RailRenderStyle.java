@@ -5,7 +5,7 @@ public final class RailRenderStyle {
 
     public static final float TRACK_HALF_WIDTH_PX = 1.25f;
     public static final int TRACK_COLOR = 0x404040;
-    public static final int TRACK_ALPHA = 175;
+    public static final int TRACK_ALPHA = 255;
     /** A narrow rail shoulder remains visible when a route occupies the same track. */
     public static final float TRACK_SHOULDER_PX = 0.4f;
 

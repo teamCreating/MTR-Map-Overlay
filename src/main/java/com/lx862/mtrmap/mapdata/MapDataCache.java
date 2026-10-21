@@ -55,7 +55,7 @@ public class MapDataCache {
             this.tracks = tracks;
             this.landmarks = landmarks;
             this.routePalette = TrackRoutePalette.build(routes);
-            this.trackPatterns = TrackPatternLayout.build(tracks);
+            this.trackPatterns = TrackPatternLayout.build(tracks, routePalette);
             this.version = version;
         }
 

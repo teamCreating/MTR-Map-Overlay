@@ -25,6 +25,8 @@
 
 ## 架构现状
 
+- 2026-10-21 12:53，Codex：实际启动 NeoForge 1.21.1，两个地图均验证 3 节待发车厢及悬停真实 XYZ；移除误用的 getIsOnRoute 过滤、加入限频采集诊断/中性色及缩远标记对比轮廓。曲线端点归一/共享截面、岔口主走廊延续、共线宽度渐变、同色往返去重、Depot 未实际染色线路恢复回退；53 普通测试通过（生成用例显式跳过），双平台构建通过。生成测试存档改为 -PgenerateTestWorld 显式触发。纯 2D / 1.5.2 / 静态 v7 保持。**全网动态流和 ETA 仍未实现，实机车辆为停放状态，未验证长时间营运移动。** 详见 `docs/validation/runtime-trains-routes.md`。
+
 - 2026-10-21，Codex：落实 Create 式静态/动态分离缓存。两个地图各自使用 PlanarMapCache，snapshot identity/scale/开关/视口 guard 失效；静态 quad list 共享，姿态不变整场景复用，pose 更新仅重建车厢。每 host 最多保留 100000 总 quads，超限正确无缓存绘制，源 identity 弱引用，连接清理释放。48 测试和双平台构建通过；120 帧合成几何工作负载 static builds 120→1、线程分配约 674→14MiB，非游戏 FPS。详见 `docs/validation/planar-cache.md`。纯 2D、协议 v7、版本 1.5.2 保持；全网动态通信未实现。
 
 - 2026-10-21，Codex：按用户要求改为纯 2D，PlanarMapScene 使用 primitive X/Z 四边形，移除所有高度细分/排序和轨道遮车判断；hover 只检查每个可见车厢/标记一个目标。原生 XYZ、协议 v7、样式、实际端点连接语义保持。39 测试和双平台构建通过，三种坡度数量场景均为 52000 quads，预览已检查，未游戏内实测。见 `docs/validation/planar-map.md`；以下历史高度记录已经被此项取代。

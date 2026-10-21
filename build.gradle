@@ -87,6 +87,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    // Generating a save is an explicit developer action, never part of build/test.
+    systemProperty 'mtrmap.generateTestWorld', project.hasProperty('generateTestWorld')
 }
 
 processResources {

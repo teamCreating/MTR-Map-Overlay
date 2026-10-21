@@ -34,25 +34,42 @@ public final class RouteRibbonGeometry {
     public static void drawLayered(MapTrack track, List<TrackRoutePalette.Entry> bands,
             TrackPatternLayout.Placement placement, double scale,
             double minX, double minZ, double maxX, double maxZ, QuadSink base, QuadSink details) {
-        drawInternal(track, bands, placement, scale, minX, minZ, maxX, maxZ, base, details, Double.NaN);
+        drawLayered(track, bands, placement, null, scale, minX, minZ, maxX, maxZ, base, details);
+    }
+
+    public static void drawLayered(MapTrack track, List<TrackRoutePalette.Entry> bands,
+            TrackPatternLayout.Placement placement, RouteRibbonProfile profile, double scale,
+            double minX, double minZ, double maxX, double maxZ, QuadSink base, QuadSink details) {
+        drawInternal(track, bands, placement, profile, scale, minX, minZ, maxX, maxZ, base, details, Double.NaN);
     }
 
     public static void drawStrip(MapTrack track, double halfWidth, double scale,
             double minX, double minZ, double maxX, double maxZ, QuadSink sink) {
+        drawStrip(track, TrackPatternLayout.Placement.DEFAULT, halfWidth, scale, minX, minZ, maxX, maxZ, sink);
+    }
+
+    public static void drawStrip(MapTrack track, TrackPatternLayout.Placement placement, double halfWidth, double scale,
+            double minX, double minZ, double maxX, double maxZ, QuadSink sink) {
+        drawStrip(track, placement, null, halfWidth, scale, minX, minZ, maxX, maxZ, sink);
+    }
+
+    public static void drawStrip(MapTrack track, TrackPatternLayout.Placement placement, RouteRibbonProfile profile,
+            double halfWidth, double scale, double minX, double minZ, double maxX, double maxZ, QuadSink sink) {
         drawInternal(track, List.of(new TrackRoutePalette.Entry("", "", RailRenderStyle.TRACK_COLOR,
-                RouteLineStyle.NORMAL)), TrackPatternLayout.Placement.DEFAULT, scale,
+                RouteLineStyle.NORMAL)), placement, profile, scale,
                 minX, minZ, maxX, maxZ, sink, sink, halfWidth);
     }
 
     private static void drawInternal(MapTrack track, List<TrackRoutePalette.Entry> bands,
-            TrackPatternLayout.Placement placement, double scale,
+            TrackPatternLayout.Placement placement, RouteRibbonProfile profile, double scale,
             double minX, double minZ, double maxX, double maxZ,
             QuadSink base, QuadSink details, double overrideWidth) {
         if (bands.isEmpty() || !Double.isFinite(scale) || scale <= 0) {
             return;
         }
         final double halfWidth = Double.isFinite(overrideWidth) ? overrideWidth : halfWidth(bands, scale);
-        final double margin = halfWidth * 2;
+        final double margin = (profile == null ? halfWidth
+                : Math.max(halfWidth, Math.max(profile.start().width(), profile.end().width()) + 1 / scale)) * 2;
         if (!track.intersects(minX - margin, minZ - margin, maxX + margin, maxZ + margin)) {
             return;
         }
@@ -79,7 +96,8 @@ public final class RouteRibbonGeometry {
             for (int lane = 0; lane < bands.size(); lane++) {
                 final TrackRoutePalette.Entry band = bands.get(lane);
                 final double right = lane + 1 == bands.size() ? halfWidth : left + unit * band.style().width;
-                section(track, a, b, sign, left, right, clipped[0], clipped[1],
+                section(track, placement, profile, band.id(), Double.isFinite(overrideWidth), 0,
+                        a, b, sign, left, right, clipped[0], clipped[1],
                         band.color(), RailRenderStyle.TRACK_ALPHA, base);
                 final double lanePixels = (right - left) * scale;
                 if (band.style() == RouteLineStyle.HIGH_SPEED && lanePixels >= 2.8
@@ -96,7 +114,8 @@ public final class RouteRibbonGeometry {
                         final double from = Math.max(visibleStart, whiteStart);
                         final double to = Math.min(visibleEnd, whiteStart + block);
                         if (to > from) {
-                            section(track, a, b, sign, left + border, right - border,
+                            section(track, placement, profile, band.id(), false, border,
+                                    a, b, sign, left, right,
                                     (from - distance) / length, (to - distance) / length,
                                     0xFFFFFF, 255, details);
                         }
@@ -107,20 +126,50 @@ public final class RouteRibbonGeometry {
         }
     }
 
-    private static void section(MapTrack track, int a, int b, double sign, double left, double right,
+    private static void section(MapTrack track, TrackPatternLayout.Placement placement,
+            RouteRibbonProfile profile, String laneId, boolean backing, double inset,
+            int a, int b, double sign, double left, double right,
             double from, double to, int color, int alpha, QuadSink sink) {
+        // Split only at the two taper boundaries, including very long two-point
+        // rails. This prevents a 12px transition stretching along the entire rail.
+        final double da = track.distances[a], db = track.distances[b];
+        if (profile != null && profile.taper() > 0) {
+            for (double d : new double[] {profile.taper(), track.length() - profile.taper()}) {
+                final double t = (d - da) / (db - da);
+                if (t > from + 1.0E-9 && t < to - 1.0E-9) {
+                    section(track, placement, profile, laneId, backing, inset, a, b, sign, left, right,
+                            from, t, color, alpha, sink);
+                    section(track, placement, profile, laneId, backing, inset, a, b, sign, left, right,
+                            t, to, color, alpha, sink);
+                    return;
+                }
+            }
+        }
+        final double d1 = da + (db - da) * from, d2 = da + (db - da) * to;
+        final RouteRibbonProfile.Band edge1 = edges(profile, laneId, backing, left, right, d1, track.length());
+        final RouteRibbonProfile.Band edge2 = edges(profile, laneId, backing, left, right, d2, track.length());
         final double[] start = track.points.get(a);
         final double[] end = track.points.get(b);
         final double x1 = start[0] + (end[0] - start[0]) * from;
         final double z1 = start[1] + (end[1] - start[1]) * from;
         final double x2 = start[0] + (end[0] - start[0]) * to;
         final double z2 = start[1] + (end[1] - start[1]) * to;
-        final double nx1 = sign * (track.normalX[a] + (track.normalX[b] - track.normalX[a]) * from);
-        final double nz1 = sign * (track.normalZ[a] + (track.normalZ[b] - track.normalZ[a]) * from);
-        final double nx2 = sign * (track.normalX[a] + (track.normalX[b] - track.normalX[a]) * to);
-        final double nz2 = sign * (track.normalZ[a] + (track.normalZ[b] - track.normalZ[a]) * to);
-        sink.quad(x1 + nx1 * right, z1 + nz1 * right, x2 + nx2 * right, z2 + nz2 * right,
-                x2 + nx2 * left, z2 + nz2 * left, x1 + nx1 * left, z1 + nz1 * left, color, alpha);
+        final double nx1 = sign * (placement.normalX(track, a) + (placement.normalX(track, b) - placement.normalX(track, a)) * from);
+        final double nz1 = sign * (placement.normalZ(track, a) + (placement.normalZ(track, b) - placement.normalZ(track, a)) * from);
+        final double nx2 = sign * (placement.normalX(track, a) + (placement.normalX(track, b) - placement.normalX(track, a)) * to);
+        final double nz2 = sign * (placement.normalZ(track, a) + (placement.normalZ(track, b) - placement.normalZ(track, a)) * to);
+        sink.quad(x1 + nx1 * (edge1.right() - inset), z1 + nz1 * (edge1.right() - inset),
+                x2 + nx2 * (edge2.right() - inset), z2 + nz2 * (edge2.right() - inset),
+                x2 + nx2 * (edge2.left() + inset), z2 + nz2 * (edge2.left() + inset),
+                x1 + nx1 * (edge1.left() + inset), z1 + nz1 * (edge1.left() + inset), color, alpha);
+    }
+
+    private static RouteRibbonProfile.Band edges(RouteRibbonProfile profile, String laneId, boolean backing,
+            double left, double right, double distance, double length) {
+        if (profile == null) return new RouteRibbonProfile.Band(left, right);
+        if (!backing) return profile.at(laneId, left, right, distance, length);
+        final double width = profile.widthAt(right, distance, length);
+        return new RouteRibbonProfile.Band(-width, width);
     }
 
     /** Liang-Barsky clipping preserves the original rail distance and hence stripe phase. */

@@ -6,7 +6,6 @@
 
 ## 进行中
 
-
 ### [功能，部分实现] 列车车厢、运行线路与到站预测
 - 2026-10-21，Codex：用户要求已改为纯 2D；下穿遮挡与高度排序验收取消。真实 XYZ 保留，全图动态流与 PIDS ETA 的目标不变，当前仍仅附近数据。
 - 全图为用户明确要求；附近仅回退。P2 细化方案：[global-train-sync.md](../plans/global-train-sync.md)。2026-10-20，Codex；下一步 G0 权威适配→G1 全图概要→G2 远处完整车厢→G3 异常/性能验收，尚未实现。
@@ -28,6 +27,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] NeoForge 1.21.1 实机调试附近列车缺失与线路拼接 — Codex，2026-10-21 12:55。两地图实际显示 3 节停放车辆并悬停读 XYZ；修复状态过滤、缩远对比轮廓、轨道共享接头/主线相位、共线渐变/同色去重及 Depot 回退抑制。53 普通测试和双构建通过，存档生成显式 opt-in。详见 docs/validation/runtime-trains-routes.md；全网动态车辆、ETA、营运移动仍未验收，不计入本次完成范围。版本仍 1.5.2。
 
 - [完成] Create 式静态/动态绘制缓存优化 — Codex，2026-10-21 11:55，commit `22698e0`；PlanarMapCache 与双 host 生命周期、静态/动态 list 零拷贝组合、guard 预取和 100000 quads 保留上限、源弱引用；48 测试及 NeoForge/Fabric 构建通过。合成 120 帧 static builds 120→1、线程分配 673.835→13.665MiB，仅几何阶段，未游戏内 FPS 实测。版本 1.5.2/纯 2D/协议 v7 保持，全网动态流仍待实现；见 `docs/validation/planar-cache.md`。
 

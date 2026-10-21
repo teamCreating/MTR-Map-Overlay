@@ -223,11 +223,6 @@ public final class ServerNetworkCollector {
             return;
         }
 
-        // Remember which routes got real paths (fallback suppression)
-        for (Route route : depot.routes) {
-            result.markRealPath(route.getId());
-        }
-
         String currentRouteId = null;
         String currentRouteName = null;
         int currentColor = 0;
@@ -252,6 +247,9 @@ public final class ServerNetworkCollector {
             final Platform platform = savedRailId == 0 ? null : simulator.platformIdMap.get(savedRailId);
             if (platform != null && savedRailId != lastPlatformId) {
                 final Route serving = resolveServingRoute(depot, platform);
+                // A depot listing a route does not prove that this traversal
+                // actually painted it (shared platforms can select another one).
+                if (serving != null) result.markRealPath(serving.getId());
                 final String routeId = serving == null ? "depot:" + depot.getHexId()
                         : Long.toHexString(serving.getId());
                 final String routeName = serving == null ? depot.getName() : serving.getName();

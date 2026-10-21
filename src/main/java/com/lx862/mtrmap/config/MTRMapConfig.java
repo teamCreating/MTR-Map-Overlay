@@ -74,7 +74,7 @@ public class MTRMapConfig {
                                 .define("trackLinesEnabled", true);
 
                 trainCarsEnabled = builder
-                                .comment("Draw actual nearby MTR train cars on fullscreen maps, ordered by measured world height")
+                                .comment("Draw actual nearby MTR train cars above the pure 2D map")
                                 .define("trainCarsEnabled", true);
 
                 networkSyncEnabled = builder

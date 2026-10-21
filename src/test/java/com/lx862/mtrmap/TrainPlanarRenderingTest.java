@@ -107,9 +107,12 @@ class TrainPlanarRenderingTest {
         final MapCar car = car(1, 10, 200);
         final PlanarMapScene result = PlanarMapScene.build(List.of(), Map.of(), Map.of(), List.of(car),
                 false, false, 0.1, -100, -100, 100, 100);
-        assertEquals(1, result.quads().size());
+        assertEquals(3, result.quads().size());
+        assertEquals(0x16202A, result.quads().getFirst().color());
+        assertEquals(0xFFFFFF, result.quads().get(1).color());
+        assertEquals(car.color(), result.quads().getLast().color());
         assertEquals(car, result.pick(20, 0));
-        assertNull(result.pick(30, 0));
+        assertNull(result.pick(40, 0));
     }
 
     @Test

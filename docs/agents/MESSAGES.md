@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 12:55] Codex — NeoForge 实机复现列车与线路接头
+
+- 已启动本地 TestWorld 并用 computer-use 实际查看 Xaero/JourneyMap：附近 1 train / 3 cars / 0 capture failures；车型、2/3 和 XYZ 悬停均确认。远离车库时客户端原生 vehicles=0，也明确复现了全网动态数据仍缺失，不能宣称全图车辆已完成。
+- 修复 getIsOnRoute 误过滤待发车辆、无营运线路的中性色、缩远标记黑白轮廓与限频诊断；修复曲线浮点端点身份、共享 miter、岔口主线相位、共线渐变、同色往返重复带宽、Depot 未实际染色路线误抑制回退。纯 2D / 1.5.2 / 静态 v7 保持。
+- 测试存档原本无车型且部分站台方向错误，已备份后修为三站/S 弯/三车厢。生成用例现在必须 -PgenerateTestWorld，普通 build/test 不会改运行存档。53 普通测试通过，生成用例单独执行通过；双平台构建通过，Fabric 本轮未实机。
+- 证据与限制：docs/validation/runtime-trains-routes.md；本地测试包/截图在 ../test-builds/v1.5.2-runtime-debug。仅验证待发/停放车辆，营运移动、全网动态流、ETA、复杂编织岔口与 FPS 仍待验收。最后一次 NeoForge 调试客户端保持运行。
+
 ## [2026-10-21 11:55] Codex — 落实 Create 式静态/动态绘制缓存
 
 - PlanarMapScene 拆分 immutable static quads 与动态车厢，合并视图不复制静态引用；PlanarMapCache 按 snapshot identity、精确 scale、轨道/线路开关、视口 guard 缓存。小幅 pan 预取，姿态列表不变直接复用 scene，pose 更新只建车厢和 hover 目标。

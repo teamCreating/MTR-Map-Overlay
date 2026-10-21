@@ -91,6 +91,7 @@ public final class PlanarMapScene {
             double scale, double minX, double minZ, double maxX, double maxZ) {
         if (!Double.isFinite(scale) || scale <= 0) return List.of();
         final List<Quad> result = new ArrayList<>();
+        final Map<String, RouteRibbonProfile> profiles = RouteRibbonProfile.build(tracks, palette, patterns, scale);
         // Finish every backing before drawing any route, including at crossings.
         for (MapTrack track : tracks) {
             final List<TrackRoutePalette.Entry> bands = palette.getOrDefault(track.id, List.of());
@@ -99,7 +100,8 @@ public final class PlanarMapScene {
                 final double width = Math.max(showTracks ? RailRenderStyle.worldHalfWidth(
                         RailRenderStyle.TRACK_HALF_WIDTH_PX, scale) : 0,
                         routeWidth > 0 ? routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale : 0);
-                RouteRibbonGeometry.drawStrip(track, width, scale, minX, minZ, maxX, maxZ,
+                RouteRibbonGeometry.drawStrip(track, patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT),
+                        showRoutes ? profiles.get(track.id) : null, width, scale, minX, minZ, maxX, maxZ,
                         (a, b, c, d, e, f, g, h, color, alpha) ->
                                 addTo(result, a, b, c, d, e, f, g, h, color, 255, null));
             }
@@ -108,7 +110,7 @@ public final class PlanarMapScene {
             final List<Quad> details = new ArrayList<>();
             for (MapTrack track : tracks) {
                 RouteRibbonGeometry.drawLayered(track, palette.getOrDefault(track.id, List.of()),
-                        patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT), scale,
+                        patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT), profiles.get(track.id), scale,
                         minX, minZ, maxX, maxZ,
                         (a, b, c, d, e, f, g, h, color, alpha) ->
                                 addTo(result, a, b, c, d, e, f, g, h, color, alpha, null),
@@ -140,10 +142,17 @@ public final class PlanarMapScene {
 
     private void marker(MapCar car, double scale) {
         final MapVertex p = car.center();
-        final double r = 2.5 / scale;
+        final double r = 3.5 / scale;
         final Quad target = add(p.x() + r, p.z() + r, p.x() + r, p.z() - r,
-                p.x() - r, p.z() - r, p.x() - r, p.z() + r, car.color(), 255, car);
+                p.x() - r, p.z() - r, p.x() - r, p.z() + r, 0x16202A, 255, car);
         if (target != null) carTargets.add(target);
+        markerInset(car, p, 2.5 / scale, 0xFFFFFF);
+        markerInset(car, p, 1.5 / scale, car.color());
+    }
+
+    private void markerInset(MapCar car, MapVertex p, double r, int color) {
+        add(p.x() + r, p.z() + r, p.x() + r, p.z() - r,
+                p.x() - r, p.z() - r, p.x() - r, p.z() + r, color, 255, car);
     }
 
     private void car(MapCar car, double scale) {
