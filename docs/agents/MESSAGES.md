@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 11:55] Codex — 落实 Create 式静态/动态绘制缓存
+
+- PlanarMapScene 拆分 immutable static quads 与动态车厢，合并视图不复制静态引用；PlanarMapCache 按 snapshot identity、精确 scale、轨道/线路开关、视口 guard 缓存。小幅 pan 预取，姿态列表不变直接复用 scene，pose 更新只建车厢和 hover 目标。
+- 两 host 独立缓存，每个最多保留 100000 总 quads，超限正确 uncached；源 snapshot/pose key 为弱引用，避免 key 钉住整个过时全网数据。clearClientData 现有登录/登出路径清两缓存，不加载可选地图类。MapCar bounds 去掉临时 corner list。
+- 48 测试零失败，双平台构建通过。PlanarCacheProbe 合成 10000 段/4 线路/500 车厢、120 帧/40 pose revisions，static builds 120→1、car builds 120→40、线程分配 673.835→13.665MiB；仅 headless geometry，非 FPS，顶点/GPU/UI/hover 不包含。说明见 docs/validation/planar-cache.md。
+- 当前仍为纯 2D、附近车辆及静态全网图；本次未实现全网动态通信/PIDS ETA、持久 GPU mesh/纹理或插值。保持版本 1.5.2，未启动游戏。
+
 ## [2026-10-21 00:44] Codex — 按用户要求改为纯 2D，版本仍 1.5.2
 
 - PlanarMapScene 替换 HeightMapScene，先全部底衬、再线路色带/白块、最后车厢；无高度细分/排序/下穿遮挡。渲染用 primitive X/Z quads，消除每 quad 的四个 MapVertex 及顶点 List 包装。悬停只逆序检查一个 body/marker 目标/可见车厢，重叠跟随绘制顺序。

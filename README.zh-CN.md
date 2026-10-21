@@ -40,6 +40,8 @@ MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图�
 
 轨道采样保留真实 Y，协议 v7 用 double 精度传输 XYZ。Xaero 与 JourneyMap 均按“轨道底衬→线路颜色/白块→车厢”固定顺序绘制纯 2D 图层，不按高度细分或排序；铁路不会遮住车厢及其悬停目标。待游戏内视觉验证，见[验证记录](docs/validation/planar-map.md)。
 
+静态轨道/线路与动态车厢分开缓存，支持视口预取、失效检查和保留上限，减少逐帧重建。正确性检查及无头几何测试见[缓存验证](docs/validation/planar-cache.md)，其中结果不代表游戏 FPS。
+
 ## 依赖与安装
 
 | Minecraft | 加载器 | Java | MTR | 可选地图 |

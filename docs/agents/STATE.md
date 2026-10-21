@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：真实 XYZ 附近车厢投影为纯 2D，固定轨道→线路→车厢层次；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 00:44，操作者：Codex
+- 最后更新：2026-10-21 11:55，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-21，Codex：落实 Create 式静态/动态分离缓存。两个地图各自使用 PlanarMapCache，snapshot identity/scale/开关/视口 guard 失效；静态 quad list 共享，姿态不变整场景复用，pose 更新仅重建车厢。每 host 最多保留 100000 总 quads，超限正确无缓存绘制，源 identity 弱引用，连接清理释放。48 测试和双平台构建通过；120 帧合成几何工作负载 static builds 120→1、线程分配约 674→14MiB，非游戏 FPS。详见 `docs/validation/planar-cache.md`。纯 2D、协议 v7、版本 1.5.2 保持；全网动态通信未实现。
 
 - 2026-10-21，Codex：按用户要求改为纯 2D，PlanarMapScene 使用 primitive X/Z 四边形，移除所有高度细分/排序和轨道遮车判断；hover 只检查每个可见车厢/标记一个目标。原生 XYZ、协议 v7、样式、实际端点连接语义保持。39 测试和双平台构建通过，三种坡度数量场景均为 52000 quads，预览已检查，未游戏内实测。见 `docs/validation/planar-map.md`；以下历史高度记录已经被此项取代。
 

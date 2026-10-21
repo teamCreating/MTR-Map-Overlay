@@ -29,6 +29,8 @@
 
 ## 完成
 
+- [完成] Create 式静态/动态绘制缓存优化 — Codex，2026-10-21 11:55；PlanarMapCache 与双 host 生命周期、静态/动态 list 零拷贝组合、guard 预取和 100000 quads 保留上限、源弱引用；48 测试及 NeoForge/Fabric 构建通过。合成 120 帧 static builds 120→1、线程分配 673.835→13.665MiB，仅几何阶段，未游戏内 FPS 实测。版本 1.5.2/纯 2D/协议 v7 保持，全网动态流仍待实现；见 `docs/validation/planar-cache.md`。
+
 - [完成] 地图绘制改为纯 2D — Codex，2026-10-21 00:44，commit `1cfb7ba`；固定底衬→色带→白块→车厢，primitive 平面四边形、无高度细分或排序、车厢专用 hover 目标；XYZ/协议 v7/版本 1.5.2 保留。39 测试及 NeoForge/Fabric 构建通过，坡度数量实验均 52000 quads，合成预览检查通过，未游戏内实测。
 
 - [完成] 真实高度下穿遮挡时空复杂度分析 — Codex，2026-10-21 00:32，commit `208cb9d`；报告 `docs/plans/underpass-complexity.md`，生产几何数量工具 `tools/HeightComplexityProbe.java` 编译/运行通过。当前每帧含全输入扫描及 O(Q log Q) 排序、O(Q) 工作空间；合成平地/坡道 52000→209000 quads，不是帧时间实测。明确缓存/索引/独立深度通道的成本与精度边界；运行代码和 1.5.2 不变。

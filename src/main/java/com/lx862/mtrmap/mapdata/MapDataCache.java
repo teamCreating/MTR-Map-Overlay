@@ -81,6 +81,7 @@ public class MapDataCache {
     public static void clearClientData() {
         clientDataReady = false;
         clientDataBuilt = null;
+        ClientPlanarScenes.clear();
     }
 
     /**

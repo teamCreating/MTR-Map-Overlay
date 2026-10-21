@@ -40,6 +40,8 @@ Car bodies use MTR's actual body/bogie transforms, including pitch and roll. Hov
 
 Tracks retain native Y and protocol-v7 snapshots transfer rail points as double-precision XYZ. Both maps draw fixed 2D layers: railway backing, route colours/blocks, then cars. Height does not split or sort geometry; railways never mask cars or their hover targets. In-game visual verification is pending; see [validation](docs/validation/planar-map.md).
 
+Static rail/route geometry is cached separately from car poses, with viewport prefetch, invalidation and bounded retention. See [cache validation](docs/validation/planar-cache.md) for correctness checks and the headless geometry workload; it is not an in-game FPS measurement.
+
 ## Requirements and installation
 
 | Minecraft | Loader | Java | MTR | Optional maps |

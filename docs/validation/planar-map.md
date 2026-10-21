@@ -1,5 +1,7 @@
 # Pure 2D map rendering — 2026-10-21
 
+Additional optimization: static/dynamic geometry is now cached independently; current 48-test/build results and the measured headless workload are documented in [planar-cache.md](planar-cache.md). The 39-test results below record the initial planar change.
+
 Codex; main development version remains 1.5.2, MC 1.21.1 NeoForge/Fabric. User explicitly replaced underpass/height ordering with a planar map. Earlier train-height.md and underpass-complexity.md describe the superseded implementation.
 
 ## Behaviour

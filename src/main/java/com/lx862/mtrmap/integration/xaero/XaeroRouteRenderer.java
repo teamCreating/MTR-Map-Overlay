@@ -5,6 +5,7 @@ import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.ClientTrainCollector;
 import com.lx862.mtrmap.mapdata.PlanarMapScene;
+import com.lx862.mtrmap.mapdata.ClientPlanarScenes;
 import com.lx862.mtrmap.mapdata.MapCar;
 import com.lx862.mtrmap.integration.TrainMapTooltip;
 import com.lx862.mtrmap.mapdata.MapLandmark;
@@ -170,7 +171,7 @@ public class XaeroRouteRenderer {
         final double maxX = cameraX + halfW;
         final double maxZ = cameraZ + halfH;
 
-        final PlanarMapScene scene = PlanarMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
+        final PlanarMapScene scene = ClientPlanarScenes.XAERO.get(data, data.tracks, data.routePalette, data.trackPatterns,
                 cars, MTRMapConfig.INSTANCE.trackLinesEnabled.get(), MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
                 scale, minX, minZ, maxX, maxZ);
         drawScene(graphics, screenMatrix, scene, scale, cameraX, cameraZ, mcScreen.width, mcScreen.height);

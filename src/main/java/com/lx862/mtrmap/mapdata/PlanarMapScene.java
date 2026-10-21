@@ -1,8 +1,10 @@
 package com.lx862.mtrmap.mapdata;
 
 import java.util.ArrayList;
+import java.util.AbstractList;
 import java.util.List;
 import java.util.Map;
+import java.util.RandomAccess;
 
 /** Pure X/Z map layers: railway backing, route colours/details, then cars. */
 public final class PlanarMapScene {
@@ -22,14 +24,47 @@ public final class PlanarMapScene {
         }
     }
 
-    private final List<Quad> quads = new ArrayList<>();
+    private final List<Quad> staticQuads;
+    private final List<Quad> carQuads = new ArrayList<>();
     private final List<Quad> carTargets = new ArrayList<>();
+    private final List<Quad> quads;
 
-    private PlanarMapScene() {
+    private PlanarMapScene(List<Quad> staticQuads) {
+        this.staticQuads = staticQuads;
+        this.quads = new Layers(staticQuads, carQuads);
     }
 
     public List<Quad> quads() {
         return quads;
+    }
+
+    /** Immutable geometry shared across frames; no copying into the dynamic scene. */
+    public List<Quad> staticQuads() {
+        return staticQuads;
+    }
+
+    public int carQuadCount() {
+        return carQuads.size();
+    }
+
+    private static final class Layers extends AbstractList<Quad> implements RandomAccess {
+        private final List<Quad> first;
+        private final List<Quad> second;
+
+        private Layers(List<Quad> first, List<Quad> second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        @Override
+        public Quad get(int index) {
+            return index < first.size() ? first.get(index) : second.get(index - first.size());
+        }
+
+        @Override
+        public int size() {
+            return first.size() + second.size();
+        }
     }
 
     /** Only visible car bodies/markers participate, in reverse paint order. */
@@ -46,8 +81,16 @@ public final class PlanarMapScene {
             Map<String, TrackPatternLayout.Placement> patterns, List<MapCar> cars,
             boolean showTracks, boolean showRoutes, double scale,
             double minX, double minZ, double maxX, double maxZ) {
-        final PlanarMapScene scene = new PlanarMapScene();
-        if (!Double.isFinite(scale) || scale <= 0) return scene;
+        return withCars(buildStatic(tracks, palette, patterns, showTracks, showRoutes,
+                scale, minX, minZ, maxX, maxZ), cars, scale, minX, minZ, maxX, maxZ);
+    }
+
+    public static List<Quad> buildStatic(List<MapTrack> tracks,
+            Map<String, List<TrackRoutePalette.Entry>> palette,
+            Map<String, TrackPatternLayout.Placement> patterns, boolean showTracks, boolean showRoutes,
+            double scale, double minX, double minZ, double maxX, double maxZ) {
+        if (!Double.isFinite(scale) || scale <= 0) return List.of();
+        final List<Quad> result = new ArrayList<>();
         // Finish every backing before drawing any route, including at crossings.
         for (MapTrack track : tracks) {
             final List<TrackRoutePalette.Entry> bands = palette.getOrDefault(track.id, List.of());
@@ -58,7 +101,7 @@ public final class PlanarMapScene {
                         routeWidth > 0 ? routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale : 0);
                 RouteRibbonGeometry.drawStrip(track, width, scale, minX, minZ, maxX, maxZ,
                         (a, b, c, d, e, f, g, h, color, alpha) ->
-                                scene.add(a, b, c, d, e, f, g, h, color, 255, null));
+                                addTo(result, a, b, c, d, e, f, g, h, color, 255, null));
             }
         }
         if (showRoutes) {
@@ -68,12 +111,20 @@ public final class PlanarMapScene {
                         patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT), scale,
                         minX, minZ, maxX, maxZ,
                         (a, b, c, d, e, f, g, h, color, alpha) ->
-                                scene.add(a, b, c, d, e, f, g, h, color, alpha, null),
+                                addTo(result, a, b, c, d, e, f, g, h, color, alpha, null),
                         (a, b, c, d, e, f, g, h, color, alpha) ->
                                 addTo(details, a, b, c, d, e, f, g, h, color, alpha, null));
             }
-            scene.quads.addAll(details);
+            result.addAll(details);
         }
+        return List.copyOf(result);
+    }
+
+    /** The supplied static geometry is an immutable buildStatic result. */
+    public static PlanarMapScene withCars(List<Quad> staticQuads, List<MapCar> cars, double scale,
+            double minX, double minZ, double maxX, double maxZ) {
+        final PlanarMapScene scene = new PlanarMapScene(staticQuads);
+        if (!Double.isFinite(scale) || scale <= 0) return scene;
         for (MapCar car : cars) {
             if (!car.valid() || !car.intersects(minX, minZ, maxX, maxZ)) continue;
             final double lengthPixels = Math.hypot(car.frontRight().x() - car.backRight().x(),
@@ -122,7 +173,7 @@ public final class PlanarMapScene {
 
     private Quad add(double a, double b, double c, double d, double e, double f, double g, double h,
             int color, int alpha, MapCar car) {
-        return addTo(quads, a, b, c, d, e, f, g, h, color, alpha, car);
+        return addTo(carQuads, a, b, c, d, e, f, g, h, color, alpha, car);
     }
 
     private static Quad addTo(List<Quad> target, double a, double b, double c, double d,

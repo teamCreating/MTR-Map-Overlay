@@ -20,14 +20,10 @@ public record MapCar(long vehicleId, int index, int count, boolean leading, Stri
     }
 
     public boolean intersects(double minX, double minZ, double maxX, double maxZ) {
-        double left = Double.POSITIVE_INFINITY, bottom = left;
-        double right = Double.NEGATIVE_INFINITY, top = right;
-        for (MapVertex point : corners()) {
-            left = Math.min(left, point.x());
-            right = Math.max(right, point.x());
-            bottom = Math.min(bottom, point.z());
-            top = Math.max(top, point.z());
-        }
+        final double left = Math.min(Math.min(frontRight.x(), backRight.x()), Math.min(backLeft.x(), frontLeft.x()));
+        final double right = Math.max(Math.max(frontRight.x(), backRight.x()), Math.max(backLeft.x(), frontLeft.x()));
+        final double bottom = Math.min(Math.min(frontRight.z(), backRight.z()), Math.min(backLeft.z(), frontLeft.z()));
+        final double top = Math.max(Math.max(frontRight.z(), backRight.z()), Math.max(backLeft.z(), frontLeft.z()));
         return right >= minX && left <= maxX && top >= minZ && bottom <= maxZ;
     }
 }

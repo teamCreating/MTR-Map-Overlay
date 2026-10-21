@@ -2,6 +2,7 @@ package com.lx862.mtrmap.integration.journeymap;
 
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.PlanarMapScene;
+import com.lx862.mtrmap.mapdata.ClientPlanarScenes;
 import com.lx862.mtrmap.mapdata.MapCar;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -20,7 +21,7 @@ final class JourneyMapPathManager {
         final var config = MTRMapConfig.INSTANCE;
         final var view = projection.visibleWorldBounds(graphics.guiWidth(), graphics.guiHeight(), 16);
         if (view == null || !config.enabled.get()) return null;
-        final PlanarMapScene scene = PlanarMapScene.build(data.tracks, data.routePalette, data.trackPatterns,
+        final PlanarMapScene scene = ClientPlanarScenes.JOURNEYMAP.get(data, data.tracks, data.routePalette, data.trackPatterns,
                 cars, config.trackLinesEnabled.get(), config.routeLinesEnabled.get(), projection.pixelsPerBlock(),
                 view.minX(), view.minZ(), view.maxX(), view.maxZ());
         final var consumer = graphics.bufferSource().getBuffer(RenderType.gui());
