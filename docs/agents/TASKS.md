@@ -28,6 +28,8 @@
 
 ## 完成
 
+- [完成] Create 参考列车可辨识样式 — Codex，2026-10-21 14:08，见本条所在提交。最小 7 GUIpx、白色轮廓/深框/线路色侧边/浅顶，实际倒车端金色箭头，缩远定向图标。65 普通测试、双构建及 NeoForge 两地图显示/悬停检查通过。详见 docs/validation/train-style.md；真实 XYZ、纯 2D、版本 1.5.2、协议 v8 保持，全图动态流/ETA 未改动。
+
 - [完成] 细线原生曲线与屏幕误差控制 — Codex，2026-10-21 13:38，commit ec49c1b。NativeRailCurve + 原生切向、屏幕误差细分、逐顶点 alpha 过渡、每 host 有界 LOD 缓存，静态协议升 v8、mod 仍 1.5.2。61 普通测试通过，双构建通过；NeoForge 的 Xaero 高倍绿色轻铁和 JourneyMap 曲线实机检查，详见 docs/validation/native-curves.md。全网动态车辆和 ETA 未改动。
 
 - [完成] NeoForge 1.21.1 实机调试附近列车缺失与线路拼接 — Codex，2026-10-21 12:55，commit 5c98b43。两地图实际显示 3 节停放车辆并悬停读 XYZ；修复状态过滤、缩远对比轮廓、轨道共享接头/主线相位、共线渐变/同色去重及 Depot 回退抑制。53 普通测试和双构建通过，存档生成显式 opt-in。详见 docs/validation/runtime-trains-routes.md；全网动态车辆、ETA、营运移动仍未验收，不计入本次完成范围。版本仍 1.5.2。

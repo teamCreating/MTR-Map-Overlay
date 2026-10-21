@@ -79,7 +79,7 @@ public final class ClientTrainCollector {
                             extra.getThisRouteName(), extra.getThisRouteDestination(),
                             extra.getThisRouteName().isBlank() ? 0xA6B3C1 : extra.getThisRouteColor(),
                             corner(body, halfWidth, halfLength), corner(body, halfWidth, -halfLength),
-                            corner(body, -halfWidth, -halfLength), corner(body, -halfWidth, halfLength));
+                            corner(body, -halfWidth, -halfLength), corner(body, -halfWidth, halfLength), vehicle.getReversed());
                     if (rendered.valid()) next.add(rendered);
                 }
             } catch (RuntimeException e) {

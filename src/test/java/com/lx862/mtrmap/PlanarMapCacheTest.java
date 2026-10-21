@@ -83,7 +83,7 @@ class PlanarMapCacheTest {
     void dynamicGeometryAlsoCountsAgainstRetentionBudget() {
         final PlanarMapCache cache = new PlanarMapCache(3);
         final PlanarMapScene scene = get(cache, source, List.of(car(0)), false, false, 3, -100, 100);
-        assertEquals(4, scene.quads().size());
+        assertTrue(scene.quads().size() > 3);
         assertNotNull(scene.pick(0, 0));
         assertEquals(0, cache.retainedQuads());
     }

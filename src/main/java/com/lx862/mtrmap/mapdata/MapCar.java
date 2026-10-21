@@ -5,7 +5,14 @@ import java.util.List;
 /** One rigid car's actual Core/MTR body corners and service metadata, independent of the map API. */
 public record MapCar(long vehicleId, int index, int count, boolean leading, String modelId,
         String routeName, String destination, int color,
-        MapVertex frontRight, MapVertex backRight, MapVertex backLeft, MapVertex frontLeft) {
+        MapVertex frontRight, MapVertex backRight, MapVertex backLeft, MapVertex frontLeft, boolean reversed) {
+    public MapCar(long vehicleId, int index, int count, boolean leading, String modelId,
+            String routeName, String destination, int color,
+            MapVertex frontRight, MapVertex backRight, MapVertex backLeft, MapVertex frontLeft) {
+        this(vehicleId, index, count, leading, modelId, routeName, destination, color,
+                frontRight, backRight, backLeft, frontLeft, false);
+    }
+
     public List<MapVertex> corners() {
         return List.of(frontRight, backRight, backLeft, frontLeft);
     }

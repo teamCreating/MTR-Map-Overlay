@@ -159,62 +159,13 @@ public final class PlanarMapScene {
             double minX, double minZ, double maxX, double maxZ) {
         final PlanarMapScene scene = new PlanarMapScene(staticQuads);
         if (!Double.isFinite(scale) || scale <= 0) return scene;
+        final double margin = 8 / scale;
         for (MapCar car : cars) {
-            if (!car.valid() || !car.intersects(minX, minZ, maxX, maxZ)) continue;
-            final double lengthPixels = Math.hypot(car.frontRight().x() - car.backRight().x(),
-                    car.frontRight().z() - car.backRight().z()) * scale;
-            if (lengthPixels < 5) {
-                if (car.leading()) scene.marker(car, scale);
-            } else {
-                scene.car(car, scale);
-            }
+            if (!car.valid() || !car.intersects(minX - margin, minZ - margin, maxX + margin, maxZ + margin)) continue;
+            final Quad target = TrainCarGeometry.draw(car, scale, scene.carQuads::add);
+            if (target != null) scene.carTargets.add(target);
         }
         return scene;
-    }
-
-    private void marker(MapCar car, double scale) {
-        final MapVertex p = car.center();
-        final double r = 3.5 / scale;
-        final Quad target = add(p.x() + r, p.z() + r, p.x() + r, p.z() - r,
-                p.x() - r, p.z() - r, p.x() - r, p.z() + r, 0x16202A, 255, car);
-        if (target != null) carTargets.add(target);
-        markerInset(car, p, 2.5 / scale, 0xFFFFFF);
-        markerInset(car, p, 1.5 / scale, car.color());
-    }
-
-    private void markerInset(MapCar car, MapVertex p, double r, int color) {
-        add(p.x() + r, p.z() + r, p.x() + r, p.z() - r,
-                p.x() - r, p.z() - r, p.x() - r, p.z() + r, color, 255, car);
-    }
-
-    private void car(MapCar car, double scale) {
-        final MapVertex a = car.frontRight(), b = car.backRight(), c = car.backLeft(), d = car.frontLeft();
-        final Quad target = add(a.x(), a.z(), b.x(), b.z(), c.x(), c.z(), d.x(), d.z(),
-                0x16202A, 255, car);
-        if (target == null) return;
-        carTargets.add(target);
-        final double width = Math.hypot(a.x() - d.x(), a.z() - d.z());
-        final double inset = Math.min(0.3, Math.max(0.12, 0.65 / (scale * Math.max(0.01, width))));
-        add(lerp(a.x(), d.x(), inset), lerp(a.z(), d.z(), inset),
-                lerp(b.x(), c.x(), inset), lerp(b.z(), c.z(), inset),
-                lerp(c.x(), b.x(), inset), lerp(c.z(), b.z(), inset),
-                lerp(d.x(), a.x(), inset), lerp(d.z(), a.z(), inset), car.color(), 255, car);
-        final double length = Math.hypot(a.x() - b.x(), a.z() - b.z());
-        final double cap = Math.min(0.12, 0.7 / (scale * Math.max(0.01, length)));
-        add(a.x(), a.z(), lerp(a.x(), b.x(), cap), lerp(a.z(), b.z(), cap),
-                lerp(d.x(), c.x(), cap), lerp(d.z(), c.z(), cap), d.x(), d.z(),
-                car.leading() ? 0xFFFFFF : 0x16202A, 255, car);
-        add(lerp(b.x(), a.x(), cap), lerp(b.z(), a.z(), cap), b.x(), b.z(), c.x(), c.z(),
-                lerp(c.x(), d.x(), cap), lerp(c.z(), d.z(), cap), 0x16202A, 255, car);
-    }
-
-    private static double lerp(double a, double b, double t) {
-        return a + (b - a) * t;
-    }
-
-    private Quad add(double a, double b, double c, double d, double e, double f, double g, double h,
-            int color, int alpha, MapCar car) {
-        return addTo(carQuads, a, b, c, d, e, f, g, h, color, alpha, car);
     }
 
     private static Quad addTo(List<Quad> target, double a, double b, double c, double d,

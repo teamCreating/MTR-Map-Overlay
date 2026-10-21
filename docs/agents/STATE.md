@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：真实 XYZ 附近车厢投影为纯 2D，固定轨道→线路→车厢层次；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 13:34，操作者：Codex
+- 最后更新：2026-10-21 14:08，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-21 14:08，Codex：参考 Create 车厢图标改为最小 7 GUIpx 车宽、白色倒角轮廓/深色框、线路色侧边、浅色车顶及端窗；金色车头箭头读取实际 reversed，缩远为 12×7 定向图标。真实 XYZ/朝向保持，单符号单 hover target，视口含额外显示边距。每节 8/9 quads、三节 25（旧 12），增加为常数绘制成本，静态缓存/网络不增加；未测大车队 FPS。65 普通测试与双平台构建通过，NeoForge Xaero 三节弯道/缩远及 JourneyMap 悬停实测通过；详见 `docs/validation/train-style.md`。版本仍 1.5.2、协议 v8、纯 2D；全图动态流/ETA 仍待实现。
 
 - 2026-10-21 13:34，Codex：修复细线曲线仍为 8 格折线的问题，新增 NativeRailCurve 原生参数导出/解析求值、按 GUI 屏幕误差细分及原生切向，底衬两侧逐顶点 alpha 过渡。Native 曲线 LOD 在每 host 缓存，仅当前视口、最多 maxQuads 个点，车辆更新复用；Core 初始化包围盒扫描有界。**静态协议现为 v8 / `_v8`，两端需一起更新，mod 仍 1.5.2、纯 2D。** 61 普通测试通过，生成用例跳过，双平台构建通过；NeoForge 已在约 34× 地图缩放查看绿色轻铁弯道。数值/成本/限制见 `docs/validation/native-curves.md`。以下 v7 记录为历史状态。
 

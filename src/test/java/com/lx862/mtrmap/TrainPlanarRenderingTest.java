@@ -67,7 +67,7 @@ class TrainPlanarRenderingTest {
         final MapTrack crossing2 = new MapTrack("bridge", List.of(new double[] {-20, 7, 55}, new double[] {20, 7, 55}));
         final PlanarMapScene result = scene(List.of(crossing2), List.of(inclined));
         assertEquals(inclined, result.pick(0, 7));
-        assertEquals(4, result.quads().stream().filter(q -> q.car() != null).count());
+        assertEquals(scene(List.of(), List.of(car(1, 60, 60))).carQuadCount(), result.carQuadCount());
     }
 
     @Test
@@ -107,12 +107,57 @@ class TrainPlanarRenderingTest {
         final MapCar car = car(1, 10, 200);
         final PlanarMapScene result = PlanarMapScene.build(List.of(), Map.of(), Map.of(), List.of(car),
                 false, false, 0.1, -100, -100, 100, 100);
-        assertEquals(3, result.quads().size());
-        assertEquals(0x16202A, result.quads().getFirst().color());
-        assertEquals(0xFFFFFF, result.quads().get(1).color());
-        assertEquals(car.color(), result.quads().getLast().color());
+        assertEquals(0xFFFFFF, result.quads().getFirst().color());
+        assertTrue(result.quads().stream().anyMatch(q -> q.color() == car.color()));
+        assertTrue(result.quads().stream().anyMatch(q -> q.color() == 0xF4EEDC));
         assertEquals(car, result.pick(20, 0));
         assertNull(result.pick(40, 0));
+    }
+
+    @Test
+    void narrowCarsHaveSevenPixelSilhouetteAndContrastingRoofWithoutChangingXYZ() {
+        final MapCar car = car(1, -40, 200);
+        final PlanarMapScene result = PlanarMapScene.withCars(List.of(), List.of(car), .5, -100, -100, 100, 100);
+        assertEquals(car, result.pick(6.9, 0));
+        assertNull(result.pick(7.1, 0));
+        assertEquals(0xF4EEDC, result.quads().stream().filter(q -> q.contains(0, 0)).toList().getLast().color());
+        assertEquals(1.5, car.frontRight().x());
+        assertEquals(-40, car.frontRight().y());
+        assertEquals(200, car.backRight().y());
+    }
+
+    @Test
+    void reversingASingleCarMovesTheHeadArrowToTheOtherEnd() {
+        final MapCar forward = car(1, 60, 60);
+        final MapCar reverse = new MapCar(forward.vehicleId(), 0, 1, true, forward.modelId(),
+                forward.routeName(), forward.destination(), forward.color(), forward.frontRight(),
+                forward.backRight(), forward.backLeft(), forward.frontLeft(), true);
+        final var first = scene(List.of(), List.of(forward)).quads().getLast();
+        final var second = scene(List.of(), List.of(reverse)).quads().getLast();
+        assertEquals(0xFFD166, first.color());
+        assertTrue(first.z3() > 0);
+        assertTrue(second.z3() < 0);
+    }
+
+    @Test
+    void zoomedOutMarkerRetainsHeadingAndSuppressesTrailingCars() {
+        final MapCar first = car(1, 60, 60);
+        final MapCar trailing = new MapCar(1, 1, 2, false, "model", "route", "dest", 0xFF0000,
+                first.frontRight(), first.backRight(), first.backLeft(), first.frontLeft());
+        final var result = PlanarMapScene.withCars(List.of(), List.of(first, trailing), .1, -100, -100, 100, 100);
+        assertEquals(first, result.pick(0, 55));
+        assertNull(result.pick(55, 0));
+        assertTrue(result.quads().stream().allMatch(q -> q.car() == first));
+    }
+
+    @Test
+    void exaggeratedSilhouetteIsNotCulledAtViewportEdgeAndAdjacentCarsKeepAGap() {
+        final MapCar first = car(1, 60, 60);
+        final var edge = PlanarMapScene.withCars(List.of(), List.of(first), .5, 5, -5, 20, 5);
+        assertEquals(first, edge.pick(6, 0));
+        final var result = scene(List.of(), List.of(first));
+        assertNull(result.pick(0, 9.9));
+        assertEquals(first, result.pick(0, 9.7));
     }
 
     @Test
