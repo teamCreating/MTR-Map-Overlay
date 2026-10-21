@@ -23,8 +23,9 @@ public final class RouteRibbonGeometry {
         for (TrackRoutePalette.Entry band : bands) {
             weight += band.style().width;
         }
-        return RailRenderStyle.worldHalfWidth(RailRenderStyle.TRACK_HALF_WIDTH_PX
-                * RailRenderStyle.routeWidthMultiplier(bands.size()), scale) * weight / bands.size();
+        // Apply the readability floor once to the entire bundle, never to each lane.
+        return RailRenderStyle.worldHalfWidth((float) (RailRenderStyle.TRACK_HALF_WIDTH
+                * RailRenderStyle.routeWidthMultiplier(bands.size()) * weight / bands.size()), scale);
     }
 
     public static void draw(MapTrack track, List<TrackRoutePalette.Entry> bands,
@@ -106,7 +107,7 @@ public final class RouteRibbonGeometry {
                             a, b, sign, left, right, clipped[0], clipped[1], band.color(), 255, base, side, scale);
                 }
                 final double lanePixels = (right - left) * scale;
-                if (band.style() == RouteLineStyle.HIGH_SPEED && lanePixels >= 2.8
+                if (band.style() == RouteLineStyle.HIGH_SPEED && lanePixels >= 1.8
                         && placement.blockLength() * scale >= 3) {
                     final double border = Math.max(0.65 / scale, (right - left) * 0.2);
                     final double block = placement.blockLength();
@@ -136,11 +137,11 @@ public final class RouteRibbonGeometry {
             RouteRibbonProfile profile, String laneId, boolean backing, double inset,
             int a, int b, double sign, double left, double right,
             double from, double to, int color, int alpha, QuadSink sink, int featherSide, double scale) {
-        // Split only at the two taper boundaries, including very long two-point
-        // rails. This prevents a 12px transition stretching along the entire rail.
+        // Explicit taper samples also cover long two-point rails; width changes
+        // must not stretch over the entire rail or be represented by one sharp wedge.
         final double da = track.distances[a], db = track.distances[b];
         if (profile != null && profile.taper() > 0) {
-            for (double d : new double[] {profile.taper(), track.length() - profile.taper()}) {
+            for (double d : profile.cuts()) {
                 final double t = (d - da) / (db - da);
                 if (t > from + 1.0E-9 && t < to - 1.0E-9) {
                     section(track, placement, profile, laneId, backing, inset, a, b, sign, left, right,
@@ -167,8 +168,8 @@ public final class RouteRibbonGeometry {
         if (featherSide != 0) {
             final double inner1 = featherSide > 0 ? edge1.right() : edge1.left();
             final double inner2 = featherSide > 0 ? edge2.right() : edge2.left();
-            final double outer1 = inner1 + featherSide * 0.35 / scale;
-            final double outer2 = inner2 + featherSide * 0.35 / scale;
+            final double outer1 = inner1 + featherSide * Math.min(0.35 / scale, (edge1.right() - edge1.left()) * .15);
+            final double outer2 = inner2 + featherSide * Math.min(0.35 / scale, (edge2.right() - edge2.left()) * .15);
             if (featherSide > 0) sink.feather(x1 + nx1 * outer1, z1 + nz1 * outer1,
                     x2 + nx2 * outer2, z2 + nz2 * outer2, x2 + nx2 * inner2, z2 + nz2 * inner2,
                     x1 + nx1 * inner1, z1 + nz1 * inner1, color, alpha);
@@ -177,10 +178,14 @@ public final class RouteRibbonGeometry {
                     x2 + nx2 * inner2, z2 + nz2 * inner2, color, alpha);
             return;
         }
-        sink.quad(x1 + nx1 * (edge1.right() - inset), z1 + nz1 * (edge1.right() - inset),
-                x2 + nx2 * (edge2.right() - inset), z2 + nz2 * (edge2.right() - inset),
-                x2 + nx2 * (edge2.left() + inset), z2 + nz2 * (edge2.left() + inset),
-                x1 + nx1 * (edge1.left() + inset), z1 + nz1 * (edge1.left() + inset), color, alpha);
+        // A white high-speed block must collapse with its terminating lane. A fixed
+        // inset would invert the quad and spill white outside a narrow taper.
+        final double inset1 = Math.min(inset, Math.max(0, (edge1.right() - edge1.left()) / 2));
+        final double inset2 = Math.min(inset, Math.max(0, (edge2.right() - edge2.left()) / 2));
+        sink.quad(x1 + nx1 * (edge1.right() - inset1), z1 + nz1 * (edge1.right() - inset1),
+                x2 + nx2 * (edge2.right() - inset2), z2 + nz2 * (edge2.right() - inset2),
+                x2 + nx2 * (edge2.left() + inset2), z2 + nz2 * (edge2.left() + inset2),
+                x1 + nx1 * (edge1.left() + inset1), z1 + nz1 * (edge1.left() + inset1), color, alpha);
     }
 
     private static RouteRibbonProfile.Band edges(RouteRibbonProfile profile, String laneId, boolean backing,

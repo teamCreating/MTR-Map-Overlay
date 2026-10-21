@@ -28,6 +28,8 @@
 
 ## 完成
 
+- [完成] 接头过渡与 Create 参考缩放 — Codex，2026-10-21 14:39，见本条所在提交。共享截面/实际底衬宽度、结束色带平滑收束及白块防反转；轨道世界宽度随地图缩放、整束一个细线下限。68 普通测试、双构建及 NeoForge Xaero/JourneyMap 检查通过，见 docs/validation/route-joins-zoom.md。版本 1.5.2 / 协议 v8 / 纯 2D 保持。
+
 - [完成] Create 参考列车可辨识样式 — Codex，2026-10-21 14:08，见本条所在提交。最小 7 GUIpx、白色轮廓/深框/线路色侧边/浅顶，实际倒车端金色箭头，缩远定向图标。65 普通测试、双构建及 NeoForge 两地图显示/悬停检查通过。详见 docs/validation/train-style.md；真实 XYZ、纯 2D、版本 1.5.2、协议 v8 保持，全图动态流/ETA 未改动。
 
 - [完成] 细线原生曲线与屏幕误差控制 — Codex，2026-10-21 13:38，commit ec49c1b。NativeRailCurve + 原生切向、屏幕误差细分、逐顶点 alpha 过渡、每 host 有界 LOD 缓存，静态协议升 v8、mod 仍 1.5.2。61 普通测试通过，双构建通过；NeoForge 的 Xaero 高倍绿色轻铁和 JourneyMap 曲线实机检查，详见 docs/validation/native-curves.md。全网动态车辆和 ETA 未改动。

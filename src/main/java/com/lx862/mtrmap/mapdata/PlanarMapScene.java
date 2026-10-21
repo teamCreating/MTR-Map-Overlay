@@ -108,12 +108,12 @@ public final class PlanarMapScene {
         final List<Quad> result = new ArrayList<>();
         // Native curves are tessellated only on static-cache rebuilds, after coarse
         // culling, using the current zoom. Poses never trigger curve evaluation.
-        final double margin = 32 / scale + 2;
+        final double margin = 32 / scale + 16;
         final List<MapTrack> visible = tracks.stream()
                 .filter(t -> t.intersects(minX - margin, minZ - margin, maxX + margin, maxZ + margin))
                 .map(tessellator).toList();
         final Map<String, RouteRibbonProfile> profiles = showRoutes
-                ? RouteRibbonProfile.build(tracks, palette, patterns, scale) : Map.of();
+                ? RouteRibbonProfile.build(tracks, palette, patterns, scale, showTracks) : Map.of();
         final RouteRibbonGeometry.QuadSink backing = new RouteRibbonGeometry.QuadSink() {
             @Override public void quad(double a, double b, double c, double d, double e, double f, double g, double h,
                     int color, int alpha) {
@@ -130,9 +130,7 @@ public final class PlanarMapScene {
             final List<TrackRoutePalette.Entry> bands = palette.getOrDefault(track.id, List.of());
             final double routeWidth = showRoutes ? RouteRibbonGeometry.halfWidth(bands, scale) : 0;
             if (showTracks || routeWidth > 0) {
-                final double width = Math.max(showTracks ? RailRenderStyle.worldHalfWidth(
-                        RailRenderStyle.TRACK_HALF_WIDTH_PX, scale) : 0,
-                        routeWidth > 0 ? routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale : 0);
+                final double width = RailRenderStyle.backingWidth(routeWidth, scale, showTracks);
                 RouteRibbonGeometry.drawStrip(track, patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT),
                         showRoutes ? profiles.get(track.id) : null, width, scale, minX, minZ, maxX, maxZ,
                         backing);

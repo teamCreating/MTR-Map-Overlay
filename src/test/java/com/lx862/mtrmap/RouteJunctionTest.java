@@ -63,13 +63,51 @@ class RouteJunctionTest {
         final var layout = TrackPatternLayout.build(List.of(a, b));
         final var palette = Map.of("a", List.of(A, B), "b", List.of(A));
         final var profiles = RouteRibbonProfile.build(List.of(a, b), palette, layout, 1);
-        final var expected = profiles.get("a").bands().get("a");
+        final var local = profiles.get("a").bands().get("a");
+        final var expected = profiles.get("a").at("a", local.left(), local.right(), a.length(), a.length());
         final var actual = profiles.get("b").at("a", -1.25, 1.25, 0, b.length());
         assertEquals(expected, actual);
         assertEquals(new RouteRibbonProfile.Band(-1.25, 1.25), profiles.get("b").at("a", -1.25, 1.25, 12, b.length()));
         final var scene = PlanarMapScene.build(List.of(a, b), palette, layout, List.of(), false, true,
                 1, -100, -100, 2100, 100);
+        final var ending = profiles.get("a").bands().get("b");
+        final var tip = profiles.get("a").at("b", ending.left(), ending.right(), a.length(), a.length());
+        assertEquals(tip.left(), tip.right(), 1E-8, "Ending lane must not leave a square lip");
         assertTrue(scene.quads().stream().filter(q -> q.color() == A.color())
-                .anyMatch(q -> Math.abs((q.x2()+q.x3())/2 - 1012) < 1E-8));
+                .anyMatch(q -> Math.abs((q.x2()+q.x3())/2 - (1000 - profiles.get("a").taper())) < 1E-8));
+    }
+
+    @Test void routeToUncolouredTrackSharesTheActualBackingWithoutAddingWidthTwice() {
+        final var a = rail("a", new double[]{0, 0}, new double[]{100, 0});
+        final var b = rail("b", new double[]{100, 0}, new double[]{200, 0});
+        final var tracks = List.of(a, b);
+        for (double scale : new double[]{.02, .25, 1, 8}) {
+            final var p = RouteRibbonProfile.build(tracks, Map.of("a", List.of(B)), TrackPatternLayout.build(tracks), scale);
+            final double before = p.get("a").widthAt(p.get("a").backingWidth(), a.length(), a.length());
+            final double after = p.get("b").widthAt(p.get("b").backingWidth(), 0, b.length());
+            assertEquals(before, after, 1E-8);
+            assertEquals(Math.min(p.get("a").backingWidth(), p.get("b").backingWidth()), before, 1E-8);
+        }
+    }
+
+    @Test void reversedSharedToSingleRouteHasIdenticalPhysicalEdgesAndNoWhiteSpill() {
+        final var a = rail("a", new double[]{0, 0}, new double[]{63, 0});
+        final var b = rail("b", new double[]{126, 0}, new double[]{63, 0});
+        final var tracks = List.of(a, b);
+        final var palette = Map.of("a", List.of(A, B), "b", List.of(A));
+        final var layout = TrackPatternLayout.build(tracks, palette);
+        final var scene = PlanarMapScene.build(tracks, palette, layout, List.of(), true, true, 4, -100, -100, 200, 100);
+        final var red = scene.quads().stream().filter(q -> q.color() == A.color()).toList();
+        final var before = red.stream().filter(q -> Math.abs(q.x2() - 63) < 1E-8).findFirst().orElseThrow();
+        final var after = red.stream().filter(q -> Math.abs(q.x1() - 63) < 1E-8).findFirst().orElseThrow();
+        assertEquals(before.z2(), after.z1(), 1E-8);
+        assertEquals(before.z3(), after.z4(), 1E-8);
+        final var green = scene.quads().stream().filter(q -> q.color() == B.color()).toList();
+        for (var white : scene.quads().stream().filter(q -> q.color() == 0xFFFFFF).toList()) {
+            for (double[] v : new double[][]{{white.x1(), white.z1()}, {white.x2(), white.z2()},
+                    {white.x3(), white.z3()}, {white.x4(), white.z4()}}) {
+                assertTrue(green.stream().anyMatch(q -> q.contains(v[0], v[1])), "White block escaped ending lane");
+            }
+        }
     }
 }

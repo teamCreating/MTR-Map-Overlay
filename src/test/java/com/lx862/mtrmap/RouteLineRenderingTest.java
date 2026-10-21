@@ -68,6 +68,9 @@ class RouteLineRenderingTest {
     @Test
     void lowZoomOrNarrowSharedLanesSimplifyToSolid() {
         assertTrue(draw(track("rail", 0, 1000), HIGH_SPEED, TrackPatternLayout.Placement.DEFAULT,
+                .75, -100, 1100).stream().anyMatch(q -> q.color == 0xFFFFFF),
+                "Keep high-speed blocks at ordinary map zoom after switching to world widths");
+        assertTrue(draw(track("rail", 0, 1000), HIGH_SPEED, TrackPatternLayout.Placement.DEFAULT,
                 0.1, -100, 1100).stream().noneMatch(q -> q.color == 0xFFFFFF));
         final var crowded = java.util.stream.IntStream.range(0, 10)
                 .mapToObj(i -> new TrackRoutePalette.Entry("" + i, "High speed", 0x008844, RouteLineStyle.HIGH_SPEED))
