@@ -13,7 +13,7 @@ public record NetworkSyncChunk(int transferId, short chunkIndex, short totalChun
         implements CustomPacketPayload {
 
     public static final Type<NetworkSyncChunk> TYPE =
-            new Type<>(MTRNetwork.id("network_sync_chunk_v7"));
+            new Type<>(MTRNetwork.id("network_sync_chunk_v8"));
 
     public static final StreamCodec<FriendlyByteBuf, NetworkSyncChunk> STREAM_CODEC =
             StreamCodec.of(NetworkSyncChunk::write, NetworkSyncChunk::read);

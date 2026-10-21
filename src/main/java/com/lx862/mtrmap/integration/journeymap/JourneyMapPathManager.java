@@ -30,13 +30,13 @@ final class JourneyMapPathManager {
             final int color = quad.color();
             final int r = (color >> 16) & 255, g = (color >> 8) & 255, b = color & 255;
             consumer.addVertex(matrix, (float) projection.x(quad.x1(), quad.z1()),
-                    (float) projection.y(quad.x1(), quad.z1()), 0).setColor(r, g, b, quad.alpha());
+                    (float) projection.y(quad.x1(), quad.z1()), 0).setColor(r, g, b, quad.vertexAlpha(0));
             consumer.addVertex(matrix, (float) projection.x(quad.x2(), quad.z2()),
-                    (float) projection.y(quad.x2(), quad.z2()), 0).setColor(r, g, b, quad.alpha());
+                    (float) projection.y(quad.x2(), quad.z2()), 0).setColor(r, g, b, quad.vertexAlpha(1));
             consumer.addVertex(matrix, (float) projection.x(quad.x3(), quad.z3()),
-                    (float) projection.y(quad.x3(), quad.z3()), 0).setColor(r, g, b, quad.alpha());
+                    (float) projection.y(quad.x3(), quad.z3()), 0).setColor(r, g, b, quad.vertexAlpha(2));
             consumer.addVertex(matrix, (float) projection.x(quad.x4(), quad.z4()),
-                    (float) projection.y(quad.x4(), quad.z4()), 0).setColor(r, g, b, quad.alpha());
+                    (float) projection.y(quad.x4(), quad.z4()), 0).setColor(r, g, b, quad.vertexAlpha(3));
         }
         RenderSystem.disableCull();
         graphics.bufferSource().endBatch(RenderType.gui());

@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 13:38] Codex — 细线原生曲线与屏幕误差细分
+
+- 原固定 8 格折线在高倍露出折角，接头修复不能恢复曲率。新增 NativeRailCurve 保留原生几何定义，客户端原生求值/切向、按屏幕误差细分，灰色底衬逐顶点 alpha 过渡；曲线网格按保守 2 倍 LOD 有界复用，车辆更新不重算。
+- **静态协议升 v8 / `_v8`，两端一起更新；mod_version 仍 1.5.2，纯 2D 保持。** 每轨道额外 184 bytes，zoom 不传细分点；Core 构造期 0.1 格包围盒扫描有界化，仍用服务端原包围盒，不改变位置解析函数。
+- 61 普通测试和双构建通过。S 弯在 scale=32 的中心线误差从 4.606802 降到 0.022786 GUIpx；全形状/竖曲线/反向端点/远坐标往返、LOD 复用、边缘 alpha 和绕序均测试。不是 FPS 成绩。
+- 已用 computer-use 实机检查 Xaero 约 34× 绿色轻铁弯道、最终缓存版本 JourneyMap 红白 S 弯/轻铁与行驶车辆，客户端保持运行；v7/v8 混连、全图大网 FPS 未验收。见 docs/validation/native-curves.md，交付 ../test-builds/v1.5.2-native-curves。全网动态列车与 ETA 不在本次范围。
+
 ## [2026-10-21 12:55] Codex — NeoForge 实机复现列车与线路接头
 
 - 已启动本地 TestWorld 并用 computer-use 实际查看 Xaero/JourneyMap：附近 1 train / 3 cars / 0 capture failures；车型、2/3 和 XYZ 悬停均确认。远离车库时客户端原生 vehicles=0，也明确复现了全网动态数据仍缺失，不能宣称全图车辆已完成。

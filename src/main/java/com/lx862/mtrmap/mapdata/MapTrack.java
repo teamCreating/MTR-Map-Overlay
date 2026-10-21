@@ -21,10 +21,20 @@ public class MapTrack {
     public final double[] distances;
     public final double[] normalX;
     public final double[] normalZ;
+    public final NativeRailCurve curve;
 
     public MapTrack(String id, List<double[]> points) {
+        this(id, points, null, null);
+    }
+
+    public MapTrack(String id, List<double[]> points, NativeRailCurve curve) {
+        this(id, points, curve, null);
+    }
+
+    MapTrack(String id, List<double[]> points, NativeRailCurve curve, double[] nativeDistances) {
         this.id = id == null ? "" : id;
         this.points = points;
+        this.curve = curve;
         double minX = Double.POSITIVE_INFINITY;
         double minZ = Double.POSITIVE_INFINITY;
         double maxX = Double.NEGATIVE_INFINITY;
@@ -41,15 +51,24 @@ public class MapTrack {
             maxX = Math.max(maxX, point[0]);
             maxZ = Math.max(maxZ, point[1]);
         }
-        this.minX = minX;
-        this.minZ = minZ;
-        this.maxX = maxX;
-        this.maxZ = maxZ;
+        this.minX = curve == null ? minX : Math.min(minX, curve.minX());
+        this.minZ = curve == null ? minZ : Math.min(minZ, curve.minZ());
+        this.maxX = curve == null ? maxX : Math.max(maxX, curve.maxX());
+        this.maxZ = curve == null ? maxZ : Math.max(maxZ, curve.maxZ());
         this.validGeometry = validGeometry && points.size() >= 2;
         distances = new double[points.size()];
         normalX = new double[points.size()];
         normalZ = new double[points.size()];
         if (this.validGeometry) {
+            if (curve != null) {
+                for (int i = 0; i < points.size(); i++) {
+                    distances[i] = nativeDistances == null ? curve.length() * i / (points.size() - 1) : nativeDistances[i];
+                    final double[] normal = curve.normal(distances[i]);
+                    normalX[i] = normal[0];
+                    normalZ[i] = normal[1];
+                }
+                return;
+            }
             for (int i = 1; i < points.size(); i++) {
                 distances[i] = distances[i - 1] + Math.hypot(points.get(i)[0] - points.get(i - 1)[0],
                         points.get(i)[1] - points.get(i - 1)[1]);
@@ -79,6 +98,10 @@ public class MapTrack {
                 }
             }
         }
+    }
+
+    public MapTrack forScale(double scale) {
+        return curve == null ? this : curve.tessellate(id, scale);
     }
 
     /** Unknown heights remain NaN; a missing Y must never be invented from X/Z. */

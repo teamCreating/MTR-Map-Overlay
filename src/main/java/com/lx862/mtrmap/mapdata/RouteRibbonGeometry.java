@@ -11,6 +11,8 @@ public final class RouteRibbonGeometry {
     public interface QuadSink {
         void quad(double x1, double z1, double x2, double z2, double x3, double z3,
                 double x4, double z4, int color, int alpha);
+        default void feather(double x1, double z1, double x2, double z2, double x3, double z3,
+                double x4, double z4, int color, int alpha) {}
     }
 
     public static double halfWidth(List<TrackRoutePalette.Entry> bands, double scale) {
@@ -98,7 +100,11 @@ public final class RouteRibbonGeometry {
                 final double right = lane + 1 == bands.size() ? halfWidth : left + unit * band.style().width;
                 section(track, placement, profile, band.id(), Double.isFinite(overrideWidth), 0,
                         a, b, sign, left, right, clipped[0], clipped[1],
-                        band.color(), RailRenderStyle.TRACK_ALPHA, base);
+                        band.color(), RailRenderStyle.TRACK_ALPHA, base, 0, scale);
+                if (Double.isFinite(overrideWidth)) {
+                    for (int side : new int[] {-1, 1}) section(track, placement, profile, band.id(), true, 0,
+                            a, b, sign, left, right, clipped[0], clipped[1], band.color(), 255, base, side, scale);
+                }
                 final double lanePixels = (right - left) * scale;
                 if (band.style() == RouteLineStyle.HIGH_SPEED && lanePixels >= 2.8
                         && placement.blockLength() * scale >= 3) {
@@ -117,7 +123,7 @@ public final class RouteRibbonGeometry {
                             section(track, placement, profile, band.id(), false, border,
                                     a, b, sign, left, right,
                                     (from - distance) / length, (to - distance) / length,
-                                    0xFFFFFF, 255, details);
+                                    0xFFFFFF, 255, details, 0, scale);
                         }
                     }
                 }
@@ -129,7 +135,7 @@ public final class RouteRibbonGeometry {
     private static void section(MapTrack track, TrackPatternLayout.Placement placement,
             RouteRibbonProfile profile, String laneId, boolean backing, double inset,
             int a, int b, double sign, double left, double right,
-            double from, double to, int color, int alpha, QuadSink sink) {
+            double from, double to, int color, int alpha, QuadSink sink, int featherSide, double scale) {
         // Split only at the two taper boundaries, including very long two-point
         // rails. This prevents a 12px transition stretching along the entire rail.
         final double da = track.distances[a], db = track.distances[b];
@@ -138,9 +144,9 @@ public final class RouteRibbonGeometry {
                 final double t = (d - da) / (db - da);
                 if (t > from + 1.0E-9 && t < to - 1.0E-9) {
                     section(track, placement, profile, laneId, backing, inset, a, b, sign, left, right,
-                            from, t, color, alpha, sink);
+                            from, t, color, alpha, sink, featherSide, scale);
                     section(track, placement, profile, laneId, backing, inset, a, b, sign, left, right,
-                            t, to, color, alpha, sink);
+                            t, to, color, alpha, sink, featherSide, scale);
                     return;
                 }
             }
@@ -158,6 +164,19 @@ public final class RouteRibbonGeometry {
         final double nz1 = sign * (placement.normalZ(track, a) + (placement.normalZ(track, b) - placement.normalZ(track, a)) * from);
         final double nx2 = sign * (placement.normalX(track, a) + (placement.normalX(track, b) - placement.normalX(track, a)) * to);
         final double nz2 = sign * (placement.normalZ(track, a) + (placement.normalZ(track, b) - placement.normalZ(track, a)) * to);
+        if (featherSide != 0) {
+            final double inner1 = featherSide > 0 ? edge1.right() : edge1.left();
+            final double inner2 = featherSide > 0 ? edge2.right() : edge2.left();
+            final double outer1 = inner1 + featherSide * 0.35 / scale;
+            final double outer2 = inner2 + featherSide * 0.35 / scale;
+            if (featherSide > 0) sink.feather(x1 + nx1 * outer1, z1 + nz1 * outer1,
+                    x2 + nx2 * outer2, z2 + nz2 * outer2, x2 + nx2 * inner2, z2 + nz2 * inner2,
+                    x1 + nx1 * inner1, z1 + nz1 * inner1, color, alpha);
+            else sink.feather(x2 + nx2 * outer2, z2 + nz2 * outer2,
+                    x1 + nx1 * outer1, z1 + nz1 * outer1, x1 + nx1 * inner1, z1 + nz1 * inner1,
+                    x2 + nx2 * inner2, z2 + nz2 * inner2, color, alpha);
+            return;
+        }
         sink.quad(x1 + nx1 * (edge1.right() - inset), z1 + nz1 * (edge1.right() - inset),
                 x2 + nx2 * (edge2.right() - inset), z2 + nz2 * (edge2.right() - inset),
                 x2 + nx2 * (edge2.left() + inset), z2 + nz2 * (edge2.left() + inset),

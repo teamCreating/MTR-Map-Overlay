@@ -5,6 +5,7 @@ import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
 import com.lx862.mtrmap.mapdata.RouteLineStyle;
+import com.lx862.mtrmap.mapdata.NativeRailCurve;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Pure-Java protocol-v7 snapshot codec, kept independent of Minecraft payload classes for testing. */
+/** Protocol-v8 snapshot codec: native rail definitions plus coarse data for picking/topology. */
 public final class NetworkSnapshotCodec {
 
     private NetworkSnapshotCodec() {
@@ -52,6 +53,8 @@ public final class NetworkSnapshotCodec {
                     out.writeDouble(track.height(i));
                     out.writeDouble(track.points.get(i)[1]);
                 }
+                out.writeBoolean(track.curve != null);
+                if (track.curve != null) track.curve.write(out);
             }
             out.writeInt(dimension.landmarks.size());
             for (MapLandmark landmark : dimension.landmarks) {
@@ -110,7 +113,8 @@ public final class NetworkSnapshotCodec {
                     }
                     points.add(new double[]{x, z, y});
                 }
-                tracks.add(new MapTrack(trackId, points));
+                final NativeRailCurve curve = in.readBoolean() ? NativeRailCurve.read(in) : null;
+                tracks.add(new MapTrack(trackId, points, curve));
             }
 
             final int landmarkCount = readCount(in, 22);

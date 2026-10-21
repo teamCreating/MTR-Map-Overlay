@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class NetworkSyncChunkTest {
 
     @Test
-    void protocolSevenRoundTripsXYZRouteStylesRailReferencesAndLandmarks() throws Exception {
+    void protocolEightRoundTripsXYZRouteStylesRailReferencesAndLandmarks() throws Exception {
         final NetworkSnapshotCodec.PendingDimension source =
                 new NetworkSnapshotCodec.PendingDimension("minecraft/overworld", 42L);
         source.tracks.add(new MapTrack("rail-a", List.of(new double[]{29_000_000.125, 2.25, -40.75},

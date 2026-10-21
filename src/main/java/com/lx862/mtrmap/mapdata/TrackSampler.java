@@ -23,6 +23,11 @@ public final class TrackSampler {
     private TrackSampler() {
     }
 
+    public static MapTrack track(Rail rail) {
+        final List<double[]> points = rail == null ? null : sample(rail);
+        return points == null ? null : new MapTrack(rail.getHexId(), points, NativeRailCurve.from(rail));
+    }
+
     /**
      * Sample one stretch of a real driving path ({@link PathData}) into an X/Z
      * polyline, ordered along the traversal direction. Returns {@code null}

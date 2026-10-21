@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：真实 XYZ 附近车厢投影为纯 2D，固定轨道→线路→车厢层次；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 11:55，操作者：Codex
+- 最后更新：2026-10-21 13:34，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -25,6 +25,8 @@
 
 ## 架构现状
 
+- 2026-10-21 13:34，Codex：修复细线曲线仍为 8 格折线的问题，新增 NativeRailCurve 原生参数导出/解析求值、按 GUI 屏幕误差细分及原生切向，底衬两侧逐顶点 alpha 过渡。Native 曲线 LOD 在每 host 缓存，仅当前视口、最多 maxQuads 个点，车辆更新复用；Core 初始化包围盒扫描有界。**静态协议现为 v8 / `_v8`，两端需一起更新，mod 仍 1.5.2、纯 2D。** 61 普通测试通过，生成用例跳过，双平台构建通过；NeoForge 已在约 34× 地图缩放查看绿色轻铁弯道。数值/成本/限制见 `docs/validation/native-curves.md`。以下 v7 记录为历史状态。
+
 - 2026-10-21 12:53，Codex：实际启动 NeoForge 1.21.1，两个地图均验证 3 节待发车厢及悬停真实 XYZ；移除误用的 getIsOnRoute 过滤、加入限频采集诊断/中性色及缩远标记对比轮廓。曲线端点归一/共享截面、岔口主走廊延续、共线宽度渐变、同色往返去重、Depot 未实际染色线路恢复回退；53 普通测试通过（生成用例显式跳过），双平台构建通过。生成测试存档改为 -PgenerateTestWorld 显式触发。纯 2D / 1.5.2 / 静态 v7 保持。**全网动态流和 ETA 仍未实现，实机车辆为停放状态，未验证长时间营运移动。** 详见 `docs/validation/runtime-trains-routes.md`。
 
 - 2026-10-21，Codex：落实 Create 式静态/动态分离缓存。两个地图各自使用 PlanarMapCache，snapshot identity/scale/开关/视口 guard 失效；静态 quad list 共享，姿态不变整场景复用，pose 更新仅重建车厢。每 host 最多保留 100000 总 quads，超限正确无缓存绘制，源 identity 弱引用，连接清理释放。48 测试和双平台构建通过；120 帧合成几何工作负载 static builds 120→1、线程分配约 674→14MiB，非游戏 FPS。详见 `docs/validation/planar-cache.md`。纯 2D、协议 v7、版本 1.5.2 保持；全网动态通信未实现。
@@ -32,7 +34,7 @@
 - 2026-10-21，Codex：按用户要求改为纯 2D，PlanarMapScene 使用 primitive X/Z 四边形，移除所有高度细分/排序和轨道遮车判断；hover 只检查每个可见车厢/标记一个目标。原生 XYZ、协议 v7、样式、实际端点连接语义保持。39 测试和双平台构建通过，三种坡度数量场景均为 52000 quads，预览已检查，未游戏内实测。见 `docs/validation/planar-map.md`；以下历史高度记录已经被此项取代。
 
 - 独立 MTR 地图叠加项目，直接读取 MTR 数据并绘制到 Xaero / JourneyMap；不集成 MTR Surveyor 地图。
-- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v7（轨道 double XYZ，独立 `_v7` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过，待 Ben 实机验证。
+- NeoForge 与 Fabric 使用各自入口、配置、客户端命令及网络适配，共用地图数据、渲染与协议 v8（轨道 double XYZ + 原生曲线，独立 `_v8` 通道，需匹配客户端和服务端）。双平台 v1.4.6 已正式发布，说明基于上一正式版 v1.4.4 的差异；误发的 v1.4.7 预发布和 tag 已删除。两平台构建及 NeoForge 单元测试通过。
 - 旧 `mtrsurveyor.toml` 在新配置不存在时复制为 `mtrmap.toml`；全网同步需客户端和服务端都运行 `mtrmap` ID 版本。
 - Xaero 地标图标（World Map overlay 直接绘制；不进入 waypoint/Minimap/HUD）——构建通过，待 Ben 实机验证
 - Xaero 地标与轨道共用世界坐标变换，站点/站台拖动缩放不再按屏幕像素取整；Xaero/JourneyMap 站点纹理按实际 32×32 完整采样——构建/测试通过，待 Ben 实机验证

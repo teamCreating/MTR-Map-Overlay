@@ -3,6 +3,7 @@ package com.lx862.mtrmap.mapdata;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 /** Bounded, render-thread viewport cache. Static geometry and car pose revisions are independent. */
 public final class PlanarMapCache {
@@ -18,6 +19,9 @@ public final class PlanarMapCache {
     private PlanarMapScene scene;
     private long staticBuilds;
     private long carBuilds;
+    private long curveBuilds;
+    private double curveScale;
+    private Map<String, MapTrack> meshes = Map.of();
 
     public PlanarMapCache() {
         this(DEFAULT_MAX_QUADS);
@@ -50,8 +54,27 @@ public final class PlanarMapCache {
             minZ = padded ? top : viewMinZ;
             maxX = padded ? right : viewMaxX;
             maxZ = padded ? bottom : viewMaxZ;
+            double bucket = Math.scalb(1.0, Math.getExponent(pixelsPerBlock));
+            if (bucket < pixelsPerBlock) bucket *= 2;
+            final double lodScale = Double.isFinite(bucket) ? bucket : pixelsPerBlock;
+            final Map<String, MapTrack> previous = source != null && source.get() == sourceRevision && curveScale == lodScale
+                    ? meshes : Map.of();
+            final Map<String, MapTrack> nextMeshes = new HashMap<>();
+            final int[] retainedPoints = {0};
             final List<PlanarMapScene.Quad> built = PlanarMapScene.buildStatic(rails, palette, patterns,
-                    showTracks, showRoutes, pixelsPerBlock, minX, minZ, maxX, maxZ);
+                    showTracks, showRoutes, pixelsPerBlock, minX, minZ, maxX, maxZ, rail -> {
+                        if (rail.curve == null) return rail;
+                        MapTrack mesh = previous.get(rail.id);
+                        if (mesh == null || mesh.curve != rail.curve) {
+                            mesh = rail.forScale(lodScale);
+                            curveBuilds++;
+                        }
+                        if ((long) retainedPoints[0] + mesh.points.size() <= maxQuads) {
+                            nextMeshes.put(rail.id, mesh);
+                            retainedPoints[0] += mesh.points.size();
+                        }
+                        return mesh;
+                    });
             staticBuilds++;
             if (built.size() > maxQuads) {
                 // Correct uncached rendering is retained when a dense view exceeds the retention budget.
@@ -62,6 +85,8 @@ public final class PlanarMapCache {
                 return uncached;
             }
             source = new WeakReference<>(sourceRevision);
+            meshes = Map.copyOf(nextMeshes);
+            curveScale = lodScale;
             scale = pixelsPerBlock;
             tracks = showTracks;
             routes = showRoutes;
@@ -93,11 +118,14 @@ public final class PlanarMapCache {
         geometry = null;
         cars = null;
         scene = null;
+        meshes = Map.of();
     }
 
     public long staticBuilds() {
         return staticBuilds;
     }
+
+    public long curveBuilds() { return curveBuilds; }
 
     public long carBuilds() {
         return carBuilds;

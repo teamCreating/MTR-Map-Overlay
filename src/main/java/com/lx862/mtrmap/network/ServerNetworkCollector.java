@@ -130,9 +130,8 @@ public final class ServerNetworkCollector {
         // physical rail again for each route or vehicle depot.
         final Map<String, MapTrack> sampledTracks = new HashMap<>();
         simulator.rails.forEach(rail -> {
-            final List<double[]> points = TrackSampler.sample(rail);
-            if (points != null) {
-                final MapTrack track = new MapTrack(rail.getHexId(), points);
+            final MapTrack track = TrackSampler.track(rail);
+            if (track != null) {
                 result.tracks.add(track);
                 sampledTracks.put(track.id, track);
             }
@@ -387,6 +386,11 @@ public final class ServerNetworkCollector {
         long hash = simulator.rails.size();
         for (Rail rail : simulator.rails) {
             hash = hash * 31 + rail.getHexId().hashCode();
+            hash = hash * 31 + rail.getTransportMode().ordinal();
+            hash = hash * 31 + rail.getStartAngle(false).ordinal();
+            hash = hash * 31 + rail.getStartAngle(true).ordinal();
+            hash = hash * 31 + rail.railMath.getShape().ordinal();
+            hash = hash * 31 + Double.hashCode(rail.railMath.getVerticalRadius());
         }
         hash = hash * 31 + simulator.routes.size();
         for (Route route : simulator.routes) {

@@ -315,9 +315,8 @@ public class MapDataCache {
             if (sampledTracks.containsKey(railId)) {
                 continue;
             }
-            final List<double[]> points = TrackSampler.sample(rail);
-            if (points != null) {
-                final MapTrack track = new MapTrack(railId, points);
+            final MapTrack track = TrackSampler.track(rail);
+            if (track != null) {
                 tracks.add(track);
                 sampledTracks.put(railId, track);
             }

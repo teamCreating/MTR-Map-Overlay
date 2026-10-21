@@ -389,8 +389,7 @@ public final class RoutePathfinder {
             final MapTrack track;
             if (sampledTracks == null) {
                 final Rail rail = graph.railById.get(railId);
-                final List<double[]> points = rail == null ? null : TrackSampler.sample(rail);
-                track = points == null ? null : new MapTrack(railId, points);
+                track = TrackSampler.track(rail);
             } else {
                 track = sampledTracks.get(railId);
             }

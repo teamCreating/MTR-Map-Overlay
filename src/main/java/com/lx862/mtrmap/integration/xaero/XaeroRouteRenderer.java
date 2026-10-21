@@ -297,10 +297,10 @@ public class XaeroRouteRenderer {
             final int color = quad.color();
             final int r = (color >> 16) & 255, g = (color >> 8) & 255, b = color & 255;
             // Subtract the camera in doubles before converting to screen floats.
-            sceneVertex(consumer, matrix, quad.x1(), quad.z1(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
-            sceneVertex(consumer, matrix, quad.x2(), quad.z2(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
-            sceneVertex(consumer, matrix, quad.x3(), quad.z3(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
-            sceneVertex(consumer, matrix, quad.x4(), quad.z4(), scale, cameraX, cameraZ, width, height, r, g, b, quad.alpha());
+            sceneVertex(consumer, matrix, quad.x1(), quad.z1(), scale, cameraX, cameraZ, width, height, r, g, b, quad.vertexAlpha(0));
+            sceneVertex(consumer, matrix, quad.x2(), quad.z2(), scale, cameraX, cameraZ, width, height, r, g, b, quad.vertexAlpha(1));
+            sceneVertex(consumer, matrix, quad.x3(), quad.z3(), scale, cameraX, cameraZ, width, height, r, g, b, quad.vertexAlpha(2));
+            sceneVertex(consumer, matrix, quad.x4(), quad.z4(), scale, cameraX, cameraZ, width, height, r, g, b, quad.vertexAlpha(3));
         }
     }
 

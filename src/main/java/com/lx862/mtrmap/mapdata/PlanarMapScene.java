@@ -9,7 +9,13 @@ import java.util.RandomAccess;
 /** Pure X/Z map layers: railway backing, route colours/details, then cars. */
 public final class PlanarMapScene {
     public record Quad(double x1, double z1, double x2, double z2,
-            double x3, double z3, double x4, double z4, int color, int alpha, MapCar car) {
+            double x3, double z3, double x4, double z4, int color, int alpha, MapCar car, boolean feather) {
+        public Quad(double x1, double z1, double x2, double z2, double x3, double z3, double x4, double z4,
+                int color, int alpha, MapCar car) {
+            this(x1, z1, x2, z2, x3, z3, x4, z4, color, alpha, car, false);
+        }
+
+        public int vertexAlpha(int vertex) { return feather && vertex < 2 ? 0 : alpha; }
         public boolean contains(double x, double z) {
             final double a = cross(x1, z1, x2, z2, x, z);
             final double b = cross(x2, z2, x3, z3, x, z);
@@ -89,11 +95,38 @@ public final class PlanarMapScene {
             Map<String, List<TrackRoutePalette.Entry>> palette,
             Map<String, TrackPatternLayout.Placement> patterns, boolean showTracks, boolean showRoutes,
             double scale, double minX, double minZ, double maxX, double maxZ) {
+        return buildStatic(tracks, palette, patterns, showTracks, showRoutes, scale, minX, minZ, maxX, maxZ,
+                track -> track.forScale(scale));
+    }
+
+    static List<Quad> buildStatic(List<MapTrack> tracks,
+            Map<String, List<TrackRoutePalette.Entry>> palette,
+            Map<String, TrackPatternLayout.Placement> patterns, boolean showTracks, boolean showRoutes,
+            double scale, double minX, double minZ, double maxX, double maxZ,
+            java.util.function.UnaryOperator<MapTrack> tessellator) {
         if (!Double.isFinite(scale) || scale <= 0) return List.of();
         final List<Quad> result = new ArrayList<>();
-        final Map<String, RouteRibbonProfile> profiles = RouteRibbonProfile.build(tracks, palette, patterns, scale);
+        // Native curves are tessellated only on static-cache rebuilds, after coarse
+        // culling, using the current zoom. Poses never trigger curve evaluation.
+        final double margin = 32 / scale + 2;
+        final List<MapTrack> visible = tracks.stream()
+                .filter(t -> t.intersects(minX - margin, minZ - margin, maxX + margin, maxZ + margin))
+                .map(tessellator).toList();
+        final Map<String, RouteRibbonProfile> profiles = showRoutes
+                ? RouteRibbonProfile.build(tracks, palette, patterns, scale) : Map.of();
+        final RouteRibbonGeometry.QuadSink backing = new RouteRibbonGeometry.QuadSink() {
+            @Override public void quad(double a, double b, double c, double d, double e, double f, double g, double h,
+                    int color, int alpha) {
+                addTo(result, a, b, c, d, e, f, g, h, color, alpha, null);
+            }
+            @Override public void feather(double a, double b, double c, double d, double e, double f, double g, double h,
+                    int color, int alpha) {
+                final Quad q = addTo(result, a, b, c, d, e, f, g, h, color, alpha, null);
+                if (q != null) result.set(result.size() - 1, new Quad(a, b, c, d, e, f, g, h, color, alpha, null, true));
+            }
+        };
         // Finish every backing before drawing any route, including at crossings.
-        for (MapTrack track : tracks) {
+        for (MapTrack track : visible) {
             final List<TrackRoutePalette.Entry> bands = palette.getOrDefault(track.id, List.of());
             final double routeWidth = showRoutes ? RouteRibbonGeometry.halfWidth(bands, scale) : 0;
             if (showTracks || routeWidth > 0) {
@@ -102,13 +135,12 @@ public final class PlanarMapScene {
                         routeWidth > 0 ? routeWidth + RailRenderStyle.TRACK_SHOULDER_PX / scale : 0);
                 RouteRibbonGeometry.drawStrip(track, patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT),
                         showRoutes ? profiles.get(track.id) : null, width, scale, minX, minZ, maxX, maxZ,
-                        (a, b, c, d, e, f, g, h, color, alpha) ->
-                                addTo(result, a, b, c, d, e, f, g, h, color, 255, null));
+                        backing);
             }
         }
         if (showRoutes) {
             final List<Quad> details = new ArrayList<>();
-            for (MapTrack track : tracks) {
+            for (MapTrack track : visible) {
                 RouteRibbonGeometry.drawLayered(track, palette.getOrDefault(track.id, List.of()),
                         patterns.getOrDefault(track.id, TrackPatternLayout.Placement.DEFAULT), profiles.get(track.id), scale,
                         minX, minZ, maxX, maxZ,

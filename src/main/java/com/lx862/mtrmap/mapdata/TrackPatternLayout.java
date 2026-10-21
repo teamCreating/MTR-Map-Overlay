@@ -123,6 +123,10 @@ public final class TrackPatternLayout {
     }
 
     private static double[] outward(MapTrack track, boolean start) {
+        if (track.curve != null) {
+            final int i = start ? 0 : track.points.size() - 1;
+            return new double[] {track.normalZ[i] * (start ? 1 : -1), track.normalX[i] * (start ? -1 : 1)};
+        }
         final double[] p = start ? track.points.getFirst() : track.points.getLast();
         for (int i = 1; i < track.points.size(); i++) {
             final double[] q = track.points.get(start ? i : track.points.size() - 1 - i);
