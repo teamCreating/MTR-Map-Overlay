@@ -3,7 +3,7 @@ package com.lx862.mtrmap.integration.xaero;
 import com.lx862.mtrmap.MTRMap;
 import com.lx862.mtrmap.config.MTRMapConfig;
 import com.lx862.mtrmap.mapdata.MapDataCache;
-import com.lx862.mtrmap.mapdata.ClientTrainCollector;
+import com.lx862.mtrmap.train.ClientTrainStream;
 import com.lx862.mtrmap.mapdata.PlanarMapScene;
 import com.lx862.mtrmap.mapdata.ClientPlanarScenes;
 import com.lx862.mtrmap.mapdata.MapCar;
@@ -130,16 +130,22 @@ public class XaeroRouteRenderer {
             dimensionKey = dimLocation.getNamespace() + "/" + dimLocation.getPath();
         }
         final boolean playerDimension = mc.level != null && viewedDimension == mc.level.dimension();
-        if (dimensionKey == null || (!playerDimension && !MapDataCache.hasServerData(dimensionKey))) {
+        if (dimensionKey == null) {
             renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
             return;
         }
 
         final MapDataCache.DimensionData data = MapDataCache.get(dimensionKey);
+        final double guiScale = (double) mc.getWindow().getWidth() / (double) mc.getWindow().getGuiScaledWidth();
+        final double scale = mapScale / guiScale;
+        final net.minecraft.client.gui.screens.Screen mcScreen = (net.minecraft.client.gui.screens.Screen) (Object) screen;
         final List<MapCar> cars = MTRMapConfig.INSTANCE.trainCarsEnabled.get()
-                ? ClientTrainCollector.get(dimensionKey) : List.of();
+                ? ClientTrainStream.cars(dimensionKey, cameraX - mcScreen.width / 2.0 / scale,
+                        cameraZ - mcScreen.height / 2.0 / scale, cameraX + mcScreen.width / 2.0 / scale,
+                        cameraZ + mcScreen.height / 2.0 / scale, scale) : List.of();
         if (data.isEmpty() && cars.isEmpty()) {
             renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
+            ClientTrainStream.drawStatus(graphics, dimensionKey);
             if (!warnedNoData && playerDimension) {
                 warnedNoData = true;
                 MTRMap.LOGGER.info(
@@ -151,13 +157,10 @@ public class XaeroRouteRenderer {
 
         // Xaero multiplies the map scale by the total GUI scale factor; dividing
         // gives us a transform where 1 unit = 1 block.
-        final double guiScale = (double) mc.getWindow().getWidth() / (double) mc.getWindow().getGuiScaledWidth();
-        final double scale = mapScale / guiScale;
 
         final com.mojang.blaze3d.vertex.PoseStack stack = graphics.pose();
         // GuiMap inherits width/height from Screen; cast so we compile against
         // mapped Screen fields (the Xaero jar itself ships SRG-named members).
-        final net.minecraft.client.gui.screens.Screen mcScreen = (net.minecraft.client.gui.screens.Screen) (Object) screen;
         final Matrix4f screenMatrix = new Matrix4f(stack.last().pose());
         stack.pushPose();
         stack.translate(mcScreen.width / 2.0f, mcScreen.height / 2.0f, 0);
@@ -190,6 +193,7 @@ public class XaeroRouteRenderer {
         stack.popPose();
 
         renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
+        ClientTrainStream.drawStatus(graphics, dimensionKey);
 
         // Hover picking & tooltip (in screen space, drawn after the batch flush).
         if (mc.screen != null) {

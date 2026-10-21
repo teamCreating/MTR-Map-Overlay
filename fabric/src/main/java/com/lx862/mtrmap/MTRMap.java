@@ -16,6 +16,10 @@ public final class MTRMap implements ModInitializer {
     public void onInitialize() {
         MTRMapConfig.load();
         MTRNetwork.registerServer();
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(com.lx862.mtrmap.train.ServerTrainStream::tick);
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server -> com.lx862.mtrmap.train.ServerTrainStream.stop());
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
+                com.lx862.mtrmap.train.ServerTrainStream.disconnect(handler.player.getUUID()));
         LOGGER.info("[{}] Fabric loaded; JourneyMap {}, Xaero World Map {}", MOD_NAME,
                 isModLoaded("journeymap") ? "detected" : "not found",
                 isModLoaded("xaeroworldmap") ? "detected" : "not found");

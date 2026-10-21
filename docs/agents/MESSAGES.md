@@ -7,6 +7,13 @@
 > 正文：背景 / 做了什么 / 需要谁注意什么 / 关联 commit 或任务。
 > ```
 
+## [2026-10-21 20:09] Codex — 全网简化车辆流实现与NeoForge远处运行验证
+
+- 实现Simulator线程全局车辆采集、两XYZ锚点/节、组合内容定义、动态v1独立能力/租约/原子分片、有界后台编解码/发送预算、客户端无模拟插值、双地图及双加载器生命周期。高频无文字，远坐标使用每列double原点。服务端Core原生查询仍有计算成本。
+- 修复实机发现的Xaero单机暂停：启用实时列车层时Minecraft暂停判断放行GuiMap，普通菜单/关闭车辆层行为保持。新mixin为两加载器共享的原版目标注入，专服不加载。
+- 81测试通过/1生成用例跳过，双构建通过；独立GlobalTrainSyncTest副本，玩家(2000,2000)，native nearby=0时Xaero仍显示1列3节连续过弯及悬停；三节正文125B。JourneyMap运行/悬停也验证；专服仅装MTR启动Done，无客户端类异常。1000列8节codec正文220899B，不是游戏FPS或网络压缩实测。
+- 大车队/多人、复杂网络、跨维度和Fabric实机留后续矩阵；下一站距离/ETA仍暂停，未恢复stash。版本1.5.2/静态v8保持，测试包../test-builds/v1.5.2-global-trains。文档见docs/validation/global-trains.md；本条所在提交。
+
 ## [2026-10-21 19:25] Codex — Create 参考两锚点抽象车厢规划
 
 - 用户明确不需侧倾等完整姿态，只需过弯/加减速。global-train-sync.md 改为每节两点 XYZ：双 bogie 取各自中心，单 bogie 保留两方向采样点；定义只需尺寸/车型和静态中心偏移。不调用客户端 MTR PositionAndRotation，也不读取光照。

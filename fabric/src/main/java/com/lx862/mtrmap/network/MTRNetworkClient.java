@@ -12,6 +12,10 @@ public final class MTRNetworkClient {
         return MTRNetwork.canSendToServer();
     }
 
+    public static boolean canSendTrains() {
+        return net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(TrainStreamRequest.TYPE);
+    }
+
     public static void sendToServer(CustomPacketPayload payload) {
         MTRNetwork.sendToServer(payload);
     }

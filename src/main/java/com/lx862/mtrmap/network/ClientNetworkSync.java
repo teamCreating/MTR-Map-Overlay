@@ -158,6 +158,7 @@ public final class ClientNetworkSync {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static void onClientTick() {
+        com.lx862.mtrmap.train.ClientTrainStream.tick();
         final Minecraft mc = Minecraft.getInstance();
         if (mc.getConnection() == null || mc.player == null) {
             return;
@@ -186,6 +187,7 @@ public final class ClientNetworkSync {
     }
 
     public static void onLoggingIn() {
+        com.lx862.mtrmap.train.ClientTrainStream.clear();
         // Fresh world/connection: reset sync state and ask for a snapshot as
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
@@ -201,6 +203,7 @@ public final class ClientNetworkSync {
     }
 
     public static void onLoggingOut() {
+        com.lx862.mtrmap.train.ClientTrainStream.clear();
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
         com.lx862.mtrmap.mapdata.ClientTrainCollector.clear();

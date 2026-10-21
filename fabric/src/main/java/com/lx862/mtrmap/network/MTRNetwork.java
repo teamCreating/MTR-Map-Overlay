@@ -18,6 +18,11 @@ public final class MTRNetwork {
         PayloadTypeRegistry.playC2S().register(NetworkSyncProbe.TYPE, NetworkSyncProbe.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(NetworkSyncChunk.TYPE, NetworkSyncChunk.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(NetworkProbeResponse.TYPE, NetworkProbeResponse.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(TrainStreamRequest.TYPE, TrainStreamRequest.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(TrainStreamChunk.TYPE, TrainStreamChunk.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(TrainStreamStatus.TYPE, TrainStreamStatus.STREAM_CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(TrainStreamRequest.TYPE, (msg, context) ->
+                context.server().execute(() -> com.lx862.mtrmap.train.ServerTrainStream.request(context.player(), msg)));
 
         ServerPlayNetworking.registerGlobalReceiver(RequestNetworkSync.TYPE, (msg, context) ->
                 context.server().execute(() -> ServerNetworkCollector.collectAndSend(
@@ -28,6 +33,10 @@ public final class MTRNetwork {
     }
 
     public static void registerClient() {
+        ClientPlayNetworking.registerGlobalReceiver(TrainStreamChunk.TYPE, (msg, context) ->
+                context.client().execute(() -> com.lx862.mtrmap.train.ClientTrainStream.chunk(msg)));
+        ClientPlayNetworking.registerGlobalReceiver(TrainStreamStatus.TYPE, (msg, context) ->
+                context.client().execute(() -> com.lx862.mtrmap.train.ClientTrainStream.status(msg)));
         ClientPlayNetworking.registerGlobalReceiver(NetworkSyncChunk.TYPE, (msg, context) ->
                 context.client().execute(() -> ClientNetworkSync.onChunkReceived(msg)));
         ClientPlayNetworking.registerGlobalReceiver(NetworkProbeResponse.TYPE, (msg, context) ->
@@ -37,6 +46,10 @@ public final class MTRNetwork {
     public static boolean canSendToServer() {
         return ClientPlayNetworking.canSend(RequestNetworkSync.TYPE)
                 && ClientPlayNetworking.canSend(NetworkSyncProbe.TYPE);
+    }
+
+    public static boolean canSendTrains(ServerPlayer player) {
+        return ServerPlayNetworking.canSend(player, TrainStreamChunk.TYPE) && ServerPlayNetworking.canSend(player, TrainStreamStatus.TYPE);
     }
 
     public static void sendToServer(CustomPacketPayload payload) {

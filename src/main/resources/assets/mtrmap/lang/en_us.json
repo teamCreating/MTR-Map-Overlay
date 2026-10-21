@@ -1,0 +1,11 @@
+{
+  "mtrmap.train.title": "Train",
+  "mtrmap.train.cars": "%s carriages",
+  "mtrmap.train.global": "MTR · All trains: %s",
+  "mtrmap.train.nearby": "MTR · Nearby trains only (no global server stream)",
+  "mtrmap.train.loading": "MTR · Loading all trains…",
+  "mtrmap.train.stale": "MTR · Train positions outdated (%s trains)",
+  "mtrmap.train.error": "MTR · Train stream delayed / recovering",
+  "mtrmap.train.unlocatable": " (%s unlocatable)",
+  "mtrmap.train.slow": "MTR · All trains: %s (reduced refresh rate)"
+}

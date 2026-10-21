@@ -117,6 +117,9 @@ public class MapDataCache {
                 return serverData;
             }
         }
+        final var world = net.minecraft.client.Minecraft.getInstance().level;
+        if (world == null || !(world.dimension().location().getNamespace() + "/"
+                + world.dimension().location().getPath()).equals(dimension)) return EMPTY;
         return getClientData();
     }
 

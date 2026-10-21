@@ -8,7 +8,8 @@
     "client.MinecraftClientDataMixin",
     "client.ClientCommonListenerAccessor",
     "client.xaero.XaeroWorldMapAccessor",
-    "client.xaero.XaeroWorldMapMixin"
+    "client.xaero.XaeroWorldMapMixin",
+    "client.xaero.TrainMapPauseMixin"
   ],
   "mixins": [
     "MainAccessorMixin",

@@ -28,7 +28,10 @@ neoForge {
         }
         server {
             server()
-            gameDirectory = file('run-server')
+            gameDirectory = file(project.hasProperty('trainServerSmoke') ? 'build/train-server-smoke' : 'run-server')
+            if (project.hasProperty('trainServerSmoke')) {
+                programArguments.add('--nogui')
+            }
         }
     }
 

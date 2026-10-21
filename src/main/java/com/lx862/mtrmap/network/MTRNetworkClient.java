@@ -21,6 +21,18 @@ public final class MTRNetworkClient {
         context.enqueueWork(() -> ClientNetworkSync.onProbeReceived(msg.hashes()));
     }
 
+    static void onTrainChunk(TrainStreamChunk msg, IPayloadContext context) {
+        context.enqueueWork(() -> com.lx862.mtrmap.train.ClientTrainStream.chunk(msg));
+    }
+    static void onTrainStatus(TrainStreamStatus msg, IPayloadContext context) {
+        context.enqueueWork(() -> com.lx862.mtrmap.train.ClientTrainStream.status(msg));
+    }
+    public static boolean canSendTrains() {
+        var connection = Minecraft.getInstance().getConnection();
+        return connection != null && connection.hasChannel(TrainStreamRequest.TYPE)
+                && connection.hasChannel(TrainStreamChunk.TYPE) && connection.hasChannel(TrainStreamStatus.TYPE);
+    }
+
     public static boolean canSendToServer() {
         return Minecraft.getInstance().getConnection() instanceof ClientCommonListenerAccessor accessor
                 && accessor.mtrmap$getConnectionType() == ConnectionType.NEOFORGE;

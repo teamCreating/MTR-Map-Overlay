@@ -31,14 +31,16 @@ When the mod is installed on the server as well as the client, it can request a 
 Development progress, in priority order. Unfinished items may change in scope and timing.
 
 - [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width; rail and high speed share standard width. High speed retains alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching development client and server builds (currently 1.5.2 / protocol v8); existing 1.5.1 release downloads are unchanged. Rendering checks are recorded in [route-joins-zoom.md](docs/validation/route-joins-zoom.md).
-- [ ] **Live trains and arrival estimates (partially implemented)** — Main 1.5.2 projects nearby MTR car bodies from actual XYZ onto a pure 2D map, with service/coordinate tooltips. Whole-network dynamic train sync and arrival estimates are still planned.
+- [x] **Whole-network live trains (main / 1.5.2 development)** — All trains in the viewed dimension are streamed from TSC, including trains outside every player's loaded area. Two reference points per carriage drive abstract 2D symbols and display interpolation; the client runs no train simulation. Next-stop distance and ETA are postponed.
 - [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
 
-### Nearby train cars (main 1.5.2 development)
+### Whole-network train cars (main 1.5.2 development)
 
-Car bodies use MTR's actual body/bogie transforms, including pitch and roll. Hover shows the route, destination, model ID, car index and measured XYZ. Use `/mtrmap config trainCars false` to hide them (default: enabled). Cars currently cover only the player's dimension and vehicles MTR has synced nearby; a whole-network static map does not imply whole-network live trains.
+Install the matching development build on both server and client for all live trains in the map's viewed dimension. Opening either map subscribes to the entire dimension at a target 4 Hz; panning and zooming never restrict which trains are synchronized. The client only interpolates TSC reference points and draws abstract carriages, without banking or a second simulation. Hover shows the available model name, current route, destination and consist size; missing native metadata is shown as unavailable. Use `/mtrmap config trainCars false` to hide trains (default: enabled).
 
-Tracks retain native Y and protocol-v7 snapshots transfer rail points as double-precision XYZ. Both maps draw fixed 2D layers: railway backing, route colours/blocks, then cars. Height does not split or sort geometry; railways never mask cars or their hover targets. In-game visual verification is pending; see [validation](docs/validation/planar-map.md).
+The map status distinguishes whole-network, loading, stale and nearby-only fallback data. Two XYZ points cost 24 bytes per car plus a shared double-precision origin per train; strings and dimensions are not repeated per car in position frames. A server without the new optional train protocol uses MTR's nearby data only. Xaero keeps singleplayer running while the live train layer is enabled, so the authoritative simulation can update. See [global train validation](docs/validation/global-trains.md) for evidence and remaining performance limits.
+
+Tracks retain native Y and static protocol-v8 snapshots transfer double-precision XYZ and native curves. The independent train protocol is v1; the mod version remains 1.5.2. Both maps draw fixed 2D layers: railway backing, route colours/blocks, then cars. Height does not split or sort geometry; railways never mask cars or their hover targets.
 
 Static rail/route geometry is cached separately from car poses, with viewport prefetch, invalidation and bounded retention. See [cache validation](docs/validation/planar-cache.md) for correctness checks and the headless geometry workload; it is not an in-game FPS measurement.
 

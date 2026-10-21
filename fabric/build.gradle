@@ -51,6 +51,7 @@ compileJava.source(fileTree('../src/main/java') {
     exclude 'com/lx862/mtrmap/CommandRegistration.java'
     exclude 'com/lx862/mtrmap/mixin/client/ClientCommonListenerAccessor.java'
     exclude 'com/lx862/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'
+    exclude 'com/lx862/mtrmap/train/TrainServerEvents.java'
 })
 
 processResources {

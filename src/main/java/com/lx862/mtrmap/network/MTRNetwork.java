@@ -52,6 +52,18 @@ public class MTRNetwork {
                     (msg, ctx) -> {});
         }
         MTRMap.LOGGER.info("[MTRMap] Full-network sync payloads registered (protocol {})", PROTOCOL_VERSION);
+        final PayloadRegistrar trains = event.registrar("train-1").optional();
+        trains.playToServer(TrainStreamRequest.TYPE, TrainStreamRequest.STREAM_CODEC, (msg, ctx) -> {
+            if (ctx.player() instanceof ServerPlayer sender)
+                ctx.enqueueWork(() -> com.lx862.mtrmap.train.ServerTrainStream.request(sender, msg));
+        });
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            trains.playToClient(TrainStreamChunk.TYPE, TrainStreamChunk.STREAM_CODEC, MTRNetworkClient::onTrainChunk);
+            trains.playToClient(TrainStreamStatus.TYPE, TrainStreamStatus.STREAM_CODEC, MTRNetworkClient::onTrainStatus);
+        } else {
+            trains.playToClient(TrainStreamChunk.TYPE, TrainStreamChunk.STREAM_CODEC, (msg, ctx) -> {});
+            trains.playToClient(TrainStreamStatus.TYPE, TrainStreamStatus.STREAM_CODEC, (msg, ctx) -> {});
+        }
     }
 
     public static ResourceLocation id(String path) {
@@ -60,5 +72,9 @@ public class MTRNetwork {
 
     public static void sendToPlayer(ServerPlayer player, CustomPacketPayload payload) {
         PacketDistributor.sendToPlayer(player, payload);
+    }
+
+    public static boolean canSendTrains(ServerPlayer player) {
+        return player.connection.hasChannel(TrainStreamChunk.TYPE) && player.connection.hasChannel(TrainStreamStatus.TYPE);
     }
 }
