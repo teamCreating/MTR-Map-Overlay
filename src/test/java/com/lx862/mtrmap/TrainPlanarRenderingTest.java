@@ -170,6 +170,23 @@ class TrainPlanarRenderingTest {
         assertTrue(scene(List.of(), List.of(invalid)).quads().isEmpty());
     }
 
+    @Test
+    void smallSymbolsOmitUnreadableDetailsAndCarLengthDoesNotShrinkWhenZoomingIn() {
+        final MapCar car = car(1, 60, 60);
+        double previousLength = 0;
+        for (double scale : new double[]{.1, .5, .6699, .6701, 1, 1.2999, 1.3001, 3}) {
+            var scene = PlanarMapScene.withCars(List.of(), List.of(car), scale, -100, -100, 100, 100);
+            double min = scene.quads().stream().mapToDouble(q -> Math.min(Math.min(q.z1(), q.z2()), Math.min(q.z3(), q.z4()))).min().orElseThrow();
+            double max = scene.quads().stream().mapToDouble(q -> Math.max(Math.max(q.z1(), q.z2()), Math.max(q.z3(), q.z4()))).max().orElseThrow();
+            assertTrue((max - min) * scale >= previousLength - 1.0E-7, "Zooming in shortened the symbol");
+            previousLength = (max - min) * scale;
+            assertEquals(scale < 1.3 ? 5 : 9, scene.carQuadCount());
+            assertEquals(car, scene.pick(0, 0));
+            assertEquals(car, scene.pick(0, (max - min) * .49));
+            assertNull(scene.pick(0, (max - min) * .51));
+        }
+    }
+
     private static MapCar car(long id, double frontY, double backY) {
         return new MapCar(id, 0, 1, true, "model", "route", "destination", 0xFF0000,
                 new MapVertex(1.5, frontY, 10), new MapVertex(1.5, backY, -10),

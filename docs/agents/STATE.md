@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 20:09，操作者：Codex
+- 最后更新：2026-10-22 00:34，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-22 00:34，Codex：**Create 参考车辆显示优化**。完整帧安装建立双帧扫掠包围盒层级索引，动画查询仅处理候选列车；全图成员和网络覆盖不变。共用缩放阈值：远景单列方向符号、中景简化车厢、近景倒角/端窗，修复缩放切换长度反跳；小图标9→5 quads、中景三节25→13。86测试通过/1生成用例跳过，双平台构建通过；NeoForge Xaero native nearby=0下全图三节过弯/缩放/悬停，以及JourneyMap近处三节/远景/悬停检查通过。2000列×8节合成局部查询0.289～0.306→约0.002ms，完整帧安装0.423～0.453→1.273～1.766ms；不是游戏FPS。全网视口仍需处理所有可见车，真实大网/Fabric实机未测。详见docs/validation/train-display-optimization.md；测试包../test-builds/v1.5.2-train-display。1.5.2/静态v8/动态v1/纯2D/TSC唯一模拟保持，距离/ETA暂停。
 
 - 2026-10-21 20:09，Codex：**实现全图简化列车流**。Simulator线程通过公开iterateVehicles/getVehicleCarsAndPositions采全部TRAIN，双bogie取中点、单bogie保留两方向点，24B/节局部XYZ+24B/列double原点。4Hz目标、共享采集/编码、变化定义、独立动态v1能力/租约、完整帧分片、错代/未知定义/大小校验、限流/过期/撤销/清理；静态v8不变。客户端只两点插值和抽象2D绘制，无TSC Vehicle/路径求解/光照。双地图共用控制器及Create参考悬停，车型/线路缺失不猜；缩远跳过尾车绘制分配。修复Xaero单机暂停导致收不到首帧，开启车辆层时保持集成服运行。81项测试通过、1生成用例跳过，NeoForge/Fabric构建通过；NeoForge独立测试副本玩家(2000,2000)、native nearby=0仍显示1列3节运行/过弯，125B位置正文；专服仅装MTR成功启动，无客户端类错误。1000列8节codec正文220899B，非游戏性能成绩。大车队/多人FPS、复杂网络、跨维度及Fabric实机未测。详见docs/validation/global-trains.md；测试包../test-builds/v1.5.2-global-trains。版本1.5.2，距离/ETA暂停，未恢复stash。
 

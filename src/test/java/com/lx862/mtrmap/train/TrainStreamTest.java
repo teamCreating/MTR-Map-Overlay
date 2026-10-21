@@ -87,6 +87,19 @@ class TrainStreamTest {
         assertEquals(2, cars(buffer, 0).size());
     }
 
+    @Test void overviewUsesActualLeadingEndAndFullConsistReturnsWhenZoomedIn() {
+        var definition = new Definition(Collections.nCopies(3, new Car("model", 20, 3, 0)), "route", "end", 1);
+        var buffer = new TrainAnchorBuffer();
+        buffer.define(List.of(new NamedDefinition(1, definition)));
+        float[] anchors = {0, 0, 0, 0, 0, -12, 0, 0, -21, 0, 0, -33, 0, 0, -42, 0, 0, -54};
+        buffer.accept(frame(1, 1000, new Pose(1, 1, true, false, 200_000, 64, 0, anchors)), 0);
+        var overview = buffer.cars(0, 199_900, -100, 200_100, 100, .5);
+        assertEquals(1, overview.size()); assertEquals(2, overview.getFirst().index());
+        assertEquals(3, overview.getFirst().count()); assertTrue(overview.getFirst().leading());
+        assertEquals(3, buffer.cars(0, 199_900, -100, 200_100, 100, 1).size());
+        assertEquals(1, buffer.trains());
+    }
+
     @Test void definitionsAreMergedOnceAndFrameContainsNoMetadataText() throws Exception {
         byte[] one = TrainFrameCodec.definitions(List.of(new NamedDefinition(1, DEFINITION)));
         byte[] two = TrainFrameCodec.definitions(List.of(new NamedDefinition(2,

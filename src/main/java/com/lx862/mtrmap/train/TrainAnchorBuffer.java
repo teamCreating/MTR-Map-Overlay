@@ -2,6 +2,7 @@ package com.lx862.mtrmap.train;
 
 import com.lx862.mtrmap.mapdata.MapCar;
 import com.lx862.mtrmap.mapdata.MapVertex;
+import com.lx862.mtrmap.mapdata.TrainDisplayScale;
 import java.util.*;
 import static com.lx862.mtrmap.train.TrainSnapshot.*;
 
@@ -10,6 +11,7 @@ public final class TrainAnchorBuffer {
     private final Map<Integer, Definition> definitions = new HashMap<>();
     private final Map<Integer, Pose> previous = new HashMap<>();
     private Frame latest;
+    private TrainViewportIndex viewport = new TrainViewportIndex(List.of());
     private int unlocatable;
     private boolean motion;
     private boolean slow;
@@ -47,11 +49,17 @@ public final class TrainAnchorBuffer {
         latest = frame; receivedNanos = now;
         if (fresh) sampledNanos = now - Math.max(0, sourceAgeNanos);
         unlocatable = 0; motion = false;
+        var visible = new ArrayList<TrainViewportIndex.Entry>();
         for (Pose p : frame.trains()) {
             if (p.cars() == 0) unlocatable++;
             Pose before = previous.get(p.handle);
-            if (before != null && !p.sameAnchors(before)) motion = true;
+            if (p.cars() == 0) continue;
+            if (before == null || before.definition != p.definition || before.reversed != p.reversed
+                    || before.cars() != p.cars() || Math.hypot(before.x - p.x, before.z - p.z) > 1024) before = p;
+            if (!p.sameAnchors(before)) motion = true;
+            visible.add(new TrainViewportIndex.Entry(before, p, definitions.get(p.definition)));
         }
+        viewport = new TrainViewportIndex(visible);
         // Server only sends definitions while referenced; do not retain every historic service forever.
         var active = new HashSet<Integer>();
         for (Pose p : frame.trains()) if (p.definition > 0) active.add(p.definition);
@@ -60,21 +68,17 @@ public final class TrainAnchorBuffer {
     }
 
     public List<MapCar> cars(long now, double minX, double minZ, double maxX, double maxZ, double scale) {
-        if (latest == null) return List.of();
+        if (latest == null || !Double.isFinite(scale) || scale <= 0) return List.of();
         double t = Math.clamp((now - receivedNanos) / (double) intervalNanos, 0, 1);
         double margin = Math.max(2, 20 / Math.max(scale, 1.0E-6));
         var result = new ArrayList<MapCar>();
-        for (Pose p : latest.trains()) {
-            if (p.cars() == 0) continue;
-            var d = definitions.get(p.definition);
-            if (d == null) continue;
-            Pose a = previous.get(p.handle);
-            if (a == null || a.definition != p.definition || a.reversed != p.reversed || a.cars() != p.cars()
-                    || Math.hypot(a.x - p.x, a.z - p.z) > 1024) a = p;
+        viewport.visit(minX - margin, minZ - margin, maxX + margin, maxZ + margin, entry -> {
+            Pose p = entry.current(), a = entry.before();
+            var d = entry.definition();
             for (int i = 0; i < p.cars(); i++) {
                 var car = d.cars().get(i); int k = i * 6;
                 // Same LOD as TrainCarGeometry: do not allocate hidden trailing-car symbols at world scale.
-                if (car.length() * scale < 9 && i != (p.reversed ? p.cars() - 1 : 0)) continue;
+                if (TrainDisplayScale.marker(car.length(), scale) && i != (p.reversed ? p.cars() - 1 : 0)) continue;
                 // Coarse swept bounds before any per-car allocation; include both sample endpoints.
                 double radius = car.length() + Math.abs(car.offset()) + margin;
                 double left = Math.min(Math.min(a.coordinate(k), a.coordinate(k + 3)), Math.min(p.coordinate(k), p.coordinate(k + 3)));
@@ -97,7 +101,7 @@ public final class TrainAnchorBuffer {
                         new MapVertex(x + lx + wx, y, z + lz + wz), new MapVertex(x - lx + wx, y, z - lz + wz),
                         new MapVertex(x - lx - wx, y, z - lz - wz), new MapVertex(x + lx - wx, y, z + lz - wz), p.reversed));
             }
-        }
+        });
         return List.copyOf(result);
     }
     private static double lerp(Pose a, Pose b, int i, double t) { return a.coordinate(i) + (b.coordinate(i) - a.coordinate(i)) * t; }
@@ -107,5 +111,5 @@ public final class TrainAnchorBuffer {
     public boolean slow() { return slow; }
     public long ageNanos(long now) { return latest == null ? Long.MAX_VALUE : Math.max(0, now - sampledNanos); }
     public long sequence() { return latest == null ? 0 : latest.sequence(); }
-    public void clear() { definitions.clear(); previous.clear(); latest = null; receivedNanos = 0; unlocatable = 0; motion = slow = false; }
+    public void clear() { definitions.clear(); previous.clear(); latest = null; viewport = new TrainViewportIndex(List.of()); receivedNanos = 0; unlocatable = 0; motion = slow = false; }
 }
