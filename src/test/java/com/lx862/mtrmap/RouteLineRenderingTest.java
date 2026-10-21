@@ -24,7 +24,7 @@ class RouteLineRenderingTest {
         final Quad normal = quads.stream().filter(q -> q.color == 0x0000FF).findFirst().orElseThrow();
         final Quad high = quads.stream().filter(q -> q.color == 0x008844).findFirst().orElseThrow();
         assertEquals(0.7, light.width() / normal.width(), 1.0E-8);
-        assertEquals(1.4, high.width() / normal.width(), 1.0E-8);
+        assertEquals(1.0, high.width() / normal.width(), 1.0E-8);
         assertEquals(light.z[0], normal.z[2], 1.0E-8);
         assertEquals(normal.z[0], high.z[2], 1.0E-8);
         final List<Quad> white = quads.stream().filter(q -> q.color == 0xFFFFFF).toList();

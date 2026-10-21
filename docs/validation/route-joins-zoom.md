@@ -1,5 +1,7 @@
 # Route joins and world-space zoom — 2026-10-21
 
+Update, Codex, 2026-10-21 17:30: per user request, high-speed width is now 1.0, equal to normal rail; light rail remains 0.7 and coloured/white blocks remain. 68 ordinary tests and both builds pass; no new game session for this parameter change. The 1.4 weights and measured widths below describe the earlier build.
+
 Codex, 14:39. Version remains **1.5.2**, pure 2D, protocol v8 unchanged.
 
 ## Findings and change

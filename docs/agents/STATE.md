@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：真实 XYZ 附近车厢投影为纯 2D，固定轨道→线路→车厢层次；GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-21 14:39，操作者：Codex
+- 最后更新：2026-10-21 17:30，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-21 17:30，Codex：按用户要求高铁宽度权重 1.4→1.0，与普通 Rail 等宽；轻铁仍 0.7，高铁彩白块保留。现有共线几何测试检查等宽及白块边界，68 普通测试与双构建通过；本次参数调整未重新启动游戏。版本 1.5.2 / 协议 v8 保持，测试包 ../test-builds/v1.5.2-highspeed-standard-width。
 
 - 2026-10-21 14:39，Codex：修复共线→单线结束色带方形台阶及彩色→灰轨底衬叠加宽度楔形；两侧共享实际截面，结束色带在本轨道内 smoothstep 收束，白块 inset 随窄带钳制。参考 Create 世界空间缩放，轨道和总色带随地图缩小，仅整束保留 0.3 GUIpx 半宽下限，肩部/边缘同步收细；轻铁/普通/高铁权重和四线路宽度上限保持。68 普通测试、双构建和 NeoForge Xaero 3×/1.403×、JourneyMap 实机复查通过。详见 `docs/validation/route-joins-zoom.md`；1.5.2 / 静态 v8 / 纯 2D 保持，无网络改动。
 

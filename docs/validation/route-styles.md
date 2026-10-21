@@ -1,5 +1,7 @@
 # Route type styling validation — 2026-10-18
 
+Update, Codex, 2026-10-21 17:30: high speed now uses standard rail width (1.0), retaining the block pattern; light rail remains 0.7. Current zoom/join behaviour and validation are in [route-joins-zoom.md](route-joins-zoom.md). The original results below are historical.
+
 Scope: main, MC 1.21.1, MTR 4.1.0-beta.2, NeoForge and Fabric. Version 1.5.2 development; no release/tag created. MC 1.20 compatibility branch unchanged.
 
 ## Behaviour

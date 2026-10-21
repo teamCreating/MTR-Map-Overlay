@@ -30,7 +30,7 @@ When the mod is installed on the server as well as the client, it can request a 
 
 Development progress, in priority order. Unfinished items may change in scope and timing.
 
-- [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width, rail uses standard width, and high speed uses 140% width with alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching development client and server builds (currently 1.5.2 / protocol v7); existing 1.5.1 release downloads are unchanged. In-game visual verification is pending.
+- [x] **TSC line types (main / 1.5.2 development)** — Light rail uses 70% width; rail and high speed share standard width. High speed retains alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching development client and server builds (currently 1.5.2 / protocol v8); existing 1.5.1 release downloads are unchanged. Rendering checks are recorded in [route-joins-zoom.md](docs/validation/route-joins-zoom.md).
 - [ ] **Live trains and arrival estimates (partially implemented)** — Main 1.5.2 projects nearby MTR car bodies from actual XYZ onto a pure 2D map, with service/coordinate tooltips. Whole-network dynamic train sync and arrival estimates are still planned.
 - [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
 

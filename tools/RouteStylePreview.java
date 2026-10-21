@@ -19,7 +19,7 @@ public final class RouteStylePreview {
         graphics.setFont(new Font("SansSerif", Font.BOLD, 26));
         graphics.drawString("MTR Map Overlay / route styles", 44, 52);
         graphics.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        graphics.drawString("Actual shared geometry | 70% light rail / 100% rail / 140% high speed", 44, 83);
+        graphics.drawString("Actual shared geometry | 70% light rail / 100% rail / 100% high speed", 44, 83);
         final MapTrack straight = track("straight", 0, 120);
         row(graphics, 145, "Light rail", straight, List.of(entry("a", 0x137C59, RouteLineStyle.LIGHT_RAIL)));
         row(graphics, 215, "Rail", straight, List.of(entry("a", 0x137C59, RouteLineStyle.NORMAL)));
