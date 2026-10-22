@@ -1,0 +1,91 @@
+name: Candidate
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Approved mod version (must already match both source commits)'
+        required: true
+        type: string
+      main_sha:
+        description: 'Optional full main SHA; blank locks current main HEAD once'
+        type: string
+      compat_sha:
+        description: 'Optional full compat SHA; blank locks current compat HEAD once'
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: candidate-${{ github.run_id }}
+  cancel-in-progress: false
+jobs:
+  resolve:
+    if: github.ref == 'refs/heads/main' && github.repository == 'teamCreating/MTR-Map-Overlay'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.resolve.outputs.matrix }}
+      plan-artifact: ${{ steps.save.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+          MAIN_SHA: ${{ inputs.main_sha }}
+          COMPAT_SHA: ${{ inputs.compat_sha }}
+        run: python3 tools/ci/pipeline.py resolve --version "$VERSION" --main-sha "$MAIN_SHA" --compat-sha "$COMPAT_SHA"
+      - id: save
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: candidate-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            source-plan.json
+            candidate-notes.md
+          retention-days: 90
+          if-no-files-found: error
+  targets:
+    needs: resolve
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.resolve.outputs.matrix) }}
+    uses: ./.github/workflows/build-target.yml
+    with:
+      target: ${{ matrix.target }}
+      source-sha: ${{ matrix.sha }}
+      retention-days: 90
+  assemble:
+    needs: [resolve, targets]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          artifact-ids: ${{ needs.resolve.outputs.plan-artifact }}
+          merge-multiple: true
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: target-*-${{ github.run_id }}-*
+          path: incoming
+      - name: Seal six-platform candidate and manual test checklist
+        run: python3 tools/ci/pipeline.py bundle --incoming incoming --out candidate --plan source-plan.json --kind candidate
+      - name: Revalidate sealed candidate
+        run: python3 tools/ci/pipeline.py check --directory candidate > /dev/null
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        id: candidate
+        with:
+          name: candidate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: candidate/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Show release instructions
+        env:
+          ARTIFACT_URL: ${{ steps.candidate.outputs.artifact-url }}
+        run: |
+          echo "Download and manually test [this candidate]($ARTIFACT_URL)." >> "$GITHUB_STEP_SUMMARY"
+          echo "Then run Publish from main with candidate_run_id=$GITHUB_RUN_ID. Dry-run is enabled by default." >> "$GITHUB_STEP_SUMMARY"

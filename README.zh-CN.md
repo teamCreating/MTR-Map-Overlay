@@ -3,6 +3,8 @@
 
   <h1>MTR Map Overlay</h1>
 
+  <p><a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/snapshot">Snapshot 开发构建（未经实机验收）</a></p>
+
   <p>在地图上查看 Minecraft Transit Railway 的路线、轨道和车站。</p>
 
   <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://mtrmapoverlay.benli06.site/zh/">官网与文档</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2">下载 v1.5.2</a></p>

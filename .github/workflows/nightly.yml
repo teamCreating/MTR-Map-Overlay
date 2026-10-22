@@ -1,0 +1,93 @@
+name: Nightly
+on:
+  schedule:
+    - cron: '23 20 * * *' # Approximately 04:23 Asia/Taipei
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: nightly-six-platform
+  cancel-in-progress: false
+jobs:
+  resolve:
+    if: github.ref == 'refs/heads/main' && github.repository == 'teamCreating/MTR-Map-Overlay'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.resolve.outputs.matrix }}
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
+      cache-key: ${{ steps.key.outputs.key }}
+      plan-artifact: ${{ steps.save.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/ci/pipeline.py resolve
+      - id: key
+        env:
+          MAIN_SHA: ${{ steps.resolve.outputs.main_sha }}
+          COMPAT_SHA: ${{ steps.resolve.outputs.compat_sha }}
+        run: echo "key=nightly-verified-v1-$MAIN_SHA-$COMPAT_SHA" >> "$GITHUB_OUTPUT"
+      - id: cache
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: nightly-state
+          key: ${{ steps.key.outputs.key }}
+      - name: Explain unchanged source skip
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: echo 'Both source SHAs already passed all six targets; no rebuild needed.' >> "$GITHUB_STEP_SUMMARY"
+      - id: save
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: nightly-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: source-plan.json
+          retention-days: 90
+          if-no-files-found: error
+  targets:
+    needs: resolve
+    if: needs.resolve.outputs.cache-hit != 'true'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.resolve.outputs.matrix) }}
+    uses: ./.github/workflows/build-target.yml
+    with:
+      target: ${{ matrix.target }}
+      source-sha: ${{ matrix.sha }}
+      retention-days: 90
+  verified:
+    needs: [resolve, targets]
+    if: needs.resolve.outputs.cache-hit != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          artifact-ids: ${{ needs.resolve.outputs.plan-artifact }}
+          merge-multiple: true
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: target-*-${{ github.run_id }}-*
+          path: incoming
+      - run: python3 tools/ci/pipeline.py bundle --incoming incoming --out nightly-bundle --plan source-plan.json --kind nightly
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
+        with:
+          name: nightly-${{ github.run_id }}-${{ github.run_attempt }}
+          path: nightly-bundle/
+          retention-days: 90
+          if-no-files-found: error
+      - name: Mark verified source pair only after all six targets passed
+        run: |
+          mkdir -p nightly-state
+          cp nightly-bundle/release-manifest.json nightly-state/verified.json
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: nightly-state
+          key: ${{ needs.resolve.outputs.cache-key }}

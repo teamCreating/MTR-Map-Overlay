@@ -1,6 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 22:22] Codex-CI — GitHub Actions实施与本地验证
+
+- 已认领CI/CD任务；双分支平台源码和版本不变，新增工作流/共享Python工具、CI文档及Snapshot入口。新包名、许可证、JUnit、六包Manifest和不可变候选校验已接入。
+- 18项CI工具测试及既有六包/候选完整性检查通过，接下来推送验证GitHub Runner并配置审批环境/规则；当前不触发正式发布。
+
+
 ## [2026-10-22 18:21] Codex-Release — v1.5.2正式附件已换为新包名构建
 
 - 用户明确授权原位替换：六JAR和SHA256SUMS已更新，MC/MTR/loader完整文件名与下载地址保持，下载显示label为空。已重新下载全部附件，SHA256与冻结新构建一致，class路径均为io/github/teamcreating/mtrmap且原始LICENSE齐全。

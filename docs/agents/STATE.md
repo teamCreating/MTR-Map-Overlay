@@ -25,6 +25,8 @@
 
 ## 架构现状
 
+- 2026-10-22 22:22，Codex-CI：接入新命名空间双分支CI及稳定CI Gate、参数化产物校验；main新增自动Snapshot、按双SHA跳过的Nightly、固定六包Candidate及手动审批Publish。18项CI工具回归测试、既有六包校验和候选封装/篡改拒绝本地通过；GitHub Runner及远端配置验证进行中。当前不发布正式版、不改版本或已发布产物。说明见docs/CI-CD.md。
+
 - 2026-10-22 18:21，Codex-Release：按用户明确要求，GitHub v1.5.2的六个旧JAR已替换为新命名空间io.github.teamcreating.mtrmap构建，SHA256SUMS和中英文说明同步。重新下载七附件核对哈希/新类路径/LICENSE通过，完整文件名显示无自定义label，保持正式版/Latest。当前附件源码main959b7e4、compat54a0acd，正文包含精确源码链接和与v1.5.1的更新diff；原tag保留未强推。版本继续1.5.2。
 
 - 2026-10-22 18:11，Codex：用户指定Java包迁移为 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；双分支源码/入口/Mixin/反射/构建/验证脚本及当前源码链接同步，原始LICENSE随六包分发。mod ID、配置名、资源/网络标识和协议保持，107/111个Java文件反向替换核对仅包名差异；六构建和各86/89项测试、产物无旧类/入口与许可证检查通过。NeoForge/Fabric1.21.1两地图已加载验证，Fabric1.20.4/JourneyMap5已通过，详见docs/validation/namespace-migration.md。版本固定1.5.2；已发布tag和附件保留原样，当时新包名构建未发布；现已按用户要求替换正式附件。

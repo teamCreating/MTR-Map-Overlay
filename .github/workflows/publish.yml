@@ -1,0 +1,75 @@
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: 'Successful Candidate run ID, downloaded and manually tested'
+        required: true
+        type: string
+      validation:
+        description: 'Tester/date and six-platform manual acceptance record or link'
+        required: true
+        type: string
+      dry_run:
+        description: 'Validate only; no environment approval, tags or release writes'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: formal-release
+  cancel-in-progress: false
+jobs:
+  select:
+    if: github.ref == 'refs/heads/main' && github.repository == 'teamCreating/MTR-Map-Overlay'
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.select.outputs.artifact_id }}
+      manifest-sha256: ${{ steps.select.outputs.manifest_sha256 }}
+      version: ${{ steps.select.outputs.version }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - id: select
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = true ]; then
+            python3 tools/ci/publish.py select --run-id "$CANDIDATE_RUN_ID" --dry-run
+          else
+            python3 tools/ci/publish.py select --run-id "$CANDIDATE_RUN_ID"
+          fi
+  release:
+    needs: select
+    if: ${{ !inputs.dry_run }}
+    environment:
+      name: github-release
+      url: https://github.com/${{ github.repository }}/releases/tag/v${{ needs.select.outputs.version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - name: Require the repository-scoped release credential
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_TOKEN" ]; then
+            echo '::error::Configure RELEASE_TOKEN in the github-release environment (Contents and Workflows write for this repository only).'
+            exit 1
+          fi
+      - name: Revalidate exact candidate, create tags and publish
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id }}
+          ARTIFACT_ID: ${{ needs.select.outputs.artifact-id }}
+          MANIFEST_SHA256: ${{ needs.select.outputs.manifest-sha256 }}
+          VALIDATION: ${{ inputs.validation }}
+        run: python3 tools/ci/publish.py release --run-id "$CANDIDATE_RUN_ID" --artifact-id "$ARTIFACT_ID" --manifest-sha256 "$MANIFEST_SHA256" --validation "$VALIDATION"
