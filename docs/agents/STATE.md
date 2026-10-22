@@ -27,7 +27,7 @@ JourneyMap 6 和 Fabric JourneyMap 5 的嵌套 API 校验后提取为编译依�
 
 ## 架构与移植
 
-- 2026-10-22 22:22，Codex-CI：接入新命名空间双分支CI及稳定CI Gate、参数化产物校验；main新增自动Snapshot、按双SHA跳过的Nightly、固定六包Candidate及手动审批Publish。18项CI工具回归测试、既有六包校验和候选封装/篡改拒绝本地通过；GitHub Runner及远端配置验证进行中。当前不发布正式版、不改版本或已发布产物。说明见docs/CI-CD.md。
+- 2026-10-22 22:22，Codex-CI：接入新命名空间双分支CI及稳定CI Gate、参数化产物校验；main新增自动Snapshot、按双SHA跳过的Nightly、固定六包Candidate及手动审批Publish。18项CI工具回归测试、既有六包校验和候选封装/篡改拒绝本地通过；GitHub Runner六目标及CI Gate、远端产物复核、Candidate、Nightly完整/跳过、Snapshot六包及Publish dry-run验收通过；Environment已设，维护分支规则在验收提交推送后启用。RELEASE_TOKEN按用户选择稍后配置，详见docs/validation/ci-cd.md。当前不发布正式版、不改版本或已发布产物。说明见docs/CI-CD.md。
 
 已移植最新 1.5.2：原生曲线、接头/缩放、轻铁0.7和Rail/高铁1.0宽度、高铁彩白块；真实XYZ保留，纯2D绘制；全图列车动态流、车厢三级缩放、视口索引和共用悬停。客户端无行车模拟，距离/ETA继续暂停。
 MTR mod 侧包为 `org.mtr.mod.*`，主入口 accessor 指向 `org.mtr.mod.Init.main`。

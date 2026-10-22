@@ -1,6 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 22:42] Codex-CI — CI/CD六平台与发布演练验收
+
+- 两分支CI Gate、六构建、18项工具测试、远端六包/报告/Manifest复核、六包Candidate、Nightly相同SHA跳过及Snapshot六包已验证；正式版Latest保持，Publish dry-run通过且未发布正式版。记录docs/validation/ci-cd.md。
+- Environment已配置；本验收提交推送后启用PR/CI Gate/禁止强推与删除规则。用户明确选择稍后配置RELEASE_TOKEN，其他流程正常可用。任务释放，版本仍1.5.2。
+
+
 ## [2026-10-22 22:22] Codex-CI — GitHub Actions实施与本地验证
 
 - 已认领CI/CD任务；双分支平台源码和版本不变，新增工作流/共享Python工具、CI文档及Snapshot入口。新包名、许可证、JUnit、六包Manifest和不可变候选校验已接入。

@@ -6,10 +6,6 @@
 
 ## 进行中
 
-### [进行中，Codex-CI，2026-10-22 18:16] GitHub Actions CI/CD
-- 实施双分支六平台CI、新命名空间产物校验、Snapshot、Nightly、Candidate与人工审批发布；范围为.github/workflows、tools/ci及CI文档，不改版本或已发布产物。
-
-
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
@@ -22,6 +18,10 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] GitHub Actions CI/CD — Codex-CI，2026-10-22 22:42。双分支六目标Runner构建与CI Gate、18项工具回归、远端产物复核、六包Candidate、Nightly完整验证/无变更跳过、Snapshot六包与Publish只读演练通过；Environment已配置，规则在本验收提交推送后启用。RELEASE_TOKEN按用户要求稍后配置，不触发正式发布。实现提交main 9ea00e9、compat 7f63367，证据见docs/validation/ci-cd.md。
+
+
 
 - [完成] v1.5.2新命名空间正式附件替换 — Codex-Release，2026-10-22 18:21。用户明确授权将io.github.teamcreating.mtrmap构建视为1.5.2正式版；六个MC/MTR/loader命名JAR及SHA256SUMS原位替换，保留完整文件名显示。已从GitHub下载全部新附件，逐一核对SHA256/新包名/LICENSE，发布正文及源码diff同步，仍为Latest正式版。原发布tag保留，正文明确当前附件源码959b7e4/54a0acd。[Release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。
 
