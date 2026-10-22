@@ -9,7 +9,8 @@
   "environment": "*",
   "entrypoints": {
     "main": ["com.lx862.mtrmap.MTRMap"],
-    "client": ["com.lx862.mtrmap.MTRMapClient"]
+    "client": ["com.lx862.mtrmap.MTRMapClient"],
+    "journeymap": ["com.lx862.mtrmap.integration.journeymap.MTRJourneyMapPlugin"]
   },
   "mixins": ["mtrmap.fabric.mixins.json"],
   "depends": {

@@ -140,7 +140,7 @@ public class CommandRegistration {
                                 () -> MTRMapConfig.INSTANCE.trackLinesEnabled.get(),
                                 v -> MTRMapConfig.INSTANCE.trackLinesEnabled.set(v)));
 
-                configNode.then(createBoolConfigNode("trainCars", "Nearby train cars",
+                configNode.then(createBoolConfigNode("trainCars", "Map train cars",
                                 () -> MTRMapConfig.INSTANCE.trainCarsEnabled.get(),
                                 v -> MTRMapConfig.INSTANCE.trainCarsEnabled.set(v)));
 

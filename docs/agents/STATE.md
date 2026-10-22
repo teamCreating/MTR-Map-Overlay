@@ -7,7 +7,7 @@
 
 - **v1.5.2 开发版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub 已发布版本仍为 v1.5.1。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-22 00:34，操作者：Codex
+- 最后更新：2026-10-22 10:00，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-22 10:00，Codex：完成最新1.5.2向兼容分支四目标移植，以及六平台构建/两地图实机回归；四兼容目标各89项测试，主线86项共用测试。新增六包检查脚本；修复Fabric1.21.1 JourneyMap插件入口，补齐可选开发运行依赖和XaeroLib编译层级。全图远处车辆native nearby=0已在四兼容目标/Fabric1.21.1验证，NeoForge沿用前次证据并复查两地图。Forge1.20.4首轮glfw.dll原生崩溃，单客户端重试通过，根因未定。详情见docs/validation/platform-matrix-1.5.2.md。版本仍1.5.2，纯2D/TSC唯一模拟/距离ETA暂停不变。测试包../test-builds/v1.5.2-platform-matrix；production JAR整合包启动、跨机器联机及大车队性能未验证。
 
 - 2026-10-22 00:34，Codex：**Create 参考车辆显示优化**。完整帧安装建立双帧扫掠包围盒层级索引，动画查询仅处理候选列车；全图成员和网络覆盖不变。共用缩放阈值：远景单列方向符号、中景简化车厢、近景倒角/端窗，修复缩放切换长度反跳；小图标9→5 quads、中景三节25→13。86测试通过/1生成用例跳过，双平台构建通过；NeoForge Xaero native nearby=0下全图三节过弯/缩放/悬停，以及JourneyMap近处三节/远景/悬停检查通过。2000列×8节合成局部查询0.289～0.306→约0.002ms，完整帧安装0.423～0.453→1.273～1.766ms；不是游戏FPS。全网视口仍需处理所有可见车，真实大网/Fabric实机未测。详见docs/validation/train-display-optimization.md；测试包../test-builds/v1.5.2-train-display。1.5.2/静态v8/动态v1/纯2D/TSC唯一模拟保持，距离/ETA暂停。
 
@@ -75,7 +77,7 @@
 
 ## 设计基线与后续验证
 
-- 2026-10-21 20:09，Codex：`docs/plans/global-train-sync.md` 的简化锚点主线已落地，实际协议和证据见 `docs/validation/global-trains.md`。仍待真实大车队/多人性能、复杂网络与Fabric实机矩阵；不恢复旧full-bogie/进度/客户端模拟方案。距离/ETA继续暂停。
+- 2026-10-21 20:09，Codex：`docs/plans/global-train-sync.md` 的简化锚点主线已落地，实际协议和证据见 `docs/validation/global-trains.md`。六平台小网格实机矩阵已在2026-10-22完成；仍待真实大车队/多人性能与复杂网络；不恢复旧full-bogie/进度/客户端模拟方案。距离/ETA继续暂停。
 
 - 下列 2026-10-19/20/21 早期设计记录为历史；其中路径进度客户端求解、视口细节订阅、下穿和 PIDS 实施顺序已被最新要求取代。
 
@@ -90,7 +92,7 @@
 ## 已知限制
 
 - 只渲染 TRAIN 模式轨道（路径层；JourneyMap 地标不受限）
-- 全网动态列车需两端更新到支持动态v1的构建；无此能力仅附近回退。真实XYZ参考点投影为抽象2D，离散插值可能切弯，无侧倾/高度遮挡；距离/ETA暂停。原生元数据可能为空，显示“—”；真实大车队/多人及Fabric实机性能未验证。
+- 全网动态列车需两端更新到支持动态v1的构建；无此能力仅附近回退。真实XYZ参考点投影为抽象2D，离散插值可能切弯，无侧倾/高度遮挡；距离/ETA暂停。原生元数据可能为空，显示“—”；真实大车队/多人性能未验证；六平台小网格功能实机回归已完成。
 - 洞穴图层下路径线悬浮（与 Create 行为一致）
 
 ## 历史要点

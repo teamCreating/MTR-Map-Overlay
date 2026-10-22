@@ -39,6 +39,8 @@ dependencies {
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
+apply from: 'bundled-libraries.gradle'
+
 sourceSets.main.resources.srcDir('../src/main/resources')
 sourceSets.main.resources.exclude('META-INF/neoforge.mods.toml', 'mtrmap.mixins.json')
 
@@ -64,3 +66,5 @@ processResources {
 jar {
     manifest.attributes('MixinConfigs': 'mtrmap.fabric.mixins.json')
 }
+
+if (project.hasProperty('mtrmapRuntimeTest')) apply from: 'runtime-test.gradle'

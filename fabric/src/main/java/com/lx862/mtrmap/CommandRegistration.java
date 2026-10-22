@@ -46,7 +46,7 @@ public final class CommandRegistration {
                 .then(boolConfig("trackLines", "Map track layer",
                         MTRMapConfig.INSTANCE.trackLinesEnabled::get,
                         MTRMapConfig.INSTANCE.trackLinesEnabled::set))
-                .then(boolConfig("trainCars", "Nearby train cars",
+                .then(boolConfig("trainCars", "Map train cars",
                         MTRMapConfig.INSTANCE.trainCarsEnabled::get,
                         MTRMapConfig.INSTANCE.trainCarsEnabled::set));
 

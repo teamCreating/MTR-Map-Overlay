@@ -1,0 +1,44 @@
+// Make nested dependency classes available to Loom's hierarchy remapper.
+// These remain compile-only unless explicitly requested by the runtime fixture.
+repositories.maven { url = uri('.gradle/bundled-api') }
+ext.checkedModrinthBundle = { String name, String version, String sha1 ->
+    def filename = "${name}-${version}.jar"
+    def bundle = new File(gradle.gradleUserHomeDir,
+            "caches/modules-2/files-2.1/maven.modrinth/${name}/${version}/${sha1}/${filename}")
+    if (!bundle.exists()) {
+        bundle = file(".gradle/runtime-bundles/${filename}")
+        if (!bundle.exists()) {
+            bundle.parentFile.mkdirs()
+            def connection = new URI("https://api.modrinth.com/maven/maven/modrinth/${name}/${version}/${filename}").toURL().openConnection()
+            connection.connectTimeout = 30000
+            connection.readTimeout = 60000
+            connection.inputStream.withCloseable { input -> bundle.withOutputStream { it << input } }
+        }
+    }
+    def digest = java.security.MessageDigest.getInstance('SHA-1')
+    bundle.withInputStream { input ->
+        byte[] bytes = new byte[8192]
+        int count
+        while ((count = input.read(bytes)) != -1) digest.update(bytes, 0, count)
+    }
+    if (digest.digest().encodeHex().toString() != sha1) throw new GradleException("${name} bundle checksum mismatch")
+    return bundle
+}
+ext.addNestedModule = { File bundle, String entryName, String groupId, String name, String version, String configuration ->
+    def destination = file(".gradle/bundled-api/${groupId.replace('.', '/')}/${name}/${version}")
+    destination.mkdirs()
+    def jar = new File(destination, "${name}-${version}.jar")
+    if (!jar.exists()) {
+        new java.util.zip.ZipFile(bundle).withCloseable { zip ->
+            def entry = zip.getEntry("META-INF/jars/${entryName}.jar")
+            if (entry == null) throw new GradleException("Missing nested dependency ${entryName}")
+            zip.getInputStream(entry).withCloseable { input -> jar.withOutputStream { it << input } }
+        }
+    }
+    def pom = new File(destination, "${name}-${version}.pom")
+    if (!pom.exists()) pom.text = "<project><modelVersion>4.0.0</modelVersion><groupId>${groupId}</groupId><artifactId>${name}</artifactId><version>${version}</version></project>"
+    dependencies.add(configuration, "${groupId}:${name}:${version}")
+}
+def xaero = checkedModrinthBundle('xaeros-world-map', 'fabric-1.21.1-1.45.0', 'ebcaef4da6bc5feab9af80d31223e1833960e71d')
+addNestedModule(xaero, 'xaerolib-fabric-1.21.1-1.7.1', 'bundled.xaero', 'lib', '1.21.1-1.7.1',
+        project.hasProperty('mtrmapRuntimeTest') && !project.hasProperty('mtrmapServerOnly') ? 'modImplementation' : 'modCompileOnly')

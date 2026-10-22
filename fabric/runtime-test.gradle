@@ -1,0 +1,30 @@
+// Opt-in local runtime fixture; normal JARs never bundle these dependencies.
+dependencies {
+    modImplementation 'maven.modrinth:minecraft-transit-railway:FABRIC-4.1.0-beta.2+1.21.1'
+}
+def mtr = checkedModrinthBundle('minecraft-transit-railway', 'FABRIC-4.1.0-beta.2+1.21.1', 'd7ba5e7371c45514fb58156fe16d971a4e32d788')
+['elementa-743', 'kotlin-stdlib-2.4.20-Beta1', 'universalcraft-1.21-fabric-497'].each { name ->
+    addNestedModule(mtr, name, 'bundled.runtime', name, '1', 'modImplementation')
+}
+if (!project.hasProperty('mtrmapServerOnly')) {
+    dependencies {
+        modImplementation 'maven.modrinth:xaeros-world-map:fabric-1.21.1-1.45.0'
+        modImplementation 'maven.modrinth:xaeros-minimap:fabric-1.21.1-26.4.2'
+        modImplementation 'maven.modrinth:journeymap:1.21.1-6.0.8+fabric'
+    }
+    def jm = checkedModrinthBundle('journeymap', '1.21.1-6.0.8+fabric', '6cfe22f8448679fd07cef69bafa3c2cc223bead3')
+    ['common-networking-fabric-1.0.21-1.21.1', 'journeymap-api-fabric-2.0.0-1.21.1', 'pngj-2.1.0'].each { name ->
+        addNestedModule(jm, name, 'bundled.runtime', name, '1', 'modImplementation')
+    }
+}
+loom.runs {
+    client {
+        runDir project.relativePath(file(project.findProperty('mtrmapRunDir') ?: 'run'))
+        if (project.hasProperty('quickplayServer')) programArgs '--quickPlayMultiplayer', project.property('quickplayServer')
+        else if (project.hasProperty('quickplay')) programArgs '--quickPlaySingleplayer', project.property('quickplay')
+    }
+    server {
+        runDir project.relativePath(file(project.findProperty('mtrmapRunDir') ?: 'run-server'))
+        programArgs 'nogui'
+    }
+}
