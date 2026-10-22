@@ -1,6 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 15:01] Codex — GitHub v1.5.2正式版已发布
+
+- [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)为正式版/Latest，六个已验证JAR按版本-MC-MTR-loader命名，附SHA256SUMS.txt；下载标签另标明Java/loader环境。已核对远端文件大小和SHA256、正文及末尾v1.5.1...v1.5.2 diff。
+- main发布tag v1.5.2固定32e024c，兼容tag v1.5.2-mc1.20固定13b48e0；较已测试源码97ea694/1bb738f仅文档差异，未改二进制。源码与记录均保留独立分支。
+- 用户要求的全图列车、曲线/接头/缩放、缓存/通信优化及六平台支持已在中英文release note说明；验证边界和Forge1.20.4首次原生崩溃未隐去。距离/ETA仍暂停，后续版本保持1.5.2直至用户另行指示。
+
+
 ## [2026-10-22 10:00] Codex — 最新1.5.2六平台回归完成
 
 - 用户要求先移植最新功能再测试，已完成1.20.1/1.20.4 Forge/Fabric的纯2D、原生曲线/线路样式、全图列车流、显示/视口优化移植；不覆盖main，距离/ETA保持暂停。

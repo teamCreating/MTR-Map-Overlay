@@ -6,9 +6,6 @@
 
 ## 进行中
 
-### [进行中，Codex，2026-10-22 14:55] GitHub v1.5.2发布
-- 用户明确授权发布GitHub Release；沿用既有附件命名并标明MC/MTR/loader，整理相对v1.5.1的功能/优化/修复及最终diff。使用已验证六包，校验哈希、发布后核对远端附件与正文；版本固定1.5.2。
-
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
@@ -21,6 +18,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] GitHub v1.5.2正式发布 — Codex，2026-10-22 15:01。用户明确授权发布；六个附件沿用版本-MC-MTR-loader命名，附SHA256SUMS.txt及下载环境标签，中英文说明覆盖相对v1.5.1新增/优化/修复，末尾附v1.5.1...v1.5.2 diff。已设Latest并核对远端7附件大小/哈希/正文；main tag v1.5.2，兼容tag v1.5.2-mc1.20。版本继续固定1.5.2。[Release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。
 
 - [完成] 最新1.5.2移植及四兼容目标回归 — Codex，2026-10-22 10:00，见本条所在提交。纯2D/原生曲线/线路缩放/全图列车动态v1/三级车厢显示与视口索引完成移植；Java17、Core4.0只读车辆accessor、Forge47/49和Fabric通道适配。四目标各89测试、构建及生产产物结构检查通过；四独立服务端与Xaero/JourneyMap6/5实机回归通过。Forge1.20.4首轮原生GLFW崩溃，重试通过且保留未明原因记录。详见docs/validation/platform-matrix-1.5.2.md，版本固定1.5.2，距离/ETA暂停。
 

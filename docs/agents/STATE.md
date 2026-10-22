@@ -1,6 +1,6 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
-- 最后更新：2026-10-22 10:00，操作者：Codex。
+- 最后更新：2026-10-22 15:01，操作者：Codex。
 - 分支：`compat/mtr-4.0-mc-1.20`；原基于 main `6afde36`（v1.5.1），现移植 main `df9df96` 最新功能。
 - 版本：**v1.5.2**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`。
 - 主线继续保留 NeoForge/Fabric MC 1.21.1，独立 worktree `../mtrsurveyor` 保留 1.21.1；本轮主线另修复 Fabric JourneyMap 入口，不以兼容代码覆盖主线。
@@ -52,7 +52,7 @@ Core 4.0 通过只读 SidingVehiclesAccessor 在 Simulator 线程读取已有车
 
 ## 构建与产物
 
-当前1.5.2四包位于根项目/Fabric的 `build/libs` 或 `build/mc1.20.4/libs`；最终测试包汇总至共享工作区 `../test-builds/v1.5.2-platform-matrix/`。GitHub已发布版本仍为1.5.1，本次未发布。
+当前1.5.2四包位于根项目/Fabric的 `build/libs` 或 `build/mc1.20.4/libs`；最终测试包汇总至共享工作区 `../test-builds/v1.5.2-platform-matrix/`。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设Latest；兼容源码固定tag `v1.5.2-mc1.20`（13b48e0）。六附件文件名标明MC/MTR/loader，远端SHA256已核对。
 
 默认构建 1.20.1；加 `-Pminecraft_version=1.20.4` 选择 1.20.4。PowerShell 中该参数需加引号。两加载器各自使用其 Gradle wrapper；完整命令见 README。
 
