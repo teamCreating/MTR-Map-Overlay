@@ -29,12 +29,15 @@ for loader, mc, build, name, major in targets:
     artifact = build / 'libs' / name
     with zipfile.ZipFile(artifact) as jar:
         names = set(jar.namelist())
-        assert all(f'com/lx862/mtrmap/{c}.class' in names for c in required), artifact
-        assert b'trainCars' in jar.read('com/lx862/mtrmap/CommandRegistration.class'), 'Missing train command'
+        license_root = ROOT if mc == '1.21.1' else args.compat
+        assert jar.read('LICENSE') == (license_root / 'LICENSE').read_bytes(), 'Missing original license'
+        assert all(f'io/github/teamcreating/mtrmap/{c}.class' in names for c in required), artifact
+        assert b'trainCars' in jar.read('io/github/teamcreating/mtrmap/CommandRegistration.class'), 'Missing train command'
         assert not any(n.endswith('.jar') for n in names), 'Bundled dependency'
         for n in (n for n in names if n.endswith('.class')):
             data = jar.read(n)
-            assert n.startswith('com/lx862/mtrmap/'), n
+            assert b'com/lx862/mtrmap' not in data and b'com.lx862.mtrmap' not in data, n
+            assert n.startswith('io/github/teamcreating/mtrmap/'), n
             assert struct.unpack('>H', data[6:8])[0] == major, n
             forbidden = {'fabric': (b'net/minecraftforge/', b'net/neoforged/'),
                          'forge': (b'net/fabricmc/', b'net/neoforged/'),
@@ -44,9 +47,12 @@ for loader, mc, build, name, major in targets:
             meta = json.loads(jar.read('fabric.mod.json'))
             assert meta['id'] == 'mtrmap' and meta['version'] == '1.5.2'
             assert meta['depends']['minecraft'] == mc
-            assert meta['entrypoints']['journeymap'] == ['com.lx862.mtrmap.integration.journeymap.MTRJourneyMapPlugin']
+            assert meta['entrypoints']['journeymap'] == ['io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin']
+            for entries in meta['entrypoints'].values():
+                for entry in entries:
+                    assert entry.replace('.', '/') + '.class' in names, entry
             config = 'mtrmap.fabric.mixins.json'
-            hook = jar.read('com/lx862/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.class')
+            hook = jar.read('io/github/teamcreating/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.class')
             assert b'method_25394' in hook and b'method_25402' in hook
         else:
             config = 'mtrmap.mixins.json'
@@ -55,10 +61,16 @@ for loader, mc, build, name, major in targets:
             deps = {d['modId']: d for d in meta['dependencies']['mtrmap']}
             assert deps['minecraft']['versionRange'] == (f'[{mc}]' if loader == 'forge' else '[1.21.1,1.21.2)')
         mixins = json.loads(jar.read(config))
+        assert mixins['package'] == 'io.github.teamcreating.mtrmap.mixin'
+        assert mixins['plugin'].replace('.', '/') + '.class' in names
+        for mixin in mixins.get('mixins', []) + mixins.get('client', []):
+            assert (mixins['package'] + '.' + mixin).replace('.', '/') + '.class' in names, mixin
+        for n in (n for n in names if n.endswith(('.json', '.toml'))):
+            assert b'com.lx862.mtrmap' not in jar.read(n) and b'com/lx862/mtrmap' not in jar.read(n), n
         assert 'client.xaero.TrainMapPauseMixin' in mixins['client']
         if mc != '1.21.1':
             assert 'SidingVehiclesAccessor' in mixins['mixins']
-            assert 'com/lx862/mtrmap/mixin/SidingVehiclesAccessor.class' in names
+            assert 'io/github/teamcreating/mtrmap/mixin/SidingVehiclesAccessor.class' in names
     # Main Fabric shares main NeoForge tests instead of running a duplicate suite.
     tests_build = ROOT / 'build' if mc == '1.21.1' else build
     results = [ET.parse(p).getroot() for p in (tests_build / 'test-results/test').glob('TEST-*.xml')]

@@ -96,16 +96,16 @@ NeoForge 构建会运行共用的 JUnit 测试。构建成功不能替代游戏�
 
 ## 源码结构与数据流
 
-NeoForge 源码在 [`src/main/java/com/lx862/mtrmap`](src/main/java/com/lx862/mtrmap)；[`fabric/`](fabric) 放置 Fabric 专用入口和适配代码，并编译共用的 Java 源码。NeoForge 的 `MTRMap` 只负责通用初始化，`MTRMapClient` 注册纯客户端事件，`MTRNetworkClient` 承接客户端网络回调。两种构建共用纹理、128×128 模组/资源包 Logo 与 `mtrmap` 标识。
+NeoForge 源码在 [`src/main/java/io/github/teamcreating/mtrmap`](src/main/java/io/github/teamcreating/mtrmap)；[`fabric/`](fabric) 放置 Fabric 专用入口和适配代码，并编译共用的 Java 源码。NeoForge 的 `MTRMap` 只负责通用初始化，`MTRMapClient` 注册纯客户端事件，`MTRNetworkClient` 承接客户端网络回调。两种构建共用纹理、128×128 模组/资源包 Logo 与 `mtrmap` 标识。
 
 | 模块 | 主要职责 |
 | --- | --- |
-| [`mapdata/`](src/main/java/com/lx862/mtrmap/mapdata) | `MapDataCache` 优先使用服务器快照，否则回退到 MTR 客户端附近数据；`TrackSampler` 为每根物理轨道采样并供路线复用，`TrackRoutePalette` 为共线轨道分配稳定色带，`MapTrack` 缓存包围盒以剔除视窗外轨道。 |
-| [`network/`](src/main/java/com/lx862/mtrmap/network) | v5 协议和 `NetworkSnapshotCodec` 传输路线、轨道与地标；`ServerNetworkCollector` 在 MTR 模拟器线程读数据，`ClientNetworkSync` 探测并请求快照，`NetworkChunkAssembler` 校验和重组分块。 |
-| [`integration/xaero/`](src/main/java/com/lx862/mtrmap/integration/xaero) | `XaeroRouteRenderer` 按世界坐标绘制轨道、路线色带和地图内图标，处理悬停提示。 |
-| [`integration/journeymap/`](src/main/java/com/lx862/mtrmap/integration/journeymap) | 可选的 JourneyMap v2 插件；`JourneyMapToolbar` 提供 TRACKS/ROUTES 按钮，`JourneyMapScreenProjection` 同步平移、拖动与缩放，`JourneyMapPathManager` 用屏幕像素宽度绘制经过视窗剔除的轨道和路线，`JourneyMapForegroundRenderer` 将地标图标固定在最上层；全屏 `MarkerOverlay` 保留悬停信息。 |
-| [`mixin/`](src/main/java/com/lx862/mtrmap/mixin) | 读取 MTR 数据并接入 Xaero 绘制流程；Fabric 有专用的 Xaero mixin。 |
-| [`config/`](src/main/java/com/lx862/mtrmap/config) 与 [`fabric/src/main/java/`](fabric/src/main/java) | 两种加载器各自的配置、初始化、客户端命令及网络注册。 |
+| [`mapdata/`](src/main/java/io/github/teamcreating/mtrmap/mapdata) | `MapDataCache` 优先使用服务器快照，否则回退到 MTR 客户端附近数据；`TrackSampler` 为每根物理轨道采样并供路线复用，`TrackRoutePalette` 为共线轨道分配稳定色带，`MapTrack` 缓存包围盒以剔除视窗外轨道。 |
+| [`network/`](src/main/java/io/github/teamcreating/mtrmap/network) | v5 协议和 `NetworkSnapshotCodec` 传输路线、轨道与地标；`ServerNetworkCollector` 在 MTR 模拟器线程读数据，`ClientNetworkSync` 探测并请求快照，`NetworkChunkAssembler` 校验和重组分块。 |
+| [`integration/xaero/`](src/main/java/io/github/teamcreating/mtrmap/integration/xaero) | `XaeroRouteRenderer` 按世界坐标绘制轨道、路线色带和地图内图标，处理悬停提示。 |
+| [`integration/journeymap/`](src/main/java/io/github/teamcreating/mtrmap/integration/journeymap) | 可选的 JourneyMap v2 插件；`JourneyMapToolbar` 提供 TRACKS/ROUTES 按钮，`JourneyMapScreenProjection` 同步平移、拖动与缩放，`JourneyMapPathManager` 用屏幕像素宽度绘制经过视窗剔除的轨道和路线，`JourneyMapForegroundRenderer` 将地标图标固定在最上层；全屏 `MarkerOverlay` 保留悬停信息。 |
+| [`mixin/`](src/main/java/io/github/teamcreating/mtrmap/mixin) | 读取 MTR 数据并接入 Xaero 绘制流程；Fabric 有专用的 Xaero mixin。 |
+| [`config/`](src/main/java/io/github/teamcreating/mtrmap/config) 与 [`fabric/src/main/java/`](fabric/src/main/java) | 两种加载器各自的配置、初始化、客户端命令及网络注册。 |
 
 数据流：MTR 模拟器或客户端数据 → 按维度管理的 `MapDataCache` → Xaero 或 JourneyMap 全屏绘制器。有服务端组件时，客户端先探测各维度内容哈希，只请求变化的快照，校验并重组分块数据后更新缓存；否则使用 MTR 客户端半径范围内的数据。
 

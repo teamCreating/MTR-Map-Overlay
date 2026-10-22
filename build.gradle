@@ -107,6 +107,7 @@ processResources {
 }
 
 jar {
+    from('LICENSE')
     manifest {
         attributes([
             "Specification-Title": "mtrmap",

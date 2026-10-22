@@ -1,4 +1,4 @@
-import com.lx862.mtrmap.mapdata.*;
+import io.github.teamcreating.mtrmap.mapdata.*;
 
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;

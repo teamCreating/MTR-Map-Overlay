@@ -1,8 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.lx862.mtrmap.mixin",
-  "plugin": "com.lx862.mtrmap.mixin.XaeroMixinPlugin",
+  "package": "io.github.teamcreating.mtrmap.mixin",
+  "plugin": "io.github.teamcreating.mtrmap.mixin.XaeroMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.MinecraftClientDataMixin",

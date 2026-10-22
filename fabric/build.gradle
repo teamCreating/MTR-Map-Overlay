@@ -45,15 +45,15 @@ sourceSets.main.resources.srcDir('../src/main/resources')
 sourceSets.main.resources.exclude('META-INF/neoforge.mods.toml', 'mtrmap.mixins.json')
 
 compileJava.source(fileTree('../src/main/java') {
-    exclude 'com/lx862/mtrmap/MTRMap.java'
-    exclude 'com/lx862/mtrmap/MTRMapClient.java'
-    exclude 'com/lx862/mtrmap/config/MTRMapConfig.java'
-    exclude 'com/lx862/mtrmap/network/MTRNetwork.java'
-    exclude 'com/lx862/mtrmap/network/MTRNetworkClient.java'
-    exclude 'com/lx862/mtrmap/CommandRegistration.java'
-    exclude 'com/lx862/mtrmap/mixin/client/ClientCommonListenerAccessor.java'
-    exclude 'com/lx862/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'
-    exclude 'com/lx862/mtrmap/train/TrainServerEvents.java'
+    exclude 'io/github/teamcreating/mtrmap/MTRMap.java'
+    exclude 'io/github/teamcreating/mtrmap/MTRMapClient.java'
+    exclude 'io/github/teamcreating/mtrmap/config/MTRMapConfig.java'
+    exclude 'io/github/teamcreating/mtrmap/network/MTRNetwork.java'
+    exclude 'io/github/teamcreating/mtrmap/network/MTRNetworkClient.java'
+    exclude 'io/github/teamcreating/mtrmap/CommandRegistration.java'
+    exclude 'io/github/teamcreating/mtrmap/mixin/client/ClientCommonListenerAccessor.java'
+    exclude 'io/github/teamcreating/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'
+    exclude 'io/github/teamcreating/mtrmap/train/TrainServerEvents.java'
 })
 
 processResources {
@@ -64,6 +64,7 @@ processResources {
 }
 
 jar {
+    from('../LICENSE')
     manifest.attributes('MixinConfigs': 'mtrmap.fabric.mixins.json')
 }
 

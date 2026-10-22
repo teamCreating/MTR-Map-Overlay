@@ -1,4 +1,4 @@
-import com.lx862.mtrmap.train.TrainSnapshot.*;
+import io.github.teamcreating.mtrmap.train.TrainSnapshot.*;
 import java.lang.invoke.*;
 import java.lang.management.ManagementFactory;
 import java.util.*;
@@ -9,7 +9,7 @@ public final class TrainDisplayProbe {
     private static volatile long blackhole;
 
     public static void main(String[] args) throws Throwable {
-        Class<?> type = Class.forName(args.length == 0 ? "com.lx862.mtrmap.train.TrainAnchorBuffer" : args[0]);
+        Class<?> type = Class.forName(args.length == 0 ? "io.github.teamcreating.mtrmap.train.TrainAnchorBuffer" : args[0]);
         Object buffer = type.getConstructor().newInstance();
         var cars = new ArrayList<Car>();
         for (int i = 0; i < 8; i++) cars.add(new Car("model", 20, 3, 0));

@@ -8,9 +8,9 @@
   "authors": ["BenLi06"],
   "environment": "*",
   "entrypoints": {
-    "main": ["com.lx862.mtrmap.MTRMap"],
-    "client": ["com.lx862.mtrmap.MTRMapClient"],
-    "journeymap": ["com.lx862.mtrmap.integration.journeymap.MTRJourneyMapPlugin"]
+    "main": ["io.github.teamcreating.mtrmap.MTRMap"],
+    "client": ["io.github.teamcreating.mtrmap.MTRMapClient"],
+    "journeymap": ["io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin"]
   },
   "mixins": ["mtrmap.fabric.mixins.json"],
   "depends": {
