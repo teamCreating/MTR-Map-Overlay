@@ -6,9 +6,6 @@
 
 ## 进行中
 
-### [进行中，Codex，2026-10-22 14:55] GitHub v1.5.2发布
-- 用户明确授权发布GitHub Release；沿用既有附件命名并标明MC/MTR/loader，整理相对v1.5.1的功能/优化/修复及最终diff。使用已验证六包，校验哈希、发布后核对远端附件与正文；版本固定1.5.2。
-
 ### [待领，性能/兼容后续] 全网列车大网与复杂网络性能
 - 2026-10-21 20:09，Codex：全图简化锚点功能、双地图/加载器接入、异常边界和NeoForge单列远处运行验证已完成，见[验证记录](../validation/global-trains.md)。仍需真实1000/5000列、多观看者、复杂网络、高速小半径、跨维度的性能/复杂网络矩阵（六平台小网格功能回归已完成）；不能把codec大小当成FPS或总出站实测。
 - 继续使用TSC全网实测锚点，客户端无模拟/沿轨求解；版本1.5.2/静态v8/动态v1/纯2D保持。距离/ETA暂停，旧stash不恢复。
@@ -25,6 +22,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] GitHub v1.5.2正式发布 — Codex，2026-10-22 15:01。用户明确授权发布；六个附件沿用版本-MC-MTR-loader命名，附SHA256SUMS.txt及下载环境标签，中英文说明覆盖相对v1.5.1新增/优化/修复，末尾附v1.5.1...v1.5.2 diff。已设Latest并核对远端7附件大小/哈希/正文；main tag v1.5.2，兼容tag v1.5.2-mc1.20。版本继续固定1.5.2。[Release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。
 
 - [完成] 最新1.5.2移植及六平台回归 — Codex，2026-10-22 10:00，见本条所在提交。兼容分支四目标各89项测试，主线86项共用测试及六构建通过；六平台Xaero/JourneyMap实机通过，修复主线Fabric JourneyMap入口和开发嵌套依赖。Forge1.20.4首轮GLFW原生崩溃，单客户端重试通过，保留报告且根因未定。详见docs/validation/platform-matrix-1.5.2.md；测试包../test-builds/v1.5.2-platform-matrix，版本保持1.5.2。
 

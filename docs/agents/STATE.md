@@ -5,11 +5,11 @@
 
 ## 当前版本
 
-- **v1.5.2 开发版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub 已发布版本仍为 v1.5.1。
+- **v1.5.2 正式版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-22 10:00，操作者：Codex
+- 最后更新：2026-10-22 15:01，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
-- main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.1 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
+- main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 
 ## 平台与依赖
@@ -24,6 +24,8 @@
 | 构建 | NeoForge：ModDevGradle 2.0.146 / Gradle 8.8；Fabric：Loom 1.16.3 / Gradle 9.4.1；JDK 21 |
 
 ## 架构现状
+
+- 2026-10-22 15:01，Codex：用户授权后正式发布GitHub v1.5.2（Latest），六包及SHA256SUMS已核对远端哈希/大小；文件名和标签包含精确MC、MTR、loader及Java。发布标签v1.5.2→32e024c，兼容标签v1.5.2-mc1.20→13b48e0；较测试源码仅文档差异。中英文说明见docs/releases/v1.5.2.md，末尾含v1.5.1...v1.5.2 diff。固定mod_version=1.5.2，不自动递增。
 
 - 2026-10-22 10:00，Codex：完成最新1.5.2向兼容分支四目标移植，以及六平台构建/两地图实机回归；四兼容目标各89项测试，主线86项共用测试。新增六包检查脚本；修复Fabric1.21.1 JourneyMap插件入口，补齐可选开发运行依赖和XaeroLib编译层级。全图远处车辆native nearby=0已在四兼容目标/Fabric1.21.1验证，NeoForge沿用前次证据并复查两地图。Forge1.20.4首轮glfw.dll原生崩溃，单客户端重试通过，根因未定。详情见docs/validation/platform-matrix-1.5.2.md。版本仍1.5.2，纯2D/TSC唯一模拟/距离ETA暂停不变。测试包../test-builds/v1.5.2-platform-matrix；production JAR整合包启动、跨机器联机及大车队性能未验证。
 
