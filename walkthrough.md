@@ -40,7 +40,7 @@ MTR Map Overlay 是一个 **Minecraft 1.21.1 NeoForge / Fabric 双平台 mod**�
 ## 3. 目录结构
 
 ```
-src/main/java/com/lx862/mtrmap/
+src/main/java/io/github/teamcreating/mtrmap/
 ├── MTRMap.java            # @Mod 入口：mod 总线/游戏总线注册、配置注册
 ├── CommandRegistration.java    # /mtrmap 客户端命令树
 ├── MTRDataSummary.java         # 车站→路线 摘要（地图图标 hover 信息用）

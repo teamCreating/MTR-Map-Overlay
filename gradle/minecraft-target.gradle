@@ -15,7 +15,7 @@ if (legacyJourneyMap) layout.buildDirectory = layout.projectDirectory.dir('build
 // variants from the shared implementation so marker/filter fixes stay shared.
 def sharedRoot = journeyMapLoader == 'forge' ? projectDir : file('..')
 def generated = layout.buildDirectory.dir('generated/sources/journeymap5')
-def packagePath = 'com/lx862/mtrmap/integration/journeymap'
+def packagePath = 'io/github/teamcreating/mtrmap/integration/journeymap'
 def adapterNames = ['JourneyMapLandmarkManager.java', 'JourneyMapIntegration.java']
 tasks.register('generateJourneyMap5Adapters') {
     onlyIf { legacyJourneyMap }

@@ -57,6 +57,7 @@ processResources {
     }
 }
 jar {
+    from('LICENSE')
     manifest.attributes('MixinConfigs': 'mtrmap.mixins.json')
     finalizedBy 'reobfJar'
 }

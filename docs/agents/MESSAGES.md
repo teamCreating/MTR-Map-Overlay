@@ -1,6 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 18:11] Codex — 新团队Java命名空间完成迁移
+
+- 用户指定 `io.github.teamcreating.mtrmap`；双分支源码目录、import、反射字符串、Mixin配置、Fabric/JourneyMap入口、Gradle排除/生成路径、脚本和当前文档已同步，maven_group为io.github.teamcreating。原作者署名保留，六JAR均附原始LICENSE。
+- 107/111个Java文件反向替换与原提交核对，仅命名空间差异；mod ID/配置/网络资源ID及协议不变。六构建、86/各89项测试及无旧包/入口/许可证检查通过。旧Gradle编译及生成缓存已归档，避免混包。
+- NeoForge/Fabric1.21.1实际新入口和两地图已加载；兼容旧版地图的额外检查进行中。版本保持1.5.2，未改写已发布tag/附件，后续记录将补充运行检查。
+
+
 ## [2026-10-22 15:01] Codex — GitHub v1.5.2正式版已发布
 
 - [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)为正式版/Latest，六个已验证JAR按版本-MC-MTR-loader命名，附SHA256SUMS.txt；下载标签另标明Java/loader环境。已核对远端文件大小和SHA256、正文及末尾v1.5.1...v1.5.2 diff。

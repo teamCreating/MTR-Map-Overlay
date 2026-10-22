@@ -6,6 +6,9 @@
 
 ## 进行中
 
+### [进行中，Codex，2026-10-22 18:02] Java命名空间迁移
+- 用户指定io.github.teamcreating.mtrmap；迁移双分支源码/测试/入口/Mixin/反射/构建和检查脚本，maven_group同步。mod ID/配置/网络标识保持，版本1.5.2。保留原署名并将LICENSE打包；六构建/测试与新包结构检查后进行加载验证。已发布tag/附件不改写。
+
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
