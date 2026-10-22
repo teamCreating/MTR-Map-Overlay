@@ -21,7 +21,6 @@ public final class JourneyMapIntegration {
     private static Object lastDimension = null;
     private static int lastSettingsSignature = -1;
     private static boolean journeyMapMissingLogged = false;
-    private static Boolean journeyMapAvailable;
 
     private JourneyMapIntegration() {
     }
@@ -30,15 +29,10 @@ public final class JourneyMapIntegration {
      * Check if JourneyMap is loaded (safe to call anywhere).
      */
     public static boolean isJourneyMapLoaded() {
-        if (journeyMapAvailable != null) return journeyMapAvailable;
         try {
-            if (!MTRMap.isModLoaded("journeymap")) return journeyMapAvailable = false;
-            // MC 1.20.1 also has JourneyMap 5 releases without the v2 API.
-            Class.forName("journeymap.api.v2.common.Context", false,
-                    JourneyMapIntegration.class.getClassLoader());
-            return journeyMapAvailable = true;
+            return MTRMap.isModLoaded("journeymap");
         } catch (Throwable e) {
-            return journeyMapAvailable = false;
+            return false;
         }
     }
 

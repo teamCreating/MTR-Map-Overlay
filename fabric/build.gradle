@@ -47,6 +47,7 @@ test {
 sourceSets.main.resources.srcDir('../src/main/resources')
 sourceSets.main.resources.exclude('META-INF/mods.toml', 'mtrmap.mixins.json')
 compileJava.source(fileTree('../src/main/java') {
+    exclude 'com/lx862/mtrmap/train/TrainServerEvents.java'
     exclude 'com/lx862/mtrmap/MTRMap.java'
     exclude 'com/lx862/mtrmap/MTRMapClient.java'
     exclude 'com/lx862/mtrmap/config/MTRMapConfig.java'
@@ -127,7 +128,7 @@ if (legacyJourneyMap) {
     compileJava.setSource(files(fileTree('src/main/java') { exclude overrides },
             fileTree('../src/main/java') {
                 exclude overrides
-                exclude 'com/lx862/mtrmap/MTRMap.java', 'com/lx862/mtrmap/MTRMapClient.java',
+                exclude 'com/lx862/mtrmap/train/TrainServerEvents.java', 'com/lx862/mtrmap/MTRMap.java', 'com/lx862/mtrmap/MTRMapClient.java',
                         'com/lx862/mtrmap/config/MTRMapConfig.java', 'com/lx862/mtrmap/CommandRegistration.java',
                         'com/lx862/mtrmap/network/MTRNetwork.java', 'com/lx862/mtrmap/network/MTRNetworkClient.java',
                         'com/lx862/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'

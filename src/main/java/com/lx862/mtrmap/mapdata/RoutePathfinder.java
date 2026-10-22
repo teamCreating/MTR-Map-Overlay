@@ -18,8 +18,8 @@ import java.util.Set;
  *
  * <p>Builds a node graph from the rail set (rail node positions as graph
  * nodes, rails as weighted edges), anchors each platform to its own platform
- * rail (matching its endpoints, with a proximity fallback), and runs a
- * multi-source Dijkstra between consecutive platforms
+ * rail (the {@code rail} reference carried by the platform, with a proximity
+ * fallback), and runs a multi-source Dijkstra between consecutive platforms
  * so route lines follow the real track geometry (arcs included) instead of
  * straight stop-to-stop lines.</p>
  *
@@ -305,12 +305,12 @@ public final class RoutePathfinder {
     }
 
     /**
-     * Resolve the platform's anchor rail. Prefers its exact endpoint pair;
-     * falls back to the nearest
+     * Resolve the platform's anchor rail. Prefers the live {@code rail}
+     * reference carried by the platform; falls back to the nearest
      * platform-type rail in the graph.
      */
     static Rail getPlatformRail(Graph graph, Platform platform) {
-        // MTR 4.0 platforms retain endpoints, rather than a live rail field.
+        // Core 4.0 retains endpoint membership, rather than a live platform.rail.
         for (Rail rail : graph.railById.values()) {
             Position[] ends = graph.railEnds.get(rail.getHexId());
             if (ends != null && platform.containsPos(ends[0]) && platform.containsPos(ends[1])) return rail;
@@ -387,8 +387,7 @@ public final class RoutePathfinder {
             final MapTrack track;
             if (sampledTracks == null) {
                 final Rail rail = graph.railById.get(railId);
-                final List<double[]> points = rail == null ? null : TrackSampler.sample(rail);
-                track = points == null ? null : new MapTrack(railId, points);
+                track = TrackSampler.track(rail);
             } else {
                 track = sampledTracks.get(railId);
             }

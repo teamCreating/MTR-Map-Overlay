@@ -45,7 +45,10 @@ public final class CommandRegistration {
                         MTRMapConfig.INSTANCE.routeLinesEnabled::set))
                 .then(boolConfig("trackLines", "Map track layer",
                         MTRMapConfig.INSTANCE.trackLinesEnabled::get,
-                        MTRMapConfig.INSTANCE.trackLinesEnabled::set));
+                        MTRMapConfig.INSTANCE.trackLinesEnabled::set))
+                .then(boolConfig("trainCars", "Map train cars",
+                        MTRMapConfig.INSTANCE.trainCarsEnabled::get,
+                        MTRMapConfig.INSTANCE.trainCarsEnabled::set));
 
         dispatcher.register(literal("mtrmap")
                 .then(mode)

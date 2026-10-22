@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Samples a rail's real geometry (arcs, slopes) into an X/Z polyline.
+ * Samples a rail's real geometry (arcs, slopes) into a height-bearing map polyline (X/Z/Y storage).
  * Shared by the client-side collector and the server-side network collector
  * so both produce identical track data.
  */
@@ -21,6 +21,11 @@ public final class TrackSampler {
     private static final int MAX_SAMPLES_PER_RAIL = 256;
 
     private TrackSampler() {
+    }
+
+    public static MapTrack track(Rail rail) {
+        final List<double[]> points = rail == null ? null : sample(rail);
+        return points == null ? null : new MapTrack(rail.getHexId(), points, NativeRailCurve.from(rail));
     }
 
     /**
@@ -49,10 +54,10 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double d = d1 + (d2 - d1) * i / (sampleCount - 1);
                 final Vector pos = rail.railMath.getPosition(d, false);
-                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.y()) || !Double.isFinite(pos.z())) {
                     return null;
                 }
-                points.add(new double[]{pos.x(), pos.z()});
+                points.add(new double[]{pos.x(), pos.z(), pos.y()});
             }
             return points;
         } catch (Throwable e) {
@@ -81,10 +86,10 @@ public final class TrackSampler {
             for (int i = 0; i < sampleCount; i++) {
                 final double distance = Math.min(length, i * (length / (sampleCount - 1)));
                 final Vector pos = railMath.getPosition(distance, false);
-                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.z())) {
+                if (!Double.isFinite(pos.x()) || !Double.isFinite(pos.y()) || !Double.isFinite(pos.z())) {
                     return null;
                 }
-                points.add(new double[]{pos.x(), pos.z()});
+                points.add(new double[]{pos.x(), pos.z(), pos.y()});
             }
             return points;
         } catch (Throwable e) {

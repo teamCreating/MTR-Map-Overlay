@@ -17,7 +17,9 @@ MTR Map Overlay is a Minecraft 1.20.1 / 1.20.4 add-on for **Forge or Fabric**. I
 | Xaero's World Map | Physical rail geometry, route-coloured ribbons, and compact station, platform and depot icons. Hover to inspect routes and landmarks. |
 | JourneyMap | Physical rails, shared-route colour bands, and station, platform and depot icons on the fullscreen map, with separate TRACKS and ROUTES controls. |
 
-These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. Both map integrations draw physical rails first, coloured routes on top, and station/platform icons last. In JourneyMap, the entire layer follows the map's live drag and zoom transform; track width matches Xaero's screen-pixel style.
+**1.5.2 development:** latest main features are now ported: native curves and joins, light rail at 70% width, rail/high speed at equal width, outlined colour/white high-speed blocks, and server-authoritative whole-map trains with abstract carriages and zoom detail. Both maps share train hover and viewport filtering. See [six-platform validation](docs/validation/platform-matrix-1.5.2.md). ETA/next-stop distance remains deferred.
+
+These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. Both map integrations draw physical rails first, coloured routes on top, and station/platform icons last. In JourneyMap, the entire layer follows the map's live drag and zoom transform; track width follows the same world-scale zoom rules as Xaero, with one minimum width for the whole shared bundle.
 
 The [v1.5.1 GitHub release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.1) also carries four MC 1.20 compatibility JARs built as mod version **1.5.1**. Their filenames state the exact Minecraft target, MTR range and loader; the original v1.5.1 assets remain MC 1.21.1.
 
@@ -33,12 +35,12 @@ When the mod is installed on the server as well as the client, it can request a 
 | Map mod | Xaero's World Map 1.45.0+; JourneyMap 6.0.6+ (1.20.1) or 5.10.0 (1.20.4), for the same MC and loader |
 | Xaero's Minimap | Optional; used only to remove old `[MTR]` waypoints created by earlier releases |
 
-1. Build or download the **Forge** or **Fabric** JAR for your exact Minecraft version (1.20.1 / 1.20.4) for this branch. Install one matching loader build in the client's `mods` directory. This branch is based on v1.5.1 and uses version **1.5.1**. The `main` branch continues to target NeoForge/Fabric MC 1.21.1.
+1. Build or download the **Forge** or **Fabric** JAR for your exact Minecraft version (1.20.1 / 1.20.4) for this branch. Install one matching loader build in the client's `mods` directory. This branch now ports the latest main features and uses version **1.5.2**; the published 1.5.1 assets remain unchanged. The `main` branch continues to target NeoForge/Fabric MC 1.21.1.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
-4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
+4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line, icon or train for details. Whole-map trains require dynamic-v1 support on both client and server; a client-only install falls back to nearby MTR data.
 
-The server component is optional. This branch provides separate JARs for **MC 1.20.1 and 1.20.4**, each requiring its exact Minecraft version and MTR >=4.0.5, <4.1. Forge and Fabric share protocol-v5 snapshot encoding, with separate loader transports; cross-loader connections are not claimed. Local development-runtime checks are documented in [MC 1.20 runtime QA](docs/validation/mc120-runtime.md); production-JAR launch and cross-machine play are outside that check.
+The server component is optional. This branch provides separate JARs for **MC 1.20.1 and 1.20.4**, each requiring its exact Minecraft version and MTR >=4.0.5, <4.1. Forge and Fabric share static-v8 snapshot and independent dynamic-v1 train encoding, with separate loader transports; cross-loader connections are not claimed. Local development-runtime checks are documented in [MC 1.20 runtime QA](docs/validation/mc120-runtime.md); production-JAR launch and cross-machine play are outside that check.
 
 ## Commands and configuration
 
@@ -56,6 +58,7 @@ Commands are registered on the **client**, so they are available even when the s
 | `/mtrmap config showDepots <true\|false>` | Show or hide depot icons. |
 | `/mtrmap config routeLines <true\|false>` | Show or hide route ribbons on both maps. |
 | `/mtrmap config trackLines <true\|false>` | Show or hide physical rails on both maps. |
+| `/mtrmap config trainCars <true\|false>` | Show or hide carriages on both maps. |
 
 Forge stores settings in `config/mtrmap.toml` and copies an existing `mtrsurveyor.toml` on first launch when the new file is absent. Fabric uses `config/mtrmap.properties` with its own defaults. The two formats are not automatically interchangeable. Important options include `networkSync.enabled` (default `true`), `networkSync.refreshIntervalSeconds` (default `300`), and the station/platform/depot visibility switches.
 
@@ -65,10 +68,10 @@ Run Gradle with JDK 21. Both builds compile mod classes for Java 17 (both Minecr
 
 | Loader | Windows | macOS / Linux | Output |
 | --- | --- | --- | --- |
-| Forge 1.20.1 | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-forge-mc1.20.1-1.5.1.jar` |
-| Fabric 1.20.1 | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-mc1.20.1-1.5.1.jar` |
-| Forge 1.20.4 | `.\gradlew.bat build "-Pminecraft_version=1.20.4"` | `./gradlew build -Pminecraft_version=1.20.4` | `build/mc1.20.4/libs/CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.5.1.jar` |
-| Fabric 1.20.4 | `.\fabric\gradlew.bat -p fabric build "-Pminecraft_version=1.20.4"` | `./fabric/gradlew -p fabric build -Pminecraft_version=1.20.4` | `fabric/build/mc1.20.4/libs/CRTools-MTR-Map-Overlay-fabric-mc1.20.4-1.5.1.jar` |
+| Forge 1.20.1 | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-forge-mc1.20.1-1.5.2.jar` |
+| Fabric 1.20.1 | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-mc1.20.1-1.5.2.jar` |
+| Forge 1.20.4 | `.\gradlew.bat build "-Pminecraft_version=1.20.4"` | `./gradlew build -Pminecraft_version=1.20.4` | `build/mc1.20.4/libs/CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.5.2.jar` |
+| Fabric 1.20.4 | `.\fabric\gradlew.bat -p fabric build "-Pminecraft_version=1.20.4"` | `./fabric/gradlew -p fabric build -Pminecraft_version=1.20.4` | `fabric/build/mc1.20.4/libs/CRTools-MTR-Map-Overlay-fabric-mc1.20.4-1.5.2.jar` |
 
 All four targets run the shared JUnit tests. Check the packaged JARs with `python tools/verify_artifacts.py` and `python tools/verify_artifacts.py --minecraft 1.20.4`. The test-world generator is opt-in and is skipped during ordinary builds. Forge uses Gradle 8.8 / ForgeGradle 6.0.54; Fabric uses Gradle 9.5.0 / Loom 1.17.21. The bundled JourneyMap API is extracted and remapped for compilation only; it is not shipped inside this mod. A successful build does not replace an in-game compatibility check, especially when Xaero's internal map renderer changes.
 

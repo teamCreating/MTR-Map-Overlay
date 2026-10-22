@@ -8,12 +8,14 @@
   "client": [
     "client.MinecraftClientDataMixin",
     "client.xaero.XaeroWorldMapAccessor",
-    "client.xaero.XaeroWorldMapMixin"
+    "client.xaero.XaeroWorldMapMixin",
+    "client.xaero.TrainMapPauseMixin"
   ],
   "mixins": [
     "MainAccessorMixin",
     "MTRAccessorMixin",
-    "MTRSimulatorMixin"
+    "MTRSimulatorMixin",
+    "SidingVehiclesAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

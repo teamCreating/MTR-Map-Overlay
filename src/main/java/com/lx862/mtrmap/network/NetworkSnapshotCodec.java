@@ -4,6 +4,8 @@ import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.MapRoute;
 import com.lx862.mtrmap.mapdata.MapTrack;
+import com.lx862.mtrmap.mapdata.RouteLineStyle;
+import com.lx862.mtrmap.mapdata.NativeRailCurve;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Pure-Java protocol-v5 snapshot codec, kept independent of Minecraft payload classes for testing. */
+/** Protocol-v8 snapshot codec: native rail definitions plus coarse data for picking/topology. */
 public final class NetworkSnapshotCodec {
 
     private NetworkSnapshotCodec() {
@@ -27,6 +29,7 @@ public final class NetworkSnapshotCodec {
                 out.writeUTF(route.id);
                 out.writeUTF(route.name == null ? "" : route.name);
                 out.writeInt(route.color);
+                out.writeUTF(route.style.name());
                 out.writeBoolean(route.circular);
                 out.writeInt(route.stops.size());
                 for (MapRoute.Stop stop : route.stops) {
@@ -44,10 +47,14 @@ public final class NetworkSnapshotCodec {
             for (MapTrack track : dimension.tracks) {
                 out.writeUTF(track.id);
                 out.writeInt(track.points.size());
-                for (double[] point : track.points) {
-                    out.writeFloat((float) point[0]);
-                    out.writeFloat((float) point[1]);
+                for (int i = 0; i < track.points.size(); i++) {
+                    // Wire order is true XYZ, with doubles preserving distant coordinates.
+                    out.writeDouble(track.points.get(i)[0]);
+                    out.writeDouble(track.height(i));
+                    out.writeDouble(track.points.get(i)[1]);
                 }
+                out.writeBoolean(track.curve != null);
+                if (track.curve != null) track.curve.write(out);
             }
             out.writeInt(dimension.landmarks.size());
             for (MapLandmark landmark : dimension.landmarks) {
@@ -70,12 +77,13 @@ public final class NetworkSnapshotCodec {
         for (int d = 0; d < dimensionCount; d++) {
             final String dimensionId = in.readUTF();
             final long snapshotHash = in.readLong();
-            final int routeCount = readCount(in, 17);
+            final int routeCount = readCount(in, 19);
             final List<MapRoute> routes = new ArrayList<>(routeCount);
             for (int r = 0; r < routeCount; r++) {
                 final String id = in.readUTF();
                 final String name = in.readUTF();
                 final int color = in.readInt();
+                final RouteLineStyle style = RouteLineStyle.fromName(in.readUTF());
                 final boolean circular = in.readBoolean();
                 final int stopCount = readCount(in, 12);
                 final List<MapRoute.Stop> stops = new ArrayList<>(stopCount);
@@ -87,19 +95,26 @@ public final class NetworkSnapshotCodec {
                 for (int t = 0; t < routeTrackCount; t++) {
                     routeTrackIds.add(in.readUTF());
                 }
-                routes.add(new MapRoute(id, name, color, circular, stops, routeTrackIds));
+                routes.add(new MapRoute(id, name, color, style, circular, stops, routeTrackIds));
             }
 
             final int trackCount = readCount(in, 6);
             final List<MapTrack> tracks = new ArrayList<>(trackCount);
             for (int t = 0; t < trackCount; t++) {
                 final String trackId = in.readUTF();
-                final int pointCount = readCount(in, 8);
+                final int pointCount = readCount(in, 24);
                 final List<double[]> points = new ArrayList<>(pointCount);
                 for (int p = 0; p < pointCount; p++) {
-                    points.add(new double[]{in.readFloat(), in.readFloat()});
+                    final double x = in.readDouble();
+                    final double y = in.readDouble();
+                    final double z = in.readDouble();
+                    if (!Double.isFinite(x) || !Double.isFinite(z) || Double.isInfinite(y)) {
+                        throw new IOException("Invalid rail XYZ coordinate");
+                    }
+                    points.add(new double[]{x, z, y});
                 }
-                tracks.add(new MapTrack(trackId, points));
+                final NativeRailCurve curve = in.readBoolean() ? NativeRailCurve.read(in) : null;
+                tracks.add(new MapTrack(trackId, points, curve));
             }
 
             final int landmarkCount = readCount(in, 22);

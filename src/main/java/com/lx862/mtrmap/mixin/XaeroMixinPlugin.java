@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Mixin plugin that loads optional map hooks only when the target mod is present.
+ * Mixin plugin that conditionally loads Xaero World Map mixins
+ * only if the Xaero World Map mod is present on the classpath.
  * Xaero's World Map is closed-source and has no official overlay API, so the
  * path layer is rendered by mixin-ing into {@code xaero.map.gui.GuiMap}.
  */
@@ -19,12 +20,9 @@ public class XaeroMixinPlugin implements IMixinConfigPlugin {
     private static final Logger LOGGER = LoggerFactory.getLogger("MTRMap-Mixin");
     private static final String XAERO_WORLD_MAP_CLASS = "xaero.map.gui.GuiMap";
     private boolean xaeroWorldMapPresent;
-    private boolean journeyMapPresent;
 
     @Override
     public void onLoad(String mixinPackage) {
-        journeyMapPresent = getClass().getClassLoader()
-                .getResource("journeymap/client/ui/fullscreen/Fullscreen.class") != null;
         xaeroWorldMapPresent = getClass().getClassLoader()
                 .getResource(XAERO_WORLD_MAP_CLASS.replace('.', '/') + ".class") != null;
         if (xaeroWorldMapPresent) {
@@ -41,7 +39,6 @@ public class XaeroMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.contains(".journeymap.")) return journeyMapPresent;
         // Only apply xaero-related mixins if Xaero World Map is present
         if (mixinClassName.contains(".xaero.")) {
             return xaeroWorldMapPresent;

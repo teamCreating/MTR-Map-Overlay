@@ -1,6 +1,10 @@
 package com.lx862.mtrmap.integration.journeymap;
 
 import com.lx862.mtrmap.MTRMap;
+import com.lx862.mtrmap.config.MTRMapConfig;
+import com.lx862.mtrmap.mapdata.PlanarMapScene;
+import com.lx862.mtrmap.train.ClientTrainStream;
+import com.lx862.mtrmap.integration.TrainMapTooltip;
 import com.lx862.mtrmap.mapdata.MapDataCache;
 import com.mojang.blaze3d.systems.RenderSystem;
 import journeymap.client.api.display.MarkerOverlay;
@@ -31,8 +35,7 @@ public final class JourneyMapForegroundRenderer {
         JourneyMapToolbar.refreshButtons();
         final IFullscreen fullscreen = (IFullscreen) screen;
         final Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.level == null || fullscreen.getUiState() == null
-                || !minecraft.level.dimension().equals(fullscreen.getUiState().dimension)) {
+        if (minecraft.level == null || fullscreen.getUiState() == null) {
             return;
         }
         try {
@@ -42,21 +45,25 @@ public final class JourneyMapForegroundRenderer {
                     ? (Point2D.Double) mouseDrag.invoke(screen) : new Point2D.Double();
             final JourneyMapScreenProjection projection = JourneyMapScreenProjection.fromSamples(
                     project(0, 0), project(1, 0), project(0, 1), guiScale).withDrag(drag.x, drag.y);
-            final String dimensionId = minecraft.level.dimension().location().getNamespace() + "/"
-                    + minecraft.level.dimension().location().getPath();
+            final var viewedDimension = fullscreen.getUiState().dimension;
+            final String dimensionId = viewedDimension.location().getNamespace() + "/" + viewedDimension.location().getPath();
+            final var bounds = projection.visibleWorldBounds(graphics.guiWidth(), graphics.guiHeight(), 20);
+            PlanarMapScene scene = null;
             graphics.flush();
             graphics.pose().pushPose();
             try {
                 graphics.pose().translate(0, 0, 400);
                 RenderSystem.setShaderColor(1, 1, 1, 1);
-                JourneyMapPathManager.render(graphics, MapDataCache.get(dimensionId), projection);
+                scene = JourneyMapPathManager.render(graphics, MapDataCache.get(dimensionId), projection,
+                        MTRMapConfig.INSTANCE.trainCarsEnabled.get() && bounds != null && MTRMapConfig.INSTANCE.enabled.get()
+                        ? ClientTrainStream.cars(dimensionId, bounds.minX(), bounds.minZ(), bounds.maxX(), bounds.maxZ(), projection.pixelsPerBlock()) : java.util.List.of());
                 graphics.flush();
                 ResourceLocation currentTexture = null;
                 int currentColor = 0;
                 float currentOpacity = Float.NaN;
                 for (MarkerOverlay marker : JourneyMapLandmarkManager.displayedMarkers()) {
                     final MapImage icon = marker.getIcon();
-                    if (!minecraft.level.dimension().equals(marker.getDimension()) || icon.getImageLocation() == null) {
+                    if (!viewedDimension.equals(marker.getDimension()) || icon.getImageLocation() == null) {
                         continue;
                     }
                     final int width = (int) Math.round(icon.getDisplayWidth());
@@ -90,6 +97,21 @@ public final class JourneyMapForegroundRenderer {
                 graphics.flush();
                 graphics.pose().popPose();
                 RenderSystem.setShaderColor(1, 1, 1, 1);
+            }
+            if (scene != null) {
+                ClientTrainStream.drawStatus(graphics, dimensionId);
+                final double mouseX = minecraft.mouseHandler.xpos() / guiScale;
+                final double mouseY = minecraft.mouseHandler.ypos() / guiScale;
+                final double determinant = projection.xStepX() * projection.zStepY()
+                        - projection.zStepX() * projection.xStepY();
+                if (Math.abs(determinant) > 1.0E-12) {
+                    final double dx = mouseX - projection.originX(), dy = mouseY - projection.originY();
+                    final double worldX = (dx * projection.zStepY() - dy * projection.zStepX()) / determinant;
+                    final double worldZ = (dy * projection.xStepX() - dx * projection.xStepY()) / determinant;
+                    final var car = scene.pick(worldX, worldZ);
+                    if (car != null) graphics.renderComponentTooltip(minecraft.font, TrainMapTooltip.lines(car),
+                            (int) mouseX, (int) mouseY);
+                }
             }
         } catch (ReflectiveOperationException | RuntimeException e) {
             if (!projectionWarningLogged) {

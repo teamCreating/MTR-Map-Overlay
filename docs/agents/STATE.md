@@ -1,9 +1,9 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
-- 最后更新：2026-10-01 18:35，操作者：Codex。
-- 分支：`compat/mtr-4.0-mc-1.20`；基于 main `6afde36`（v1.5.1）。
-- 版本：**v1.5.1**；mod ID `mtrmap`；包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`。
-- 主线继续保留 NeoForge/Fabric MC 1.21.1，独立 worktree `../mtrsurveyor` 未修改且工作区干净。
+- 最后更新：2026-10-22 10:00，操作者：Codex。
+- 分支：`compat/mtr-4.0-mc-1.20`；原基于 main `6afde36`（v1.5.1），现移植 main `df9df96` 最新功能。
+- 版本：**v1.5.2**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `com.lx862.mtrmap`；客户端命令 `/mtrmap`。
+- 主线继续保留 NeoForge/Fabric MC 1.21.1，独立 worktree `../mtrsurveyor` 保留 1.21.1；本轮主线另修复 Fabric JourneyMap 入口，不以兼容代码覆盖主线。
 
 ## 平台与依赖
 
@@ -23,9 +23,9 @@ JourneyMap 6 和 Fabric JourneyMap 5 的嵌套 API 校验后提取为编译依�
 
 ## 架构与移植
 
-保留 v1.5.1 的轨道采样复用、路线彩虹带、地图内地标、视口剔除和全网络快照。
+已移植最新 1.5.2：原生曲线、接头/缩放、轻铁0.7和Rail/高铁1.0宽度、高铁彩白块；真实XYZ保留，纯2D绘制；全图列车动态流、车厢三级缩放、视口索引和共用悬停。客户端无行车模拟，距离/ETA继续暂停。
 MTR mod 侧包为 `org.mtr.mod.*`，主入口 accessor 指向 `org.mtr.mod.Init.main`。
-Forge 使用方向受限的可选 SimpleChannel；Fabric 使用 1.20 原始包通道；均复用协议 v5、hash 探测、200KB 分块和重组校验。
+Forge 使用方向受限的可选 SimpleChannel；Fabric 使用 1.20 原始包通道；静态 v8 保留 hash 探测、200KB 分块和重组校验，新增独立动态 v1 通道/能力/租约/完整帧和清理。
 物理客户端初始化与回调保持隔离。MTR 4.0 平台轨道按端点精确匹配，再按距离回退。
 Forge Xaero mixin 接受开发名称和 SRG 运行时名称；Fabric 接受 intermediary 运行时名称。
 
@@ -34,7 +34,13 @@ Forge Xaero mixin 接受开发名称和 SRG 运行时名称；Fabric 接受 inte
 `gradle/minecraft-target.gradle` 为地标构建器与存在性检查生成旧 API 适配，仅转换命名空间、显式 marker ID 和 UI EnumSet，数据处理逻辑保持共享。
 Fabric 两版本均声明 `journeymap` 插件入口；不能只依赖 Forge 使用的注解扫描。未安装地图模组时相关类与 mixin 保持可选。
 
+Core 4.0 通过只读 SidingVehiclesAccessor 在 Simulator 线程读取已有车辆集合，再取原生 bogie Vector 对中点；不反射、不扫描实体、不自行模拟。Java17辅助只适配集合/API调用。
+
 ## 验证
+
+- Codex，2026-10-22：四目标最新1.5.2 build、各 **89项测试通过/1生成器跳过**，两组产物检查通过；四个无地图模组的独立服务端启动/连线/退出保存通过。Xaero及JourneyMap6/5全图移动、缩放/过弯/悬停/图层开关检查通过，玩家在(2000,-59,2000)、native nearby=0仍显示1列3节。详见[六平台验证](../validation/platform-matrix-1.5.2.md)。Forge1.20.4首轮glfw.dll原生崩溃，单客户端重试通过，根因未定且报告已保留。
+
+以下为1.5.1历史验证：
 
 - Forge 1.20.1 / Fabric 1.20.1 / Forge 1.20.4 / Fabric 1.20.4：`build` 全部成功，每目标 **25 项共用测试通过**。
 - 每个构建默认跳过 1 项会写测试存档的生成器；`-PmtrmapGenerateTestWorld=true` 可显式启用。
@@ -46,9 +52,11 @@ Fabric 两版本均声明 `journeymap` 插件入口；不能只依赖 Forge 使�
 
 ## 构建与产物
 
+当前1.5.2四包位于根项目/Fabric的 `build/libs` 或 `build/mc1.20.4/libs`；最终测试包汇总至共享工作区 `../test-builds/v1.5.2-platform-matrix/`。GitHub已发布版本仍为1.5.1，本次未发布。
+
 默认构建 1.20.1；加 `-Pminecraft_version=1.20.4` 选择 1.20.4。PowerShell 中该参数需加引号。两加载器各自使用其 Gradle wrapper；完整命令见 README。
 
-发布附件暂存于 `.gradle/runtime-smoke/release-staging/`：
+历史1.5.1发布附件暂存于 `.gradle/runtime-smoke/release-staging/`：
 - `CRTools-MTR-Map-Overlay-1.5.1-MC1.20.1-MTR4.0.5-forge.jar`
 - `CRTools-MTR-Map-Overlay-1.5.1-MC1.20.1-MTR4.0.5-fabric.jar`
 - `CRTools-MTR-Map-Overlay-1.5.1-MC1.20.4-MTR4.0.5-forge.jar`
@@ -59,5 +67,5 @@ Fabric 两版本均声明 `journeymap` 插件入口；不能只依赖 Forge 使�
 - 覆盖 MC 1.20.1 / 1.20.4，未覆盖整个 1.20.x；每份 JAR 只允许其对应的精确 MC 版本。
 - MTR 元数据范围为 >=4.0.5 且 <4.1；只针对当前 4.0.5 做了构建验证。
 - 两加载器共享数据格式，但不宣称跨加载器联机兼容；需使用同加载器服务端/客户端。
-- 路径层只采样 TRAIN 模式；车辆实时位置未上图；洞穴层下线路悬浮沿用主线限制。
+- 路径层只采样 TRAIN 模式；全图列车要求两端支持动态v1，无服务端能力仅附近回退；洞穴层下线路悬浮。真实大车队/多人性能、production JAR整合包启动和跨机器联机未验证。
 - 四个以 v1.5.1 命名并将 mod、pack、metadata 保持为 1.5.1，同时标明精确 MC / MTR 4.0.5 / Forge 或 Fabric 的兼容 JAR 已附加到 [GitHub v1.5.1 release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.1)。发布说明区分原始 1.5.1 MC 1.21.1 二进制与新兼容附件；未新建 release/tag，也未推回 main。

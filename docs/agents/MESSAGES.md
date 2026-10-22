@@ -1,5 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+
+## [2026-10-22 10:00] Codex — 最新1.5.2六平台回归完成
+
+- 用户要求先移植最新功能再测试，已完成1.20.1/1.20.4 Forge/Fabric的纯2D、原生曲线/线路样式、全图列车流、显示/视口优化移植；不覆盖main，距离/ETA保持暂停。
+- 六目标构建和两地图实机检查完成：主线86项共用测试，四兼容目标各89项通过/1生成器跳过。修复主线Fabric JourneyMap入口，开发依赖完整化；产物检查确保Java17/21、精确MC/loader与无第三方捆绑。
+- Forge1.20.4首轮glfw.dll原生崩溃，关闭其他游戏客户端后重试正常；根因未定，保留hs_err报告，首轮不记通过。
+- 详情见docs/validation/platform-matrix-1.5.2.md。六包汇总至共享工作区test-builds/v1.5.2-platform-matrix，版本保持1.5.2；未发release/tag。production整合包启动、跨机器联机和大车队性能仍未测。
+
 ## [2026-10-01 17:47] Codex — 补发 MC 1.20 兼容 JAR
 
 - 四目标 Forge/Fabric JAR 均完成 build（mod/pack/metadata 版本 1.5.1）；每目标 25 项共用测试、MC/Java/loader 元数据与产物隔离校验通过。所有本地运行时检查结束，Fabric 1.20.1 入服和两地图由 Ben 手动确认。

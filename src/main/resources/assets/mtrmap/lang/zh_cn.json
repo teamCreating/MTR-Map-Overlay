@@ -1,0 +1,11 @@
+{
+  "mtrmap.train.title": "列车",
+  "mtrmap.train.cars": "%s 节车厢",
+  "mtrmap.train.global": "MTR · 全图列车：%s",
+  "mtrmap.train.nearby": "MTR · 仅附近列车（服务端无全图车辆流）",
+  "mtrmap.train.loading": "MTR · 正在加载全图列车…",
+  "mtrmap.train.stale": "MTR · 车辆位置已过期（%s 列）",
+  "mtrmap.train.error": "MTR · 车辆数据延迟／恢复中",
+  "mtrmap.train.unlocatable": "（%s 列无法定位）",
+  "mtrmap.train.slow": "MTR · 全图列车：%s（刷新减慢）"
+}

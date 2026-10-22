@@ -6,11 +6,6 @@
 
 ## 进行中
 
-### [功能] 列车实时位置上地图
-- 在路径层上绘制在线列车小圆点/图标。数据已在客户端：`MinecraftClientData.vehicles`（`org.mtr.client.VehicleExtension`，含实时位置与路线 id）。
-- 建议：每帧按维度过滤 + 视口剔除；样式参考 Create 的 drawTrains。预计工作量小。
-- 验收：世界地图上看到移动的列车点，随快照/vehicles 刷新。
-
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
@@ -23,6 +18,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 最新1.5.2移植及四兼容目标回归 — Codex，2026-10-22 10:00，见本条所在提交。纯2D/原生曲线/线路缩放/全图列车动态v1/三级车厢显示与视口索引完成移植；Java17、Core4.0只读车辆accessor、Forge47/49和Fabric通道适配。四目标各89测试、构建及生产产物结构检查通过；四独立服务端与Xaero/JourneyMap6/5实机回归通过。Forge1.20.4首轮原生GLFW崩溃，重试通过且保留未明原因记录。详见docs/validation/platform-matrix-1.5.2.md，版本固定1.5.2，距离/ETA暂停。
 
 - [完成] 第二轮审查：轨道视口剔除、JourneyMap 图标批处理、分块重组校验及跨世界缓存清理 — Codex，2026-09-25 00:43，commit d63ea19；NeoForge/Fabric 构建和单测通过，待实机验证。
 - [完成] 共用轨道采样缓存与寻路热路径优化 — Codex，2026-09-25 00:32，commit 78ae6fc；NeoForge/Fabric 构建与单测通过；仅改数据采集和寻路，不改协议格式。

@@ -54,7 +54,6 @@ class RoutePathfinderTest {
                 new Position(Math.round(start.x()), Math.round(start.y()), Math.round(start.z())),
                 new Position(Math.round(end.x()), Math.round(end.y()), Math.round(end.z())),
                 TransportMode.TRAIN, DATA);
-
         return platform;
     }
 

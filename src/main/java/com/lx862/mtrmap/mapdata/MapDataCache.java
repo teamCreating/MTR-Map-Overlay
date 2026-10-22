@@ -44,6 +44,7 @@ public class MapDataCache {
         public final List<MapTrack> tracks;
         public final List<MapLandmark> landmarks;
         public final Map<String, List<TrackRoutePalette.Entry>> routePalette;
+        public final Map<String, TrackPatternLayout.Placement> trackPatterns;
         /** Monotonic version counter, used to decide when to rebuild caches. */
         public final long version;
 
@@ -54,6 +55,7 @@ public class MapDataCache {
             this.tracks = tracks;
             this.landmarks = landmarks;
             this.routePalette = TrackRoutePalette.build(routes);
+            this.trackPatterns = TrackPatternLayout.build(tracks, routePalette);
             this.version = version;
         }
 
@@ -79,6 +81,7 @@ public class MapDataCache {
     public static void clearClientData() {
         clientDataReady = false;
         clientDataBuilt = null;
+        ClientPlanarScenes.clear();
     }
 
     /**
@@ -114,6 +117,9 @@ public class MapDataCache {
                 return serverData;
             }
         }
+        final var world = net.minecraft.client.Minecraft.getInstance().level;
+        if (world == null || !(world.dimension().location().getNamespace() + "/"
+                + world.dimension().location().getPath()).equals(dimension)) return EMPTY;
         return getClientData();
     }
 
@@ -147,6 +153,7 @@ public class MapDataCache {
             // mirroring how both map overlays collect their fallback data.
             final Map<Long, Platform> allPlatforms = new HashMap<>();
             final List<SimplifiedRoute> allRoutes = new ArrayList<>();
+            final Map<Long, RouteLineStyle> routeStyles = new HashMap<>();
             final Map<String, Station> allStations = new java.util.LinkedHashMap<>();
             final Map<String, Depot> allDepots = new java.util.LinkedHashMap<>();
             try {
@@ -154,6 +161,8 @@ public class MapDataCache {
                 if (instance != null) {
                     allPlatforms.putAll(instance.platformIdMap);
                     allRoutes.addAll(instance.simplifiedRoutes);
+                    instance.routes.forEach(route -> routeStyles.put(route.getId(),
+                            RouteLineStyle.fromName(route.getRouteType().name())));
                     instance.stations.forEach(station -> allStations.put(station.getHexId(), station));
                     instance.depots.forEach(depot -> allDepots.put(depot.getHexId(), depot));
                     collectClientTracks(instance, tracks, sampledTracks);
@@ -162,6 +171,8 @@ public class MapDataCache {
                 if (dashboard != null) {
                     allPlatforms.putAll(dashboard.platformIdMap);
                     allRoutes.addAll(dashboard.simplifiedRoutes);
+                    dashboard.routes.forEach(route -> routeStyles.put(route.getId(),
+                            RouteLineStyle.fromName(route.getRouteType().name())));
                     dashboard.stations.forEach(station -> allStations.put(station.getHexId(), station));
                     dashboard.depots.forEach(depot -> allDepots.put(depot.getHexId(), depot));
                 }
@@ -177,10 +188,18 @@ public class MapDataCache {
                 if (live != null) {
                     final Map<String, List<MapTrack>> vehicleTracks = new HashMap<>();
                     final Map<String, java.util.Set<String>> vehicleRailIds = new HashMap<>();
+                    final Map<String, MapRoute> vehicleRouteMetadata = new HashMap<>();
                     for (VehicleExtension vehicle : live.vehicles) {
                         final String routeName = vehicle.vehicleExtraData.getThisRouteName();
                         final int routeColor = vehicle.vehicleExtraData.getThisRouteColor();
-                        final String key = routeName + "#" + routeColor;
+                        final long routeId = vehicle.vehicleExtraData.getThisRouteId();
+                        final RouteLineStyle style = RouteLineStyle.fromName(
+                                vehicle.vehicleExtraData.getThisRouteType().name());
+                        routeStyles.put(routeId, style);
+                        final String key = routeId == 0 ? "vehicle:" + routeName + "#" + routeColor
+                                : Long.toHexString(routeId);
+                        vehicleRouteMetadata.putIfAbsent(key, new MapRoute(key, routeName, routeColor, style,
+                                false, List.of(), List.of()));
                         final List<MapTrack> routeTracks = vehicleTracks.computeIfAbsent(key,
                                 k -> new ArrayList<>());
                         for (org.mtr.core.data.PathData pathData : vehicle.vehicleExtraData.immutablePath) {
@@ -196,9 +215,9 @@ public class MapDataCache {
                     }
                     for (Map.Entry<String, List<MapTrack>> entry : vehicleTracks.entrySet()) {
                         final String key = entry.getKey();
-                        final int sep = key.lastIndexOf('#');
-                        routes.add(MapRoute.ofTracks("vehicle:" + key, key.substring(0, sep),
-                                Integer.parseInt(key.substring(sep + 1)), new ArrayList<>(), entry.getValue()));
+                        final MapRoute metadata = vehicleRouteMetadata.get(key);
+                        routes.add(MapRoute.ofTracks(key, metadata.name, metadata.color, metadata.style,
+                                List.of(), entry.getValue()));
                     }
                 }
             } catch (Throwable e) {
@@ -229,6 +248,7 @@ public class MapDataCache {
                         final boolean circular = route.getCircularState() == Route.CircularState.CLOCKWISE
                                 || route.getCircularState() == Route.CircularState.ANTICLOCKWISE;
                         routes.add(new MapRoute(Long.toHexString(route.getId()), route.getName(), route.getColor(),
+                                routeStyles.getOrDefault(route.getId(), RouteLineStyle.NORMAL),
                                 circular, stops, List.of()));
                     }
                 } catch (Throwable e) {
@@ -298,9 +318,8 @@ public class MapDataCache {
             if (sampledTracks.containsKey(railId)) {
                 continue;
             }
-            final List<double[]> points = TrackSampler.sample(rail);
-            if (points != null) {
-                final MapTrack track = new MapTrack(railId, points);
+            final MapTrack track = TrackSampler.track(rail);
+            if (track != null) {
                 tracks.add(track);
                 sampledTracks.put(railId, track);
             }

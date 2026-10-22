@@ -69,5 +69,5 @@ for loader in (('forge', 'fabric') if args.loader == 'all' else (args.loader,)):
     assert results, 'Missing test results'
     assert all(int(r.attrib['failures']) == 0 and int(r.attrib['errors']) == 0 for r in results)
     passed = sum(int(r.attrib['tests']) - int(r.attrib['skipped']) for r in results)
-    assert passed >= 25, f'Incomplete shared test run: {passed}'
+    assert passed >= 89, f'Incomplete shared test run: {passed}'
     print(f'{loader}: metadata, Java 17, loader isolation, Xaero hooks and {passed} tests verified: {artifact}')

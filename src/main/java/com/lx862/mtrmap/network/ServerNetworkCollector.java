@@ -6,6 +6,7 @@ import com.lx862.mtrmap.mapdata.MapTrack;
 import com.lx862.mtrmap.mapdata.MapLandmark;
 import com.lx862.mtrmap.mapdata.RoutePathfinder;
 import com.lx862.mtrmap.mapdata.TrackSampler;
+import com.lx862.mtrmap.mapdata.RouteLineStyle;
 import com.lx862.mtrmap.mixin.MainAccessorMixin;
 import com.lx862.mtrmap.mixin.MTRAccessorMixin;
 import org.mtr.core.Main;
@@ -129,9 +130,8 @@ public final class ServerNetworkCollector {
         // physical rail again for each route or vehicle depot.
         final Map<String, MapTrack> sampledTracks = new HashMap<>();
         simulator.rails.forEach(rail -> {
-            final List<double[]> points = TrackSampler.sample(rail);
-            if (points != null) {
-                final MapTrack track = new MapTrack(rail.getHexId(), points);
+            final MapTrack track = TrackSampler.track(rail);
+            if (track != null) {
                 result.tracks.add(track);
                 sampledTracks.put(track.id, track);
             }
@@ -196,6 +196,7 @@ public final class ServerNetworkCollector {
                     continue;
                 }
                 result.routes.add(MapRoute.ofTracks(Long.toHexString(route.getId()), route.getName(), route.getColor(),
+                        RouteLineStyle.fromName(route.getRouteType().name()),
                         fallback.stops(), routeTracks));
             }
         }
@@ -221,14 +222,10 @@ public final class ServerNetworkCollector {
             return;
         }
 
-        // Remember which routes got real paths (fallback suppression)
-        for (Route route : depot.routes) {
-            result.markRealPath(route.getId());
-        }
-
         String currentRouteId = null;
         String currentRouteName = null;
         int currentColor = 0;
+        RouteLineStyle currentStyle = RouteLineStyle.NORMAL;
         List<MapRoute.Stop> stops = new ArrayList<>();
         List<MapTrack> routeTracks = new ArrayList<>();
         Set<String> routeRailIds = new HashSet<>();
@@ -249,15 +246,20 @@ public final class ServerNetworkCollector {
             final Platform platform = savedRailId == 0 ? null : simulator.platformIdMap.get(savedRailId);
             if (platform != null && savedRailId != lastPlatformId) {
                 final Route serving = resolveServingRoute(depot, platform);
+                // A depot listing a route does not prove that this traversal
+                // actually painted it (shared platforms can select another one).
+                if (serving != null) result.markRealPath(serving.getId());
                 final String routeId = serving == null ? "depot:" + depot.getHexId()
                         : Long.toHexString(serving.getId());
                 final String routeName = serving == null ? depot.getName() : serving.getName();
                 final int routeColor = serving == null ? depot.getColor() : serving.getColor();
+                final RouteLineStyle routeStyle = serving == null ? RouteLineStyle.NORMAL
+                        : RouteLineStyle.fromName(serving.getRouteType().name());
 
-                if (currentRouteName != null && (!routeName.equals(currentRouteName) || routeColor != currentColor)) {
+                if (currentRouteName != null && !routeId.equals(currentRouteId)) {
                     // Color change: flush the finished stretch
                     if (!routeTracks.isEmpty()) {
-                        result.routes.add(MapRoute.ofTracks(currentRouteId, currentRouteName, currentColor, stops,
+                        result.routes.add(MapRoute.ofTracks(currentRouteId, currentRouteName, currentColor, currentStyle, stops,
                                 routeTracks));
                     }
                     stops = new ArrayList<>();
@@ -267,6 +269,7 @@ public final class ServerNetworkCollector {
                 currentRouteId = routeId;
                 currentRouteName = routeName;
                 currentColor = routeColor;
+                currentStyle = routeStyle;
                 lastPlatformId = savedRailId;
             }
 
@@ -289,7 +292,7 @@ public final class ServerNetworkCollector {
         if (!routeTracks.isEmpty()) {
             final String name = currentRouteName == null ? depot.getName() : currentRouteName;
             final String id = currentRouteId == null ? "depot:" + depot.getHexId() : currentRouteId;
-            result.routes.add(MapRoute.ofTracks(id, name, currentColor, stops, routeTracks));
+            result.routes.add(MapRoute.ofTracks(id, name, currentColor, currentStyle, stops, routeTracks));
         }
     }
 
@@ -383,12 +386,18 @@ public final class ServerNetworkCollector {
         long hash = simulator.rails.size();
         for (Rail rail : simulator.rails) {
             hash = hash * 31 + rail.getHexId().hashCode();
+            hash = hash * 31 + rail.getTransportMode().ordinal();
+            hash = hash * 31 + rail.getStartAngle(false).ordinal();
+            hash = hash * 31 + rail.getStartAngle(true).ordinal();
+            hash = hash * 31 + rail.railMath.getShape().ordinal();
+            hash = hash * 31 + Double.hashCode(rail.railMath.getVerticalRadius());
         }
         hash = hash * 31 + simulator.routes.size();
         for (Route route : simulator.routes) {
             hash = hash * 31 + (int) route.getId();
             hash = hash * 31 + Objects.hashCode(route.getName());
             hash = hash * 31 + route.getColor();
+            hash = hash * 31 + route.getRouteType().ordinal();
             for (RoutePlatformData routePlatform : route.getRoutePlatforms()) {
                 final Platform platform = routePlatform.getPlatform();
                 hash = hash * 31 + (platform == null ? 0 : Long.hashCode(platform.getId()));

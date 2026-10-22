@@ -17,8 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * server, reassembles chunked transfers and feeds {@link MapDataCache}.
  *
  * <p>Fully optional - when the server does not run this mod the client falls
- * back to MTR's own radius-limited client data. The loader transport checks
- * whether the server advertises our optional channel before sending.</p>
+ * back to MTR's own radius-limited client data. Requests are only sent over
+ * NeoForge connections; payloads are registered as optional so even a
+ * NeoForge server without this mod cannot break the client.</p>
  */
 public final class ClientNetworkSync {
 
@@ -157,6 +158,7 @@ public final class ClientNetworkSync {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static void onClientTick() {
+        com.lx862.mtrmap.train.ClientTrainStream.tick();
         final Minecraft mc = Minecraft.getInstance();
         if (mc.getConnection() == null || mc.player == null) {
             return;
@@ -185,10 +187,12 @@ public final class ClientNetworkSync {
     }
 
     public static void onLoggingIn() {
+        com.lx862.mtrmap.train.ClientTrainStream.clear();
         // Fresh world/connection: reset sync state and ask for a snapshot as
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
+        com.lx862.mtrmap.mapdata.ClientTrainCollector.clear();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;
@@ -199,8 +203,10 @@ public final class ClientNetworkSync {
     }
 
     public static void onLoggingOut() {
+        com.lx862.mtrmap.train.ClientTrainStream.clear();
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
+        com.lx862.mtrmap.mapdata.ClientTrainCollector.clear();
         transfers.clear();
         knownHashes.clear();
         serverHasSupport = false;
