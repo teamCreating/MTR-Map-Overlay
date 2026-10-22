@@ -1,11 +1,13 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
-- 最后更新：2026-10-22 18:14，操作者：Codex。
+- 最后更新：2026-10-22 18:21，操作者：Codex。
 - 分支：`compat/mtr-4.0-mc-1.20`；原基于 main `6afde36`（v1.5.1），现移植 main `df9df96` 最新功能。
 - 版本：**v1.5.2**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`。
 - 主线继续保留 NeoForge/Fabric MC 1.21.1，独立 worktree `../mtrsurveyor` 保留 1.21.1；本轮主线另修复 Fabric JourneyMap 入口，不以兼容代码覆盖主线。
 
-- 2026-10-22 18:11，Codex：用户指定命名空间迁移至 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；四目标各89项测试及产物检查通过，无旧包类/入口，原始LICENSE已打包。Java文件仅包名差异，mod ID/配置/网络协议保持。Fabric1.20.4独立服/JourneyMap5实际加载、绘制、悬停通过；当前分支新构建未发布，GitHub v1.5.2 tag/附件保持既有内容。
+- 2026-10-22 18:11，Codex：用户指定命名空间迁移至 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；四目标各89项测试及产物检查通过，无旧包类/入口，原始LICENSE已打包。Java文件仅包名差异，mod ID/配置/网络协议保持。Fabric1.20.4独立服/JourneyMap5实际加载、绘制、悬停通过；迁移验收时未发布；现已按用户要求替换GitHub v1.5.2附件，tag保留。
+
+- 2026-10-22 18:21，Codex-Release：按用户明确要求，GitHub v1.5.2的六个旧JAR已替换为新命名空间io.github.teamcreating.mtrmap构建，SHA256SUMS和中英文说明同步。重新下载七附件核对哈希/新类路径/LICENSE通过，完整文件名显示无自定义label，保持正式版/Latest。当前附件源码main959b7e4、compat54a0acd，正文包含精确源码链接和与v1.5.1的更新diff；原tag保留未强推。版本继续1.5.2。
 
 ## 平台与依赖
 
