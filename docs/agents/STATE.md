@@ -25,7 +25,7 @@
 
 ## 架构现状
 
-- 2026-10-22 22:22，Codex-CI：接入新命名空间双分支CI及稳定CI Gate、参数化产物校验；main新增自动Snapshot、按双SHA跳过的Nightly、固定六包Candidate及手动审批Publish。18项CI工具回归测试、既有六包校验和候选封装/篡改拒绝本地通过；GitHub Runner及远端配置验证进行中。当前不发布正式版、不改版本或已发布产物。说明见docs/CI-CD.md。
+- 2026-10-22 22:22，Codex-CI：接入新命名空间双分支CI及稳定CI Gate、参数化产物校验；main新增自动Snapshot、按双SHA跳过的Nightly、固定六包Candidate及手动审批Publish。18项CI工具回归测试、既有六包校验和候选封装/篡改拒绝本地通过；GitHub Runner六目标及CI Gate、远端产物复核、Candidate、Nightly完整/跳过、Snapshot六包及Publish dry-run验收通过；Environment已设，维护分支规则在验收提交推送后启用。RELEASE_TOKEN按用户选择稍后配置，详见docs/validation/ci-cd.md。当前不发布正式版、不改版本或已发布产物。说明见docs/CI-CD.md。
 
 - 2026-10-22 18:21，Codex-Release：按用户明确要求，GitHub v1.5.2的六个旧JAR已替换为新命名空间io.github.teamcreating.mtrmap构建，SHA256SUMS和中英文说明同步。重新下载七附件核对哈希/新类路径/LICENSE通过，完整文件名显示无自定义label，保持正式版/Latest。当前附件源码main959b7e4、compat54a0acd，正文包含精确源码链接和与v1.5.1的更新diff；原tag保留未强推。版本继续1.5.2。
 
