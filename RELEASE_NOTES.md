@@ -1,16 +1,70 @@
-# v1.5.2 Development Notes (updated 2026-10-21)
+# v1.5.2 (2026-10-22)
 
-MC 1.21.1 NeoForge/Fabric development builds; not a published release. MC 1.20 compatibility builds remain v1.5.1.
+Compared with v1.5.1, this release adds whole-map live trains and improves rail curves, shared-route joins and map zoom behaviour across all six supported builds.
 
-- Nearby train cars use MTR's actual bogie/body transforms and world XYZ, including pitch/roll. Hover shows route, destination, model ID, car index and measured XYZ; no arrival estimate is invented. Toggle with `/mtrmap config trainCars false`.
-- Both maps now use pure 2D layers: railway backing, route colours/blocks, then cars. Height subdivision, height sorting and underpass masking have been removed; car hover checks only car bodies/markers in paint order. Primitive X/Z quads avoid per-quad 3D vertex objects. Actual XYZ and static protocol v7 are retained.
-- Live train coverage is nearby and limited to the player dimension, even with a full-network static map. Global dynamic streaming and ETA remain planned.
-- Static geometry now uses a bounded padded-viewport cache per map host; car pose updates reuse the static list, and unchanged poses reuse the dynamic scene. Data/scale/toggle/viewport changes invalidate correctly; connection cleanup releases both caches. Over-budget views render uncached.
-- 48 tests and both loader builds passed. Production-geometry fixtures produce 52000 quads in each flat/slope case. A headless 120-frame geometry workload reduced static builds from 120 to 1 and thread allocations from about 674MiB to 14MiB; this excludes vertex submission/GPU/UI and is not an FPS claim. See `docs/validation/planar-cache.md`. Minecraft runtime checks remain manual.
+## Added
 
-- Route types now reach both map renderers: light rail uses 70% width, normal rail 100%, and high speed 140% with alternating line-colour/white blocks inside continuous coloured edges.
-- Shared rails retain distinct weighted route lanes. Bundle width is capped beyond four routes; narrow lanes and low zoom omit white blocks. Continuous rail chains retain direction and stripe phase, including reversed rail storage; loops fit whole block pairs.
-- Whole-network snapshots use protocol v7 and distinct payload channels. Install matching current 1.5.2 client/server builds for a whole-network view; earlier 1.5.2 development builds used v6. Radius-limited MTR fallback remains available.
+- **Whole-map live trains in Xaero and JourneyMap.** View moving trains throughout the map's selected dimension, including trains far outside the player's nearby area. Position data comes from TSC; the client interpolates received positions and draws abstract carriages without running another train simulation.
+- **Clearer carriage symbols and hover information.** Outlined bodies, route-coloured edges and direction indicators make trains easier to see. Zooming out switches to a compact train marker; zooming in reveals individual carriages. Hover shows available vehicle/model information, route, destination and consist size. `/mtrmap config trainCars false` hides the train layer.
+- **Distinct route styles.** Light rail uses 70% of the standard width. Rail and high speed use the same width, with high speed shown as alternating route-colour/white blocks inside a continuous coloured outline.
+- **The same latest features on MC 1.20.1 and 1.20.4.** Forge/Fabric compatibility builds now include the current rendering and whole-map train features, alongside NeoForge/Fabric 1.21.1.
+
+## Optimized and fixed
+
+- Smoother native rail curves, adaptive drawing detail and softer thin-line edges reduce visible straight segments on bends.
+- Shared cross-sections and continuous stripe direction improve rail joins and shared-route transitions. Combined line width follows map zoom, so shared sections no longer remain excessively thick when zoomed out.
+- Static rail geometry and moving carriages use separate bounded caches. Offscreen train filtering and three levels of carriage detail reduce repeated geometry work and unnecessary drawing.
+- Global train collection and encoding are shared on the server. Compact per-car reference points and separately synchronized definitions avoid repeating full poses and text in every position update; subscriptions end when no map needs them.
+- Rendering uses fixed **2D layers**: rail backing, route colours/blocks, then carriages. Native XYZ is retained, without height sorting or underpass masking.
+- Fixed missing train visibility cases, singleplayer Xaero updates being stopped by map pause, and Fabric 1.21.1 JourneyMap plugin discovery. MC 1.20 adapters retain their loader-specific networking and JourneyMap 5/6 support.
+
+## 中文更新说明
+
+相较 v1.5.1，本版新增全图实时列车，并统一改善六个平台的曲线、共线拼接和地图缩放表现。
+
+**新增功能**
+
+- **全图实时列车**：Xaero 与 JourneyMap 可显示当前查看维度中远离玩家的运行车辆。位置由 TSC 下发，客户端只插值和绘制抽象车厢，不维护第二套行车模拟。
+- **更清楚的车厢与悬停信息**：增加车体描边、线路色侧边和方向标记；缩远显示紧凑列车图标，放大显示每节车厢。悬停显示可用的车辆/车型信息、所属线路、终点和编组节数。可用 `/mtrmap config trainCars false` 关闭列车层。
+- **三种线路样式**：轻铁为标准宽度的 70%；普通 Rail 与高铁等宽，高铁使用连续线路色描边的彩白交替矩形块。
+- **兼容分支功能同步**：MC 1.20.1／1.20.4 的 Forge、Fabric 包现已包含最新绘制及全图列车功能，与 1.21.1 的 NeoForge、Fabric 一同提供。
+
+**优化与修复**
+
+- 采用原生轨道曲线、自适应绘制精度及细线边缘过渡，改善弯道折线感。
+- 改善轨道接头、共线色带与白块的连续性；总线宽随地图缩放收细，避免缩远后共线区域过粗。
+- 分离静态轨道缓存与动态车厢，增加视口剔除和三级车厢细节，减少逐帧重建与屏幕外绘制。
+- 服务端共享全图车辆采集和编码，压缩车厢参考点、独立同步定义，减少高频位置包中重复的姿态与文字；不再需要地图时结束订阅。
+- 使用轨道底衬→线路→车厢的**纯 2D 绘制**；保留真实 XYZ，不进行高度排序或下穿遮挡。
+- 修复部分车辆不可见、Xaero 单机地图暂停导致车辆停止更新，以及 Fabric 1.21.1 无法发现 JourneyMap 插件的问题；保留旧版加载器网络和 JourneyMap 5／6 适配。
+
+## Choose the correct file / 选择对应附件
+
+Install **one** JAR matching your exact Minecraft version and loader. Every filename identifies the tested MTR version. Fabric also requires the matching Fabric API. / 请只安装符合游戏版本和加载器的一个 JAR；文件名标明已测试的 MTR 版本。Fabric 还需要对应的 Fabric API。
+
+| File / 文件名 | Minecraft | Loader / 加载器 | Tested MTR / 已测试 MTR | Java |
+| --- | --- | --- | --- | --- |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar` | 1.21.1 | NeoForge 21.1.x | 4.1.0-beta.2 | 21 |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.21.1-MTR4.1.0-beta.2-fabric.jar` | 1.21.1 | Fabric | 4.1.0-beta.2 | 21 |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.20.1-MTR4.0.5-forge.jar` | 1.20.1 | Forge 47.x | 4.0.5 | 17+ |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.20.1-MTR4.0.5-fabric.jar` | 1.20.1 | Fabric | 4.0.5 | 17+ |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.20.4-MTR4.0.5-forge.jar` | 1.20.4 | Forge 49.x | 4.0.5 | 17+ |
+| `CRTools-MTR-Map-Overlay-1.5.2-MC1.20.4-MTR4.0.5-fabric.jar` | 1.20.4 | Fabric | 4.0.5 | 17+ |
+
+The MC 1.20 builds declare MTR >=4.0.5 and <4.1 and were tested with 4.0.5. All dependencies must match the same Minecraft version and loader. Optional maps: Xaero's World Map 1.45.0; JourneyMap 6.0.6 for MC 1.20.1, 5.10.0 for MC 1.20.4, or 6.0.8 for MC 1.21.1. / MC 1.20 包声明 MTR >=4.0.5 且 <4.1，本轮测试版本为 4.0.5；所有依赖必须匹配游戏版本和加载器。
+
+**Upgrade both client and server for whole-map trains.** Static snapshots now use v8 and live trains use an independent v1 protocol. Without matching server support, only nearby MTR data is available. Servers need MTR and this mod, but no map mod. Next-stop distance and ETA are not included. / **需要全图列车时，请同时更新客户端和服务端。**无对应服务端能力时仅显示附近回退数据；服务端不需要地图模组。本版不含下一站距离或 ETA。
+
+## Validation / 验证
+
+All six builds passed artifact checks and Xaero/JourneyMap development-runtime checks. The 1.21.1 builds share 86 passing tests; each of the four MC 1.20 builds passed 89 tests. One world-writing generator is skipped by default. Forge 1.20.4 had one GLFW native crash on its first attempt; an isolated retry passed, and the root cause remains unknown. Production modpack launch, cross-machine multiplayer and large-fleet performance have not been verified. / 六包构建、产物检查和两地图开发环境实机回归通过；首次 Forge 1.20.4 原生崩溃重试通过，原因未定，未将其记作已修复。
+
+[Full validation record / 完整验证记录](https://github.com/teamCreating/MTR-Map-Overlay/blob/v1.5.2/docs/validation/platform-matrix-1.5.2.md)
+
+MC 1.20 sources are pinned by [`v1.5.2-mc1.20`](https://github.com/teamCreating/MTR-Map-Overlay/tree/v1.5.2-mc1.20). [MC 1.20 compatibility changes since the previous release / 兼容分支改动](https://github.com/teamCreating/MTR-Map-Overlay/compare/76ec108...v1.5.2-mc1.20).
+
+[Full diff from the previous release / 与上一次发布的完整 diff: v1.5.1...v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/compare/v1.5.1...v1.5.2)
+
 
 ---
 
