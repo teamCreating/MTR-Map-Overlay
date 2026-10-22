@@ -5,9 +5,9 @@
 
 ## 当前版本
 
-- **v1.5.2 后续开发（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
+- **v1.5.2 正式版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-22 18:14，操作者：Codex
+- 最后更新：2026-10-22 18:21，操作者：Codex
 - 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
@@ -25,7 +25,9 @@
 
 ## 架构现状
 
-- 2026-10-22 18:11，Codex：用户指定Java包迁移为 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；双分支源码/入口/Mixin/反射/构建/验证脚本及当前源码链接同步，原始LICENSE随六包分发。mod ID、配置名、资源/网络标识和协议保持，107/111个Java文件反向替换核对仅包名差异；六构建和各86/89项测试、产物无旧类/入口与许可证检查通过。NeoForge/Fabric1.21.1两地图已加载验证，Fabric1.20.4/JourneyMap5已通过，详见docs/validation/namespace-migration.md。版本固定1.5.2；已发布tag和附件保留原样，当前新包名构建未发布。
+- 2026-10-22 18:21，Codex-Release：按用户明确要求，GitHub v1.5.2的六个旧JAR已替换为新命名空间io.github.teamcreating.mtrmap构建，SHA256SUMS和中英文说明同步。重新下载七附件核对哈希/新类路径/LICENSE通过，完整文件名显示无自定义label，保持正式版/Latest。当前附件源码main959b7e4、compat54a0acd，正文包含精确源码链接和与v1.5.1的更新diff；原tag保留未强推。版本继续1.5.2。
+
+- 2026-10-22 18:11，Codex：用户指定Java包迁移为 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；双分支源码/入口/Mixin/反射/构建/验证脚本及当前源码链接同步，原始LICENSE随六包分发。mod ID、配置名、资源/网络标识和协议保持，107/111个Java文件反向替换核对仅包名差异；六构建和各86/89项测试、产物无旧类/入口与许可证检查通过。NeoForge/Fabric1.21.1两地图已加载验证，Fabric1.20.4/JourneyMap5已通过，详见docs/validation/namespace-migration.md。版本固定1.5.2；已发布tag和附件保留原样，当时新包名构建未发布；现已按用户要求替换正式附件。
 
 - 2026-10-22 15:01，Codex：用户授权后正式发布GitHub v1.5.2（Latest），六包及SHA256SUMS已核对远端哈希/大小；文件名和标签包含精确MC、MTR、loader及Java。发布标签v1.5.2→32e024c，兼容标签v1.5.2-mc1.20→13b48e0；较测试源码仅文档差异。中英文说明见docs/releases/v1.5.2.md，末尾含v1.5.1...v1.5.2 diff。固定mod_version=1.5.2，不自动递增。
 

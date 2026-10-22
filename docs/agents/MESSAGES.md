@@ -1,6 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 18:21] Codex-Release — v1.5.2正式附件已换为新包名构建
+
+- 用户明确授权原位替换：六JAR和SHA256SUMS已更新，MC/MTR/loader完整文件名与下载地址保持，下载显示label为空。已重新下载全部附件，SHA256与冻结新构建一致，class路径均为io/github/teamcreating/mtrmap且原始LICENSE齐全。
+- 发布正文新增中英文附件更新说明、重新下载提示、精确源码提交与最新完整diff。原tag保留；当前附件来源main959b7e4/compat54a0acd，仍为v1.5.2正式版/Latest。
+- 本次仅修改Release和发布记录，不触碰并行Codex-CI的workflow/tools/ci任务；其任务认领保留未纳入本次提交。[Release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。
+
+
 ## [2026-10-22 18:14] Codex — 命名空间迁移验证及测试包完成
 
 - 六构建及主线86/四兼容各89测试通过，包内无旧命名空间，入口/Mixin/字节码/加载器/原始LICENSE检查通过。Java代码仅包名差异，版本仍1.5.2。

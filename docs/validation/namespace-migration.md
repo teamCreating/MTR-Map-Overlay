@@ -8,7 +8,7 @@ Codex，2026-10-22。用户指定 `io.github.teamcreating.mtrmap`；mod 版本�
 - 同步 Fabric/JourneyMap entrypoints、Mixin package/plugin、JourneyMap 反射类名、Gradle 源文件排除/旧 API 生成路径、检查/预览工具及当前源码链接。
 - mod ID、资源/网络通道、配置文件名、命令和协议不变。对两个原提交的全部 107/111 个 Java 文件反向替换并归一化换行后核对，只有命名空间变化，没有功能改写。
 - 六个构建均将各自原始 LICENSE 按原文打包，保留 AmberFrost 版权、README 署名及 Git 历史。
-- 历史发布说明、验证证据、规划与只追加的消息记录保留原始路径。`v1.5.2`、`v1.5.2-mc1.20` 标签及 GitHub 既有附件没有改写；本次新包名构建尚未发布。
+- 历史发布说明、验证证据、规划与只追加的消息记录保留原始路径。`v1.5.2`、`v1.5.2-mc1.20` 标签及 GitHub 既有附件没有改写；迁移验收时未发布；2026-10-22 18:21按用户明确要求，六个新JAR已原位替换GitHub v1.5.2旧附件并核对远端下载哈希。
 
 代码提交：main `b7f646e`，兼容分支 `4005dd8`。
 
@@ -34,4 +34,4 @@ Codex，2026-10-22。用户指定 `io.github.teamcreating.mtrmap`；mod 版本�
 
 日志：main `build/platform-matrix/namespace-*.log`；兼容分支 `.gradle/runtime-matrix-20261022/namespace-*.log`。本轮日志中仍有依赖的更新检查超时、MTR模型/loot警告和日志provider提示；没有将它们归因于本次包名变更，也没有把它们报告为已修复。
 
-新六包单独导出到共享工作区 `test-builds/v1.5.2-teamcreating-namespace/`，文件名继续包含MC、MTR和loader，附SHA256及构建信息，不覆盖此前测试包或GitHub发布附件。
+新六包单独导出到共享工作区 `test-builds/v1.5.2-teamcreating-namespace/`，文件名继续包含MC、MTR和loader，附SHA256及构建信息，不覆盖此前测试包。2026-10-22 18:21已按用户要求将这些六包用于GitHub v1.5.2正式附件；原发布tag保留，发布说明附精确源码提交。

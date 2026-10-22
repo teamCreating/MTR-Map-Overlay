@@ -2,6 +2,12 @@
 
 Compared with v1.5.1, this release adds whole-map live trains and improves rail curves, shared-route joins and map zoom behaviour across all six supported builds.
 
+## Refreshed 1.5.2 files / 1.5.2 附件更新
+
+The six JARs were refreshed on 2026-10-22 with the independent Java namespace `io.github.teamcreating.mtrmap` and the original MIT LICENSE included in every JAR. These files replace the earlier 1.5.2 binaries; mod version, mod ID, configuration filenames and network protocols remain unchanged. SHA256SUMS.txt has been updated.
+
+六个 JAR 已于 2026-10-22 更新为独立包名 `io.github.teamcreating.mtrmap`，并随包附带保留原作者版权声明的 MIT LICENSE，替换此前的 1.5.2 文件。模组版本、mod ID、配置文件名及网络协议保持不变；校验文件已同步更新。此前已下载 1.5.2 的用户请重新下载对应附件。
+
 ## Added
 
 - **Whole-map live trains in Xaero and JourneyMap.** View moving trains throughout the map's selected dimension, including trains far outside the player's nearby area. Position data comes from TSC; the client interpolates received positions and draws abstract carriages without running another train simulation.
@@ -61,9 +67,15 @@ All six builds passed artifact checks and Xaero/JourneyMap development-runtime c
 
 [Full validation record / 完整验证记录](https://github.com/teamCreating/MTR-Map-Overlay/blob/v1.5.2/docs/validation/platform-matrix-1.5.2.md)
 
-MC 1.20 sources are pinned by [`v1.5.2-mc1.20`](https://github.com/teamCreating/MTR-Map-Overlay/tree/v1.5.2-mc1.20). [MC 1.20 compatibility changes since the previous release / 兼容分支改动](https://github.com/teamCreating/MTR-Map-Overlay/compare/76ec108...v1.5.2-mc1.20).
+The namespace refresh passed all six builds, the same 86/89-test suites and artifact checks. NeoForge/Fabric 1.21.1 and Fabric 1.20.4 were also rechecked in game; the other three targets retain the earlier runtime results. / 新包名六目标构建、原有86/89项测试及包结构检查通过；本次另复查NeoForge/Fabric 1.21.1与Fabric 1.20.4实机，其余三个目标沿用此前实机结果。
 
-[Full diff from the previous release / 与上一次发布的完整 diff: v1.5.1...v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/compare/v1.5.1...v1.5.2)
+[Namespace migration checks / 包名迁移验证](https://github.com/teamCreating/MTR-Map-Overlay/blob/959b7e4da470bf8a1315877a972189cce7c8e776/docs/validation/namespace-migration.md)
+
+**Source for the refreshed binaries / 当前附件对应源码:** [MC 1.21.1: 959b7e4](https://github.com/teamCreating/MTR-Map-Overlay/tree/959b7e4da470bf8a1315877a972189cce7c8e776), [MC 1.20.1 / 1.20.4: 54a0acd](https://github.com/teamCreating/MTR-Map-Overlay/tree/54a0acd89a5c8c101caf092594812fc1070a8636). The original publication tags are retained; use these source links for the refreshed JARs. / 初次发布标签保留，当前新附件的源码请使用以上链接。
+
+[MC 1.20 compatibility changes since the previous release / 兼容分支改动](https://github.com/teamCreating/MTR-Map-Overlay/compare/76ec108...54a0acd89a5c8c101caf092594812fc1070a8636).
+
+[Full diff from the previous release / 与上一次发布的完整 diff: v1.5.1 → refreshed v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/compare/v1.5.1...959b7e4da470bf8a1315877a972189cce7c8e776)
 
 
 ---
