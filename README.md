@@ -10,6 +10,8 @@
 
 MTR Map Overlay is a Minecraft 1.20.1 / 1.20.4 add-on for **Forge or Fabric**. It reads [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) data and integrates with Xaero's World Map and JourneyMap. It does not depend on MTR Surveyor's map.
 
+Latest release: [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2), with filenames identifying Minecraft, MTR and loader. [Release notes](docs/releases/v1.5.2.md).
+
 ## Features
 
 | Map | Overlay |
@@ -17,7 +19,7 @@ MTR Map Overlay is a Minecraft 1.20.1 / 1.20.4 add-on for **Forge or Fabric**. I
 | Xaero's World Map | Physical rail geometry, route-coloured ribbons, and compact station, platform and depot icons. Hover to inspect routes and landmarks. |
 | JourneyMap | Physical rails, shared-route colour bands, and station, platform and depot icons on the fullscreen map, with separate TRACKS and ROUTES controls. |
 
-**1.5.2 development:** latest main features are now ported: native curves and joins, light rail at 70% width, rail/high speed at equal width, outlined colour/white high-speed blocks, and server-authoritative whole-map trains with abstract carriages and zoom detail. Both maps share train hover and viewport filtering. See [six-platform validation](docs/validation/platform-matrix-1.5.2.md). ETA/next-stop distance remains deferred.
+**1.5.2:** latest main features are now ported: native curves and joins, light rail at 70% width, rail/high speed at equal width, outlined colour/white high-speed blocks, and server-authoritative whole-map trains with abstract carriages and zoom detail. Both maps share train hover and viewport filtering. See [six-platform validation](docs/validation/platform-matrix-1.5.2.md). ETA/next-stop distance remains deferred.
 
 These are **map-only icons**, not ordinary Xaero waypoints: they do not fill the waypoint list, compass, minimap or in-world HUD. Multiple routes on one physical rail occupy adjacent colour bands rather than overwriting one another. Both map integrations draw physical rails first, coloured routes on top, and station/platform icons last. In JourneyMap, the entire layer follows the map's live drag and zoom transform; track width follows the same world-scale zoom rules as Xaero, with one minimum width for the whole shared bundle.
 
@@ -35,7 +37,7 @@ When the mod is installed on the server as well as the client, it can request a 
 | Map mod | Xaero's World Map 1.45.0+; JourneyMap 6.0.6+ (1.20.1) or 5.10.0 (1.20.4), for the same MC and loader |
 | Xaero's Minimap | Optional; used only to remove old `[MTR]` waypoints created by earlier releases |
 
-1. Build or download the **Forge** or **Fabric** JAR for your exact Minecraft version (1.20.1 / 1.20.4) for this branch. Install one matching loader build in the client's `mods` directory. This branch now ports the latest main features and uses version **1.5.2**; the published 1.5.1 assets remain unchanged. The `main` branch continues to target NeoForge/Fabric MC 1.21.1.
+1. Build or download the **Forge** or **Fabric** JAR for your exact Minecraft version (1.20.1 / 1.20.4) for this branch. Install one matching loader build in the client's `mods` directory. This branch now ports the latest main features and uses version **1.5.2**; the historical 1.5.1 assets remain unchanged. The `main` branch continues to target NeoForge/Fabric MC 1.21.1.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
 4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line, icon or train for details. Whole-map trains require dynamic-v1 support on both client and server; a client-only install falls back to nearby MTR data.

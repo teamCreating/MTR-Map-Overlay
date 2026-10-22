@@ -6,6 +6,9 @@
 
 ## 进行中
 
+### [进行中，Codex，2026-10-22 14:55] GitHub v1.5.2发布
+- 用户明确授权发布GitHub Release；沿用既有附件命名并标明MC/MTR/loader，整理相对v1.5.1的功能/优化/修复及最终diff。使用已验证六包，校验哈希、发布后核对远端附件与正文；版本固定1.5.2。
+
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
