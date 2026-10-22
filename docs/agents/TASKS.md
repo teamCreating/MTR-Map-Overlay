@@ -6,9 +6,6 @@
 
 ## 进行中
 
-### [进行中，Codex，2026-10-22 18:02] Java命名空间迁移
-- 用户指定io.github.teamcreating.mtrmap；迁移双分支源码/测试/入口/Mixin/反射/构建和检查脚本，maven_group同步。mod ID/配置/网络标识保持，版本1.5.2。保留原署名并将LICENSE打包；六构建/测试与新包结构检查后进行加载验证。已发布tag/附件不改写。
-
 ### [待领，性能/兼容后续] 全网列车大网与复杂网络性能
 - 2026-10-21 20:09，Codex：全图简化锚点功能、双地图/加载器接入、异常边界和NeoForge单列远处运行验证已完成，见[验证记录](../validation/global-trains.md)。仍需真实1000/5000列、多观看者、复杂网络、高速小半径、跨维度的性能/复杂网络矩阵（六平台小网格功能回归已完成）；不能把codec大小当成FPS或总出站实测。
 - 继续使用TSC全网实测锚点，客户端无模拟/沿轨求解；版本1.5.2/静态v8/动态v1/纯2D保持。距离/ETA暂停，旧stash不恢复。
@@ -25,6 +22,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 团队Java命名空间迁移 — Codex，2026-10-22 18:14。用户指定io.github.teamcreating.mtrmap，双分支源码/入口/Mixin/反射/构建和当前文档同步，六包均包含原始LICENSE；mod ID/配置/网络和1.5.2保持。六构建及主线86/兼容各89测试、无旧包与入口检查通过；NeoForge/Fabric1.21.1两地图、Fabric1.20.4独立服/JourneyMap5与悬停实机通过，另外三个旧目标本轮只做构建/产物验证。源码提交main b7f646e、compat 4005dd8，详见docs/validation/namespace-migration.md。新包位于../test-builds/v1.5.2-teamcreating-namespace；已发布tag/附件未替换。
 
 - [完成] GitHub v1.5.2正式发布 — Codex，2026-10-22 15:01。用户明确授权发布；六个附件沿用版本-MC-MTR-loader命名，附SHA256SUMS.txt及下载环境标签，中英文说明覆盖相对v1.5.1新增/优化/修复，末尾附v1.5.1...v1.5.2 diff。已设Latest并核对远端7附件大小/哈希/正文；main tag v1.5.2，兼容tag v1.5.2-mc1.20。版本继续固定1.5.2。[Release](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。
 
