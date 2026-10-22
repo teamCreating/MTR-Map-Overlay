@@ -1,6 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-10-22 18:14] Codex — 命名空间迁移验证及测试包完成
+
+- 六构建及主线86/四兼容各89测试通过，包内无旧命名空间，入口/Mixin/字节码/加载器/原始LICENSE检查通过。Java代码仅包名差异，版本仍1.5.2。
+- 本轮NeoForge/Fabric1.21.1及Fabric1.20.4两地图实际加载；兼容独立服务端Done/退出保存，旧JourneyMap5路线/轨道/车辆悬停通过，远处native nearby=0仍有全图1列3节。没有重跑其余三个旧目标的GUI；历史六平台验证不改写。
+- 所有测试进程已正常关闭；报告docs/validation/namespace-migration.md，新六包/SHA256/构建来源位于共享工作区test-builds/v1.5.2-teamcreating-namespace。GitHub发布tag和附件保持既有内容。
+
+
 ## [2026-10-22 18:11] Codex — 新团队Java命名空间完成迁移
 
 - 用户指定 `io.github.teamcreating.mtrmap`；双分支源码目录、import、反射字符串、Mixin配置、Fabric/JourneyMap入口、Gradle排除/生成路径、脚本和当前文档已同步，maven_group为io.github.teamcreating。原作者署名保留，六JAR均附原始LICENSE。
