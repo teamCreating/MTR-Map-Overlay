@@ -1,5 +1,7 @@
 # MTR Map Overlay — MC 1.20 兼容分支
 
+[Snapshot 开发构建（未经实机验收）](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/snapshot)
+
 分支：`compat/mtr-4.0-mc-1.20`，版本：**1.5.2**。已移植主线最新功能，主线仍支持 NeoForge/Fabric 1.21.1。
 
 最新发布：[v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)，附件文件名标明 Minecraft、MTR 和加载器。[发布说明](docs/releases/v1.5.2.md)。

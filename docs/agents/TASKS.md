@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [进行中，Codex-CI，2026-10-22 18:16] GitHub Actions CI/CD
+- 实施双分支六平台CI、新命名空间产物校验、Snapshot、Nightly、Candidate与人工审批发布；范围为.github/workflows、tools/ci及CI文档，不改版本或已发布产物。
+
+
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。

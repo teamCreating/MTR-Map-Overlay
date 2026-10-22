@@ -3,6 +3,8 @@
 
   <h1>MTR Map Overlay</h1>
 
+  <p><a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/snapshot">Snapshot development builds (not manually validated)</a></p>
+
   <p>Minecraft Transit Railway routes, rails and stations on your map.</p>
 
   <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/tree/compat/mtr-4.0-mc-1.20">MC 1.20 compatibility branch</a></p>

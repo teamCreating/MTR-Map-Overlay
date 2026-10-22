@@ -133,3 +133,7 @@ run_server_test.log
 /GuiMap*.java
 /InspectMTR.java
 /build_log.txt
+
+# Python CI tools
+__pycache__/
+*.py[cod]

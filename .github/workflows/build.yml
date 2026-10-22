@@ -1,59 +1,83 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
-
 name: build
-on: [pull_request, push]
-
+on:
+  push:
+    branches: [main, compat/mtr-4.0-mc-1.20]
+  pull_request:
+    branches: [main, compat/mtr-4.0-mc-1.20]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
-  build:
+  plan:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      branch: ${{ steps.branch.outputs.branch }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - id: branch
+        env:
+          BRANCH: ${{ github.base_ref || github.ref_name }}
+        run: echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+      - id: plan
+        env:
+          BRANCH: ${{ steps.branch.outputs.branch }}
+        run: python3 tools/ci/pipeline.py branch-plan --branch "$BRANCH"
+  tooling-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tools/ci -p 'test_*.py' -v
+  targets:
+    needs: plan
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - loader: forge-mc1.20.1
-            minecraft: 1.20.1
-            wrapper: ./gradlew
-            build-args: build
-            artifact-path: build/libs/*.jar
-          - loader: fabric-mc1.20.1
-            minecraft: 1.20.1
-            wrapper: ./fabric/gradlew
-            build-args: -p fabric build
-            artifact-path: fabric/build/libs/*.jar
-          - loader: forge-mc1.20.4
-            minecraft: 1.20.4
-            wrapper: ./gradlew
-            build-args: build -Pminecraft_version=1.20.4
-            artifact-path: build/mc1.20.4/libs/*.jar
-          - loader: fabric-mc1.20.4
-            minecraft: 1.20.4
-            wrapper: ./fabric/gradlew
-            build-args: -p fabric build -Pminecraft_version=1.20.4
-            artifact-path: fabric/build/mc1.20.4/libs/*.jar
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    uses: ./.github/workflows/build-target.yml
+    with:
+      target: ${{ matrix.target }}
+      source-sha: ${{ github.sha }}
+  bundle:
+    needs: [plan, targets, tooling-tests]
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-      - name: Set up JDK 21
-        uses: actions/setup-java@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
-          java-version: 21
-          distribution: 'temurin'
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+          persist-credentials: false
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
         with:
-          cache-disabled: ${{ startsWith(matrix.loader, 'fabric') }}
-      - name: Make Gradle wrapper executable
-        run: chmod +x ${{ matrix.wrapper }}
-      - name: Build ${{ matrix.loader }}
-        run: ${{ matrix.wrapper }} ${{ matrix.build-args }}
-      - name: Verify packaged JAR and tests
-        run: python3 tools/verify_artifacts.py --loader "${{ startsWith(matrix.loader, 'forge') && 'forge' || 'fabric' }}" --minecraft "${{ matrix.minecraft }}"
-      - name: Capture build artifacts
-        uses: actions/upload-artifact@v5
+          pattern: target-*-${{ github.run_id }}-*
+          path: incoming
+      - name: Verify and collect branch artifacts
+        env:
+          BRANCH: ${{ needs.plan.outputs.branch }}
+        run: |
+          python3 tools/ci/pipeline.py branch-source --branch "$BRANCH" --root .
+          python3 tools/ci/pipeline.py bundle --incoming incoming --out ci-bundle --plan source-plan.json --kind ci --branch "$BRANCH"
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
-          name: ${{ matrix.loader }}-jar
-          path: ${{ matrix.artifact-path }}
+          name: ci-bundle-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-bundle/
           if-no-files-found: error
+          retention-days: 14
+  gate:
+    name: CI Gate
+    if: always()
+    needs: [plan, tooling-tests, targets, bundle]
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          results = json.loads(os.environ['RESULTS'])
+          assert all(job['result'] == 'success' for job in results.values()), results
+          PY
