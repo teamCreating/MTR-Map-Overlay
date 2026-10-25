@@ -1,5 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-25 17:52] Codex — 最新公开MTR4.1内部UI研究完成
+
+- 用户要求读取最新4.1内部UI写法。重新ls-remote核对stonecutter HEAD=f05d99efab6f27b3868913438fce2da381e5798f，gradle.properties仍4.1.0-beta.2/Elementa743/UniversalCraft497；不冒称4.1正式版或发布包精确源码。新增docs/plans/mtr-4.1-ui-research.md并更新UI设计。
+- 采纳约束式布局、parent/child与稳定ID保留展开、释放判点击/拖动、重叠候选、父页/关闭提交；站点展开后各线路ETA默认可见。排除管理UI颜色/名称身份合并、移开关闭、全行draw/onTick重建和根WindowScreen直接嵌宿主。增加拖出再回原点不点击及刷新后滚动/焦点保持。
+- 直接复用有真实打包边界：NF shadow/relocate gg.essential与Kotlin，Fabric include；最新源码版本目录仅1.21.1/1.21.4。4.0六目标兼容不能靠改import证明，独立设置页复用仅候选，地图浮层先保持轻量共享方案；公共API维持纯JDK。
+- UTF-8/相对链接/代码围栏、全部MTR固定SHA路径、研究版本与依赖、diff检查通过。未复制实现/素材，未修改功能/版本/依赖、未构建或游戏实测。更新同一PR #1；任务释放。
+
+
 ## [2026-10-25 17:43] Codex — 1.5.3游戏内UI调查与设计补充
 
 - 用户要求增加游戏内UI优化设计并开始调查。新增docs/plans/v1.5.3-ingame-ui.md，联动主计划与API草案：共享图层菜单、固定站点卡片、单一提示、GUIpx拾取/候选消歧、三语言/键盘/小窗口、覆盖状态、外部聚焦所有者与用户暂时全图覆盖；没有加入特定导航模组适配或任意UI注入。
