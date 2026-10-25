@@ -1,5 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-25 17:43] Codex — 1.5.3游戏内UI调查与设计补充
+
+- 用户要求增加游戏内UI优化设计并开始调查。新增docs/plans/v1.5.3-ingame-ui.md，联动主计划与API草案：共享图层菜单、固定站点卡片、单一提示、GUIpx拾取/候选消歧、三语言/键盘/小窗口、覆盖状态、外部聚焦所有者与用户暂时全图覆盖；没有加入特定导航模组适配或任意UI注入。
+- 源码发现Xaero enabled隐藏绘制但点击未同门控、按钮/地图双提示路径，JM原生标题/车辆自绘提示并存及玩家维度地标集合，设置缺项目Screen、语言仅9个列车键；单机保持运行仍仅依赖车辆层且screen精确匹配，站点ETA需新兴趣上下文。以上未本轮实机复现，不等同已修复。
+- 公共JM API固定4a57dee（1.21.1_2.0.0），有可取消PRE点击/拖动但不是完整release/wheel/key桥；兼容JM5现有drawMap mixin需独立验证。参考Create 7ff2760的tooltip仲裁/生命周期，不复制素材。新增U0–U4及六平台视觉/输入/暂停/费用验收。
+- UTF-8/Markdown相对链接/源码固定路径/语言键核对/git diff --check通过；未改生产代码/版本，未构建/启动游戏/发布。工作在docs/1.5.3-station-board-api更新PR #1，准备任务释放，实施仍待领。
+
+
 ## [2026-10-25 17:34] Codex — 1.5.3站点到站板与统一API设计准备完成
 
 - 用户指定目标1.5.3。仅完成公共源码核对与设计，未改生产代码/版本属性，未构建或发布。计划docs/plans/v1.5.3-station-board-extension-api.md，契约docs/api/overlay-api-v1-draft.md；草案并非已有API。
