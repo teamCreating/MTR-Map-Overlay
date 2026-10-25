@@ -70,7 +70,7 @@ public class MapTrack {
                 return;
             }
             for (int i = 1; i < points.size(); i++) {
-                distances[i] = distances[i - 1] + Math.hypot(points.get(i)[0] - points.get(i - 1)[0],
+                distances[i] = nativeDistances != null ? nativeDistances[i] : distances[i - 1] + Math.hypot(points.get(i)[0] - points.get(i - 1)[0],
                         points.get(i)[1] - points.get(i - 1)[1]);
             }
             for (int i = 0; i < points.size(); i++) {

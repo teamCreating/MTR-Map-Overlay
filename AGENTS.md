@@ -10,7 +10,7 @@
    main 分支上不存在 Forge 1.20.1 代码（旧代码只存在于 git 历史 `77121f5` 之前）。
    如果你发现工作区/代码"看起来像 Forge 1.20.1"或与你记忆中的项目不符——**是你的认知过时了**，
    请先读 `docs/agents/STATE.md` 和 `walkthrough.md`，而不是"修复"它。
-2. **版本号由用户决定**：当前开发版本保持 `1.5.2`。只有用户明确要求变更版本时才修改 `mod_version`；功能、修复、构建、提交或发布准备均不得自动递增版本号。
+2. **版本号由用户决定**：用户已指定1.5.3并于2026-10-25授权实施，当前开发版本为 `1.5.3`。只有用户明确要求变更版本时才修改 `mod_version`；功能、修复、构建、提交或发布准备均不得自动递增版本号。
    版本号会自动展开进 `META-INF/neoforge.mods.toml` 和 `pack.mcmeta` 的 description
    （`pack.mcmeta` 用 `${version}` 占位符，不要手写死版本号）。
 3. **禁止破坏性 git 操作**：不得执行 `git reset --hard`、`git checkout <ref> -- .`、`git push --force`、

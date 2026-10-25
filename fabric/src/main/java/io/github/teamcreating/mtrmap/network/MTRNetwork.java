@@ -14,6 +14,10 @@ public final class MTRNetwork {
     }
 
     public static void registerServer() {
+        PayloadTypeRegistry.playC2S().register(OverlayRequest.TYPE, OverlayRequest.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(OverlayChunk.TYPE, OverlayChunk.STREAM_CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(OverlayRequest.TYPE, (msg, context) ->
+                context.server().execute(() -> io.github.teamcreating.mtrmap.extension.ServerOverlayService.request(context.player(), msg)));
         PayloadTypeRegistry.playC2S().register(RequestNetworkSync.TYPE, RequestNetworkSync.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(NetworkSyncProbe.TYPE, NetworkSyncProbe.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(NetworkSyncChunk.TYPE, NetworkSyncChunk.STREAM_CODEC);
@@ -33,6 +37,8 @@ public final class MTRNetwork {
     }
 
     public static void registerClient() {
+        ClientPlayNetworking.registerGlobalReceiver(OverlayChunk.TYPE, (msg, context) ->
+                context.client().execute(() -> io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.chunk(msg)));
         ClientPlayNetworking.registerGlobalReceiver(TrainStreamChunk.TYPE, (msg, context) ->
                 context.client().execute(() -> io.github.teamcreating.mtrmap.train.ClientTrainStream.chunk(msg)));
         ClientPlayNetworking.registerGlobalReceiver(TrainStreamStatus.TYPE, (msg, context) ->
@@ -51,6 +57,8 @@ public final class MTRNetwork {
     public static boolean canSendTrains(ServerPlayer player) {
         return ServerPlayNetworking.canSend(player, TrainStreamChunk.TYPE) && ServerPlayNetworking.canSend(player, TrainStreamStatus.TYPE);
     }
+
+    public static boolean canSendOverlay(ServerPlayer player) { return ServerPlayNetworking.canSend(player, OverlayChunk.TYPE); }
 
     public static void sendToServer(CustomPacketPayload payload) {
         ClientPlayNetworking.send(payload);

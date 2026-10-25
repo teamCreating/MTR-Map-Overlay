@@ -1,5 +1,10 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-25 22:14] Codex — 1.5.3基础实施与UI审阅
+
+- 原生目录/站点快照/可选overlay-1与Java17 API、区段视图和初版UI进入实现；主线版本1.5.3。单测及NF/Fabric初版构建通过，NF两地图初版到站板已用computer-use验证。完整六目标移植和最终UI验收仍待办，不是发布完成。
+- 用户审阅设计稿后指定恢复旧式站点信息、默认折叠、Expand/Navigate，英式与欧式/机场PIDS，默认英式，指令切换；已走区段和未用线路同时dimmed。继续本任务，不加特定导航模组适配或客户端模拟。
+
 ## [2026-10-25 17:52] Codex — 最新公开MTR4.1内部UI研究完成
 
 - 用户要求读取最新4.1内部UI写法。重新ls-remote核对stonecutter HEAD=f05d99efab6f27b3868913438fce2da381e5798f，gradle.properties仍4.1.0-beta.2/Elementa743/UniversalCraft497；不冒称4.1正式版或发布包精确源码。新增docs/plans/mtr-4.1-ui-research.md并更新UI设计。

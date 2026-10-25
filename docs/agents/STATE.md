@@ -7,12 +7,14 @@
 
 - **v1.5.2 正式版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-25 17:52，操作者：Codex
-- 版本管理：用户已指定下一目标1.5.3；本轮完成设计准备，代码属性/已发布附件仍为1.5.2，进入实现时统一调整双分支。禁止自行递增其他版本。
+- 最后更新：2026-10-25 22:14，操作者：Codex
+- 版本管理：用户指定1.5.3并授权实施；主线开发版本现为1.5.3，正式附件仍为1.5.2，兼容分支移植待完成。禁止自行递增其他版本。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 
-## 1.5.3准备（设计完成，功能未实现）
+## 1.5.3实施中
+
+- 2026-10-25 22:14，Codex：主线已实现纯Java17公共API产物、Core原生停站/Depot路径目录、区段解析/独立会话/样式、按需共享原生ArrivalsRequest快照、独立可选overlay-1通道、租约/限额/分片与后台编解码。现有单测通过，NeoForge/Fabric1.21.1初版构建通过；NeoForge两地图点击/固定站点板显示原生预测、折叠/滚动/关闭已用computer-use检查。首版UI暴露边缘按钮重叠/JM深度问题，已修复，尚未复查最终UI。用户已审阅图片并要求恢复旧信息框、默认折叠与Expand/Navigate、英式/欧式PIDS及导航区段dimmed，正在实施；六平台移植/最终构建与完整API验收尚未完成，无发布。
 
 - 2026-10-25 17:52，Codex：新增[MTR4.1内部UI研究](../plans/mtr-4.1-ui-research.md)，远端stonecutter HEAD仍f05d99e/4.1.0-beta.2；新Elementa+UniversalCraft与旧Screen并存。借鉴约束式布局、稳定键保留展开、释放时点击/拖动判定、候选列表及父页/保存逻辑；不直接套管理列表的颜色名称分组、移出关闭、全行遍历或WindowScreen根节点。NF重定位gg.essential/Kotlin而Fabric include，直接调用内部控件须实际依赖和旧4.0验证；公共API不泄漏这些类型。UI设计补拖出再拖回不点击、刷新保持展开/焦点、展开站点后各线ETA默认可见。文档/固定源码路径/版本检查通过；本轮无实现/依赖变更、构建或实机测试，更新PR #1。
 
