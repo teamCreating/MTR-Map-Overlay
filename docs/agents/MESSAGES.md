@@ -1,5 +1,29 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-25 17:52] Codex — 最新公开MTR4.1内部UI研究完成
+
+- 用户要求读取最新4.1内部UI写法。重新ls-remote核对stonecutter HEAD=f05d99efab6f27b3868913438fce2da381e5798f，gradle.properties仍4.1.0-beta.2/Elementa743/UniversalCraft497；不冒称4.1正式版或发布包精确源码。新增docs/plans/mtr-4.1-ui-research.md并更新UI设计。
+- 采纳约束式布局、parent/child与稳定ID保留展开、释放判点击/拖动、重叠候选、父页/关闭提交；站点展开后各线路ETA默认可见。排除管理UI颜色/名称身份合并、移开关闭、全行draw/onTick重建和根WindowScreen直接嵌宿主。增加拖出再回原点不点击及刷新后滚动/焦点保持。
+- 直接复用有真实打包边界：NF shadow/relocate gg.essential与Kotlin，Fabric include；最新源码版本目录仅1.21.1/1.21.4。4.0六目标兼容不能靠改import证明，独立设置页复用仅候选，地图浮层先保持轻量共享方案；公共API维持纯JDK。
+- UTF-8/相对链接/代码围栏、全部MTR固定SHA路径、研究版本与依赖、diff检查通过。未复制实现/素材，未修改功能/版本/依赖、未构建或游戏实测。更新同一PR #1；任务释放。
+
+
+## [2026-10-25 17:43] Codex — 1.5.3游戏内UI调查与设计补充
+
+- 用户要求增加游戏内UI优化设计并开始调查。新增docs/plans/v1.5.3-ingame-ui.md，联动主计划与API草案：共享图层菜单、固定站点卡片、单一提示、GUIpx拾取/候选消歧、三语言/键盘/小窗口、覆盖状态、外部聚焦所有者与用户暂时全图覆盖；没有加入特定导航模组适配或任意UI注入。
+- 源码发现Xaero enabled隐藏绘制但点击未同门控、按钮/地图双提示路径，JM原生标题/车辆自绘提示并存及玩家维度地标集合，设置缺项目Screen、语言仅9个列车键；单机保持运行仍仅依赖车辆层且screen精确匹配，站点ETA需新兴趣上下文。以上未本轮实机复现，不等同已修复。
+- 公共JM API固定4a57dee（1.21.1_2.0.0），有可取消PRE点击/拖动但不是完整release/wheel/key桥；兼容JM5现有drawMap mixin需独立验证。参考Create 7ff2760的tooltip仲裁/生命周期，不复制素材。新增U0–U4及六平台视觉/输入/暂停/费用验收。
+- UTF-8/Markdown相对链接/源码固定路径/语言键核对/git diff --check通过；未改生产代码/版本，未构建/启动游戏/发布。工作在docs/1.5.3-station-board-api更新PR #1，准备任务释放，实施仍待领。
+
+
+## [2026-10-25 17:34] Codex — 1.5.3站点到站板与统一API设计准备完成
+
+- 用户指定目标1.5.3。仅完成公共源码核对与设计，未改生产代码/版本属性，未构建或发布。计划docs/plans/v1.5.3-station-board-extension-api.md，契约docs/api/overlay-api-v1-draft.md；草案并非已有API。
+- 单击站点展开固定到站板，默认折叠/按兴趣查询，按线路/方向/目的地/站台展示同源PIDS预测。原生缓存首次空/数量限制不能解释为完整无班次；全图目标维度由新服务端能力执行原生ArrivalsRequest。站点ETA恢复，车体悬停ETA/距离仍暂停。
+- API提供只读目录、可关闭区段/样式会话及同源站点订阅，Java17纯JDK契约；不加入特定第三方依赖或适配器。避免目前去重MapRoute充当有序导航路径；明确停站occurrence/路径歧义、半轨原生距离、复合rail ID、异步latest-wins、错代与生命周期。
+- 证据固定MTR f05d99e、Core 032baaf、Navigation df53387、howtogo 2b57bac。Core主线不是发布包内精确版本，P0必须实际依赖编译/原生对照。UTF-8/相对链接/固定源码SHA和路径/git diff --check通过，无游戏/性能实测。释放准备任务，实施任务待领。
+
+
 
 ## [2026-10-22 22:42] Codex-CI — CI/CD六平台与发布演练验收
 

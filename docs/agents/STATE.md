@@ -7,10 +7,21 @@
 
 - **v1.5.2 正式版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-22 18:21，操作者：Codex
-- 版本管理：按用户要求固定 1.5.2，只有用户明确指示时才更改版本号；禁止自动递增。
+- 最后更新：2026-10-25 17:52，操作者：Codex
+- 版本管理：用户已指定下一目标1.5.3；本轮完成设计准备，代码属性/已发布附件仍为1.5.2，进入实现时统一调整双分支。禁止自行递增其他版本。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
+
+## 1.5.3准备（设计完成，功能未实现）
+
+- 2026-10-25 17:52，Codex：新增[MTR4.1内部UI研究](../plans/mtr-4.1-ui-research.md)，远端stonecutter HEAD仍f05d99e/4.1.0-beta.2；新Elementa+UniversalCraft与旧Screen并存。借鉴约束式布局、稳定键保留展开、释放时点击/拖动判定、候选列表及父页/保存逻辑；不直接套管理列表的颜色名称分组、移出关闭、全行遍历或WindowScreen根节点。NF重定位gg.essential/Kotlin而Fabric include，直接调用内部控件须实际依赖和旧4.0验证；公共API不泄漏这些类型。UI设计补拖出再拖回不点击、刷新保持展开/焦点、展开站点后各线ETA默认可见。文档/固定源码路径/版本检查通过；本轮无实现/依赖变更、构建或实机测试，更新PR #1。
+
+- 2026-10-25 17:43，Codex：补充[游戏内UI调查与设计](../plans/v1.5.3-ingame-ui.md)：共享图层菜单、固定站点卡片、单一悬停/GUIpx命中、候选消歧、三语言/键盘/小屏布局、分层数据状态及外部聚焦提示/暂时全图覆盖。源码发现Xaero隐藏按钮点击/双提示路径、仅车层维持单机运行、JM查看维度与地标集合差异；属于源码调查，未本轮实机复现。新增U0–U4验收，尤其车层关闭仍需本站ETA推进与JM5/6输入桥。API草案补所有者显示与用户覆盖状态，无特定模组适配或任意UI注入接口。已核对现有双分支源码和固定JM公开API；文档/引用/语言键核对通过，未改生产代码/版本/发布，也没有新UI的构建或游戏测试。更新同一PR #1。
+
+- 2026-10-25 17:34，Codex：新增[站点到站板/扩展API计划](../plans/v1.5.3-station-board-extension-api.md)与[公共API v1草案](../api/overlay-api-v1-draft.md)。单击站点展开固定面板、默认折叠/按需订阅；各线路按方向/目的地和站台区分，复用MTR/TSC给PIDS的原生预测，不新增模拟。站点ETA纳入1.5.3；列车悬停ETA/下一站距离仍暂停。
+- 统一MapReadApi/MapViewApi/StationBoardApi：稳定只读目录、精确区段和声明式样式、独立可关闭会话；不主动适配MTR-Navigation/howtogo。当前去重绘制缓存不足以表达有序乘车区段，须新增原生ID/停站occurrence/路径能力并验证歧义；保留静态v8/车辆v1，新增可选能力。
+- P0必须核对实际4.1.0-beta.2/4.0.5依赖、原生PIDS对照及重复平台/多路径夹具；源码Core主线不能等同已发布MTR内嵌版本。原生到站候选限额不保证每线路完整，必须显式LIMITED；目标维度查询由服务端原生操作完成。
+- 本轮只验证文档UTF-8/相对链接/源码固定SHA和文件路径及git diff --check。没有新功能、API产物、构建或游戏实测，也未发布；下一步见任务看板P0实施项。
 
 ## 平台与依赖
 
