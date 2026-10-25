@@ -1,5 +1,13 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-25 17:34] Codex — 1.5.3站点到站板与统一API设计准备完成
+
+- 用户指定目标1.5.3。仅完成公共源码核对与设计，未改生产代码/版本属性，未构建或发布。计划docs/plans/v1.5.3-station-board-extension-api.md，契约docs/api/overlay-api-v1-draft.md；草案并非已有API。
+- 单击站点展开固定到站板，默认折叠/按兴趣查询，按线路/方向/目的地/站台展示同源PIDS预测。原生缓存首次空/数量限制不能解释为完整无班次；全图目标维度由新服务端能力执行原生ArrivalsRequest。站点ETA恢复，车体悬停ETA/距离仍暂停。
+- API提供只读目录、可关闭区段/样式会话及同源站点订阅，Java17纯JDK契约；不加入特定第三方依赖或适配器。避免目前去重MapRoute充当有序导航路径；明确停站occurrence/路径歧义、半轨原生距离、复合rail ID、异步latest-wins、错代与生命周期。
+- 证据固定MTR f05d99e、Core 032baaf、Navigation df53387、howtogo 2b57bac。Core主线不是发布包内精确版本，P0必须实际依赖编译/原生对照。UTF-8/相对链接/固定源码SHA和路径/git diff --check通过，无游戏/性能实测。释放准备任务，实施任务待领。
+
+
 
 ## [2026-10-22 22:42] Codex-CI — CI/CD六平台与发布演练验收
 
