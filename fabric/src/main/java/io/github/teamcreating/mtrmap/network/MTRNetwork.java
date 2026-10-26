@@ -9,6 +9,9 @@ import net.minecraft.server.level.ServerPlayer;
 
 /** Fabric 1.20 transport for the shared v8 messages. */
 public final class MTRNetwork {
+    private static final ResourceLocation OVERLAY_REQUEST=id("overlay_request_v1"), OVERLAY_CHUNK=id("overlay_response_v1");
+    public static boolean canSendOverlay(ServerPlayer p) { return ServerPlayNetworking.canSend(p,OVERLAY_CHUNK); }
+    public static boolean canSendOverlayToServer() { return ClientPlayNetworking.canSend(OVERLAY_REQUEST); }
     private static final ResourceLocation REQUEST = id("request_network_sync_v8");
     private static final ResourceLocation PROBE = id("network_sync_probe_v8");
     private static final ResourceLocation CHUNK = id("network_sync_chunk_v8");
@@ -19,6 +22,7 @@ public final class MTRNetwork {
     public static boolean canSendTrains(ServerPlayer player) { return ServerPlayNetworking.canSend(player, TRAIN_CHUNK) && ServerPlayNetworking.canSend(player, TRAIN_STATUS); }
     public static boolean canSendTrainsToServer() { return ClientPlayNetworking.canSend(TRAIN_REQUEST); }
     public static void registerServer() {
+        ServerPlayNetworking.registerGlobalReceiver(OVERLAY_REQUEST,(server,player,handler,buf,sender)->{ var message=OverlayRequest.read(buf);server.execute(()->io.github.teamcreating.mtrmap.extension.ServerOverlayService.request(player,message)); });
         ServerPlayNetworking.registerGlobalReceiver(TRAIN_REQUEST, (server, player, handler, buf, sender) -> {
             TrainStreamRequest msg = TrainStreamRequest.read(buf);
             server.execute(() -> io.github.teamcreating.mtrmap.train.ServerTrainStream.request(player, msg));
@@ -31,6 +35,7 @@ public final class MTRNetwork {
                 server.execute(() -> ServerNetworkCollector.sendProbeResponse(player)));
     }
     public static void registerClient() {
+        ClientPlayNetworking.registerGlobalReceiver(OVERLAY_CHUNK,(client,handler,buf,sender)->{ var message=OverlayChunk.read(buf);client.execute(()->io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.chunk(message)); });
         ClientPlayNetworking.registerGlobalReceiver(TRAIN_CHUNK, (client, handler, buf, sender) -> {
             TrainStreamChunk msg = TrainStreamChunk.read(buf);
             client.execute(() -> io.github.teamcreating.mtrmap.train.ClientTrainStream.chunk(msg));
@@ -53,7 +58,7 @@ public final class MTRNetwork {
     }
     public static void sendToServer(MapPacket packet) {
         FriendlyByteBuf buf = PacketByteBufs.create();
-        if (packet instanceof TrainStreamRequest msg) {
+        if(packet instanceof OverlayRequest msg) { OverlayRequest.write(buf,msg);ClientPlayNetworking.send(OVERLAY_REQUEST,buf); } else if (packet instanceof TrainStreamRequest msg) {
             TrainStreamRequest.write(buf, msg); ClientPlayNetworking.send(TRAIN_REQUEST, buf);
         } else if (packet instanceof RequestNetworkSync msg) {
             RequestNetworkSync.write(buf, msg); ClientPlayNetworking.send(REQUEST, buf);
@@ -64,7 +69,7 @@ public final class MTRNetwork {
     public static void sendToPlayer(ServerPlayer player, MapPacket packet) {
         FriendlyByteBuf buf = PacketByteBufs.create();
         ResourceLocation channel;
-        if (packet instanceof TrainStreamChunk msg) {
+        if(packet instanceof OverlayChunk msg) { OverlayChunk.write(buf,msg);channel=OVERLAY_CHUNK; } else if (packet instanceof TrainStreamChunk msg) {
             TrainStreamChunk.write(buf, msg); channel = TRAIN_CHUNK;
         } else if (packet instanceof TrainStreamStatus msg) {
             TrainStreamStatus.write(buf, msg); channel = TRAIN_STATUS;

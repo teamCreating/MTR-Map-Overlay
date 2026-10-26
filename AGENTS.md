@@ -6,7 +6,7 @@
 
 ## 当前兼容分支例外（2026-09-30，Codex）
 
-本 worktree 为用户明确要求的 `compat/mtr-4.0-mc-1.20` 分支：**Forge/Fabric MC 1.20.1 / 1.20.4 + MTR 4.0.5，mod/pack/metadata 均保持 v1.5.2**。用户于2026-10-22明确要求移植最新功能后测试所有平台。禁止将这里的 Forge 代码覆盖回 main。下文的 NeoForge 1.21.1 平台约束适用于 main；本分支遵循上面的兼容目标。构建 Gradle 用 JDK 21，产物为 Java 17；`gradlew build` 与 `fabric/gradlew -p fabric build` 均运行共用测试；加 `-Pminecraft_version=1.20.4` 构建独立 1.20.4 目标。权威状态见 STATE.md，构建/功能说明以本分支 README 为准。
+本 worktree 为用户明确要求的 `compat/mtr-4.0-mc-1.20` 分支：**Forge/Fabric MC 1.20.1 / 1.20.4 + MTR 4.0.5，当前开发 mod/pack/metadata 为用户指定 v1.5.3（已发布稳定版仍1.5.2）**。用户于2026-10-22明确要求移植最新功能后测试所有平台。禁止将这里的 Forge 代码覆盖回 main。下文的 NeoForge 1.21.1 平台约束适用于 main；本分支遵循上面的兼容目标。构建 Gradle 用 JDK 21，产物为 Java 17；`gradlew build` 与 `fabric/gradlew -p fabric build` 均运行共用测试；加 `-Pminecraft_version=1.20.4` 构建独立 1.20.4 目标。权威状态见 STATE.md，构建/功能说明以本分支 README 为准。
 
 ## 0. 三条铁律（违反 = 事故重演）
 
@@ -14,7 +14,7 @@
    main 分支上不存在 Forge 1.20.1 代码（旧代码只存在于 git 历史 `77121f5` 之前）。
    如果你发现工作区/代码"看起来像 Forge 1.20.1"或与你记忆中的项目不符——**是你的认知过时了**，
    请先读 `docs/agents/STATE.md` 和 `walkthrough.md`，而不是"修复"它。
-2. **版本号由用户决定**：当前固定 `mod_version=1.5.2`，仅用户明确要求时才更改；禁止自动递增。
+2. **版本号由用户决定**：用户指定1.5.3并授权实施，本兼容移植的开发版本为 `mod_version=1.5.3`；禁止自动递增。
    版本号会自动展开进 `META-INF/neoforge.mods.toml` 和 `pack.mcmeta` 的 description
    （`pack.mcmeta` 用 `${version}` 占位符，不要手写死版本号）。
 3. **禁止破坏性 git 操作**：不得执行 `git reset --hard`、`git checkout <ref> -- .`、`git push --force`、

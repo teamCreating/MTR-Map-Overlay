@@ -88,6 +88,7 @@ def layout(root, target):
 def verify_jar(path, target, version, license_bytes):
     branch, mc, loader = TARGETS[target]
     major = 65 if branch == MAIN else 61
+    overlay_api = tuple(map(int, re.split('[-+]', version)[0].split('.'))) >= (1, 5, 3)
     with zipfile.ZipFile(path) as jar:
         names = set(jar.namelist())
         require(len(names) == len(jar.namelist()), 'Duplicate ZIP entries')
@@ -104,7 +105,10 @@ def verify_jar(path, target, version, license_bytes):
             data = jar.read(name)
             require(name.startswith(PREFIX), f'Unexpected class namespace: {name}')
             require(data[:4] == b'\xca\xfe\xba\xbe' and len(data) >= 8, f'Invalid class: {name}')
-            require(struct.unpack('>H', data[6:8])[0] == major, f'Wrong bytecode: {name}')
+            public_api = name.startswith(PREFIX + 'api/')
+            require(struct.unpack('>H', data[6:8])[0] == (61 if public_api else major), f'Wrong bytecode: {name}')
+            if public_api:
+                require(not any(x in data for x in (b'net/minecraft/', b'org/mtr/', b'journeymap/', b'xaero/')), f'Leaked implementation in API: {name}')
             require(not any(x in data for x in OLD + forbidden), f'Forbidden namespace: {name}')
             if mc == '1.20.4':
                 require(b'journeymap/api/v2/' not in data, f'Wrong JourneyMap API: {name}')
@@ -160,9 +164,18 @@ def verify_jar(path, target, version, license_bytes):
                     'Wrong legacy JourneyMap mixin')
             require(b'org/mtr/mod/Init' in jar.read(PREFIX + 'mixin/MTRAccessorMixin.class'), 'Wrong MTR accessor')
         hooks = jar.read(PREFIX + 'mixin/client/xaero/XaeroWorldMapMixin.class')
-        expected = (b'method_25394', b'method_25402') if loader == 'fabric' else (b'm_88315_', b'm_6375_')
+        expected = (b'method_25394',) if loader == 'fabric' else (b'm_88315_',)
+        if not overlay_api:
+            expected += (b'method_25402',) if loader == 'fabric' else (b'm_6375_',)
         if loader != 'neoforge':
             require(all(x in hooks for x in expected), 'Missing production Xaero hooks')
+        if overlay_api:
+            require(all(PREFIX + c + '.class' in names for c in ('api/MtrMapApi', 'extension/OverlayUi', 'extension/ViewRenderer',
+                    'extension/ServerOverlayService', 'network/OverlayRequest', 'network/OverlayChunk')), 'Missing station/view API classes')
+            require('client.OverlayPointerMixin' in config['client'], 'Missing pointer input bridge')
+            bridge = jar.read(PREFIX + ('MTRMapClient' if loader == 'fabric' else 'extension/OverlayUiEvents') + '.class')
+            require(b'OverlayUi' in bridge, 'Missing shared UI event bridge')
+            require(b'pidsStyle' in jar.read(PREFIX + 'CommandRegistration.class'), 'Missing PIDS style command')
         plugin = jar.read(PREFIX + 'integration/journeymap/MTRJourneyMapPlugin.class')
         require((b'journeymap/client/api/ClientPlugin' if mc == '1.20.4' else
                  b'journeymap/api/v2/common/JourneyMapPlugin') in plugin, 'Wrong JourneyMap plugin API')

@@ -31,12 +31,4 @@ public abstract class XaeroWorldMapMixin {
         }
     }
 
-    @Inject(method = {"mouseClicked", "method_25402"}, at = @At("HEAD"),
-            remap = false, cancellable = true, require = 0)
-    private void mtrmap$onClick(double mouseX, double mouseY, int button,
-            CallbackInfoReturnable<Boolean> cir) {
-        if (XaeroRouteRenderer.onMouseClicked(mouseX, mouseY, button)) {
-            cir.setReturnValue(true);
-        }
-    }
 }

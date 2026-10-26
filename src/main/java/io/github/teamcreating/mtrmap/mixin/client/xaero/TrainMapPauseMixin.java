@@ -15,6 +15,6 @@ public abstract class TrainMapPauseMixin {
     private boolean mtrmap$keepTrainMapLive(Screen screen) {
         var config = MTRMapConfig.INSTANCE;
         return screen.isPauseScreen() && !(screen.getClass().getName().equals("xaero.map.gui.GuiMap") && config.enabled.get()
-                && config.trainCarsEnabled.get() && config.networkSyncEnabled.get());
+                && (config.trainCarsEnabled.get() && config.networkSyncEnabled.get() || io.github.teamcreating.mtrmap.extension.OverlayUi.live()));
     }
 }

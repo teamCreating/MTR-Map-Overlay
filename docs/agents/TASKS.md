@@ -19,6 +19,8 @@
 
 ## 完成
 
+- [完成] 1.5.3站点API、双样式PIDS和导航dimmed移植 — Codex，2026-10-26 10:36。四目标104测试/构建/产物及Java17消费者通过，Forge47/49独立可选overlay通道、滚轮API和JM5桥适配；主线NeoForge两地图已测。旧目标新UI实机/真实provider联动仍待发布前QA，详见docs/validation/pids-and-dimmed-1.5.3.md。未发布。
+
 - [完成] GitHub Actions CI/CD — Codex-CI，2026-10-22 22:42。双分支六目标Runner构建与CI Gate、18项工具回归、远端产物复核、六包Candidate、Nightly完整验证/无变更跳过、Snapshot六包与Publish只读演练通过；Environment已配置，规则在本验收提交推送后启用。RELEASE_TOKEN按用户要求稍后配置，不触发正式发布。实现提交main 9ea00e9、compat 7f63367，证据见docs/validation/ci-cd.md。
 
 

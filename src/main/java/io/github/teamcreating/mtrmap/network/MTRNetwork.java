@@ -19,7 +19,14 @@ public final class MTRNetwork {
       new ResourceLocation(MTRMap.MOD_ID, "trains_v1"), () -> "1",
       version -> "1".equals(version) || NetworkRegistry.ABSENT.equals(version) || NetworkRegistry.ACCEPTVANILLA.equals(version),
       version -> "1".equals(version) || NetworkRegistry.ABSENT.equals(version) || NetworkRegistry.ACCEPTVANILLA.equals(version));
+    public static final SimpleChannel OVERLAY = NetworkRegistry.newSimpleChannel(new ResourceLocation(MTRMap.MOD_ID, "overlay_v1"), () -> "1", v -> "1".equals(v) || NetworkRegistry.ABSENT.equals(v) || NetworkRegistry.ACCEPTVANILLA.equals(v), v -> "1".equals(v) || NetworkRegistry.ABSENT.equals(v) || NetworkRegistry.ACCEPTVANILLA.equals(v));
     public static void register() {
+        OVERLAY.messageBuilder(OverlayRequest.class, 0, NetworkDirection.PLAY_TO_SERVER)
+            .encoder((m,b)->OverlayRequest.write(b,m)).decoder(OverlayRequest::read)
+            .consumerMainThread((m,ctx)->{ var player = ctx.get().getSender(); if(player!=null) io.github.teamcreating.mtrmap.extension.ServerOverlayService.request(player,m); }).add();
+        OVERLAY.messageBuilder(OverlayChunk.class, 1, NetworkDirection.PLAY_TO_CLIENT)
+            .encoder((m,b)->OverlayChunk.write(b,m)).decoder(OverlayChunk::read)
+            .consumerMainThread((m,ctx)->MTRNetworkClient.onOverlay(m)).add();
         TRAINS.messageBuilder(TrainStreamRequest.class, 0, NetworkDirection.PLAY_TO_SERVER)
           .encoder((msg, buf) -> TrainStreamRequest.write(buf, msg)).decoder(TrainStreamRequest::read)
           .consumerMainThread((msg, ctx) -> { ServerPlayer sender = ctx.get().getSender(); if(sender != null) io.github.teamcreating.mtrmap.train.ServerTrainStream.request(sender, msg); }).add();
@@ -49,8 +56,10 @@ public final class MTRNetwork {
                 .encoder((msg, buf) -> NetworkProbeResponse.write(buf, msg)).decoder(NetworkProbeResponse::read)
                 .consumerMainThread((msg, ctx) -> MTRNetworkClient.onProbe(msg)).add();
     }
+    public static boolean canSendOverlay(ServerPlayer player) { return OVERLAY.isRemotePresent(player.connection.connection); }
     public static boolean canSendTrains(ServerPlayer player) { return TRAINS.isRemotePresent(player.connection.connection); }
     public static void sendToPlayer(ServerPlayer player, MapPacket packet) {
+        if(packet instanceof OverlayChunk) { if(canSendOverlay(player)) { OVERLAY.send(PacketDistributor.PLAYER.with(() -> player), packet); } return; }
         if (packet instanceof TrainStreamChunk || packet instanceof TrainStreamStatus) {
             if (canSendTrains(player)) { TRAINS.send(PacketDistributor.PLAYER.with(() -> player), packet); }
             return;

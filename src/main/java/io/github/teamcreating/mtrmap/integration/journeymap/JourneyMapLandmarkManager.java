@@ -153,7 +153,8 @@ final class JourneyMapLandmarkManager {
                     new BlockPos(landmark.x(), landmark.y(), landmark.z()), icon);
             marker.setDimension(world.dimension());
             marker.setLabel("");
-            marker.setTitle(title.toString());
+            marker.setTitle("");
+            icon.setOpacity(0);
             marker.setActiveUIs(Context.UI.Fullscreen);
             marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
             out.put(landmark.id(), marker);
@@ -291,7 +292,7 @@ final class JourneyMapLandmarkManager {
     }
 
     /**
-     * Build "RouteName → Destination" strings for a platform. Routes are
+     * Build "RouteName â†’ Destination" strings for a platform. Routes are
      * deduplicated by name; the destination is the last station on the route
      * (or its custom destination, if set).
      */
@@ -314,7 +315,7 @@ final class JourneyMapLandmarkManager {
             StringBuilder routeInfo = new StringBuilder(IGui.formatStationName(routeName.split("\\|\\|")[0]));
             String destination = findDestinationForPlatform(route, platform);
             if (destination != null && !destination.isEmpty()) {
-                routeInfo.append(" → ").append(destination);
+                routeInfo.append(" â†’ ").append(destination);
             }
             routeInfos.add(routeInfo.toString());
         }
@@ -382,7 +383,8 @@ final class JourneyMapLandmarkManager {
         MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);
         marker.setDimension(world.dimension());
         marker.setLabel("");
-        marker.setTitle(title);
+        marker.setTitle("");
+        icon.setOpacity(0);
         marker.setActiveUIs(Context.UI.Fullscreen);
         marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
         return marker;

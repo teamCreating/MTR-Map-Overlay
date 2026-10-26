@@ -63,7 +63,7 @@ public final class PlanarMapCache {
             final int[] retainedPoints = {0};
             final List<PlanarMapScene.Quad> built = PlanarMapScene.buildStatic(rails, palette, patterns,
                     showTracks, showRoutes, pixelsPerBlock, minX, minZ, maxX, maxZ, rail -> {
-                        if (rail.curve == null) return rail;
+                        if (rail.curve == null && !(rail instanceof SpanMapTrack)) return rail;
                         MapTrack mesh = previous.get(rail.id);
                         if (mesh == null || mesh.curve != rail.curve) {
                             mesh = rail.forScale(lodScale);

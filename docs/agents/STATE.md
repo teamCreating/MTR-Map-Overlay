@@ -1,8 +1,9 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
-- 最后更新：2026-10-22 18:21，操作者：Codex。
+- 最后更新：2026-10-26 10:36，操作者：Codex。
 - 分支：`compat/mtr-4.0-mc-1.20`；原基于 main `6afde36`（v1.5.1），现移植 main `df9df96` 最新功能。
-- 版本：**v1.5.2**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`。
+- 开发版本：**v1.5.3**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`。
+- 2026-10-26 10:36，Codex：站点原生快照、Java17 API、英式/欧式PIDS/持久命令、默认折叠旧信息和导航dimmed已移植至feat/1.5.3-station-board-mc120；Forge47/49网络和滚轮API及JM5桥独立适配。四目标各104测试、构建、产物及API消费者通过；本轮旧目标新PIDS未实机，NeoForge主线双地图已测。见[验证](../validation/pids-and-dimmed-1.5.3.md)；未发布。
 - 主线继续保留 NeoForge/Fabric MC 1.21.1，独立 worktree `../mtrsurveyor` 保留 1.21.1；本轮主线另修复 Fabric JourneyMap 入口，不以兼容代码覆盖主线。
 
 - 2026-10-22 18:11，Codex：用户指定命名空间迁移至 `io.github.teamcreating.mtrmap`，maven_group=`io.github.teamcreating`；四目标各89项测试及产物检查通过，无旧包类/入口，原始LICENSE已打包。Java文件仅包名差异，mod ID/配置/网络协议保持。Fabric1.20.4独立服/JourneyMap5实际加载、绘制、悬停通过；迁移验收时未发布；现已按用户要求替换GitHub v1.5.2附件，tag保留。

@@ -8,6 +8,7 @@ public final class MTRNetworkClient {
     private MTRNetworkClient() {
     }
 
+    public static boolean canSendOverlay() { return MTRNetwork.canSendOverlayToServer(); }
     public static boolean canSendTrains() { return MTRNetwork.canSendTrainsToServer(); }
     public static boolean canSendToServer() {
         return MTRNetwork.canSendToServer();

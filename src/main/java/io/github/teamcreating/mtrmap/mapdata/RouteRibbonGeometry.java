@@ -21,7 +21,7 @@ public final class RouteRibbonGeometry {
         }
         double weight = 0;
         for (TrackRoutePalette.Entry band : bands) {
-            weight += band.style().width;
+            weight += band.weight();
         }
         // Apply the readability floor once to the entire bundle, never to each lane.
         return RailRenderStyle.worldHalfWidth((float) (RailRenderStyle.TRACK_HALF_WIDTH
@@ -59,7 +59,7 @@ public final class RouteRibbonGeometry {
     public static void drawStrip(MapTrack track, TrackPatternLayout.Placement placement, RouteRibbonProfile profile,
             double halfWidth, double scale, double minX, double minZ, double maxX, double maxZ, QuadSink sink) {
         drawInternal(track, List.of(new TrackRoutePalette.Entry("", "", RailRenderStyle.TRACK_COLOR,
-                RouteLineStyle.NORMAL)), placement, profile, scale,
+                RouteLineStyle.NORMAL, 1, track.opacity(), false)), placement, profile, scale,
                 minX, minZ, maxX, maxZ, sink, sink, halfWidth);
     }
 
@@ -78,7 +78,7 @@ public final class RouteRibbonGeometry {
         }
         double weight = 0;
         for (TrackRoutePalette.Entry band : bands) {
-            weight += band.style().width;
+            weight += band.weight();
         }
         final double unit = halfWidth * 2 / weight;
         final double[] clipped = new double[2];
@@ -98,16 +98,16 @@ public final class RouteRibbonGeometry {
             double left = -halfWidth;
             for (int lane = 0; lane < bands.size(); lane++) {
                 final TrackRoutePalette.Entry band = bands.get(lane);
-                final double right = lane + 1 == bands.size() ? halfWidth : left + unit * band.style().width;
+                final double right = lane + 1 == bands.size() ? halfWidth : left + unit * band.weight();
                 section(track, placement, profile, band.id(), Double.isFinite(overrideWidth), 0,
                         a, b, sign, left, right, clipped[0], clipped[1],
-                        band.color(), RailRenderStyle.TRACK_ALPHA, base, 0, scale);
+                        band.color(), (int) (RailRenderStyle.TRACK_ALPHA * band.opacity()), base, 0, scale);
                 if (Double.isFinite(overrideWidth)) {
                     for (int side : new int[] {-1, 1}) section(track, placement, profile, band.id(), true, 0,
-                            a, b, sign, left, right, clipped[0], clipped[1], band.color(), 255, base, side, scale);
+                            a, b, sign, left, right, clipped[0], clipped[1], band.color(), (int) (255 * band.opacity()), base, side, scale);
                 }
                 final double lanePixels = (right - left) * scale;
-                if (band.style() == RouteLineStyle.HIGH_SPEED && lanePixels >= 1.8
+                if (band.colourWhite() && lanePixels >= 1.8
                         && placement.blockLength() * scale >= 3) {
                     final double border = Math.max(0.65 / scale, (right - left) * 0.2);
                     final double block = placement.blockLength();
@@ -124,7 +124,7 @@ public final class RouteRibbonGeometry {
                             section(track, placement, profile, band.id(), false, border,
                                     a, b, sign, left, right,
                                     (from - distance) / length, (to - distance) / length,
-                                    0xFFFFFF, 255, details, 0, scale);
+                                    0xFFFFFF, (int) (255 * band.opacity()), details, 0, scale);
                         }
                     }
                 }

@@ -16,9 +16,10 @@ public final class MTRMap implements ModInitializer {
     public void onInitialize() {
         MTRMapConfig.load();
         MTRNetwork.registerServer();
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(io.github.teamcreating.mtrmap.train.ServerTrainStream::tick);
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server -> io.github.teamcreating.mtrmap.train.ServerTrainStream.stop());
-        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> io.github.teamcreating.mtrmap.train.ServerTrainStream.disconnect(handler.player.getUUID()));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> { io.github.teamcreating.mtrmap.train.ServerTrainStream.tick(server); io.github.teamcreating.mtrmap.extension.ServerOverlayService.tick(server); });
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents.SERVER_STOPPING.register(server -> { io.github.teamcreating.mtrmap.train.ServerTrainStream.stop(); io.github.teamcreating.mtrmap.extension.ServerOverlayService.stop(); });
+        net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.DISCONNECT.register((handler, server) ->
+                { io.github.teamcreating.mtrmap.train.ServerTrainStream.disconnect(handler.player.getUUID()); io.github.teamcreating.mtrmap.extension.ServerOverlayService.disconnect(handler.player.getUUID()); });
         LOGGER.info("[{}] Fabric loaded; JourneyMap {}, Xaero World Map {}", MOD_NAME,
                 isModLoaded("journeymap") ? "detected" : "not found",
                 isModLoaded("xaeroworldmap") ? "detected" : "not found");

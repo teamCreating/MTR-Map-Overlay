@@ -45,12 +45,12 @@ public record RouteRibbonProfile(Map<String, Band> bands, double width, double b
 
     private static Map<String, Band> partition(List<TrackRoutePalette.Entry> entries, double half) {
         double weight = 0;
-        for (var entry : entries) weight += entry.style().width;
+        for (var entry : entries) weight += entry.weight();
         final Map<String, Band> result = new HashMap<>();
         double left = -half;
         for (int i = 0; i < entries.size(); i++) {
             final var entry = entries.get(i);
-            final double right = i + 1 == entries.size() ? half : left + 2 * half * entry.style().width / weight;
+            final double right = i + 1 == entries.size() ? half : left + 2 * half * entry.weight() / weight;
             result.put(entry.id(), new Band(left, right));
             left = right;
         }

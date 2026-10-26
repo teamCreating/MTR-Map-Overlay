@@ -69,6 +69,13 @@ public class XaeroRouteRenderer {
     /** Set once the render hook is known to work, so users can diagnose silent mixin failures. */
     private static boolean renderHookVerified = false;
     private static boolean warnedNoData = false;
+    private static Runnable pendingUi;
+
+    /** Run after host player markers and controls, independently of the map geometry hook. */
+    public static void renderUi() {
+        var draw = pendingUi; pendingUi = null;
+        if (draw != null) draw.run();
+    }
 
     public static boolean onMouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) {
@@ -89,9 +96,7 @@ public class XaeroRouteRenderer {
      * Main render entry point, called from the mixin.
      */
     public static void onRender(GuiGraphics graphics, GuiMap screen, int mouseX, int mouseY, float partialTick) {
-        if (!MTRMapConfig.INSTANCE.enabled.get()) {
-            return;
-        }
+        pendingUi = null;
 
         if (!renderHookVerified) {
             renderHookVerified = true;
@@ -131,20 +136,33 @@ public class XaeroRouteRenderer {
         }
         final boolean playerDimension = mc.level != null && viewedDimension == mc.level.dimension();
         if (dimensionKey == null) {
-            renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
+            pendingUi = () -> io.github.teamcreating.mtrmap.extension.OverlayUi.render(graphics, "minecraft/overworld", MapDataCache.get("minecraft/overworld"), 1, (x, z) -> -10000, (x, z) -> -10000, mouseX, mouseY, false);
             return;
         }
 
-        final MapDataCache.DimensionData data = MapDataCache.get(dimensionKey);
+        final MapDataCache.DimensionData data = io.github.teamcreating.mtrmap.extension.ViewRenderer.data(MapDataCache.get(dimensionKey));
         final double guiScale = (double) mc.getWindow().getWidth() / (double) mc.getWindow().getGuiScaledWidth();
         final double scale = mapScale / guiScale;
         final net.minecraft.client.gui.screens.Screen mcScreen = (net.minecraft.client.gui.screens.Screen) (Object) screen;
-        final List<MapCar> cars = MTRMapConfig.INSTANCE.trainCarsEnabled.get()
+        final double projectedScale = scale, projectedX = cameraX, projectedZ = cameraZ;
+        final Runnable renderUi = () -> {
+            graphics.flush(); graphics.pose().pushPose();
+            try {
+                graphics.pose().translate(0,0,2000);
+                io.github.teamcreating.mtrmap.extension.OverlayUi.render(graphics, dimensionKey, data, projectedScale,
+                (x, z) -> mcScreen.width / 2.0 + (x - projectedX) * projectedScale,
+                (x, z) -> mcScreen.height / 2.0 + (z - projectedZ) * projectedScale, mouseX, mouseY, false);
+                graphics.flush();
+            } finally { graphics.pose().popPose(); }
+        };
+        pendingUi = renderUi;
+        if (!MTRMapConfig.INSTANCE.enabled.get()) return;
+
+        final List<MapCar> cars = MTRMapConfig.INSTANCE.trainCarsEnabled.get() && io.github.teamcreating.mtrmap.extension.ViewRenderer.trains(dimensionKey)
                 ? ClientTrainStream.cars(dimensionKey, cameraX - mcScreen.width / 2.0 / scale,
                         cameraZ - mcScreen.height / 2.0 / scale, cameraX + mcScreen.width / 2.0 / scale,
                         cameraZ + mcScreen.height / 2.0 / scale, scale) : List.of();
         if (data.isEmpty() && cars.isEmpty()) {
-            renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
             ClientTrainStream.drawStatus(graphics, dimensionKey);
             if (!warnedNoData && playerDimension) {
                 warnedNoData = true;
@@ -192,11 +210,10 @@ public class XaeroRouteRenderer {
         graphics.flush();
         stack.popPose();
 
-        renderToggleWidgets(graphics, mc.font, mouseX, mouseY);
         ClientTrainStream.drawStatus(graphics, dimensionKey);
 
         // Hover picking & tooltip (in screen space, drawn after the batch flush).
-        if (mc.screen != null) {
+        if (mc.screen != null && !io.github.teamcreating.mtrmap.extension.OverlayUi.blocks(mouseX, mouseY) && !io.github.teamcreating.mtrmap.extension.OverlayUi.hasPoint(mouseX, mouseY)) {
             final double mouseWorldX = (mouseX - mcScreen.width / 2.0) / scale + cameraX;
             final double mouseWorldZ = (mouseY - mcScreen.height / 2.0) / scale + cameraZ;
             final MapCar hoveredCar = hoveredLandmark == null ? scene.pick(mouseWorldX, mouseWorldZ) : null;
@@ -383,7 +400,7 @@ public class XaeroRouteRenderer {
             tooltip.add(Component.literal(bestStop.stationName == null ? "?" : bestStop.stationName)
                     .withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.BOLD));
             if (bestStop.destination != null && !bestStop.destination.isEmpty()) {
-                tooltip.add(Component.literal("→ " + bestStop.destination).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.literal("Ã¢â€ â€™ " + bestStop.destination).withStyle(ChatFormatting.GRAY));
             }
         }
         for (TrackRoutePalette.Entry route : bestRoutes) {

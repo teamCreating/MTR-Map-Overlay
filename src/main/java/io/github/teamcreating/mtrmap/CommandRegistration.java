@@ -121,6 +121,16 @@ public class CommandRegistration {
 
                 // Config sub-commands
                 LiteralArgumentBuilder<CommandSourceStack> configNode = Commands.literal("config");
+                var pids = Commands.literal("pidsStyle").executes(ctx -> {
+                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", MTRMapConfig.INSTANCE.pidsStyle.get()), false);
+                        return 1;
+                });
+                for (var style : io.github.teamcreating.mtrmap.config.PidsStyle.values()) pids.then(Commands.literal(style.key).executes(ctx -> {
+                        MTRMapConfig.setPidsStyle(style.key);
+                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", style.key), false);
+                        return 1;
+                }));
+                configNode.then(pids);
                 configNode.then(createBoolConfigNode("enabled", "MTR map overlays",
                                 () -> MTRMapConfig.INSTANCE.enabled.get(),
                                 v -> MTRMapConfig.INSTANCE.enabled.set(v)));

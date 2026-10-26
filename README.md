@@ -48,6 +48,8 @@ The server component is optional. This branch provides separate JARs for **MC 1.
 
 ## Commands and configuration
 
+**1.5.3 development:** station arrival boards, two PIDS themes, owned view/dimmed spans and the optional navigation entry are documented in the [public API](docs/api/overlay-api-v1.md). The published stable release remains 1.5.2.
+
 Commands are registered on the **client**, so they are available even when the server does not run this mod.
 
 | Command | Purpose |
@@ -63,6 +65,7 @@ Commands are registered on the **client**, so they are available even when the s
 | `/mtrmap config routeLines <true\|false>` | Show or hide route ribbons on both maps. |
 | `/mtrmap config trackLines <true\|false>` | Show or hide physical rails on both maps. |
 | `/mtrmap config trainCars <true\|false>` | Show or hide carriages on both maps. |
+| `/mtrmap config pidsStyle british\|european` | 1.5.3 development: station PIDS style; British is the default. Query with no argument. |
 
 Forge stores settings in `config/mtrmap.toml` and copies an existing `mtrsurveyor.toml` on first launch when the new file is absent. Fabric uses `config/mtrmap.properties` with its own defaults. The two formats are not automatically interchangeable. Important options include `networkSync.enabled` (default `true`), `networkSync.refreshIntervalSeconds` (default `300`), and the station/platform/depot visibility switches.
 
