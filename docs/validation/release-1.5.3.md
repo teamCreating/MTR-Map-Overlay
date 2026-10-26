@@ -30,3 +30,7 @@ Codex-Release，2026-10-26 14:07（Asia/Taipei）。用户明确授权发布；�
 | `CRTools-MTR-Map-Overlay-1.5.3-MC1.20.4-MTR4.0.5-fabric.jar` | `f4893bdadc4c316f3f18d27579c25be35d0e71fc87d64c013d6464d611017898` |
 
 已知Forge1.20.4单人quick-play在Xaero初始化阶段断线；独立服双地图通过，根因未确认。真实导航provider、production启动器、大网/多玩家及跨机器联机仍未实测。见[完整PIDS验证](pids-and-dimmed-1.5.3.md)。
+
+## 发布说明后续编辑
+
+2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。原发布流程的说明/验收记录仍保留于封存候选与工作流，最新公开正文以Release页面为准。

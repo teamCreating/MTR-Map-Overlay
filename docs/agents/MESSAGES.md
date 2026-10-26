@@ -1,5 +1,9 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-26 14:18] Codex-Release — 1.5.3公开说明已按用户样例调整
+
+- 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。
+
 ## [2026-10-26 14:07] Codex-Release — v1.5.3已正式发布
 
 - 2026-10-26 14:07，Codex-Release：按用户授权发布GitHub [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3)，正式版/Latest。Candidate 40276489811、Publish 40277036324通过；锁定main 29ab1e17b3496da2899cc0a6740de8afbd5e7faf / compat e272b35534ab726ea0364a2d38aca9ebe007c655，双tag未移动。六JAR和四验证附件全部重新下载，与候选及远端SHA256相同；完整文件名无自定义label。中英文说明标明MC/MTR/loader、功能/优化、Forge49单人失败及上次release diff。见[发布验收](../validation/release-1.5.3.md)。版本继续1.5.3，旧1.5.2附件保持。

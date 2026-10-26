@@ -1,7 +1,8 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
+- 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。
 - 2026-10-26 14:07，Codex-Release：按用户授权发布GitHub [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3)，正式版/Latest。Candidate 40276489811、Publish 40277036324通过；锁定main 29ab1e17b3496da2899cc0a6740de8afbd5e7faf / compat e272b35534ab726ea0364a2d38aca9ebe007c655，双tag未移动。六JAR和四验证附件全部重新下载，与候选及远端SHA256相同；完整文件名无自定义label。中英文说明标明MC/MTR/loader、功能/优化、Forge49单人失败及上次release diff。见[发布验收](../validation/release-1.5.3.md)。版本继续1.5.3，旧1.5.2附件保持。
-- 最后更新：2026-10-26 14:07，操作者：Codex-Release
+- 最后更新：2026-10-26 14:18，操作者：Codex-Release
 - 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
 - 分支：`compat/mtr-4.0-mc-1.20`；原基于 main `6afde36`（v1.5.1），现移植 main `df9df96` 最新功能。
 - 开发版本：**v1.5.3**（用户指定，禁止自动递增）；mod ID `mtrmap`；包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`。
