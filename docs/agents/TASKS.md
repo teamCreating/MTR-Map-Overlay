@@ -7,6 +7,7 @@
 ## 进行中
 
 
+
 ### [待领，兼容QA] Forge1.20.4单人quick-play的Xaero初始化失败
 - Codex，2026-10-26 13:32：见验证文档的失败日志；独立服双地图PIDS通过，单人启动不算通过，需production/无Overlay对照定位。
 
@@ -23,6 +24,8 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 1.5.3公开发布说明按用户样例精简 — Codex-Release，2026-10-26 14:18，见本条所在提交。GitHub正文与中英文新增/优化、末尾diff已更新；按要求移除Forge49限制段。回读核对十附件身份/哈希/时间戳及正式标记保持。
 
 - [完成] v1.5.3正式发布 — Codex-Release，2026-10-26 14:07，见本条所在提交。Candidate/Publish通过，六MC/MTR/loader命名JAR及四验证附件重新下载核对SHA256，Latest/双tag/正文diff检查通过；Forge49单人限制已公开，1.5.2未动。
 
