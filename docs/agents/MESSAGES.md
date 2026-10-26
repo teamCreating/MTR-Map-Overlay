@@ -1,5 +1,10 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-26 14:07] Codex-Release — v1.5.3已正式发布
+
+- 2026-10-26 14:07，Codex-Release：按用户授权发布GitHub [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3)，正式版/Latest。Candidate 40276489811、Publish 40277036324通过；锁定main 29ab1e17b3496da2899cc0a6740de8afbd5e7faf / compat e272b35534ab726ea0364a2d38aca9ebe007c655，双tag未移动。六JAR和四验证附件全部重新下载，与候选及远端SHA256相同；完整文件名无自定义label。中英文说明标明MC/MTR/loader、功能/优化、Forge49单人失败及上次release diff。见[发布验收](../validation/release-1.5.3.md)。版本继续1.5.3，旧1.5.2附件保持。
+- 用户已配置Environment令牌，走既有审批与锁定候选发布流程；未复制本地凭据、未移动正式标签或覆盖旧附件。后续仍需Forge49单人根因、真实provider与大网性能验证。
+
 ## [2026-10-26 13:32] Codex — 六平台基础实机回归补齐，保留Forge49单人失败
 
 - 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。

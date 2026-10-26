@@ -1,4 +1,4 @@
-# v1.5.3 (release preparation)
+# v1.5.3 (2026-10-26)
 
 Compared with v1.5.2, this release adds native station arrival boards, two PIDS themes and a public API for third-party navigation views.
 
