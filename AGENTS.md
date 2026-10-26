@@ -6,7 +6,7 @@
 
 ## 当前兼容分支例外（2026-09-30，Codex）
 
-本 worktree 为用户明确要求的 `compat/mtr-4.0-mc-1.20` 分支：**Forge/Fabric MC 1.20.1 / 1.20.4 + MTR 4.0.5，当前开发 mod/pack/metadata 为用户指定 v1.5.3（已发布稳定版仍1.5.2）**。用户于2026-10-22明确要求移植最新功能后测试所有平台。禁止将这里的 Forge 代码覆盖回 main。下文的 NeoForge 1.21.1 平台约束适用于 main；本分支遵循上面的兼容目标。构建 Gradle 用 JDK 21，产物为 Java 17；`gradlew build` 与 `fabric/gradlew -p fabric build` 均运行共用测试；加 `-Pminecraft_version=1.20.4` 构建独立 1.20.4 目标。权威状态见 STATE.md，构建/功能说明以本分支 README 为准。
+本 worktree 为用户明确要求的 `compat/mtr-4.0-mc-1.20` 分支：**Forge/Fabric MC 1.20.1 / 1.20.4 + MTR 4.0.5，当前开发 mod/pack/metadata 为用户指定 v1.5.3（已发布稳定版1.5.3）**。用户于2026-10-22明确要求移植最新功能后测试所有平台。禁止将这里的 Forge 代码覆盖回 main。下文的 NeoForge 1.21.1 平台约束适用于 main；本分支遵循上面的兼容目标。构建 Gradle 用 JDK 21，产物为 Java 17；`gradlew build` 与 `fabric/gradlew -p fabric build` 均运行共用测试；加 `-Pminecraft_version=1.20.4` 构建独立 1.20.4 目标。权威状态见 STATE.md，构建/功能说明以本分支 README 为准。
 
 ## 0. 三条铁律（违反 = 事故重演）
 
