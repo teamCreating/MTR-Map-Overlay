@@ -52,7 +52,9 @@ public final class MtrMapApi {
         public RouteSection { Objects.requireNonNull(routeId); pathVariant = Objects.requireNonNull(pathVariant); }
     }
     /** routeId can be empty for a physical-rail selection. */
-    public record SelectedSpan(String routeId, RailSpan rail) {}
+    public record SelectedSpan(String routeId, RailSpan rail) {
+        public SelectedSpan { Objects.requireNonNull(routeId); Objects.requireNonNull(rail); }
+    }
     public record Resolution(Status status, long catalogRevision, List<SelectedSpan> spans, List<String> candidates) {
         public Resolution { spans = List.copyOf(spans); candidates = List.copyOf(candidates); }
     }
@@ -66,14 +68,35 @@ public final class MtrMapApi {
                 throw new IllegalArgumentException("Invalid style");
         }
         public static Style inherit() { return new Style(Optional.empty(), 1, 1, Pattern.INHERIT); }
+        public static Style dimmed(double opacity) { return new Style(Optional.empty(), opacity, 1, Pattern.INHERIT); }
+    }
+    /** A local override in native rail distance; later overrides win at overlapping points. */
+    public record SpanStyle(SelectedSpan span, Style style) {
+        public SpanStyle { Objects.requireNonNull(span); Objects.requireNonNull(style); }
     }
     public record ViewRequest(WorldRef world, long catalogRevision, List<SelectedSpan> spans,
                               Set<String> wholeRoutes, Unmatched unmatched, Map<String, Style> routeStyles,
-                              boolean showTrains, Set<String> stationIds) {
+                              boolean showTrains, Set<String> stationIds, List<SpanStyle> spanStyles, double unmatchedOpacity) {
+        public ViewRequest(WorldRef world, long catalogRevision, List<SelectedSpan> spans, Set<String> wholeRoutes,
+                           Unmatched unmatched, Map<String, Style> routeStyles, boolean showTrains, Set<String> stationIds) {
+            this(world, catalogRevision, spans, wholeRoutes, unmatched, routeStyles, showTrains, stationIds, List.of(), .15);
+        }
         public ViewRequest {
             Objects.requireNonNull(world); Objects.requireNonNull(unmatched);
             spans = List.copyOf(spans); wholeRoutes = Set.copyOf(wholeRoutes); routeStyles = Map.copyOf(routeStyles); stationIds = Set.copyOf(stationIds);
-            if (spans.size() > 20000 || wholeRoutes.size() > 4096 || routeStyles.size() > 4096) throw new IllegalArgumentException("View exceeds capacity");
+            spanStyles = List.copyOf(spanStyles);
+            if (spans.size() > 20000 || spanStyles.size() > 20000 || stationIds.size() > 20000 || wholeRoutes.size() > 4096 || routeStyles.size() > 4096) throw new IllegalArgumentException("View exceeds capacity");
+            if (!Double.isFinite(unmatchedOpacity) || unmatchedOpacity < 0 || unmatchedOpacity > 1) throw new IllegalArgumentException("Invalid unmatched opacity");
+        }
+        /** The caller supplies navigation progress. Overlay never infers movement or computes a route. */
+        public static ViewRequest navigation(WorldRef world, long revision, List<SelectedSpan> remaining,
+                                             List<SelectedSpan> completed, double completedOpacity, double unusedOpacity) {
+            var all = new ArrayList<SelectedSpan>(completed); all.addAll(remaining);
+            var overrides = new ArrayList<SpanStyle>();
+            for (var span : completed) overrides.add(new SpanStyle(span, Style.dimmed(completedOpacity)));
+            // Remaining wins when a repeated/circular journey traverses the same physical interval again.
+            for (var span : remaining) overrides.add(new SpanStyle(span, Style.inherit()));
+            return new ViewRequest(world, revision, all, Set.of(), Unmatched.DIM, Map.of(), true, Set.of(), overrides, unusedOpacity);
         }
     }
     public interface ViewSession extends AutoCloseable {
@@ -92,6 +115,8 @@ public final class MtrMapApi {
         Board latest();
         @Override void close();
     }
+    public record NavigationTarget(WorldRef world, String stationId) {}
+    public interface Registration extends AutoCloseable { @Override void close(); }
     public interface Client {
         default String apiVersion() { return "1.0.0"; }
         Optional<WorldRef> world(String dimensionId);
@@ -100,5 +125,6 @@ public final class MtrMapApi {
         CompletionStage<Resolution> resolve(WorldRef world, long catalogRevision, List<RouteSection> sections);
         ViewSession openView(String owner, String displayName, Purpose purpose, int priority);
         BoardSubscription watchStation(WorldRef world, String stationId, Consumer<Board> listener);
+        Registration registerNavigation(String owner, String displayName, Consumer<NavigationTarget> handler);
     }
 }

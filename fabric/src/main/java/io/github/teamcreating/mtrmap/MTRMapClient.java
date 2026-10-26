@@ -13,6 +13,8 @@ public final class MTRMapClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.AFTER_INIT.register((client, screen, width, height) -> {
+            if(screen.getClass().getName().equals("xaero.map.gui.GuiMap"))
+                net.fabricmc.fabric.api.client.screen.v1.ScreenEvents.afterRender(screen).register((s,g,x,y,delta)->io.github.teamcreating.mtrmap.integration.xaero.XaeroRouteRenderer.renderUi());
             net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents.allowMouseClick(screen).register((s, x, y, button) -> !io.github.teamcreating.mtrmap.extension.OverlayUi.down(x, y, button));
             net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents.allowMouseRelease(screen).register((s, x, y, button) -> !io.github.teamcreating.mtrmap.extension.OverlayUi.up(x, y, button));
             net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents.allowMouseScroll(screen).register((s, x, y, horizontal, vertical) -> !io.github.teamcreating.mtrmap.extension.OverlayUi.wheel(x, y, vertical));

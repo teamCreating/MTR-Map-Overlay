@@ -28,6 +28,7 @@ public class MTRMapConfig {
         public final ModConfigSpec.BooleanValue routeLinesEnabled;
         public final ModConfigSpec.BooleanValue trackLinesEnabled;
         public final ModConfigSpec.BooleanValue trainCarsEnabled;
+        public final ModConfigSpec.ConfigValue<String> pidsStyle;
 
         // Full-network sync (requires the mod on the server)
         public final ModConfigSpec.BooleanValue networkSyncEnabled;
@@ -76,6 +77,8 @@ public class MTRMapConfig {
                 trainCarsEnabled = builder
                                 .comment("Draw live train symbols on the pure 2D map; whole-network with server support, nearby fallback otherwise")
                                 .define("trainCarsEnabled", true);
+                pidsStyle = builder.comment("Station arrival board appearance: british (amber) or european (white/amber)")
+                                .define("pidsStyle", "british", value -> value instanceof String s && (s.equals("british") || s.equals("european")));
 
                 networkSyncEnabled = builder
                                 .comment("Request full-network snapshots from servers that also run this mod (Create-train-map-style whole-network view). Client-only servers fall back to radius-limited MTR data automatically")
@@ -114,6 +117,7 @@ public class MTRMapConfig {
                 migrateLegacyConfig();
                 modContainer.registerConfig(ModConfig.Type.COMMON, SPEC, "mtrmap.toml");
         }
+        public static void setPidsStyle(String style) { INSTANCE.pidsStyle.set(PidsStyle.parse(style).key); SPEC.save(); }
 
         private static void migrateLegacyConfig() {
                 Path configDirectory = FMLPaths.CONFIGDIR.get();

@@ -25,6 +25,22 @@ public final class ClientOverlayRuntime implements MtrMapApi.Client {
     private final Map<Key, List<Watch>> watches = new LinkedHashMap<>();
     private long generation;
     private final ViewRegistry views = new ViewRegistry();
+    public record Navigation(String owner, String name, Consumer<NavigationTarget> handler) {}
+    private final Map<String, Navigation> navigation = new LinkedHashMap<>();
+    public List<Navigation> navigation() { thread(); return List.copyOf(navigation.values()); }
+    public Registration registerNavigation(String owner, String displayName, Consumer<NavigationTarget> handler) {
+        thread();
+        if (owner == null || !owner.matches("[a-z0-9_.-]+:[a-z0-9_./-]+") || displayName == null || displayName.isBlank() || displayName.length() > 80 || navigation.size() >= 8 || navigation.containsKey(owner))
+            throw new IllegalArgumentException("Invalid or duplicate navigation provider / capacity reached");
+        var value = new Navigation(owner, displayName, Objects.requireNonNull(handler)); navigation.put(owner, value);
+        // Providers live for the client/mod lifetime; world/session data is supplied only on an explicit user click.
+        return () -> { thread(); navigation.remove(owner, value); };
+    }
+    public void navigate(Navigation provider, WorldRef world, String station) {
+        thread(); if (navigation.get(provider.owner()) != provider || catalog(world).status() != Status.READY) return;
+        try { provider.handler().accept(new NavigationTarget(world, station)); }
+        catch (RuntimeException e) { MTRMap.LOGGER.warn("[MTRMap] Navigation provider failed: {}", provider.owner(), e); }
+    }
     private boolean clearing;
     private final ThreadPoolExecutor decoder = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
             new ArrayBlockingQueue<>(2), r -> { var t = new Thread(r, "MTRMap-overlay-decoder"); t.setDaemon(true); return t; });
@@ -64,7 +80,12 @@ public final class ClientOverlayRuntime implements MtrMapApi.Client {
             public CompletionStage<Status> replace(ViewRequest request) {
                 thread(); var tracks = new HashMap<String, io.github.teamcreating.mtrmap.mapdata.MapTrack>();
                 MapDataCache.get(key(request.world().dimensionId())).tracks.forEach(t -> tracks.put(t.id, t));
-                if (request.spans().stream().anyMatch(s -> !tracks.containsKey(s.rail().railId()) || tracks.get(s.rail().railId()).curve == null))
+                var perRail = new HashMap<String, Integer>();
+                java.util.stream.Stream.concat(request.spans().stream(), request.spanStyles().stream().map(SpanStyle::span))
+                        .forEach(s -> perRail.merge(s.rail().railId(), 1, Integer::sum));
+                if (perRail.values().stream().anyMatch(n -> n > 256)) return CompletableFuture.completedFuture(Status.INVALID);
+                if (java.util.stream.Stream.concat(request.spans().stream(), request.spanStyles().stream().map(SpanStyle::span))
+                        .anyMatch(s -> !tracks.containsKey(s.rail().railId()) || tracks.get(s.rail().railId()).curve == null))
                     return CompletableFuture.completedFuture(Status.UNAVAILABLE);
                 return delegate.replace(request);
             }

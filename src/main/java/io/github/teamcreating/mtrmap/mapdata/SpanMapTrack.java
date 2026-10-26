@@ -6,19 +6,25 @@ public final class SpanMapTrack extends MapTrack {
     private record Mesh(List<double[]> points, double[] distances) {}
     private final MapTrack original;
     private final double from, to;
-    public SpanMapTrack(MapTrack original, double from, double to, String id) { this(original, from, to, id, slice(original, from, to)); }
-    private SpanMapTrack(MapTrack original, double from, double to, String id, Mesh mesh) {
-        super(id, mesh.points, null, mesh.distances); this.original = original; this.from = from; this.to = to;
+    private final double opacity;
+    public SpanMapTrack(MapTrack original, double from, double to, String id) { this(original, from, to, id, 1); }
+    public SpanMapTrack(MapTrack original, double from, double to, String id, double opacity) { this(original, from, to, id, opacity, slice(original, from, to)); }
+    private SpanMapTrack(MapTrack original, double from, double to, String id, double opacity, Mesh mesh) {
+        super(id, mesh.points, null, mesh.distances); this.original = original; this.from = from; this.to = to; this.opacity = opacity;
         if (original.curve != null) for (int i = 0; i < points.size(); i++) {
             var n = original.curve.normal(from * original.length() + mesh.distances[i]); normalX[i] = n[0]; normalZ[i] = n[1];
         }
     }
     @Override public MapTrack forScale(double scale) {
         var mesh = slice(original.forScale(scale), from, to);
-        return new SpanMapTrack(original, from, to, id, mesh);
+        return new SpanMapTrack(original, from, to, id, opacity, mesh);
     }
+    @Override public double opacity() { return opacity; }
     private static Mesh slice(MapTrack source, double from, double to) {
-        if (source.curve == null) throw new IllegalArgumentException("Native distance mapping unavailable");
+        if (source.curve == null) {
+            if (from == 0 && to == 1) return new Mesh(source.points, source.distances.clone());
+            throw new IllegalArgumentException("Native distance mapping unavailable");
+        }
         double a = from * source.length(), b = to * source.length();
         var points = new ArrayList<double[]>(); var ds = new ArrayList<Double>();
         add(source, points, ds, a, a);

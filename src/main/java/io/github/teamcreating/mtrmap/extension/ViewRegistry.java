@@ -37,7 +37,14 @@ public final class ViewRegistry {
             if (purpose == Purpose.DECORATION && (next.unmatched() != Unmatched.KEEP || !next.showTrains())) return CompletableFuture.completedFuture(Status.INVALID);
             Set<String> routeIds = new HashSet<>(); c.routes().forEach(r -> routeIds.add(r.id()));
             if (!routeIds.containsAll(next.wholeRoutes()) || !routeIds.containsAll(next.routeStyles().keySet())
-                    || next.spans().stream().anyMatch(s -> !s.routeId().isEmpty() && !routeIds.contains(s.routeId()))) return CompletableFuture.completedFuture(Status.INVALID);
+                    || next.spans().stream().anyMatch(s -> !s.routeId().isEmpty() && !routeIds.contains(s.routeId()))
+                    || next.spanStyles().stream().anyMatch(s -> !s.span().routeId().isEmpty() && !routeIds.contains(s.span().routeId()))) return CompletableFuture.completedFuture(Status.INVALID);
+            var perRail = new HashMap<String, Integer>();
+            var requests = new ArrayList<ViewRequest>(); requests.add(next);
+            sessions.stream().filter(s -> s != this && s.request != null && s.request.world().equals(next.world())).forEach(s -> requests.add(s.request));
+            for (var view : requests) java.util.stream.Stream.concat(view.spans().stream(), view.spanStyles().stream().map(SpanStyle::span))
+                    .forEach(s -> perRail.merge(s.rail().railId(), 1, Integer::sum));
+            if (perRail.values().stream().anyMatch(n -> n > 256)) return CompletableFuture.completedFuture(Status.INVALID);
             request = next; revision++; return CompletableFuture.completedFuture(Status.READY);
         }
         public void clear() { if (!closed && request != null) { request = null; revision++; } }

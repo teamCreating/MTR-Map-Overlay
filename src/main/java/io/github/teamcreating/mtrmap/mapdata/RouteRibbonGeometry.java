@@ -59,7 +59,7 @@ public final class RouteRibbonGeometry {
     public static void drawStrip(MapTrack track, TrackPatternLayout.Placement placement, RouteRibbonProfile profile,
             double halfWidth, double scale, double minX, double minZ, double maxX, double maxZ, QuadSink sink) {
         drawInternal(track, List.of(new TrackRoutePalette.Entry("", "", RailRenderStyle.TRACK_COLOR,
-                RouteLineStyle.NORMAL)), placement, profile, scale,
+                RouteLineStyle.NORMAL, 1, track.opacity(), false)), placement, profile, scale,
                 minX, minZ, maxX, maxZ, sink, sink, halfWidth);
     }
 

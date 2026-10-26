@@ -23,6 +23,7 @@ public final class MTRMapConfig {
     public final Value<String> waypointMode = value("waypointMode", "both", s -> s);
     public final Value<Boolean> routeLinesEnabled = bool("routeLinesEnabled", true);
     public final Value<Boolean> trainCarsEnabled = bool("trainCarsEnabled", true);
+    public final Value<String> pidsStyle = value("pidsStyle", "british", s -> PidsStyle.parse(s).key);
     public final Value<Boolean> trackLinesEnabled = bool("trackLinesEnabled", true);
     public final Value<Boolean> networkSyncEnabled = bool("networkSync.enabled", true);
     public final Value<Integer> networkSyncIntervalSeconds = value("networkSync.refreshIntervalSeconds", 300,
@@ -35,6 +36,7 @@ public final class MTRMapConfig {
 
     private MTRMapConfig() {
     }
+    public static void setPidsStyle(String style) { INSTANCE.pidsStyle.set(PidsStyle.parse(style).key); }
 
     private static Value<Boolean> bool(String key, boolean fallback) {
         return value(key, fallback, Boolean::parseBoolean);

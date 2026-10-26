@@ -1,5 +1,7 @@
 # Overlay API v1 草案（1.5.3目标）
 
+> 2026-10-26：实施已进入1.5.3；当前可调用契约见[公共API v1](overlay-api-v1.md)，验证范围见[实施验证](../validation/pids-and-dimmed-1.5.3.md)。以下保留初始设计，图层菜单/卡片外观等由用户后续审阅方案取代。
+
 状态：2026-10-25设计草案，**没有已发布的API JAR，下面不是现有可编译用法**。背景/源码及实施门见[1.5.3计划](../plans/v1.5.3-station-board-extension-api.md)。
 
 ## 1. 契约

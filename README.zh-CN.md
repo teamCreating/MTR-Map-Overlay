@@ -80,6 +80,7 @@ MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图�
 | `/mtrmap config routeLines <true\|false>` | 显示或隐藏两种地图的路线色带。 |
 | `/mtrmap config trackLines <true\|false>` | 显示或隐藏两种地图的轨道层。 |
 | `/mtrmap config trainCars <true\|false>` | 显示或隐藏两种地图的列车层。 |
+| `/mtrmap config pidsStyle british\|european` | 1.5.3开发版：切换站点PIDS样式，默认英式；省略参数查询当前值。 |
 
 NeoForge 配置位于 `config/mtrmap.toml`；如果新配置不存在，首次启动会从旧 `mtrsurveyor.toml` 复制设置。Fabric 使用 `config/mtrmap.properties`，从自身默认值开始；两种配置格式不会自动互转。主要配置包括 `networkSync.enabled`（默认 `true`）、`networkSync.refreshIntervalSeconds`（默认 `300`）及车站、站台、车辆段可见性开关。
 

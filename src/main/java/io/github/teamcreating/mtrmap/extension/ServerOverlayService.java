@@ -33,6 +33,7 @@ public final class ServerOverlayService {
     private static int nextPlayer;
     private static final Map<UUID, Map<Key, Interest>> interests = new HashMap<>();
     private static final Map<UUID, Long> lastRequest = new HashMap<>();
+    private static final Map<UUID, Integer> nextInterest = new HashMap<>();
     private static final Map<Key, Source> sources = new HashMap<>();
     private static ThreadPoolExecutor encoder;
     private ServerOverlayService() {}
@@ -58,6 +59,7 @@ public final class ServerOverlayService {
         if (previous != null && now - previous < 25_000_000L) return;
         lastRequest.put(player.getUUID(), now);
         byPlayer.put(key, new Interest(player, request, key, now));
+        sources.putIfAbsent(key, new Source(null)); // Reserve capacity before another request in this tick.
         var source = sources.get(key);
         if (key.station.isEmpty() && source != null && !source.pending && now > source.due - 25_000_000_000L) {
             source.due = 0; source.latest = null;
@@ -73,6 +75,7 @@ public final class ServerOverlayService {
         long now = System.nanoTime();
         interests.values().forEach(map -> map.values().removeIf(i -> i.player.hasDisconnected() || now - i.renewed > 5_000_000_000L));
         interests.values().removeIf(Map::isEmpty);
+        nextInterest.keySet().retainAll(interests.keySet());
         var keys = new HashSet<Key>(); interests.values().forEach(map -> keys.addAll(map.keySet()));
         sources.keySet().retainAll(keys);
         int queued = 0;
@@ -106,11 +109,16 @@ public final class ServerOverlayService {
         for (int p = 0; p < players.size(); p++) {
             var map = players.get((start + p) % players.size());
             int parts = 0;
-            for (var interest : map.values()) {
+            var jobs = new ArrayList<>(map.values());
+            UUID playerId = jobs.get(0).player.getUUID();
+            int first = Math.floorMod(nextInterest.getOrDefault(playerId, 0), jobs.size());
+            nextInterest.put(playerId, (first + 2) % jobs.size());
+            for (int j = 0; j < jobs.size(); j++) {
+                var interest = jobs.get((first + j) % jobs.size());
                 var source = sources.get(interest.key);
                 if (source == null) continue;
                 if (interest.active == null && source.latest != null && source.latest.sequence > interest.sent) interest.active = source.latest;
-                while (interest.active != null && parts < 2 && budget >= OverlayChunk.CHUNK) {
+                if (interest.active != null && parts < 2 && budget >= OverlayChunk.CHUNK) {
                     var data = interest.active;
                     int length = Math.min(OverlayChunk.CHUNK, data.bytes.length - interest.offset);
                     MTRNetwork.sendToPlayer(interest.player, new OverlayChunk(interest.generation, interest.key.dimension, interest.key.station,
@@ -125,9 +133,9 @@ public final class ServerOverlayService {
     private static void fail(MinecraftServer server, Key key, Source source) {
         server.execute(() -> { if (owner == server && sources.get(key) == source) { source.pending = false; source.due = System.nanoTime() + 5_000_000_000L; } });
     }
-    public static void disconnect(UUID player) { interests.remove(player); lastRequest.remove(player); }
+    public static void disconnect(UUID player) { interests.remove(player); lastRequest.remove(player); nextInterest.remove(player); }
     public static void stop() {
-        owner = null; epoch = null; sources.clear(); interests.clear(); lastRequest.clear();
+        owner = null; epoch = null; sources.clear(); interests.clear(); lastRequest.clear(); nextInterest.clear();
         if (encoder != null) { encoder.shutdownNow(); encoder = null; }
     }
 }

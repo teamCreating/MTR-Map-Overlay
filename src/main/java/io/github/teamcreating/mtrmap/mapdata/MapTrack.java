@@ -103,6 +103,8 @@ public class MapTrack {
     public MapTrack forScale(double scale) {
         return curve == null ? this : curve.tessellate(id, scale);
     }
+    /** View-only backing alpha. Never serialized into the static network snapshot. */
+    public double opacity() { return 1; }
 
     /** Unknown heights remain NaN; a missing Y must never be invented from X/Z. */
     public double height(int index) {
