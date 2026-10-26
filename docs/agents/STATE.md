@@ -1,5 +1,6 @@
 # STATE.md — 项目权威状态
 
+- 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。
 - 2026-10-26 14:07，Codex-Release：按用户授权发布GitHub [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3)，正式版/Latest。Candidate 40276489811、Publish 40277036324通过；锁定main 29ab1e17b3496da2899cc0a6740de8afbd5e7faf / compat e272b35534ab726ea0364a2d38aca9ebe007c655，双tag未移动。六JAR和四验证附件全部重新下载，与候选及远端SHA256相同；完整文件名无自定义label。中英文说明标明MC/MTR/loader、功能/优化、Forge49单人失败及上次release diff。见[发布验收](../validation/release-1.5.3.md)。版本继续1.5.3，旧1.5.2附件保持。
 > 每次改变项目状态（版本、依赖、架构、验证结果、重大决策）后**必须**更新本文件。
 > 就地编辑本文件（它反映"当前状态"，历史去看 git log 和 RELEASE_NOTES.md）。
@@ -8,7 +9,7 @@
 
 - **v1.5.3 正式版**：原生站点预测、英式/欧式PIDS与统一导航视图/dimmed API，保留全图列车和纯2D绘制。六平台附件已发布为Latest；Forge49单人启动失败和验证边界见下。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-26 14:07，操作者：Codex-Release
+- 最后更新：2026-10-26 14:18，操作者：Codex-Release
 - 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
 - 版本管理：用户指定1.5.3并授权实施；主线开发版本现为1.5.3，正式版已发布1.5.3，兼容实施分支四目标亦为1.5.3。禁止自行递增其他版本。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
