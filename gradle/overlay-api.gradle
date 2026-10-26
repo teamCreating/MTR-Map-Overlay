@@ -1,0 +1,21 @@
+// Pure Java 17 contract, shared by all loaders; implementation never leaks into this JAR.
+sourceSets {
+    overlayApi { java.srcDir new File(project.ext.overlayRoot, 'api/src/main/java') }
+}
+tasks.named('compileOverlayApiJava', JavaCompile) { options.release = 17 }
+sourceSets.main.compileClasspath += sourceSets.overlayApi.output
+sourceSets.main.runtimeClasspath += sourceSets.overlayApi.output
+sourceSets.test.compileClasspath += sourceSets.overlayApi.output
+sourceSets.test.runtimeClasspath += sourceSets.overlayApi.output
+tasks.named('compileJava') { dependsOn tasks.named('compileOverlayApiJava') }
+tasks.named('jar') { from sourceSets.overlayApi.output }
+tasks.register('apiJar', Jar) {
+    dependsOn tasks.named('compileOverlayApiJava')
+    archiveBaseName = 'mtrmap-api'
+    archiveVersion = '1.0.0'
+    archiveClassifier = ''
+    destinationDirectory = layout.buildDirectory.dir('api')
+    from sourceSets.overlayApi.output
+    from new File(project.ext.overlayRoot, 'LICENSE')
+}
+tasks.named('assemble') { dependsOn tasks.named('apiJar') }

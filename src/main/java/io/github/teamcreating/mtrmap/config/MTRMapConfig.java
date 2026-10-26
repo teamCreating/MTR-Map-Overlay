@@ -29,6 +29,7 @@ public class MTRMapConfig {
         public final ForgeConfigSpec.BooleanValue routeLinesEnabled;
         public final ForgeConfigSpec.BooleanValue trackLinesEnabled;
         public final ForgeConfigSpec.BooleanValue trainCarsEnabled;
+        public final ForgeConfigSpec.ConfigValue<String> pidsStyle;
 
         // Full-network sync (requires the mod on the server)
         public final ForgeConfigSpec.BooleanValue networkSyncEnabled;
@@ -76,6 +77,8 @@ public class MTRMapConfig {
 
                 trainCarsEnabled = builder.comment("Draw TSC global train symbols on the map").define("trainCarsEnabled", true);
 
+                pidsStyle = builder.define("pidsStyle", "british", value -> value instanceof String str && (str.equals("british") || str.equals("european")));
+
                 networkSyncEnabled = builder
                                 .comment("Request full-network snapshots from servers that also run this mod (Create-train-map-style whole-network view). Client-only servers fall back to radius-limited MTR data automatically")
                                 .define("networkSync.enabled", true);
@@ -108,6 +111,8 @@ public class MTRMapConfig {
 
                 builder.pop();
         }
+
+        public static void setPidsStyle(String style) { INSTANCE.pidsStyle.set(PidsStyle.parse(style).key); SPEC.save(); }
 
         public static void register(ModContainer modContainer) {
                 migrateLegacyConfig();

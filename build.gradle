@@ -8,6 +8,8 @@ version = project.mod_version
 group = project.maven_group
 base.archivesName = project.archives_base_name + '-forge-mc' + project.minecraft_version
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+ext.overlayRoot = projectDir
+apply from: 'gradle/overlay-api.gradle'
 minecraft {
     mappings channel: 'official', version: project.minecraft_version
     runs {
@@ -15,12 +17,12 @@ minecraft {
             workingDirectory project.file(project.findProperty('mtrmapRunDir') ?: 'run')
             if (project.hasProperty('quickplayServer')) args '--quickPlayMultiplayer', project.property('quickplayServer')
             else if (project.hasProperty('quickplay')) args '--quickPlaySingleplayer', project.property('quickplay')
-            mods { mtrmap { source sourceSets.main } }
+            mods { mtrmap { source sourceSets.main; source sourceSets.overlayApi } }
         }
         server {
             workingDirectory project.file(project.findProperty('mtrmapRunDir') ?: 'run-server')
             args 'nogui'
-            mods { mtrmap { source sourceSets.main } }
+            mods { mtrmap { source sourceSets.main; source sourceSets.overlayApi } }
         }
     }
 }
@@ -82,6 +84,7 @@ if (project.hasProperty('mtrmapRuntimeTest')) {
     def mergedSmokeMod = tasks.register('mergeSmokeMod', Sync) {
         dependsOn tasks.named('classes')
         from sourceSets.main.output
+        from sourceSets.overlayApi.output
         into layout.buildDirectory.dir('runtime-mod')
     }
     tasks.withType(JavaExec).configureEach {

@@ -65,52 +65,27 @@ final class JourneyMapForegroundRenderer {
                 graphics.pose().translate(0, 0, 400);
                 RenderSystem.setShaderColor(1, 1, 1, 1);
                 scene = JourneyMapPathManager.render(graphics, MapDataCache.get(dimensionId), projection,
-                        MTRMapConfig.INSTANCE.trainCarsEnabled.get()
+                        MTRMapConfig.INSTANCE.trainCarsEnabled.get() && io.github.teamcreating.mtrmap.extension.ViewRenderer.trains(dimensionId)
                                 && bounds != null && MTRMapConfig.INSTANCE.enabled.get()
                                 ? ClientTrainStream.cars(dimensionId, bounds.minX(), bounds.minZ(), bounds.maxX(), bounds.maxZ(),
                                         projection.pixelsPerBlock()) : java.util.List.of());
                 graphics.flush();
-                ResourceLocation currentTexture = null;
-                int currentColor = 0;
-                float currentOpacity = Float.NaN;
-                for (MarkerOverlay marker : JourneyMapLandmarkManager.displayedMarkers()) {
-                    final MapImage icon = marker.getIcon();
-                    if (!viewedDimension.equals(marker.getDimension()) || icon.getImageLocation() == null) {
-                        continue;
-                    }
-                    final int width = (int) Math.round(icon.getDisplayWidth());
-                    final int height = (int) Math.round(icon.getDisplayHeight());
-                    final int x = (int) Math.round(projection.x(marker.getPoint().getX(), marker.getPoint().getZ())
-                            - icon.getAnchorX());
-                    final int y = (int) Math.round(projection.y(marker.getPoint().getX(), marker.getPoint().getZ())
-                            - icon.getAnchorY());
-                    if (x + width < 0 || y + height < 0 || x >= graphics.guiWidth() || y >= graphics.guiHeight()) {
-                        continue;
-                    }
-                    final int color = icon.getColor();
-                    final float opacity = icon.getOpacity();
-                    final ResourceLocation texture = icon.getImageLocation();
-                    if (!texture.equals(currentTexture) || color != currentColor || opacity != currentOpacity) {
-                        // Buffered blits use the shader tint at flush time. Keep
-                        // adjacent icons with the same state in one batch.
-                        graphics.flush();
-                        RenderSystem.setShaderColor(((color >> 16) & 255) / 255f,
-                                ((color >> 8) & 255) / 255f, (color & 255) / 255f, opacity);
-                        currentTexture = texture;
-                        currentColor = color;
-                        currentOpacity = opacity;
-                    }
-                    graphics.blit(icon.getImageLocation(), x, y, width, height,
-                            (float) icon.getTextureX(), (float) icon.getTextureY(),
-                            icon.getTextureWidth(), icon.getTextureHeight(),
-                            icon.getTextureWidth(), icon.getTextureHeight());
-                }
+
             } finally {
                 graphics.flush();
                 graphics.pose().popPose();
                 RenderSystem.setShaderColor(1, 1, 1, 1);
             }
-            if (scene != null) {
+            final double uiMouseX = minecraft.mouseHandler.xpos() / guiScale, uiMouseY = minecraft.mouseHandler.ypos() / guiScale;
+            graphics.pose().pushPose();
+            try {
+                graphics.pose().translate(0, 0, 600);
+                io.github.teamcreating.mtrmap.extension.OverlayUi.render(graphics, dimensionId,
+                        io.github.teamcreating.mtrmap.extension.ViewRenderer.data(MapDataCache.get(dimensionId)), projection.pixelsPerBlock(),
+                        projection::x, projection::y, (int) uiMouseX, (int) uiMouseY, true);
+                graphics.flush();
+            } finally { graphics.pose().popPose(); }
+            if (scene != null && !io.github.teamcreating.mtrmap.extension.OverlayUi.blocks(uiMouseX, uiMouseY) && !io.github.teamcreating.mtrmap.extension.OverlayUi.hasPoint(uiMouseX, uiMouseY)) {
                 ClientTrainStream.drawStatus(graphics, dimensionId);
                 final double mouseX = minecraft.mouseHandler.xpos() / guiScale;
                 final double mouseY = minecraft.mouseHandler.ypos() / guiScale;

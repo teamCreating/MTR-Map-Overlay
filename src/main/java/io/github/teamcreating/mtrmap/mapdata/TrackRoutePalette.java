@@ -34,7 +34,9 @@ public final class TrackRoutePalette {
         return result;
     }
 
-    public record Entry(String id, String name, int color, RouteLineStyle style) {
+    public record Entry(String id, String name, int color, RouteLineStyle style, double widthScale, double opacity, boolean colourWhite) {
+        public Entry(String id, String name, int color, RouteLineStyle style) { this(id, name, color, style, 1, 1, style == RouteLineStyle.HIGH_SPEED); }
+        public double weight() { return style.width * widthScale; }
     }
 
     private record Appearance(int color, RouteLineStyle style) {}

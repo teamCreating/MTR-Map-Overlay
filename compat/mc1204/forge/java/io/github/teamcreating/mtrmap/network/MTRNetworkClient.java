@@ -2,6 +2,8 @@ package io.github.teamcreating.mtrmap.network;
 import net.minecraft.client.Minecraft;
 /** Physical-client callbacks. Never executed on a dedicated server. */
 public final class MTRNetworkClient {
+    static void onOverlay(OverlayChunk packet) { io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.chunk(packet); }
+    public static boolean canSendOverlay() { var c=Minecraft.getInstance().getConnection(); return c!=null && MTRNetwork.OVERLAY.isRemotePresent(c.getConnection()); }
     static void onChunk(NetworkSyncChunk packet) { ClientNetworkSync.onChunkReceived(packet); }
     static void onProbe(NetworkProbeResponse packet) { ClientNetworkSync.onProbeReceived(packet.hashes()); }
     static void onTrainChunk(TrainStreamChunk packet) { io.github.teamcreating.mtrmap.train.ClientTrainStream.chunk(packet); }
@@ -13,6 +15,6 @@ public final class MTRNetworkClient {
     }
     public static void sendToServer(MapPacket packet) {
         var listener = Minecraft.getInstance().getConnection();
-        if (listener != null) { if (packet instanceof TrainStreamRequest) MTRNetwork.TRAINS.send(packet, listener.getConnection()); else MTRNetwork.CHANNEL.send(packet, listener.getConnection()); }
+        if (listener != null) { if (packet instanceof OverlayRequest) MTRNetwork.OVERLAY.send(packet, listener.getConnection()); else if (packet instanceof TrainStreamRequest) MTRNetwork.TRAINS.send(packet, listener.getConnection()); else MTRNetwork.CHANNEL.send(packet, listener.getConnection()); }
     }
 }

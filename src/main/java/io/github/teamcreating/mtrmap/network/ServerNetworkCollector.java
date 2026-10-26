@@ -382,7 +382,7 @@ public final class ServerNetworkCollector {
     }
 
     /** Cheap O(network) content hash for change detection. */
-    private static long computeHash(Simulator simulator) {
+    public static long computeHash(Simulator simulator) {
         long hash = simulator.rails.size();
         for (Rail rail : simulator.rails) {
             hash = hash * 31 + rail.getHexId().hashCode();

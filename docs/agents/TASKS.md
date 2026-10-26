@@ -6,6 +6,13 @@
 
 ## 进行中
 
+### [进行中，Codex-Release，2026-10-26 13:45] v1.5.3正式发布
+- 用户明确授权发布；核对六包/源码/命名，准备中英文说明与上次发布diff，经现有Candidate/Publish流程发布；保留Forge49单人限制，不改版本或1.5.2附件。
+
+### [待领，兼容QA] Forge1.20.4单人quick-play的Xaero初始化失败
+- Codex，2026-10-26 13:32：见验证文档的失败日志；独立服双地图PIDS通过，单人启动不算通过，需production/无Overlay对照定位。
+
+
 ### [功能] 非 TRAIN 轨道渲染开关
 - `TrackSampler` 目前只采样 TRAIN 模式轨道。增加配置项按 TransportMode 过滤（BOAT/CABLE_CAR 可选）。
 - 验收：配置切换后地图轨道层随之变化。
@@ -18,6 +25,10 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] 1.5.3四兼容目标双地图基础实机回归 — Codex，2026-10-26 13:32，见本条所在提交。Core4.0.5原生预测、默认折叠/展开、两主题/持久命令、滚轮与悬停通过；Forge49以独立服方式通过，单人Xaero serverData为空的失败保留并待定位。未改生产代码、版本或发布。
+
+- [完成] 1.5.3站点API、双样式PIDS和导航dimmed移植 — Codex，2026-10-26 10:36。四目标104测试/构建/产物及Java17消费者通过，Forge47/49独立可选overlay通道、滚轮API和JM5桥适配；主线NeoForge两地图已测。旧目标新UI实机/真实provider联动仍待发布前QA，详见docs/validation/pids-and-dimmed-1.5.3.md。未发布。
 
 - [完成] GitHub Actions CI/CD — Codex-CI，2026-10-22 22:42。双分支六目标Runner构建与CI Gate、18项工具回归、远端产物复核、六包Candidate、Nightly完整验证/无变更跳过、Snapshot六包与Publish只读演练通过；Environment已配置，规则在本验收提交推送后启用。RELEASE_TOKEN按用户要求稍后配置，不触发正式发布。实现提交main 9ea00e9、compat 7f63367，证据见docs/validation/ci-cd.md。
 

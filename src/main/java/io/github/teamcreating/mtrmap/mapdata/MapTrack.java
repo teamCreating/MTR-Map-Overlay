@@ -70,7 +70,7 @@ public class MapTrack {
                 return;
             }
             for (int i = 1; i < points.size(); i++) {
-                distances[i] = distances[i - 1] + Math.hypot(points.get(i)[0] - points.get(i - 1)[0],
+                distances[i] = nativeDistances != null ? nativeDistances[i] : distances[i - 1] + Math.hypot(points.get(i)[0] - points.get(i - 1)[0],
                         points.get(i)[1] - points.get(i - 1)[1]);
             }
             for (int i = 0; i < points.size(); i++) {
@@ -103,6 +103,8 @@ public class MapTrack {
     public MapTrack forScale(double scale) {
         return curve == null ? this : curve.tessellate(id, scale);
     }
+    /** View-only backing alpha. Never serialized into the static network snapshot. */
+    public double opacity() { return 1; }
 
     /** Unknown heights remain NaN; a missing Y must never be invented from X/Z. */
     public double height(int index) {

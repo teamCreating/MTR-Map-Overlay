@@ -13,7 +13,14 @@ public final class MTRNetwork {
             .networkProtocolVersion(8).optional().simpleChannel();
     public static final SimpleChannel TRAINS = ChannelBuilder.named(new ResourceLocation(MTRMap.MOD_ID, "trains_v1"))
       .networkProtocolVersion(1).optional().simpleChannel();
+    public static final SimpleChannel OVERLAY = ChannelBuilder.named(new ResourceLocation(MTRMap.MOD_ID, "overlay_v1")).networkProtocolVersion(1).optional().simpleChannel();
     public static void register() {
+        OVERLAY.messageBuilder(OverlayRequest.class, 0, NetworkDirection.PLAY_TO_SERVER)
+            .encoder((m,b)->OverlayRequest.write(b,m)).decoder(OverlayRequest::read)
+            .consumerMainThread((m,ctx)->{ var player = ctx.getSender(); if(player!=null) io.github.teamcreating.mtrmap.extension.ServerOverlayService.request(player,m); }).add();
+        OVERLAY.messageBuilder(OverlayChunk.class, 1, NetworkDirection.PLAY_TO_CLIENT)
+            .encoder((m,b)->OverlayChunk.write(b,m)).decoder(OverlayChunk::read)
+            .consumerMainThread((m,ctx)->MTRNetworkClient.onOverlay(m)).add();
         TRAINS.messageBuilder(TrainStreamRequest.class, 0, NetworkDirection.PLAY_TO_SERVER)
           .encoder((msg, buf) -> TrainStreamRequest.write(buf, msg)).decoder(TrainStreamRequest::read)
           .consumerMainThread((msg, ctx) -> { ServerPlayer sender = ctx.getSender(); if(sender != null) io.github.teamcreating.mtrmap.train.ServerTrainStream.request(sender, msg); }).add();
@@ -43,8 +50,10 @@ public final class MTRNetwork {
                 .encoder((msg, buf) -> NetworkProbeResponse.write(buf, msg)).decoder(NetworkProbeResponse::read)
                 .consumerMainThread((msg, ctx) -> MTRNetworkClient.onProbe(msg)).add();
     }
+    public static boolean canSendOverlay(ServerPlayer player) { return OVERLAY.isRemotePresent(player.connection.getConnection()); }
     public static boolean canSendTrains(ServerPlayer player) { return TRAINS.isRemotePresent(player.connection.getConnection()); }
     public static void sendToPlayer(ServerPlayer player, MapPacket packet) {
+        if(packet instanceof OverlayChunk) { if(canSendOverlay(player)) { OVERLAY.send(packet, player.connection.getConnection()); } return; }
         if (packet instanceof TrainStreamChunk || packet instanceof TrainStreamStatus) {
             if (canSendTrains(player)) { TRAINS.send(packet, player.connection.getConnection()); }
             return;

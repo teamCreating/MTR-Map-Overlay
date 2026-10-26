@@ -47,6 +47,15 @@ def fixture_jar(path, target='1.21.1-fabric', version='1.5.2', overrides=None):
             entries[core.PREFIX + 'mixin/client/journeymap/JourneyMapFullscreenMixin.class'] = bytecode(b'drawMap')
     entries['LICENSE'] = LICENSE
     entries['pack.mcmeta'] = json.dumps({'pack': {'pack_format': 34 if branch == core.MAIN else 22 if legacy else 15}}).encode()
+    if tuple(map(int,version.split('.'))) >= (1,5,3):
+        for cls in ['extension/OverlayUi','extension/ViewRenderer','extension/ServerOverlayService','network/OverlayRequest','network/OverlayChunk']:
+            entries[core.PREFIX+cls+'.class']=bytecode()
+        entries[core.PREFIX+'api/MtrMapApi.class']=b'\xca\xfe\xba\xbe'+struct.pack('>HH',0,61)
+        entries[core.PREFIX+'CommandRegistration.class']=bytecode(b'trainCars pidsStyle')
+        config['client'].append('client.OverlayPointerMixin')
+        entries[core.PREFIX+'mixin/client/OverlayPointerMixin.class']=bytecode()
+        entries[core.PREFIX+('MTRMapClient' if loader=='fabric' else 'extension/OverlayUiEvents')+'.class']=bytecode(b'OverlayUi')
+        entries[core.PREFIX+'mixin/client/xaero/XaeroWorldMapMixin.class']=bytecode(b'method_25394' if loader=='fabric' else b'm_88315_')
     if loader == 'fabric':
         meta = {'id': 'mtrmap', 'version': version, 'depends': {'minecraft': mc,
                 'java': '>=21' if branch == core.MAIN else '>=17', 'mtr': '*' if branch == core.MAIN else '>=4.0.5 <4.1'},
@@ -86,6 +95,16 @@ def fixture_tests(directory, count=86, skip='TestWorldGeneratorTest', failure=Fa
 
 
 class ArtifactTests(unittest.TestCase):
+    def test_shared_java17_api_and_event_input_on_all_six_targets(self):
+        for target in core.TARGETS:
+            with self.subTest(target=target):
+                fixture_jar(self.jar,target,version='1.5.3')
+                core.verify_jar(self.jar,target,'1.5.3',LICENSE)
+
+    def test_api_cannot_leak_implementation_or_silently_change_java_version(self):
+        for data in [b'\xca\xfe\xba\xbe\0\0\0A', b'\xca\xfe\xba\xbe\0\0\0=net/minecraft/client/Minecraft']:
+            fixture_jar(self.jar,version='1.5.3',overrides={core.PREFIX+'api/MtrMapApi.class':data})
+            with self.assertRaises(ValueError): core.verify_jar(self.jar,'1.21.1-fabric','1.5.3',LICENSE)
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
