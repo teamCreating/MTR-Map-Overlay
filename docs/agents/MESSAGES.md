@@ -1,5 +1,10 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-26 13:32] Codex — 六平台基础实机回归补齐，保留Forge49单人失败
+
+- 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
+- 所有测试客户端已正常退出；Forge49独立服用本地RCON stop保存并退出。独立副本和失败/成功日志保留，未修改用户原存档或正式附件。
+
 ## [2026-10-26 10:36] Codex — 双样式PIDS与dimmed已实现并完成六构建
 
 - 旧式默认折叠信息框、Expand/Navigate与英式/欧式PIDS按用户审阅稿落地；默认英式，命令持久保存。Native Arrivals不增加模拟；物理区段的线路/白块/底衬同步透明，completed与unmatched独立设置，后续重复乘车区段保持明亮。

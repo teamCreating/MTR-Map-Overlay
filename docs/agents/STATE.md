@@ -7,14 +7,15 @@
 
 - **v1.5.2 正式版（main）**：TSC 全网实时车厢以双锚点显示为抽象纯 2D 符号，固定轨道→线路→车厢；客户端无行车模拟，附近仅为无动态服务端能力时的回退。GitHub [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 已正式发布并设为 Latest。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-26 10:36，操作者：Codex
+- 最后更新：2026-10-26 13:32，操作者：Codex
+- 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
 - 版本管理：用户指定1.5.3并授权实施；主线开发版本现为1.5.3，正式附件仍为1.5.2，兼容实施分支四目标亦为1.5.3。禁止自行递增其他版本。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。
 - 中英文 README 已同步六个附件的依赖矩阵、官网文档及 Modrinth/CurseForge、Ko-fi/爱发电入口；仅修改文档及 badge 资产。
 
 ## 1.5.3开发功能已实现（未发布）
 
-- 2026-10-26 10:36，Codex：按用户审阅稿实现旧式默认折叠站点框、英式/欧式PIDS（默认british，`/mtrmap config pidsStyle british|european`持久切换）、精确区段dimmed及统一Navigate provider入口；完成Java17 API、站点原生快照和四旧目标移植。六构建/产物校验、主线101和兼容各104单测、20项CI工具回归、六份API内嵌/独立公开签名及Java17消费者编译通过。NeoForge两地图实测两主题/指令/重启保存/原版信息/折叠展开，修复JM深度及Xaero玩家箭头穿板；最后post-render修复已重启复查。其他五平台新PIDS实机、真实第三方导航联动和大网/多玩家性能尚未本轮验证，不冒称六平台实机。详见[验证](../validation/pids-and-dimmed-1.5.3.md)与[API](../api/overlay-api-v1.md)。保留1.5.3，未发布。
+- 2026-10-26 10:36，Codex：按用户审阅稿实现旧式默认折叠站点框、英式/欧式PIDS（默认british，`/mtrmap config pidsStyle british|european`持久切换）、精确区段dimmed及统一Navigate provider入口；完成Java17 API、站点原生快照和四旧目标移植。六构建/产物校验、主线101和兼容各104单测、20项CI工具回归、六份API内嵌/独立公开签名及Java17消费者编译通过。NeoForge两地图实测两主题/指令/重启保存/原版信息/折叠展开，修复JM深度及Xaero玩家箭头穿板；最后post-render修复已重启复查。此处10:36的验收尚未包含其他五平台实机；后续补测及Forge49单人限制见上方最新QA记录。真实第三方导航联动和大网/多玩家性能仍未测。详见[验证](../validation/pids-and-dimmed-1.5.3.md)与[API](../api/overlay-api-v1.md)。保留1.5.3，未发布。
 
 
 - 2026-10-25 22:14，Codex：主线已实现纯Java17公共API产物、Core原生停站/Depot路径目录、区段解析/独立会话/样式、按需共享原生ArrivalsRequest快照、独立可选overlay-1通道、租约/限额/分片与后台编解码。现有单测通过，NeoForge/Fabric1.21.1初版构建通过；NeoForge两地图点击/固定站点板显示原生预测、折叠/滚动/关闭已用computer-use检查。首版UI暴露边缘按钮重叠/JM深度问题，已修复，尚未复查最终UI。用户已审阅图片并要求恢复旧信息框、默认折叠与Expand/Navigate、英式/欧式PIDS及导航区段dimmed，正在实施；六平台移植/最终构建与完整API验收尚未完成，无发布。

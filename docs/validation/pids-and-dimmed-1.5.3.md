@@ -1,6 +1,6 @@
 # 1.5.3 站点PIDS与导航dimmed验证
 
-Codex，2026-10-26 10:34（Asia/Taipei）。开发版本1.5.3；没有发布release/tag。旧1.5.2正式附件保持。
+Codex，2026-10-26 13:32（Asia/Taipei）。开发版本1.5.3；没有发布release/tag。旧1.5.2正式附件保持。功能源码仍为main `c1e0314` / compat `e041b0a`，本轮补实机QA，未改生产代码。
 
 ## 交付
 
@@ -36,6 +36,27 @@ NeoForge1.21.1，独立存档副本`run/saves/Overlay153Test`，未修改用户�
 - 小窗口压缩模式与最大化后的完整线路列表；旧ROUTES/TRACKS控件恢复；初版面板内部滚动不改变3.9x缩放。
 - JourneyMap轨道不再盖住卡片；Xaero初版玩家箭头穿过背景，最终改为host post-render/独立UI深度，重启复查箭头已被站点面板覆盖。
 
-本轮未重跑其他五目标的新PIDS实机矩阵、第三方真实provider点击/进度联动、大网络/多玩家性能、跨机器联机或production整合包启动。dimmed自动化覆盖完整几何与公开API，未声称完成真实导航模组适配/联动实测。测试夹具的缺预测服务显示LIMITED，不能解释为无车或零ETA。候选数上限不构成Core内部扫描耗时上限；不提供FPS/带宽实测成绩。
+### 2026-10-26 补齐其余五目标
+
+按用户要求直接使用computer-use，逐个启动客户端；同时只保留一个Minecraft图形客户端。新增独立存档副本，原测试存档与用户存档均保留。Gradle开发启动器运行当前源码，不能等同production JAR/整合包启动。
+
+| MC / loader | MTR | Xaero 1.45.0 | JourneyMap | 运行方式 |
+| --- | --- | --- | --- | --- |
+| 1.21.1 NeoForge 21.1.249 | 4.1.0-beta.2 | 通过（前轮） | 6.0.8，通过（前轮） | 独立单人副本 |
+| 1.21.1 Fabric 0.16.14 | 4.1.0-beta.2 | 通过 | 6.0.8，通过 | 独立单人副本 |
+| 1.20.1 Fabric 0.16.14 | 4.0.5 | 通过 | 6.0.6，通过 | 独立单人副本 |
+| 1.20.4 Fabric 0.16.14 | 4.0.5 | 通过 | 5.10.0，通过 | 独立单人副本 |
+| 1.20.1 Forge 47.4.0 | 4.0.5 | 通过 | 6.0.6，通过 | 独立单人副本 |
+| 1.20.4 Forge 49.2.0 | 4.0.5 | 独立服通过；单人启动失败 | 5.10.0，独立服通过 | loopback独立服；限制见下 |
+
+- 五目标均在Xaero检查旧式信息默认折叠、点击固定、Expand显示英式原生预测、Express缺预测横杠、Local/Local Return各自目的地与ETA、行悬停完整平台名、Escape关闭和面板内部滚轮不缩放地图。地图显示三条线路、六条轨道、七个landmark和一列全网车；多次观察可见车体位置变化。
+- 五目标均在实际游戏聊天栏执行`/mtrmap config pidsStyle european`，确认成功反馈，再打开JourneyMap点击站点并展开，核对欧式表头/交替行/黄色ETA、原生目的地、轨道与车辆不穿过面板。两个1.20.4目标额外核对JourneyMap5面板滚轮与行悬停；Forge1.20.1也检查JourneyMap6滚轮。Fabric1.21.1与其他旧目标的滚轮结论分别来自其Xaero检查，不声称逐地图执行所有相同操作。
+- 表格ETA持续变化，例如Fabric1.20.1的Local从16min降至12min、Forge1.20.4从6min降至3min/2min。它们是测试网络Core的原生预测，不能把长等待解释成客户端模拟或错误加时；仍未逐一对照世界内实体PIDS。
+- Fabric1.21.1本地目录：主线`build/runtime-qa-153/fabric-1.21.1/saves/Overlay153Test`；启动日志`build/runtime-qa-153/fabric-1211-launch.log`。其余目录：兼容worktree `.gradle/runtime-qa-153/<loader>-<mc>/saves/Overlay153Test`，日志`fabric-1201-launch.log`、`fabric-1204-launch.log`、`forge-1201-launch.log`。
+- Forge1.20.4首次单人quick-play失败，`forge-1204-launch.log`保留Xaero Minimap/WorldMap `CommonEvents.onPlayerWorldJoin`中`serverData == null`的异常和`Error loading server minimap properties. Please retry.`。失败发生于Overlay快照应用前，根因尚未确认；不能宣称单人支持已通过，也没有用独立服成功覆盖该失败。
+- 随后用只含MTR和Overlay的Forge49服务端绑定`127.0.0.1:25589`，同一版本客户端连接后双地图及原生PIDS通过。日志`forge-1204-server-launch.log` / `forge-1204-dedicated-client.log`及对应目录`logs/latest.log`。客户端正常退出，服务端用其本地RCON发送`stop`正常保存退出。RCON凭据不进文档或测试包。
+- 本轮没有新增Overlay运行时异常；旧目标MTR cargo loader/unloader loot-table错误仍存在，按上游资源问题单独记录。六目标功能源码对应的GitHub CI Gate均通过；自动检查与这里的UI证据分别计数。
+
+仍未实测第三方真实provider点击/进度联动、大网络/多玩家性能、跨机器联机或production整合包启动。dimmed自动化覆盖完整几何与公开API，未声称完成真实导航模组适配/联动实测。测试夹具的缺预测服务显示LIMITED，不能解释为无车或零ETA。候选数上限不构成Core内部扫描耗时上限；不提供FPS/带宽实测成绩。
 
 API实现与可编译示例见[公共API v1](../api/overlay-api-v1.md)。本地测试包统一放在`../test-builds/v1.5.3-pids-dimmed`，六文件名含MC/MTR/loader，并附API JAR、哈希与源码提交记录。
