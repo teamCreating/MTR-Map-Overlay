@@ -50,12 +50,17 @@ public class MapDataCache {
 
         public DimensionData(String dimensionId, List<MapRoute> routes, List<MapTrack> tracks,
                 List<MapLandmark> landmarks, long version) {
+            this(dimensionId, routes, tracks, landmarks, version, null, null);
+        }
+        public DimensionData(String dimensionId, List<MapRoute> routes, List<MapTrack> tracks,
+                List<MapLandmark> landmarks, long version, Map<String, List<TrackRoutePalette.Entry>> palette,
+                Map<String, TrackPatternLayout.Placement> patterns) {
             this.dimensionId = dimensionId;
             this.routes = routes;
             this.tracks = tracks;
             this.landmarks = landmarks;
-            this.routePalette = TrackRoutePalette.build(routes);
-            this.trackPatterns = TrackPatternLayout.build(tracks, routePalette);
+            this.routePalette = palette == null ? TrackRoutePalette.build(routes) : Map.copyOf(palette);
+            this.trackPatterns = patterns == null ? TrackPatternLayout.build(tracks, routePalette) : Map.copyOf(patterns);
             this.version = version;
         }
 

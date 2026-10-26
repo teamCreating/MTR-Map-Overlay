@@ -1,5 +1,22 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-26 13:32] Codex — 六平台基础实机回归补齐，保留Forge49单人失败
+
+- 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
+- 所有测试客户端已正常退出；Forge49独立服用本地RCON stop保存并退出。独立副本和失败/成功日志保留，未修改用户原存档或正式附件。
+
+## [2026-10-26 10:36] Codex — 双样式PIDS与dimmed已实现并完成六构建
+
+- 旧式默认折叠信息框、Expand/Navigate与英式/欧式PIDS按用户审阅稿落地；默认英式，命令持久保存。Native Arrivals不增加模拟；物理区段的线路/白块/底衬同步透明，completed与unmatched独立设置，后续重复乘车区段保持明亮。
+- Java17 API及统一导航provider注册有可编译文档/消费者，未加入任何特定导航模组适配。四目标移植位于feat/1.5.3-station-board-mc120；双分支均1.5.3，静态v8/车辆v1保持。
+- 六构建/产物、101/104单测、20工具回归、六份API ABI/Java17消费者通过；NeoForge两地图computer-use检查两主题/命令/重启保存/折叠及深度。其余五目标新PIDS实机、真实provider联动和大网仍未测；详见docs/validation/pids-and-dimmed-1.5.3.md。未发布，准备更新PR并提供本地六包。
+
+
+## [2026-10-25 22:14] Codex — 1.5.3基础实施与UI审阅
+
+- 原生目录/站点快照/可选overlay-1与Java17 API、区段视图和初版UI进入实现；主线版本1.5.3。单测及NF/Fabric初版构建通过，NF两地图初版到站板已用computer-use验证。完整六目标移植和最终UI验收仍待办，不是发布完成。
+- 用户审阅设计稿后指定恢复旧式站点信息、默认折叠、Expand/Navigate，英式与欧式/机场PIDS，默认英式，指令切换；已走区段和未用线路同时dimmed。继续本任务，不加特定导航模组适配或客户端模拟。
+
 ## [2026-10-25 17:52] Codex — 最新公开MTR4.1内部UI研究完成
 
 - 用户要求读取最新4.1内部UI写法。重新ls-remote核对stonecutter HEAD=f05d99efab6f27b3868913438fce2da381e5798f，gradle.properties仍4.1.0-beta.2/Elementa743/UniversalCraft497；不冒称4.1正式版或发布包精确源码。新增docs/plans/mtr-4.1-ui-research.md并更新UI设计。

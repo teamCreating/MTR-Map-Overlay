@@ -18,6 +18,7 @@ final class JourneyMapPathManager {
 
     static PlanarMapScene render(GuiGraphics graphics, MapDataCache.DimensionData data,
             JourneyMapScreenProjection projection, List<MapCar> cars) {
+        data = io.github.teamcreating.mtrmap.extension.ViewRenderer.data(data);
         final var config = MTRMapConfig.INSTANCE;
         final var view = projection.visibleWorldBounds(graphics.guiWidth(), graphics.guiHeight(), 16);
         if (view == null || !config.enabled.get()) return null;

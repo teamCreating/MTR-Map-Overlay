@@ -42,6 +42,14 @@ dependencies {
 apply from: 'bundled-libraries.gradle'
 
 sourceSets.main.resources.srcDir('../src/main/resources')
+ext.overlayRoot = file('..')
+apply from: '../gradle/overlay-api.gradle'
+loom.mods {
+    mtrmap {
+        sourceSet sourceSets.main
+        sourceSet sourceSets.overlayApi
+    }
+}
 sourceSets.main.resources.exclude('META-INF/neoforge.mods.toml', 'mtrmap.mixins.json')
 
 compileJava.source(fileTree('../src/main/java') {
@@ -54,6 +62,7 @@ compileJava.source(fileTree('../src/main/java') {
     exclude 'io/github/teamcreating/mtrmap/mixin/client/ClientCommonListenerAccessor.java'
     exclude 'io/github/teamcreating/mtrmap/mixin/client/xaero/XaeroWorldMapMixin.java'
     exclude 'io/github/teamcreating/mtrmap/train/TrainServerEvents.java'
+    exclude 'io/github/teamcreating/mtrmap/extension/OverlayUiEvents.java'
 })
 
 processResources {

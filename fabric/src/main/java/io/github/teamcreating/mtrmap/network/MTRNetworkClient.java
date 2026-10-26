@@ -12,6 +12,9 @@ public final class MTRNetworkClient {
         return MTRNetwork.canSendToServer();
     }
 
+    public static boolean canSendOverlay() {
+        return net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(OverlayRequest.TYPE);
+    }
     public static boolean canSendTrains() {
         return net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.canSend(TrainStreamRequest.TYPE);
     }

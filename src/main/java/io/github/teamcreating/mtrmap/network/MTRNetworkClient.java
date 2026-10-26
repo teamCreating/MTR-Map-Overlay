@@ -27,6 +27,14 @@ public final class MTRNetworkClient {
     static void onTrainStatus(TrainStreamStatus msg, IPayloadContext context) {
         context.enqueueWork(() -> io.github.teamcreating.mtrmap.train.ClientTrainStream.status(msg));
     }
+    static void onOverlayChunk(OverlayChunk msg, IPayloadContext context) {
+        context.enqueueWork(() -> io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.chunk(msg));
+    }
+    public static boolean canSendOverlay() {
+        var connection = Minecraft.getInstance().getConnection();
+        return connection != null && connection.hasChannel(OverlayRequest.TYPE) && connection.hasChannel(OverlayChunk.TYPE);
+    }
+
     public static boolean canSendTrains() {
         var connection = Minecraft.getInstance().getConnection();
         return connection != null && connection.hasChannel(TrainStreamRequest.TYPE)

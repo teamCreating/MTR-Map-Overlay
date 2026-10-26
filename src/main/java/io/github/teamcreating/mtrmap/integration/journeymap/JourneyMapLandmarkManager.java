@@ -153,7 +153,8 @@ final class JourneyMapLandmarkManager {
                     new BlockPos(landmark.x(), landmark.y(), landmark.z()), icon);
             marker.setDimension(world.dimension());
             marker.setLabel("");
-            marker.setTitle(title.toString());
+            marker.setTitle("");
+            icon.setOpacity(0);
             marker.setActiveUIs(Context.UI.Fullscreen);
             marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
             out.put(landmark.id(), marker);
@@ -382,7 +383,8 @@ final class JourneyMapLandmarkManager {
         MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID, pos, icon);
         marker.setDimension(world.dimension());
         marker.setLabel("");
-        marker.setTitle(title);
+        marker.setTitle("");
+        icon.setOpacity(0);
         marker.setActiveUIs(Context.UI.Fullscreen);
         marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
         return marker;

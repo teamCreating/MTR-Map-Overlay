@@ -51,6 +51,13 @@ public class MTRNetwork {
             registrar.playToClient(NetworkProbeResponse.TYPE, NetworkProbeResponse.STREAM_CODEC,
                     (msg, ctx) -> {});
         }
+        final PayloadRegistrar overlay = event.registrar("overlay-1").optional();
+        overlay.playToServer(OverlayRequest.TYPE, OverlayRequest.STREAM_CODEC, (msg, ctx) -> {
+            if (ctx.player() instanceof ServerPlayer sender)
+                ctx.enqueueWork(() -> io.github.teamcreating.mtrmap.extension.ServerOverlayService.request(sender, msg));
+        });
+        if (FMLEnvironment.dist == Dist.CLIENT) overlay.playToClient(OverlayChunk.TYPE, OverlayChunk.STREAM_CODEC, MTRNetworkClient::onOverlayChunk);
+        else overlay.playToClient(OverlayChunk.TYPE, OverlayChunk.STREAM_CODEC, (msg, ctx) -> {});
         MTRMap.LOGGER.info("[MTRMap] Full-network sync payloads registered (protocol {})", PROTOCOL_VERSION);
         final PayloadRegistrar trains = event.registrar("train-1").optional();
         trains.playToServer(TrainStreamRequest.TYPE, TrainStreamRequest.STREAM_CODEC, (msg, ctx) -> {
@@ -77,4 +84,6 @@ public class MTRNetwork {
     public static boolean canSendTrains(ServerPlayer player) {
         return player.connection.hasChannel(TrainStreamChunk.TYPE) && player.connection.hasChannel(TrainStreamStatus.TYPE);
     }
+
+    public static boolean canSendOverlay(ServerPlayer player) { return player.connection.hasChannel(OverlayChunk.TYPE); }
 }

@@ -39,15 +39,4 @@ public abstract class XaeroWorldMapMixin {
         }
     }
 
-    @Inject(method = "mouseClicked(DDI)Z", at = @At("HEAD"), remap = false, cancellable = true, require = 0)
-    public void mtrmap$onMouseClicked(double mouseX, double mouseY, int button,
-            CallbackInfoReturnable<Boolean> cir) {
-        try {
-            if (XaeroRouteRenderer.onMouseClicked(mouseX, mouseY, button)) {
-                cir.setReturnValue(true);
-            }
-        } catch (Throwable e) {
-            MTRMap.LOGGER.error("[MTRMap] Failed to handle mouse click on Xaero World Map:", e);
-        }
-    }
 }

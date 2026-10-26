@@ -50,6 +50,14 @@ public final class CommandRegistration {
                         MTRMapConfig.INSTANCE.trainCarsEnabled::get,
                         MTRMapConfig.INSTANCE.trainCarsEnabled::set));
 
+        var pids = literal("pidsStyle").executes(ctx -> {
+            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", MTRMapConfig.INSTANCE.pidsStyle.get())); return 1;
+        });
+        for (var style : io.github.teamcreating.mtrmap.config.PidsStyle.values()) pids.then(literal(style.key).executes(ctx -> {
+            MTRMapConfig.setPidsStyle(style.key);
+            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", style.key)); return 1;
+        }));
+        config.then(pids);
         dispatcher.register(literal("mtrmap")
                 .then(mode)
                 .then(config)

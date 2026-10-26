@@ -8,12 +8,15 @@
     "client.MinecraftClientDataMixin",
     "client.xaero.XaeroWorldMapAccessor",
     "client.xaero.XaeroWorldMapMixin",
-    "client.xaero.TrainMapPauseMixin"
+    "client.xaero.TrainMapPauseMixin",
+    "client.OverlayPointerMixin"
   ],
   "mixins": [
     "MainAccessorMixin",
     "MTRAccessorMixin",
     "MTRSimulatorMixin"
   ],
-  "injectors": { "defaultRequire": 1 }
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

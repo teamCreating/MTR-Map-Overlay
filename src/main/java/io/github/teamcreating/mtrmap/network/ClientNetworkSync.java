@@ -159,6 +159,7 @@ public final class ClientNetworkSync {
 
     public static void onClientTick() {
         io.github.teamcreating.mtrmap.train.ClientTrainStream.tick();
+        io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.tick();
         final Minecraft mc = Minecraft.getInstance();
         if (mc.getConnection() == null || mc.player == null) {
             return;
@@ -188,6 +189,7 @@ public final class ClientNetworkSync {
 
     public static void onLoggingIn() {
         io.github.teamcreating.mtrmap.train.ClientTrainStream.clear();
+        io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.clear();
         // Fresh world/connection: reset sync state and ask for a snapshot as
         // soon as the server is ready to answer.
         MapDataCache.clearServerData();
@@ -204,6 +206,7 @@ public final class ClientNetworkSync {
 
     public static void onLoggingOut() {
         io.github.teamcreating.mtrmap.train.ClientTrainStream.clear();
+        io.github.teamcreating.mtrmap.extension.ClientOverlayRuntime.INSTANCE.clear();
         MapDataCache.clearServerData();
         MapDataCache.clearClientData();
         io.github.teamcreating.mtrmap.mapdata.ClientTrainCollector.clear();
