@@ -7,7 +7,7 @@
 
   <p>Minecraft Transit Railway routes, rails and stations on your map.</p>
 
-  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://mtrmapoverlay.benli06.site/en/">Website &amp; docs</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2">Download v1.5.2</a></p>
+  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://mtrmapoverlay.benli06.site/en/">Website &amp; docs</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">Download v1.5.3</a></p>
 
   <p>
     <a href="https://modrinth.com/project/ZU7SzyH7"><img src="docs/assets/badges/modrinth-cozy.svg" alt="Available on Modrinth" height="56"></a>
@@ -15,7 +15,7 @@
   </p>
 </div>
 
-MTR Map Overlay adds Minecraft Transit Railway routes, physical rails and map-only landmarks to Xaero's World Map and JourneyMap. **v1.5.2 supports Minecraft 1.20.1 and 1.20.4 on Forge or Fabric, and 1.21.1 on NeoForge or Fabric.** It reads [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) data directly and does not depend on MTR Surveyor's map.
+MTR Map Overlay adds Minecraft Transit Railway routes, physical rails and map-only landmarks to Xaero's World Map and JourneyMap. **v1.5.3 supports Minecraft 1.20.1 and 1.20.4 on Forge or Fabric, and 1.21.1 on NeoForge or Fabric.** It reads [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) data directly and does not depend on MTR Surveyor's map.
 
 ## Features
 
@@ -32,17 +32,17 @@ When the mod is installed on the server as well as the client, it can request a 
 
 Development progress, in priority order. Unfinished items may change in scope and timing.
 
-- [x] **TSC line types (1.5.2)** — Light rail uses 70% width; rail and high speed share standard width. High speed retains alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching 1.5.2 client and server builds (static v8 / trains v1). Rendering checks are recorded in [route-joins-zoom.md](docs/validation/route-joins-zoom.md).
+- [x] **TSC line types (1.5.2)** — Light rail uses 70% width; rail and high speed share standard width. High speed retains alternating line-colour/white blocks inside a continuous coloured outline. Xaero and JourneyMap share the renderer geometry. Dense bundles and low zoom simplify the blocks. Whole-network sync requires matching client and server builds (static v8 / trains v1). Rendering checks are recorded in [route-joins-zoom.md](docs/validation/route-joins-zoom.md).
 - [x] **Whole-network live trains (1.5.2)** — All trains in the viewed dimension are streamed from TSC, including trains outside every player's loaded area. Two reference points per carriage drive abstract 2D symbols and display interpolation; the client runs no train simulation. Next-stop distance and ETA are postponed.
 - [ ] **Later: visual polish** — Refine line styles, train and station icons, labels and zoom behaviour to improve readability and visual consistency.
 
 ### Whole-network train cars (1.5.2)
 
-Install the matching 1.5.2 build on both server and client for all live trains in the map's viewed dimension. Opening either map subscribes to the entire dimension at a target 4 Hz; panning and zooming never restrict which trains are synchronized. The client only interpolates TSC reference points and draws abstract carriages, without banking or a second simulation. Hover shows the available model name, current route, destination and consist size; missing native metadata is shown as unavailable. Use `/mtrmap config trainCars false` to hide trains (default: enabled).
+Install the matching 1.5.3 build on both server and client for all live trains in the map's viewed dimension. Opening either map subscribes to the entire dimension at a target 4 Hz; panning and zooming never restrict which trains are synchronized. The client only interpolates TSC reference points and draws abstract carriages, without banking or a second simulation. Hover shows the available model name, current route, destination and consist size; missing native metadata is shown as unavailable. Use `/mtrmap config trainCars false` to hide trains (default: enabled).
 
 The map status distinguishes whole-network, loading, stale and nearby-only fallback data. Two XYZ points cost 24 bytes per car plus a shared double-precision origin per train; strings and dimensions are not repeated per car in position frames. A server without the new optional train protocol uses MTR's nearby data only. Xaero keeps singleplayer running while the live train layer is enabled, so the authoritative simulation can update. See [global train validation](docs/validation/global-trains.md) for evidence and remaining performance limits.
 
-Tracks retain native Y and static protocol-v8 snapshots transfer double-precision XYZ and native curves. The independent train protocol is v1; the mod version remains 1.5.2. Both maps draw fixed 2D layers: railway backing, route colours/blocks, then cars. Height does not split or sort geometry; railways never mask cars or their hover targets.
+Tracks retain native Y and static protocol-v8 snapshots transfer double-precision XYZ and native curves. The independent train protocol is v1; the mod version is 1.5.3. Both maps draw fixed 2D layers: railway backing, route colours/blocks, then cars. Height does not split or sort geometry; railways never mask cars or their hover targets.
 
 Static rail/route geometry is cached separately from car poses, with viewport prefetch, invalidation and bounded retention. See [cache validation](docs/validation/planar-cache.md) for correctness checks and the headless geometry workload; it is not an in-game FPS measurement.
 
@@ -56,7 +56,7 @@ Static rail/route geometry is cached separately from car poses, with viewport pr
 
 Every dependency must match your Minecraft version and loader. Xaero's Minimap is optional and is only used to remove old `[MTR]` waypoints created by earlier releases.
 
-1. Download **one JAR** matching your exact Minecraft version and loader from the latest release, [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2), and place it in the client's `mods` directory. The release has six JARs: two `MC1.21.1` NeoForge/Fabric builds and four `MC1.20.1` / `MC1.20.4` Forge/Fabric builds. All filenames also identify the tested MTR version.
+1. Download **one JAR** matching your exact Minecraft version and loader from the latest release, [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3), and place it in the client's `mods` directory. The release has six JARs: two `MC1.21.1` NeoForge/Fabric builds and four `MC1.20.1` / `MC1.20.4` Forge/Fabric builds. All filenames also identify the tested MTR version.
 2. Install MTR and your chosen map mod for that same loader. Fabric additionally needs Fabric API.
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
 4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
@@ -65,7 +65,9 @@ Whole-map trains require this version on both client and server; client-only ins
 
 ## Commands and configuration
 
-**1.5.3 development:** station arrival boards, two PIDS themes, owned view/dimmed spans and the optional navigation entry are documented in the [public API](docs/api/overlay-api-v1.md). The published stable release remains 1.5.2.
+**1.5.3:** click a station to pin its classic information card, then **Expand** for native MTR/TSC arrivals. British PIDS is the default; `/mtrmap config pidsStyle british|european` switches and saves the theme. The [public API](docs/api/overlay-api-v1.md) provides station boards, owned views, per-section dimming and a provider-based Navigate entry. Install matching client/server versions for native snapshots.
+
+**Known limit:** Forge 1.20.4 singleplayer quick-play disconnected during Xaero server-data initialization. Separate-server PIDS tests passed; singleplayer in that combination remains unverified. See [1.5.3 validation](docs/validation/pids-and-dimmed-1.5.3.md) and [release notes](docs/releases/v1.5.3.md).
 
 Commands are registered on the **client**, so they are available even when the server does not run this mod.
 
@@ -82,7 +84,7 @@ Commands are registered on the **client**, so they are available even when the s
 | `/mtrmap config routeLines <true\|false>` | Show or hide route ribbons on both maps. |
 | `/mtrmap config trackLines <true\|false>` | Show or hide physical rails on both maps. |
 | `/mtrmap config trainCars <true\|false>` | Show or hide the train layer on both maps. |
-| `/mtrmap config pidsStyle british\|european` | 1.5.3 development: station PIDS style; British is the default. Query with no argument. |
+| `/mtrmap config pidsStyle british\|european` | station PIDS style; British is the default. Query with no argument. |
 
 NeoForge stores settings in `config/mtrmap.toml` and copies an existing `mtrsurveyor.toml` on first launch when the new file is absent. Fabric uses `config/mtrmap.properties` with its own defaults. The two formats are not automatically interchangeable. Important options include `networkSync.enabled` (default `true`), `networkSync.refreshIntervalSeconds` (default `300`), and the station/platform/depot visibility switches.
 
@@ -94,8 +96,8 @@ The commands below build the **1.21.1 main branch**. Forge/Fabric 1.20.1 and 1.2
 
 | Loader | Windows | macOS / Linux | Output |
 | --- | --- | --- | --- |
-| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.2.jar` |
-| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.2.jar` |
+| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.3.jar` |
+| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.3.jar` |
 
 The NeoForge build runs the shared JUnit tests. A successful build does not replace an in-game compatibility check, especially when Xaero's internal map renderer changes.
 

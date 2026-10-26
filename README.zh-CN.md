@@ -7,7 +7,7 @@
 
   <p>在地图上查看 Minecraft Transit Railway 的路线、轨道和车站。</p>
 
-  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://mtrmapoverlay.benli06.site/zh/">官网与文档</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2">下载 v1.5.2</a></p>
+  <p><a href="README.md">English</a> · <a href="README.zh-CN.md">简体中文</a> · <a href="https://mtrmapoverlay.benli06.site/zh/">官网与文档</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">下载 v1.5.3</a></p>
 
   <p>
     <a href="https://modrinth.com/project/ZU7SzyH7"><img src="docs/assets/badges/modrinth-cozy.svg" alt="Modrinth 下载" height="56"></a>
@@ -15,7 +15,7 @@
   </p>
 </div>
 
-MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图专属地标显示在 Xaero's World Map 和 JourneyMap 中。**v1.5.2 支持 Minecraft 1.20.1、1.20.4 的 Forge/Fabric，以及 1.21.1 的 NeoForge/Fabric。**它直接读取 [Minecraft Transit Railway（MTR）](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) 数据，不依赖 MTR Surveyor 的地图。
+MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图专属地标显示在 Xaero's World Map 和 JourneyMap 中。**v1.5.3 支持 Minecraft 1.20.1、1.20.4 的 Forge/Fabric，以及 1.21.1 的 NeoForge/Fabric。**它直接读取 [Minecraft Transit Railway（MTR）](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) 数据，不依赖 MTR Surveyor 的地图。
 
 ## 功能
 
@@ -32,17 +32,17 @@ MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图�
 
 以下按优先级记录开发进度，未完成目标的具体范围与时间可能调整。
 
-- [x] **TSC 线路类型（1.5.2）** — 轻铁为标准宽度的 70%，普通铁路与高铁等宽；高铁保留彩白交替块和连续线路色描边。Xaero 与 JourneyMap 共用绘制几何；密集共线和低缩放下简化块状纹理。全网同步需客户端、服务端匹配 1.5.2（静态 v8／列车 v1）。绘制验证见 [route-joins-zoom.md](docs/validation/route-joins-zoom.md)。
+- [x] **TSC 线路类型（1.5.2）** — 轻铁为标准宽度的 70%，普通铁路与高铁等宽；高铁保留彩白交替块和连续线路色描边。Xaero 与 JourneyMap 共用绘制几何；密集共线和低缩放下简化块状纹理。全网同步需客户端、服务端匹配版本（静态 v8／列车 v1）。绘制验证见 [route-joins-zoom.md](docs/validation/route-joins-zoom.md)。
 - [x] **全网实时列车（1.5.2）** — 从 TSC 同步查看维度的所有列车，包含远离所有玩家与加载区域的车辆。每节两个参考点驱动抽象 2D 车厢及显示插值，客户端不维护行车模拟。下一站距离与 ETA 暂停。
 - [ ] **后续：显示效果优化** — 优化线路样式、列车与站点图标、文字标注和缩放表现，提升地图的可读性与视觉一致性。
 
 ### 全网车厢（1.5.2）
 
-服务端和客户端安装匹配的 1.5.2 后，在任意地图订阅当前查看维度的所有实时列车，目标更新频率 4Hz；拖动、缩放地图不限制同步范围。客户端只对 TSC 参考点做插值、绘制抽象车厢，不还原侧倾、不运行第二套行车模拟。悬停显示可用的车型名称、当前线路、终点和编组节数；原生元数据缺失时明确留空，不猜测线路。默认开启，可用 `/mtrmap config trainCars false` 关闭。
+服务端和客户端安装匹配的 1.5.3 后，在任意地图订阅当前查看维度的所有实时列车，目标更新频率 4Hz；拖动、缩放地图不限制同步范围。客户端只对 TSC 参考点做插值、绘制抽象车厢，不还原侧倾、不运行第二套行车模拟。悬停显示可用的车型名称、当前线路、终点和编组节数；原生元数据缺失时明确留空，不猜测线路。默认开启，可用 `/mtrmap config trainCars false` 关闭。
 
 地图状态区分全图、加载中、过期和仅附近回退。每节两点 XYZ 为 24 字节，每列另带 double 精度局部原点；高频位置帧不为每节重复文字或维度。服务器不支持独立车辆协议时才使用 MTR 附近数据。启用实时列车层时，Xaero 单机地图保持世界运行，让 TSC 能持续更新。实测证据与性能边界见[全网列车验证](docs/validation/global-trains.md)。
 
-轨道保留真实 Y，静态协议 v8 传输 double XYZ 与原生曲线，独立车辆协议为 v1，mod 版本仍为 1.5.2。Xaero 与 JourneyMap 均按“轨道底衬→线路颜色/白块→车厢”固定顺序绘制纯 2D 图层，不按高度细分或排序；铁路不会遮住车厢及其悬停目标。
+轨道保留真实 Y，静态协议 v8 传输 double XYZ 与原生曲线，独立车辆协议为 v1，mod 版本为 1.5.3。Xaero 与 JourneyMap 均按“轨道底衬→线路颜色/白块→车厢”固定顺序绘制纯 2D 图层，不按高度细分或排序；铁路不会遮住车厢及其悬停目标。
 
 静态轨道/线路与动态车厢分开缓存，支持视口预取、失效检查和保留上限，减少逐帧重建。正确性检查及无头几何测试见[缓存验证](docs/validation/planar-cache.md)，其中结果不代表游戏 FPS。
 
@@ -56,12 +56,18 @@ MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图�
 
 所有依赖都必须匹配 Minecraft 版本及加载器。Xaero's Minimap 为可选依赖，只用于清理旧版本创建的 `[MTR]` 路标。
 
-1. 从最新发布版 [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) 下载与 Minecraft 版本及加载器完全匹配的 **一个 JAR**，放入客户端 `mods` 目录。发布包含六个 JAR：两个 `MC1.21.1` NeoForge/Fabric 构建，以及四个 `MC1.20.1` / `MC1.20.4` Forge/Fabric 构建，所有文件名均标明对应的 MTR 测试版本。
+1. 从最新发布版 [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) 下载与 Minecraft 版本及加载器完全匹配的 **一个 JAR**，放入客户端 `mods` 目录。发布包含六个 JAR：两个 `MC1.21.1` NeoForge/Fabric 构建，以及四个 `MC1.20.1` / `MC1.20.4` Forge/Fabric 构建，所有文件名均标明对应的 MTR 测试版本。
 2. 安装同一加载器的 MTR 和所需地图 mod；Fabric 还必须安装 Fabric API。
 3. 如需全网地图，可选地在服务器安装对应加载器版本的 MTR Map Overlay 和 MTR。客户端与服务端都必须使用新的 `mtrmap` mod ID；旧的 `mtrsurveyor` 版本与本版不兼容。
 4. 打开 Xaero's World Map 或 JourneyMap 全屏地图。两端使用配套的 `ROUTES`、`TRACKS` 图标：左侧亮条绿色表示开、红色表示关；JourneyMap 的按钮位于附加按钮栏。`/mtrmap config routeLines` 和 `trackLines` 也对两种地图生效。悬停在线路或图标上可查看详情。
 
 全图列车需要客户端和服务端都更新本版；仅客户端安装时使用附近回退。六个平台已通过 Xaero/JourneyMap 开发环境实机回归，测试覆盖与限制见[六平台验证记录](docs/validation/platform-matrix-1.5.2.md)。
+
+## 1.5.3 站点到站板与扩展接口
+
+点击站点固定旧式信息框，默认折叠，点击 **Expand** 查看 MTR/TSC 原生到站预测。默认英式 PIDS，`/mtrmap config pidsStyle british|european` 可切换并保存。统一[公共 API](docs/api/overlay-api-v1.md)提供站点预测、独立视图、已走/未用区段 dimmed 和导航 provider 入口；原生快照需客户端和服务端安装匹配版本。
+
+**已知限制：Forge 1.20.4 单人 quick-play 测试时在 Xaero 服务端地图数据初始化阶段断线。**该目标连接独立服务器后的双地图 PIDS 测试通过，不能据此声称单人启动已通过。详见[1.5.3 验证记录](docs/validation/pids-and-dimmed-1.5.3.md)与[发布说明](docs/releases/v1.5.3.md)。
 
 ## 命令与配置
 
@@ -80,7 +86,7 @@ MTR Map Overlay 将 Minecraft Transit Railway 的路线、真实轨道与地图�
 | `/mtrmap config routeLines <true\|false>` | 显示或隐藏两种地图的路线色带。 |
 | `/mtrmap config trackLines <true\|false>` | 显示或隐藏两种地图的轨道层。 |
 | `/mtrmap config trainCars <true\|false>` | 显示或隐藏两种地图的列车层。 |
-| `/mtrmap config pidsStyle british\|european` | 1.5.3开发版：切换站点PIDS样式，默认英式；省略参数查询当前值。 |
+| `/mtrmap config pidsStyle british\|european` | 切换站点PIDS样式，默认英式；省略参数查询当前值。 |
 
 NeoForge 配置位于 `config/mtrmap.toml`；如果新配置不存在，首次启动会从旧 `mtrsurveyor.toml` 复制设置。Fabric 使用 `config/mtrmap.properties`，从自身默认值开始；两种配置格式不会自动互转。主要配置包括 `networkSync.enabled`（默认 `true`）、`networkSync.refreshIntervalSeconds`（默认 `300`）及车站、站台、车辆段可见性开关。
 
@@ -92,8 +98,8 @@ NeoForge 配置位于 `config/mtrmap.toml`；如果新配置不存在，首次�
 
 | 加载器 | Windows | macOS / Linux | 产物 |
 | --- | --- | --- | --- |
-| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.2.jar` |
-| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.2.jar` |
+| NeoForge | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.3.jar` |
+| Fabric | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.3.jar` |
 
 NeoForge 构建会运行共用的 JUnit 测试。构建成功不能替代游戏内兼容性验证，尤其是 Xaero 更新内部地图渲染实现之后。
 
