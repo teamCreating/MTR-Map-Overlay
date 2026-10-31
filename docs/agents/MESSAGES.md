@@ -1,5 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-10-31 21:45] Codex — 官网、README与平台简介同步1.5.3
+
+- 更新中英文README的站点固定/原生预测、英式/欧式PIDS、第三方Navigate与区段dimmed说明，保留1.5.2实时列车及六目标依赖矩阵。未修改模组功能、版本、tag或已发布附件。
+- GitHub实时API将v1.5.3标为预发布，latest为v1.5.2；新用户文案按当前状态标注，历史发布操作记录保留。
+- 新增`docs/distribution/1.5.3/`中英文Modrinth Markdown、CurseForge HTML和短简介，均为待发布文案；未直接修改两个平台项目页。
+- 独立官网目录`../mtrsurveyor-site`已同步首页、全部相关文档/导航、SEO和1.5.2/1.5.3 changelog，新增实时列车、站点PIDS、导航API三类双语指南，修复中文文档首页语言。构建34页、32公开路由、1440/390px双语言及Markdown/HTML渲染检查通过，控制台无错误，Ko-fi禁JS仍可见。官网未部署。
+
 ## [2026-10-26 14:18] Codex-Release — 1.5.3公开说明已按用户样例调整
 
 - 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。
