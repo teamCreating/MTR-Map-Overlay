@@ -7,9 +7,10 @@
 
 ## 当前版本
 
-- **v1.5.3 正式版**：原生站点预测、英式/欧式PIDS与统一导航视图/dimmed API，保留全图列车和纯2D绘制。六平台附件已发布为Latest；Forge49单人启动失败和验证边界见下。
+- **v1.5.3**：原生站点预测、英式/欧式PIDS与统一导航视图/dimmed API，保留全图列车和纯2D绘制。2026-10-31核对GitHub API，当前为预发布（`prerelease=true`），`releases/latest`为v1.5.2；此前正式发布/Latest描述保留为历史记录。Forge49单人启动失败和验证边界见下。
 - 项目标识：MTR Map Overlay；mod ID `mtrmap`；Java 包 `io.github.teamcreating.mtrmap`；客户端命令 `/mtrmap`
-- 最后更新：2026-10-26 14:18，操作者：Codex-Release
+- 最后更新：2026-10-31 21:45，操作者：Codex
+- 中英文README及`docs/distribution/1.5.3/`分发平台文案已同步1.5.3功能与实时发布状态；官网位于独立目录`../mtrsurveyor-site`，首页、六个新指南页面、现有文档、SEO与changelog已更新，构建及1440/390px检查通过。官网尚未部署，平台简介仅准备未发布；本轮未修改功能代码、版本、tag或附件。
 - 2026-10-26 13:32，Codex：补齐Fabric1.21.1和四旧目标的computer-use实机回归，六平台双地图均完成站点折叠/展开、原生ETA和英式/欧式样式检查；各loader滚轮和悬停检查通过。Forge1.20.4单人quick-play遇到Xaero serverData为空而断线，独立本地服务器连接后的双地图通过，单人问题保留待查。未改生产代码，功能源码仍main c1e0314 / compat e041b0a；未发布。详见[验证](../validation/pids-and-dimmed-1.5.3.md)。真实导航provider端到端和大网性能仍未测。
 - 版本管理：用户指定1.5.3并授权实施；主线开发版本现为1.5.3，正式版已发布1.5.3，兼容实施分支四目标亦为1.5.3。禁止自行递增其他版本。
 - main 保留 NeoForge/Fabric MC 1.21.1；`compat/mtr-4.0-mc-1.20` 另提供 MC 1.20.1/1.20.4 Forge/Fabric + MTR 4.0.5 构建。v1.5.2 发布包含六个 JAR，按精确 Minecraft 版本及加载器选择。

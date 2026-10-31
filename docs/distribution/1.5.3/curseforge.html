@@ -1,0 +1,56 @@
+<h1>MTR Map Overlay</h1>
+
+<p>Your Minecraft Transit Railway network, inside Xaero&#x27;s World Map and JourneyMap: coloured routes, real rails, moving trains and native station arrivals.</p>
+
+<p>Explore <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">v1.5.3 pre-release</a>, or use <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2">v1.5.2 stable</a>.</p>
+
+<h2>See your railway network</h2>
+
+<ul>
+<li>Physical rail geometry and route-coloured ribbons follow the MTR network. Shared tracks show parallel colours; light rail is slimmer and high speed uses colour/white blocks.</li>
+<li>Whole-map live trains show moving carriages throughout the viewed dimension, even far from players. Zoom out for compact markers, or hover for available route, destination and consist details.</li>
+<li>Compact station, platform and depot icons stay inside the fullscreen map. They do not fill the ordinary Xaero waypoint list, compass, minimap or in-world HUD.</li>
+<li>Independent TRACKS and ROUTES controls let you explore each layer in either map.</li>
+</ul>
+
+<h2>New in 1.5.3: station arrivals and PIDS</h2>
+
+<p>Click a station to pin its classic information card. Choose <strong>Expand</strong> for native MTR/TSC arrivals by destination, line and platform. The board starts collapsed; missing predictions are shown explicitly.</p>
+
+<p>Choose British black/amber PIDS or European/airport styling. <code>/mtrmap config pidsStyle british|european</code> changes and saves the theme. Collapsing the board or closing the map releases its arrival subscription.</p>
+
+<h2>Ready for navigation extensions</h2>
+
+<p>A public API lets other mods read native network data, subscribe to station boards and control independent map views. Registered providers enable <strong>Navigate</strong> on station cards. A navigation mod supplies planning and progress; Overlay can highlight upcoming sections while separately dimming completed and unused tracks.</p>
+
+<p>No navigation provider is bundled. <a href="https://github.com/teamCreating/MTR-Map-Overlay/blob/main/docs/api/overlay-api-v1.md">Developer API guide</a>.</p>
+
+<h2>Compatibility</h2>
+
+<table>
+<thead><tr><th>Minecraft</th><th>Loader</th><th>Java</th><th>MTR</th><th>Map versions</th></tr></thead>
+<tbody>
+<tr><td>1.21.1</td><td>NeoForge 21.1.x / Fabric + Fabric API</td><td>21</td><td>4.1.0-beta.2</td><td>Xaero&#x27;s World Map 1.45.0+ / JourneyMap 6.0.8+</td></tr>
+<tr><td>1.20.1</td><td>Forge 47.x / Fabric + Fabric API</td><td>17+</td><td>4.0.5 (&gt;=4.0.5, &lt;4.1)</td><td>Xaero&#x27;s World Map 1.45.0+ / JourneyMap 6.0.6+</td></tr>
+<tr><td>1.20.4</td><td>Forge 49.x / Fabric + Fabric API</td><td>17+</td><td>4.0.5 (&gt;=4.0.5, &lt;4.1)</td><td>Xaero&#x27;s World Map 1.45.0+ / JourneyMap 5.10.0</td></tr>
+</tbody>
+</table>
+
+<p>Choose the exact Minecraft and loader combination; the six JAR filenames include the tested MTR version. Fabric needs the matching Fabric API. Install either supported map or both, using the same game version and loader. These are three specific Minecraft versions, not every version between 1.20.1 and 1.21.1.</p>
+
+<h2>Client and server setup</h2>
+
+<ul>
+<li>Install one matching Overlay JAR, MTR and a supported fullscreen map on the client.</li>
+<li>For the full rail network, whole-map live trains and native station arrivals, install matching Overlay and MTR on the server too. The server does not need a map mod.</li>
+<li>Client-only installations use nearby data already sent by MTR. Native station arrivals require matching 1.5.3 server support.</li>
+<li>Use <code>/mtrmap config trainCars false</code> to hide the live train layer. Train-hover next-stop distance and ETA are not included; station arrivals are a separate feature.</li>
+</ul>
+
+<h2>Links and support</h2>
+
+<p><a href="https://mtrmapoverlay.benli06.site/en/">Website and documentation</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay">Source and issues</a> · <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">Release notes</a></p>
+
+<p>Support development on <a href="https://ko-fi.com/Z8C424REOO">Ko-fi</a> or <a href="https://afdian.com/a/benli06">Afdian</a>.</p>
+
+<p>MIT licensed. Original attribution is retained in the project license. Developed independently for Minecraft Transit Railway.</p>
