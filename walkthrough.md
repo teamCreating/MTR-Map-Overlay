@@ -198,3 +198,10 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - 列车实时位置未上地图（客户端 `MinecraftClientData.vehicles` 已有数据，低成本可加）。
 - 洞穴图层（cave layers）下路径线悬浮显示，与 Create 行为一致，暂无解。
 - 路线层画的是站台顺序折线，不沿轨道走线（轨道层负责真实几何；路线沿轨需要图上寻路，工程量大）。
+
+
+## [2026-11-11T01:53:55+08:00] Codex — User-authorized 1.6.0 release preparation
+
+- User explicitly selects 1.6.0 and authorizes publication after the supported six-target matrix passes. Claim covers ports, compatibility fixes, builds, native UI tests, sealed-candidate verification and the existing release pipeline.
+- Preserve platform split: NeoForge/Fabric 1.21.1 + MTR4.1 on main; Forge/Fabric 1.20.1/1.20.4 + MTR4.0 on the compatibility branch. No unsupported cross-version loader claim.
+- Merge current remote maintainer documentation before changing release data; resolve README conflicts by preserving the maintainer rewrite and adding current integration references. Record and fix known Forge49 singleplayer initialization failure before acceptance rather than substituting dedicated-server success.
