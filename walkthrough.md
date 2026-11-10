@@ -286,3 +286,8 @@ The 1.20.1 native world list predates AbstractWidget inheritance; selection now 
 ### 2026-11-11T03:03:12+08:00 — Codex: JourneyMap 6 onboarding name
 
 Observed JourneyMap 6 names its native About page AboutScreen rather than AboutDialog. The QA runner recognizes both observed classes and uses the same native Close action; product assertions are unchanged.
+
+
+### 2026-11-11T03:07:25+08:00 — Codex: loader-independent QA screen roles
+
+Production Fabric uses intermediary class names. QA now exposes typed native title/world-selection/disconnection roles via instanceof, avoiding name-string assumptions in the CLI startup check. This is confined to the opt-in QA source set. Forge49 quick-play still fails independently of Overlay, while both Forge normal singleplayer matrices pass; release remains gated.

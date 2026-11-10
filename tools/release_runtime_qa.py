@@ -10,13 +10,17 @@ from urllib.parse import unquote, urlparse
 import overlay_qa_cli as cli
 
 
+def screen_is(state, role):
+    return state.get('screenRole') == role or state['screen'].endswith({'TITLE': 'TitleScreen', 'WORLDS': 'SelectWorldScreen', 'DISCONNECTED': 'DisconnectedScreen'}[role])
+
+
 def wait(predicate, description, timeout=120):
     deadline = time.monotonic() + timeout
     last = None
     while time.monotonic() < deadline:
         try:
             last = cli.call()
-            if last.get('screen', '').endswith('DisconnectedScreen'):
+            if screen_is(last, 'DISCONNECTED'):
                 raise RuntimeError('Client disconnected; release is blocked')
             if predicate(last):
                 return last
@@ -35,14 +39,14 @@ def click_button(label):
 
 
 def enter_singleplayer():
-    state = wait(lambda s: s['connected'] or s['screen'].endswith('SelectWorldScreen') or (s['screen'].endswith('TitleScreen') and not s['languageReloading']), 'normal title screen')
+    state = wait(lambda s: s['connected'] or screen_is(s, 'WORLDS') or (screen_is(s, 'TITLE') and not s['languageReloading']), 'normal title screen')
     if state['connected']:
         return
-    if state['screen'].endswith('TitleScreen'):
+    if screen_is(state, 'TITLE'):
         time.sleep(1)
         button = next(b for b in state['nativeButtons'] if b['label'] == 'Singleplayer')
         cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
-    state = wait(lambda s: s['screen'].endswith('SelectWorldScreen'), 'native world selection')
+    state = wait(lambda s: screen_is(s, 'WORLDS'), 'native world selection')
     # Every isolated acceptance profile contains exactly one copied test save.
     listing = next((b for b in state['nativeButtons'] if b['label'] == '' and b['w'] == state['guiWidth']), None)
     # In 1.20.1 this list is not an AbstractWidget. The observed first row is
