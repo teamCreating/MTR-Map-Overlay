@@ -124,7 +124,11 @@ public final class OverlayUi {
             var c = MTRMapConfig.INSTANCE; if (index == 0) c.routeLinesEnabled.set(!c.routeLinesEnabled.get()); else c.trackLinesEnabled.set(!c.trackLinesEnabled.get());
         }); buttons.add(b);
         var icon = ResourceLocation.fromNamespaceAndPath("mtrmap", "textures/gui/" + name + (enabled ? "_on" : "_off") + ".png");
-        g.blit(icon, x, y, 78, 23, 0, 0, 156, 46, 156, 46);
+        // The legacy texture contains English lettering. Sample only its language-neutral icon.
+        g.fill(x,y,x+78,y+23,enabled?0xFF7D986B:0xFF625E68);
+        g.fill(x+1,y+1,x+77,y+22,0xED151B1F);
+        g.blit(icon,x,y,20,23,0,0,40,46,156,46);
+        label(g,b.label,x+24,y+7,50,enabled?0xFFE8E8E8:0xFFAAAAAA);
     }
     private static void frame(GuiGraphics g, int x, int y, int w, int h) {
         g.fill(x, y, x + w, y + h, 0xFA100C18);

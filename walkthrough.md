@@ -217,3 +217,11 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - Offer the adapter only for finite block coordinates in the player's current dimension. An explicit Navigate click passes the actual catalog station name/position to HowToGo using its configured travel mode, then closes the map for its normal navigation HUD.
 - Added a SHA256-pinned download helper for published HowToGo NeoForge 0.2.1 (CurseForge file 9082013). Offline tests inspect genuine class-file signatures without fabricating Minecraft stubs; destination execution is reserved for the real client check.
 - Validation: NeoForge build/unit suite and Fabric build passed. Mod version remains 1.5.3; no HowToGo classes or JAR are bundled. Game handoff verification will be recorded separately.
+
+
+## [2026-11-11T01:32:33+08:00] Codex — Complete four-language UI resources
+
+- English remains the resource fallback; the game's selected language controls Simplified Chinese, Traditional Chinese and Japanese. All four catalogs contain the same 100 keys, with matching formatting placeholders and no duplicate entries.
+- Localized command feedback on both loaders, map tooltips, JourneyMap toolbar text, PIDS style names, and diagnostic marker text. Xaero buttons now sample only the language-neutral icon from the old texture and draw translated labels. Station/route names remain user-owned data.
+- Replaced English-string parsing for diagnostic success with a typed marker result. A not-yet-ready JourneyMap API or failed marker display now reports failure correctly.
+- Added `tools/validate_languages.py` for key/placeholder parity and static Java translation-reference checks. NeoForge build/unit checks and QA-source compilation passed; Fabric build passed before the final three resource-only additions and will be rebuilt for the final package.
