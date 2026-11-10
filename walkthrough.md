@@ -318,3 +318,8 @@ Publication remains blocked: Forge 1.20.4 quick-play disconnects with null Xaero
 ### 2026-11-11T03:30:06+08:00 — Codex: preserve raw release evidence bytes
 
 Added narrow Git attributes for sealed validation manifests/checksums and raw logs so Windows newline conversion cannot change their byte identity. Explicitly tracked the three referenced QA/control logs despite the general build-log ignore rule. Report links are checked against tracked files, not merely working-tree presence.
+
+
+### 2026-11-11T03:31:37+08:00 — Codex: synchronize acceptance branch with protected main
+
+Merged main's existing PR #11 merge commit into the QA branch to satisfy the up-to-date protection rule. This adds ancestry for the already sealed source; no production changes or candidate replacement. Release remains held.
