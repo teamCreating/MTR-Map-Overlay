@@ -245,3 +245,8 @@ Synced the main acceptance CLI endpoint fix: default to the observed IPv4 loopba
 All six exact downloaded candidate JARs passed 48 normal singleplayer cases (Xaero/JourneyMap × four languages), native station boards/timestamps and Navigate availability; NeoForge also passed the two-provider chooser and actual HowToGo destination handoff. Selected native screenshots, JSON, dependency hashes, sealed manifest and failing/control logs are committed in `docs/validation/evidence/release-1.6.0/`. Full raw archive SHA-256 is `32e151e642f6af8dc3af8bd8d1874aa27930d7e051ef921f5baf705b5dc26da7`. Candidate 42879095868 and dry-run 42883569831 pass integrity checks.
 
 Publication remains blocked: Forge 1.20.4 quick-play disconnects with null Xaero server data on both 49.2.0 and recommended 49.2.13, also without Overlay/QA and with newer Xaero. Native normal startup works; source/runtime evidence indicates Forge starts its event bus after quick-play can enter the world. No event-bus/lifecycle injection or dependency patch was added. Dedicated/client-only fallback and performance checks are not claimed complete. No real Publish or v1.6.0 tags; user's publication gate is preserved. See `docs/validation/release-1.6.0.md`.
+
+
+### 2026-11-11T03:30:06+08:00 — Codex: preserve raw release evidence bytes
+
+Added narrow Git attributes for sealed validation manifests/checksums and raw logs so Windows newline conversion cannot change their byte identity. Explicitly tracked the three referenced QA/control logs despite the general build-log ignore rule. Report links are checked against tracked files, not merely working-tree presence.

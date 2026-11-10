@@ -1,0 +1,298 @@
+[  ..  ] Loading version forge-1.20.4-49.2.0[  OK  ] Loaded version forge-1.20.4-49.2.0
+[  ..  ] Loading version 1.20.4[  OK  ] Loaded version 1.20.4
+[  ..  ] Loading client[  OK  ] Loaded client
+[  ..  ] Loading libraries[  ..  ] Loaded 101 libraries, now verifying[  OK  ] Loaded and verified 101+0 libraries
+[  ..  ] Loading logger client-1.12.xml[  OK  ] Loaded logger client-1.12.xml
+[  ..  ] Loading assets 12[  ..  ] Loaded 3813 assets 12[  OK  ] Loaded and verified 3813 assets 12
+[  ..  ] Loading JVM (major version 17)[  OK  ] Loaded JVM (17.0.19)
+[  ..  ] Launching...[  OK  ] Launched
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.glfw.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-glfw/3.3.2/lwjgl-glfw-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.glfw.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-glfw/3.3.2/lwjgl-glfw-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.jemalloc.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-jemalloc/3.3.2/lwjgl-jemalloc-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.jemalloc.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-jemalloc/3.3.2/lwjgl-jemalloc-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.openal.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-openal/3.3.2/lwjgl-openal-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.openal.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-openal/3.3.2/lwjgl-openal-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.opengl.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-opengl/3.3.2/lwjgl-opengl-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.opengl.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-opengl/3.3.2/lwjgl-opengl-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.stb.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-stb/3.3.2/lwjgl-stb-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.stb.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-stb/3.3.2/lwjgl-stb-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.tinyfd.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-tinyfd/3.3.2/lwjgl-tinyfd-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.tinyfd.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl-tinyfd/3.3.2/lwjgl-tinyfd-3.3.2-natives-windows-x86.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl/3.3.2/lwjgl-3.3.2-natives-windows-arm64.jar!/]
+Ignoring duplicate module on SecureModuleFinder: org.lwjgl.natives: Jar[jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/lwjgl/lwjgl/3.3.2/lwjgl-3.3.2-natives-windows-x86.jar!/]
+[03:04:47] [main] [INFO] ModLauncher running: args [--launchTarget, forge_client, --username, Dev, --version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --assetIndex, 12, --uuid, 380df991f603344ca090369bad2a924a, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[03:04:47] [main] [INFO] JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 17.0.19+10
+[03:04:47] [main] [INFO] ModLauncher 10.1.2 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[03:04:47] [main] [INFO] Loading ImmediateWindowProvider fmlearlywindow
+[03:04:47] [main] [INFO] Trying GL version 4.6
+[03:04:47] [main] [INFO] Requested GL version 4.6 got version 4.6
+[03:04:47] [main] [INFO] SpongePowered MIXIN Subsystem Version=0.8.5 Source=jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar!/ Service=ModLauncher Env=CLIENT
+[03:04:47] [EarlyDisplay] [INFO] GL info: Intel(R) Arc(TM) 130T GPU (16GB) GL version 4.6.0 - Build 32.0.101.8826, Intel
+[03:04:48] [main] [INFO] Found mod file CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file journeymap-1.20.4-5.10.0-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file minecraft-transit-railway-FORGE-4.0.5+1.20.4.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file mtrmap-acceptance-qa-forge-1.6.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file xaeros-minimap-forge-1.20.4-26.4.2.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file xaeros-world-map-forge-1.20.4-1.45.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge\mods}
+[03:04:48] [main] [INFO] Found mod file forge-1.20.4-49.2.0-client.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@2d691f3d
+[03:04:48] [main] [INFO] Found mod file lowcodelanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@3f36b447
+[03:04:48] [main] [INFO] Found mod file mclanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@3f36b447
+[03:04:48] [main] [INFO] Found mod file fmlcore-1.20.4-49.2.0.jar of type LIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@3f36b447
+[03:04:48] [main] [INFO] Found mod file forge-1.20.4-49.2.0-universal.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@3f36b447
+[03:04:48] [main] [INFO] Found mod file javafmllanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@3f36b447
+[03:04:48] [main] [INFO] Found 1 dependencies adding them to mods collection
+[03:04:48] [main] [INFO] Found mod file xaerolib-forge-1.20.4-1.7.1.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@77d18d0b
+[03:04:49] [main] [INFO] Compatibility level set to JAVA_17
+[03:04:49] [main] [INFO] Launching target 'forge_client' with arguments [--version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-profiles\1.20.4-forge, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --uuid, 380df991f603344ca090369bad2a924a, --username, Dev, --assetIndex, 12, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[03:04:49] [main] [INFO] [MTRMap] Xaero's World Map detected - map path layer mixins will be applied
+[03:04:49] [main] [WARN] Configuration conflict: there is more than one oshi.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties]
+[03:04:50] [main] [WARN] Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties]
+[03:04:52] [Datafixer Bootstrap] [INFO] 198 Datafixer optimizations took 110 milliseconds
+[03:04:54] [main] [WARN] Unrecognized user type:
+[03:04:54] [Render thread] [INFO] [MTRMap] Applied TrainMapPauseMixin to Minecraft
+[03:04:54] [Render thread] [INFO] Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[03:04:54] [Render thread] [INFO] Setting user: Dev
+[03:04:54] [Render thread] [INFO] Backend library: LWJGL version 3.3.2+13
+[03:04:54] [modloading-worker-0] [INFO] Forge mod loading, version 49.2.0, for MC 1.20.4 with MCP 20231207.112700
+[03:04:54] [modloading-worker-0] [INFO] MinecraftForge v49.2.0 Initialized
+[03:04:54] [modloading-worker-0] [INFO] [MTRMap] Applied XaeroWorldMapAccessor to GuiMap
+[03:04:54] [modloading-worker-0] [INFO] [MTRMap] Applied XaeroWorldMapMixin to GuiMap
+[03:04:54] [_stdout_] [INFO] [NavigationQA] Local CLI on /[0:0:0:0:0:0:0:1]:18762
+[03:04:54] [modloading-worker-0] [INFO] Xaero's Minimap: World Map found!
+[03:04:54] [modloading-worker-0] [INFO] No Optifine!
+[03:04:54] [modloading-worker-0] [INFO] Xaero's Minimap: No Vivecraft!
+[03:04:54] [modloading-worker-0] [INFO] Registering common data for channel xaerolib:main!
+[03:04:54] [modloading-worker-0] [INFO] Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[03:04:54] [modloading-worker-0] [INFO] [MTR Map Overlay] JourneyMap detected - landmark integration enabled
+[03:04:54] [modloading-worker-0] [INFO] Registering client data for channel xaerolib:main!
+[03:04:54] [modloading-worker-0] [INFO] [MTR Map Overlay] Xaero's World Map detected - map-only landmark icons enabled
+[03:04:55] [modloading-worker-0] [INFO] Loading primary common config for channel xaerolib:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading server config profiles for channel xaerolib:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading primary client config for channel xaerolib:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading client config profiles for channel xaerolib:main!
+[03:04:55] [modloading-worker-0] [INFO] Registering common data for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Registering client data for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading primary common config for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading server config profiles for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading primary client config for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading client config profiles for channel xaeroworldmap:main!
+[03:04:55] [modloading-worker-0] [INFO] Registering common data for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Starting Minecraft with arguments:
+-Djava.net.preferIPv6Addresses=system
+-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+-Djava.library.path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Djna.tmpdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dio.netty.native.workdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dminecraft.launcher.brand=portablemc
+-Dminecraft.launcher.version=5.0.6
+-Dlog4j.configurationFile=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets\log_configs\client-1.12.xml
+-Xmx3G
+-Dmtrmap.qa.output=C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/build/acceptance160/quickplay-forge1204
+[03:04:55] [modloading-worker-0] [INFO] :  __  __ _                            __ _
+[03:04:55] [modloading-worker-0] [INFO] : |  \/  (_)                          / _| |
+[03:04:55] [modloading-worker-0] [INFO] : | \  / |_ _ __   ___  ___ _ __ __ _| |_| |_
+[03:04:55] [modloading-worker-0] [INFO] : | |\/| | | '_ \ / _ \/ __| '__/ _` |  _| __|
+[03:04:55] [modloading-worker-0] [INFO] : | |  | | | | | |  __/ (__| | | (_| | | | |_
+[03:04:55] [modloading-worker-0] [INFO] : |_|__|_|_|_| |_|\___|\___|_|_ \__,_|_|  \__|
+[03:04:55] [modloading-worker-0] [INFO] : |__   __|                (_) |
+[03:04:55] [modloading-worker-0] [INFO] :    | |_ __ __ _ _ __  ___ _| |_
+[03:04:55] [modloading-worker-0] [INFO] :    | | '__/ _` | '_ \/ __| | __|
+[03:04:55] [modloading-worker-0] [INFO] :    | | | | (_| | | | \__ \ | |_
+[03:04:55] [modloading-worker-0] [INFO] :    |_|_|  \__,_|_| |_|___/_|\__|
+[03:04:55] [modloading-worker-0] [INFO] :  _____       _ _
+[03:04:55] [modloading-worker-0] [INFO] : |  __ \     (_) |
+[03:04:55] [modloading-worker-0] [INFO] : | |__) |__ _ _| |_      ____ _ _   _
+[03:04:55] [modloading-worker-0] [INFO] : |  _  // _` | | \ \ /\ / / _` | | | |
+[03:04:55] [modloading-worker-0] [INFO] : | | \ \ (_| | | |\ V  V / (_| | |_| |
+[03:04:55] [modloading-worker-0] [INFO] : |_|  \_\__,_|_|_| \_/\_/ \__,_|\__, |
+[03:04:55] [modloading-worker-0] [INFO] :                                 __/ |
+[03:04:55] [modloading-worker-0] [INFO] :                                |___/ (4.0.5+1.20.4)
+[03:04:55] [modloading-worker-0] [INFO] :
+[03:04:55] [modloading-worker-0] [INFO] Registering client data for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading primary common config for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading server config profiles for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading primary client config for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Loading client config profiles for channel xaerominimap:main!
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway blocks
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway items
+[03:04:55] [Download-2] [ERROR] com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at SECURE-BOOTSTRAP/authlib@6.0.52/com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:59)
+	at SECURE-BOOTSTRAP/authlib@6.0.52/com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:150)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.client.Minecraft.m_303974_(Minecraft.java:434)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=ErrorResponse[path=/player/attributes, error=null, errorMessage=null, details=null]]
+	at SECURE-BOOTSTRAP/authlib@6.0.52/com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:100)
+	at SECURE-BOOTSTRAP/authlib@6.0.52/com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:57)
+	at SECURE-BOOTSTRAP/authlib@6.0.52/com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:121)
+	... 5 more
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway block entity types
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway entity types
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway creative mode tabs
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway sound events
+[03:04:55] [modloading-worker-0] [INFO] Minecraft Mappings logging enabled
+[03:04:55] [modloading-worker-0] [INFO] Registering Minecraft Transit Railway key bindings
+[03:04:56] [Render thread] [INFO] Registering Keybinds
+[03:04:56] [Render thread] [INFO] Reloading ResourceManager: vanilla, mod_resources
+[03:04:56] [Worker-Main-12] [INFO] Loading XaeroLib common 1/2!
+[03:04:56] [Worker-Main-13] [INFO] [MTR Map Overlay] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<
+[03:04:56] [Worker-Main-10] [INFO] Found @Ljourneymap/client/api/ClientPlugin;: io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin
+[03:04:56] [Worker-Main-11] [INFO] Found unifont_all_no_pua-15.1.04.hex, loading
+[03:04:56] [Forge Version Check] [INFO] [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[03:04:56] [Worker-Main-2] [WARN] File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[03:04:56] [Worker-Main-2] [WARN] File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[03:04:56] [Worker-Main-2] [WARN] File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[03:04:56] [Render thread] [INFO] Initializing Packet Registries
+[03:04:57] [Worker-Main-8] [INFO] Loading XaeroLib client 1/2!
+[03:04:57] [Worker-Main-4] [INFO] Loading Xaero's Minimap - Stage 1/2
+[03:04:57] [Worker-Main-3] [INFO] Loading Xaero's World Map - Stage 1/2
+[03:04:57] [Worker-Main-10] [WARN] Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[03:04:57] [Forge Version Check] [INFO] [forge] Found status: OUTDATED Current: 49.2.0 Target: 49.2.13
+[03:04:57] [Forge Version Check] [INFO] [journeymap] Starting version check at https://forge.curseupdate.com/32274/journeymap
+[03:04:58] [Worker-Main-8] [WARN] io exception while checking patreon: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[03:04:58] [Render thread] [INFO] Journeymap Initializing
+[03:04:58] [Render thread] [INFO] [MTR Map Overlay] JourneyMap 5 API initialized!
+[03:04:58] [Forge Version Check] [INFO] [journeymap] Found status: UP_TO_DATE Current: 5.10.0 Target: null
+[03:04:58] [Render thread] [INFO] Loading Xaero's World Map - Stage 2/2
+[03:04:58] [Render thread] [INFO] New world map region cache hash code: 747283566
+[03:04:59] [Render thread] [ERROR] io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[03:04:59] [Render thread] [INFO] Registered player tracker system: map_synced
+[03:04:59] [Render thread] [INFO] Xaero's WorldMap Mod: Xaero's minimap found!
+[03:04:59] [Render thread] [INFO] Registered player tracker system: minimap_synced
+[03:04:59] [Render thread] [INFO] No Optifine!
+[03:04:59] [Render thread] [INFO] Xaero's World Map: No Vivecraft!
+[03:04:59] [Render thread] [WARN] Mod 'xaeroworldmap' took 1.339 s to run a deferred task.
+[03:04:59] [Render thread] [INFO] Loading Xaero's Minimap - Stage 2/2
+[03:05:01] [Render thread] [WARN] io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[03:05:01] [Render thread] [INFO] Registered player tracker system: minimap_synced
+[03:05:01] [Render thread] [WARN] Mod 'xaerominimap' took 1.363 s to run a deferred task.
+[03:05:01] [Render thread] [INFO] Loading XaeroLib common 2/2!
+[03:05:01] [Render thread] [INFO] Loading XaeroLib client 2/2!
+[03:05:02] [Render thread] [WARN] Missing sound for event: minecraft:item.goat_horn.play
+[03:05:02] [Render thread] [WARN] Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[03:05:02] [Render thread] [WARN] Missing sound for event: minecraft:entity.generic.wind_burst
+[03:05:03] [Render thread] [INFO] OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[03:05:03] [Render thread] [INFO] Sound engine started
+[03:05:03] [Render thread] [INFO] Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[03:05:05] [Render thread] [INFO] Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[03:05:05] [Render thread] [INFO] Loaded 142 signs
+[03:05:05] [Render thread] [INFO] Loaded 3 rails
+[03:05:05] [Render thread] [INFO] Loaded 1 objects
+[03:05:05] [Render thread] [INFO] Loaded 1 lifts
+[03:05:05] [Render thread] [INFO] Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[03:05:05] [Render thread] [WARN] Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[03:05:05] [Render thread] [INFO] Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[03:05:05] [Render thread] [INFO] Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[03:05:05] [Render thread] [INFO] Successfully reloaded the XaeroLib shaders!
+[03:05:05] [Render thread] [INFO] Injecting existing registry data into this CLIENT instance
+[03:05:06] [Worker-Main-2] [ERROR] Couldn't parse element loot_tables:mtr:blocks/train_cargo_unloader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_unloader
+[03:05:07] [Worker-Main-2] [ERROR] Couldn't parse element loot_tables:mtr:blocks/train_cargo_loader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_loader
+[03:05:07] [Render thread] [INFO] Loaded 7 recipes
+[03:05:07] [Render thread] [INFO] Loaded 1271 advancements
+[03:05:07] [Server thread] [INFO] Starting integrated minecraft server version 1.20.4
+[03:05:07] [Server thread] [INFO] Generating keypair
+[03:05:08] [Server thread] [INFO] Preparing start region for dimension minecraft:overworld
+[03:05:09] [Render thread] [INFO] Preparing spawn area: 0%
+[03:05:09] [Render thread] [INFO] Preparing spawn area: 0%
+[03:05:09] [Render thread] [INFO] Preparing spawn area: 0%
+[03:05:09] [Render thread] [INFO] Preparing spawn area: 9%
+[03:05:10] [Server thread] [INFO] Successfully initialized permission handler forge:default_handler
+[03:05:10] [Render thread] [INFO] Time elapsed: 1962 ms
+[03:05:10] [Server thread] [INFO] Changing view distance to 6, from 10
+[03:05:10] [Server thread] [INFO] Changing simulation distance to 12, from 0
+[03:05:10] [Render thread] [INFO] Connected to a modded server.
+[03:05:10] [Server thread] [INFO] Dev[local:E:cc630384] logged in with entity id 14 at (235.0, -60.0, 80.0)
+[03:05:10] [Server thread] [INFO] Dev joined the game
+[03:05:10] [Server thread] [ERROR] java.lang.NullPointerException: Cannot invoke "xaero.common.server.MinecraftServerData.getLevelProperties(java.nio.file.Path)" because "serverData" is null
+	at TRANSFORMER/xaerominimap@26.4.2/xaero.common.events.CommonEvents.onPlayerWorldJoin(CommonEvents.java:95)
+	at TRANSFORMER/xaerominimap@26.4.2/xaero.common.server.core.XaeroMinimapServerCore.onServerWorldInfo(XaeroMinimapServerCore.java:14)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.handler$zzc000$onSendWorldInfo(PlayerList.java:1432)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.m_11229_(PlayerList.java)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.m_11261_(PlayerList.java:200)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.network.ServerConfigurationPacketListenerImpl.m_293007_(ServerConfigurationPacketListenerImpl.java:125)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.m_5797_(ServerboundFinishConfigurationPacket.java:20)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.m_5797_(ServerboundFinishConfigurationPacket.java:7)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.PacketUtils.m_304213_(PacketUtils.java:24)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.TickTask.run(TickTask.java:18)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_6367_(BlockableEventLoop.java:156)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.ReentrantBlockableEventLoop.m_6367_(ReentrantBlockableEventLoop.java:23)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:788)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:162)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_7245_(BlockableEventLoop.java:130)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_129961_(MinecraftServer.java:771)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_7245_(MinecraftServer.java:765)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_18701_(BlockableEventLoop.java:139)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_130012_(MinecraftServer.java:751)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:679)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:256)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[03:05:10] [Server thread] [ERROR] java.lang.NullPointerException: Cannot invoke "xaero.map.server.MinecraftServerData.getLevelProperties(java.nio.file.Path)" because "serverData" is null
+	at TRANSFORMER/xaeroworldmap@1.45.0/xaero.map.events.CommonEvents.onPlayerWorldJoin(CommonEvents.java:74)
+	at TRANSFORMER/xaeroworldmap@1.45.0/xaero.map.server.core.XaeroWorldMapServerCore.onServerWorldInfo(XaeroWorldMapServerCore.java:12)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.handler$zba001$onSendWorldInfo(PlayerList.java:1932)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.m_11229_(PlayerList.java)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.players.PlayerList.m_11261_(PlayerList.java:200)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.network.ServerConfigurationPacketListenerImpl.m_293007_(ServerConfigurationPacketListenerImpl.java:125)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.m_5797_(ServerboundFinishConfigurationPacket.java:20)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.configuration.ServerboundFinishConfigurationPacket.m_5797_(ServerboundFinishConfigurationPacket.java:7)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.network.protocol.PacketUtils.m_304213_(PacketUtils.java:24)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.TickTask.run(TickTask.java:18)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_6367_(BlockableEventLoop.java:156)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.ReentrantBlockableEventLoop.m_6367_(ReentrantBlockableEventLoop.java:23)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:788)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_6367_(MinecraftServer.java:162)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_7245_(BlockableEventLoop.java:130)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_129961_(MinecraftServer.java:771)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_7245_(MinecraftServer.java:765)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.util.thread.BlockableEventLoop.m_18701_(BlockableEventLoop.java:139)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_130012_(MinecraftServer.java:751)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_130011_(MinecraftServer.java:679)
+	at TRANSFORMER/minecraft@1.20.4/net.minecraft.server.MinecraftServer.m_206580_(MinecraftServer.java:256)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[03:05:10] [Server thread] [INFO] Dev lost connection: Error loading server minimap properties. Please retry.
+[03:05:10] [Server thread] [INFO] Dev left the game
+[03:05:10] [Render thread] [INFO] Minimap required item set to nothing.
+[03:05:10] [Render thread] [INFO] New Xaero hud session initialized!
+[03:05:10] [Server thread] [INFO] Stopping singleplayer server as player logged out
+[03:05:10] [Server thread] [INFO] Stopping server
+[03:05:10] [Server thread] [INFO] Saving players
+[03:05:10] [Server thread] [INFO] Saving worlds
+[03:05:10] [Render thread] [INFO] Fullscreen map required item set to nothing.
+[03:05:10] [Render thread] [INFO] New world map session initialized!
+[03:05:10] [Render thread] [INFO] Found available port: 80
+[03:05:10] [Render thread] [INFO] Logging initialized @25724ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[03:05:11] [Render thread] [INFO] jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[03:05:11] [Render thread] [INFO] Started o.m.l.o.e.j.s.ServletContextHandler@121b4d02{/,null,AVAILABLE}
+[03:05:11] [Render thread] [INFO] Started ServerConnector@5b6853b9{HTTP/1.1, (http/1.1)}{0.0.0.0:80}
+[03:05:11] [Render thread] [INFO] Started @25917ms
+[03:05:11] [Render thread] [INFO] Open the Transport System Map at http://localhost:80
+[03:05:11] [Render thread] [INFO] Open the Resource Pack Creator at http://localhost:80/creator/
+[03:05:11] [Render thread] [INFO] Reloading radar icon resources...
+[03:05:11] [Render thread] [INFO] Reloaded radar icon resources!
+[03:05:11] [Render thread] [INFO] Xaero hud session finalized.
+[03:05:11] [Render thread] [INFO] Finalizing world map session...
+[03:05:11] [Thread-8] [INFO] World map force-cleaned!
+[03:05:11] [Server thread] [INFO] Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[03:05:11] [Render thread] [INFO] World map session finalized.
+[03:05:11] [Render thread] [INFO] Stopped ServerConnector@5b6853b9{HTTP/1.1, (http/1.1)}{0.0.0.0:80}
+[03:05:11] [Render thread] [INFO] Stopped o.m.l.o.e.j.s.ServletContextHandler@121b4d02{/,null,STOPPED}
+[03:05:11] [Server thread] [INFO] Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[03:05:11] [Server thread] [INFO] Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[03:05:11] [Server thread] [INFO] ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[03:05:11] [Server thread] [INFO] ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[03:05:11] [Server thread] [INFO] ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[03:05:11] [Server thread] [INFO] ThreadedAnvilChunkStorage: All dimensions are saved
+[03:05:12] [Render thread] [WARN] Client disconnected with reason: Error loading server minimap properties. Please retry.
+[03:05:12] [Render thread] [INFO] Stopping!
