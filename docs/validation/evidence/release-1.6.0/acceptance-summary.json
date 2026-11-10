@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-11-11T03:28:46+08:00",
+  "candidate_run_id": "42879095868",
+  "manifest_sha256": "7ae5c58b18c481d644a686dba92d254ec8fd5d47ef7755f4d90a175b8812a9f0",
+  "normal_flow_cases_passed": 48,
+  "release_approved": false,
+  "blocker": "Forge 1.20.4 quick-play disconnects on 49.2.0 and 49.2.13; also reproduced without Overlay or QA.",
+  "not_revalidated": [
+    "dedicated-server/client-only-fallback checklist",
+    "large-network/performance coverage"
+  ]
+}

@@ -1,5 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+
+## [2026-11-11T03:28:46+08:00] Codex — 1.6.0 candidate held after six-target baseline
+
+- Candidate 42879095868 locks main 307cfcd75b46eaa0ccb4bbe0bef962267595cbb0 and compat 9869d0d3009db1b95a9ad84f997cea52c7d380ae. Six CI builds and 48 exact-JAR native singleplayer cases pass; real HowToGo handoff passes in both NeoForge maps.
+- Forge 1.20.4 quick-play still fails on 49.2.0/49.2.13, including plain control without Overlay/QA. Normal singleplayer works. No lifecycle injection or patched third-party JAR was shipped.
+- Publication remains blocked under the user's condition. Dry-run 42883569831 passed; no real Publish, v1.6.0 tags or formal release. See `docs/validation/release-1.6.0.md`; raw local archive retained in main build directory.
+
 ## [2026-10-26 14:18] Codex-Release — 1.5.3公开说明已按用户样例调整
 
 - 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。

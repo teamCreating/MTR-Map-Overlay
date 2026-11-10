@@ -35,10 +35,16 @@ public final class NavigationQa {
     private JsonObject state() throws Exception {
         var mc=Minecraft.getInstance();var result=new JsonObject();
         result.addProperty("connected",mc.player!=null);result.addProperty("screen",mc.screen==null?"":mc.screen.getClass().getName());
+        result.addProperty("screenRole",mc.screen instanceof net.minecraft.client.gui.screens.TitleScreen?"TITLE":mc.screen instanceof net.minecraft.client.gui.screens.worldselection.SelectWorldScreen?"WORLDS":mc.screen instanceof net.minecraft.client.gui.screens.DisconnectedScreen?"DISCONNECTED":"OTHER");
         result.addProperty("overlayCodeSource",ClientOverlayRuntime.class.getProtectionDomain().getCodeSource().getLocation().toString());
         result.addProperty("paused",mc.isPaused());result.addProperty("language",mc.options.languageCode);
         result.addProperty("languageReloading",mc.getOverlay()!=null);
         var labels=new JsonObject();for(var key:List.of("navigate","navigation_unavailable","expand","collapse","routes","tracks","next_arrivals"))labels.addProperty(key,Component.translatable("mtrmap.ui."+key).getString());result.add("labels",labels);
+        result.addProperty("guiWidth",mc.getWindow().getGuiScaledWidth());result.addProperty("guiHeight",mc.getWindow().getGuiScaledHeight());
+        var nativeButtons=new JsonArray();
+        if(mc.screen!=null)for(var child:mc.screen.children())if(child instanceof net.minecraft.client.gui.components.AbstractWidget widget)
+            nativeButtons.add(JSON.toJsonTree(Map.of("label",widget.getMessage().getString(),"x",widget.getX(),"y",widget.getY(),"w",widget.getWidth(),"h",widget.getHeight(),"active",widget.active,"visible",widget.visible)));
+        result.add("nativeButtons",nativeButtons);
         var runtime=ClientOverlayRuntime.INSTANCE;var providers=new JsonArray();runtime.navigation().forEach(p->providers.add(p.owner()));result.add("providers",providers);
         if(mc.level!=null){
             var world=runtime.world(mc.level.dimension().location().toString()).orElse(null);
@@ -56,6 +62,8 @@ public final class NavigationQa {
                 row.add(key,value instanceof Component c?new JsonPrimitive(c.getString()):JSON.toJsonTree(value));
             }values.add(row);
         }result.add("buttons",values);
+        try{result.add("serverEvents",JSON.toJsonTree(Class.forName("io.github.teamcreating.mtrmap.qa.QaForge").getField("EVENTS").get(null)));}catch(ReflectiveOperationException ignored){}
+        var nativeBoard=OverlayUi.class.getDeclaredField("board");nativeBoard.setAccessible(true);result.add("board",JSON.toJsonTree(nativeBoard.get(null)));
         try {
             var navigation=Class.forName("bili.dongsz.howtogo.client.Navigation");var target=navigation.getMethod("target").invoke(null);
             if(target!=null){var row=new JsonObject();for(String key:List.of("name","x","y","z","source"))row.add(key,JSON.toJsonTree(target.getClass().getMethod(key).invoke(target)));result.add("howtogoTarget",row);}
@@ -67,7 +75,7 @@ public final class NavigationQa {
         switch(op){
             case "resume"->{mc.setScreen(null);mc.options.pauseOnLostFocus=false;mc.options.renderDistance().set(6);mc.options.framerateLimit().set(60);}
             case "command"->{var server=mc.getSingleplayerServer();if(server==null)throw new IllegalStateException("Singleplayer only");String command=request.get("command").getAsString();server.execute(()->server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),command));}
-            case "key"->{held=Arrays.stream(mc.options.keyMappings).filter(k->k.getName().equals(request.get("name").getAsString())).findFirst().orElseThrow();held.setDown(true);KeyMapping.click(com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()));release=ticks+2;}
+            case "key"->{held=Arrays.stream(mc.options.keyMappings).filter(k->k.getName().equals(request.get("name").getAsString())).findFirst().orElseThrow();key(1);release=ticks+2;}
             case "click"->{
                 move(request.get("x").getAsDouble(),request.get("y").getAsDouble());
                 var method=nativeInput(new String[]{"onPress","m_91530_","method_1601"},long.class,int.class,int.class,int.class);
@@ -83,7 +91,15 @@ public final class NavigationQa {
         }
         return JSON.toJsonTree(Map.of("ok",true,"op",op));
     }
-    public void tick() { ticks++;if(held!=null&&ticks>=release){held.setDown(false);held=null;} }
+    public void tick() { ticks++;if(held!=null&&ticks>=release){try{key(0);}catch(Exception e){throw new IllegalStateException("Native key release failed",e);}held=null;} }
+    private void key(int action) throws Exception {
+        var mc=Minecraft.getInstance();
+        for(var name:List.of("keyPress","m_90893_","method_1466"))try{
+            var method=KeyboardHandler.class.getDeclaredMethod(name,long.class,int.class,int.class,int.class,int.class);method.setAccessible(true);
+            method.invoke(mc.keyboardHandler,mc.getWindow().getWindow(),com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()).getValue(),0,action,0);return;
+        }catch(NoSuchMethodException ignored){}
+        throw new NoSuchMethodException("Native keyboard input mapping unavailable");
+    }
     // Official Mojang/SRG/intermediary names from the selected toolchains; QA input only.
     private static java.lang.reflect.Method nativeInput(String[] names,Class<?>... types) throws NoSuchMethodException {
         for(var name:names)try{var method=MouseHandler.class.getDeclaredMethod(name,types);method.setAccessible(true);return method;}catch(NoSuchMethodException ignored){}
