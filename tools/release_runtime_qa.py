@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 import time
 from urllib.parse import unquote, urlparse
@@ -34,18 +35,23 @@ def click_button(label):
 
 
 def enter_singleplayer():
-    state = wait(lambda s: s['connected'] or (s['screen'].endswith('TitleScreen') and not s['languageReloading']), 'normal title screen')
+    state = wait(lambda s: s['connected'] or s['screen'].endswith('SelectWorldScreen') or (s['screen'].endswith('TitleScreen') and not s['languageReloading']), 'normal title screen')
     if state['connected']:
         return
-    time.sleep(1)
-    button = next(b for b in state['nativeButtons'] if b['label'] == 'Singleplayer')
-    cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
+    if state['screen'].endswith('TitleScreen'):
+        time.sleep(1)
+        button = next(b for b in state['nativeButtons'] if b['label'] == 'Singleplayer')
+        cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
     state = wait(lambda s: s['screen'].endswith('SelectWorldScreen'), 'native world selection')
     # Every isolated acceptance profile contains exactly one copied test save.
-    listing = next(b for b in state['nativeButtons'] if b['label'] == '' and b['w'] == state['guiWidth'])
+    listing = next((b for b in state['nativeButtons'] if b['label'] == '' and b['w'] == state['guiWidth']), None)
+    # In 1.20.1 this list is not an AbstractWidget. The observed first row is
+    # directly below the native search box; keep the click relative to that box.
+    search = next(b for b in state['nativeButtons'] if b['label'] == 'search for worlds')
+    row_y = listing['y']+16 if listing else search['y']+search['h']+22
     # The world directory is scanned asynchronously after the screen appears.
     for _ in range(10):
-        cli.call('click', x=listing['w']/2, y=listing['y']+16)
+        cli.call('click', x=state['guiWidth']/2, y=row_y)
         time.sleep(.5)
         if any(b['label'] == 'Play Selected World' and b['active'] for b in cli.call()['nativeButtons']):
             break
@@ -81,7 +87,16 @@ def run(args):
     state = wait(lambda s: s['connected'] and s.get('catalog', {}).get('status') == 'READY', 'native world/catalog')
     source = state['overlayCodeSource']
     uri = source.removeprefix('jar:').removesuffix('!/')
-    loaded = Path(unquote(urlparse(uri).path).lstrip('/')).resolve()
+    parsed = urlparse(uri)
+    location = unquote(parsed.path)
+    if parsed.scheme == 'union':
+        # Forge 47 SecureJar adds its filesystem instance id to the archive URI.
+        match = re.fullmatch(r'(.+\.jar)#\d+', location)
+        assert match, ('Unexpected Forge SecureJar URI', source)
+        location = match[1]
+    else:
+        assert parsed.scheme == 'file', ('Unexpected mod code source scheme', source)
+    loaded = Path(location.lstrip('/')).resolve()
     assert loaded.samefile(jar), ('Unexpected Overlay code source', source, jar)
     result['overlayCodeSource'] = source
     stations = state['catalog']['stations']; assert stations

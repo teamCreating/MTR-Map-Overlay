@@ -276,3 +276,8 @@ JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping s
 ### 2026-11-11T02:59:33+08:00 — Codex: handle native first-run dialogs in QA
 
 Acceptance now waits for asynchronous world-list selection and closes JourneyMap 5's observed first-run About dialog via its native Close button before testing map interaction. The dialog is a normal onboarding screen, not an Overlay failure. Required station, Navigate and native-board assertions remain unchanged.
+
+
+### 2026-11-11T03:02:46+08:00 — Codex: Forge 47 acceptance adapter
+
+The 1.20.1 native world list predates AbstractWidget inheritance; selection now uses its observed row position relative to the actual search box. Forge 47 exposes production code through a SecureJar union URI with a numeric filesystem id, so acceptance parses only that verified URI form before requiring the exact candidate path and SHA-256. Unknown schemes and malformed union paths still fail. No production source changed.
