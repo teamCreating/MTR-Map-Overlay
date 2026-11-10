@@ -194,3 +194,10 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - 列车实时位置未上地图（客户端 `MinecraftClientData.vehicles` 已有数据，低成本可加）。
 - 洞穴图层（cave layers）下路径线悬浮显示，与 Create 行为一致，暂无解。
 - 路线层画的是站台顺序折线，不沿轨道走线（轨道层负责真实几何；路线沿轨需要图上寻路，工程量大）。
+
+
+## [2026-11-11T01:17:23+08:00] Codex — HowToGo and localization work claimed
+
+- Inspect the actual HowToGo API and artifact before choosing an adapter; keep navigation optional and avoid reconstructing another mod's internals.
+- Extend Navigate availability per selected station/world, disable unavailable actions, and preserve existing consumers.
+- Audit visible text and supply matching English, Simplified Chinese, Traditional Chinese, and Japanese resources. Validate both loader builds and focused integration behavior; record precise runtime limits.

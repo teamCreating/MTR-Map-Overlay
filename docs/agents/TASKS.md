@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [进行中] HowToGo navigation availability and complete localization
+- Owner: Codex; claimed 2026-11-11T01:17:23+08:00. Scope: public Navigate availability contract, optional HowToGo adapter and compatibility tests, en_us/zh_cn/zh_tw/ja_jp UI coverage. Files: api/, extension/, integration/howtogo/, language resources, focused tests/docs/build support. Preserve version 1.5.3 and both loaders; no release.
+
+
 
 
 
