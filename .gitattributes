@@ -1,0 +1,4 @@
+# Preserve sealed metadata and raw validation logs across Windows checkouts.
+docs/validation/evidence/**/release-manifest.json -text
+docs/validation/evidence/**/SHA256SUMS -text
+docs/validation/evidence/**/*.log -text
