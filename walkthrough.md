@@ -291,3 +291,8 @@ Observed JourneyMap 6 names its native About page AboutScreen rather than AboutD
 ### 2026-11-11T03:07:25+08:00 — Codex: loader-independent QA screen roles
 
 Production Fabric uses intermediary class names. QA now exposes typed native title/world-selection/disconnection roles via instanceof, avoiding name-string assumptions in the CLI startup check. This is confined to the opt-in QA source set. Forge49 quick-play still fails independently of Overlay, while both Forge normal singleplayer matrices pass; release remains gated.
+
+
+### 2026-11-11T03:13:58+08:00 — Codex: explicit QA loopback endpoint
+
+Measured local bridge GET latency: localhost 2.068 s, 127.0.0.1 0.033 s; the listener is on IPv4 and Windows tries IPv6 first. The CLI now defaults to the observed IPv4 loopback endpoint and permits MTRMAP_QA_URL override. Only the owned test driver was stopped; the game remains open for a full rerun using unchanged candidate JARs.

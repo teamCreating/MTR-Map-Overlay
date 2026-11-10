@@ -1,5 +1,6 @@
 """Native client CLI for the opt-in -PnavigationQa development mod."""
 import json
+import os
 import pathlib
 import sys
 import time
@@ -8,11 +9,12 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'build/navigation-qa'
 HTTP = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+ENDPOINT = os.environ.get('MTRMAP_QA_URL', 'http://127.0.0.1:18762/')
 
 
 def call(op='state', **fields):
     payload = None if op == 'state' else json.dumps({'op': op, **fields}).encode('utf-8')
-    request = urllib.request.Request('http://localhost:18762/', data=payload,
+    request = urllib.request.Request(ENDPOINT, data=payload,
                                      headers={'Content-Type': 'application/json'})
     with HTTP.open(request, timeout=40) as response:
         result = json.load(response)
