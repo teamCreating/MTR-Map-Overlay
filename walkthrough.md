@@ -266,3 +266,8 @@ Added raw native widget/arrival-board/server lifecycle observations and a CLI ac
 ### 2026-11-11T02:51:13+08:00 — Codex: use the native singleplayer startup flow
 
 The release CLI now enters the single copied fixture through the actual title-screen and world-selection buttons, using observed widget bounds and waiting for native selection state. Loading warnings are not dismissed automatically. This preserves loader lifecycle completion and makes startup part of acceptance.
+
+
+### 2026-11-11T02:55:43+08:00 — Codex: native keyboard acceptance input
+
+JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping state did not open its screen. QA now sends actual KeyboardHandler press/release events, preserving loader hooks. The runner also waits for title resource loading to finish before clicking. This changes only test tooling; the initial missing-screen attempt is not counted as a product pass.

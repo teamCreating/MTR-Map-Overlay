@@ -34,9 +34,10 @@ def click_button(label):
 
 
 def enter_singleplayer():
-    state = wait(lambda s: s['connected'] or s['screen'].endswith('TitleScreen'), 'normal title screen')
+    state = wait(lambda s: s['connected'] or (s['screen'].endswith('TitleScreen') and not s['languageReloading']), 'normal title screen')
     if state['connected']:
         return
+    time.sleep(1)
     button = next(b for b in state['nativeButtons'] if b['label'] == 'Singleplayer')
     cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
     state = wait(lambda s: s['screen'].endswith('SelectWorldScreen'), 'native world selection')

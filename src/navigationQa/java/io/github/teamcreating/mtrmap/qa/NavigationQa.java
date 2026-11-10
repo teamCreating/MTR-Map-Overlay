@@ -74,7 +74,7 @@ public final class NavigationQa {
         switch(op){
             case "resume"->{mc.setScreen(null);mc.options.pauseOnLostFocus=false;mc.options.renderDistance().set(6);mc.options.framerateLimit().set(60);}
             case "command"->{var server=mc.getSingleplayerServer();if(server==null)throw new IllegalStateException("Singleplayer only");String command=request.get("command").getAsString();server.execute(()->server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),command));}
-            case "key"->{held=Arrays.stream(mc.options.keyMappings).filter(k->k.getName().equals(request.get("name").getAsString())).findFirst().orElseThrow();held.setDown(true);KeyMapping.click(com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()));release=ticks+2;}
+            case "key"->{held=Arrays.stream(mc.options.keyMappings).filter(k->k.getName().equals(request.get("name").getAsString())).findFirst().orElseThrow();key(1);release=ticks+2;}
             case "click"->{
                 move(request.get("x").getAsDouble(),request.get("y").getAsDouble());
                 var method=nativeInput(new String[]{"onPress","m_91530_","method_1601"},long.class,int.class,int.class,int.class);
@@ -90,7 +90,15 @@ public final class NavigationQa {
         }
         return JSON.toJsonTree(Map.of("ok",true,"op",op));
     }
-    public void tick() { ticks++;if(held!=null&&ticks>=release){held.setDown(false);held=null;} }
+    public void tick() { ticks++;if(held!=null&&ticks>=release){try{key(0);}catch(Exception e){throw new IllegalStateException("Native key release failed",e);}held=null;} }
+    private void key(int action) throws Exception {
+        var mc=Minecraft.getInstance();
+        for(var name:List.of("keyPress","m_90893_","method_1466"))try{
+            var method=KeyboardHandler.class.getDeclaredMethod(name,long.class,int.class,int.class,int.class,int.class);method.setAccessible(true);
+            method.invoke(mc.keyboardHandler,mc.getWindow().getWindow(),com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()).getValue(),0,action,0);return;
+        }catch(NoSuchMethodException ignored){}
+        throw new NoSuchMethodException("Native keyboard input mapping unavailable");
+    }
     // Official Mojang/SRG/intermediary names from the selected toolchains; QA input only.
     private static java.lang.reflect.Method nativeInput(String[] names,Class<?>... types) throws NoSuchMethodException {
         for(var name:names)try{var method=MouseHandler.class.getDeclaredMethod(name,types);method.setAccessible(true);return method;}catch(NoSuchMethodException ignored){}
