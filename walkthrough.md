@@ -301,3 +301,8 @@ Measured local bridge GET latency: localhost 2.068 s, 127.0.0.1 0.033 s; the lis
 ### 2026-11-11T03:19:47+08:00 — Codex: acknowledge native MTR beta notice in QA
 
 MTR 4.1.0-beta.2 displays its first-run BetaWarningScreen and explicitly prompts Escape. Added native KeyboardHandler Escape press/release support to the optional QA bridge. Acceptance captures the notice, invokes the advertised native action and waits for the actual title screen; no config suppression, fake world or direct Screen replacement is used.
+
+
+### 2026-11-11T03:22:16+08:00 — Codex: wait for beta notice resource readiness
+
+The MTR beta notice can appear underneath the initial resource-loading overlay, which correctly consumes native keyboard input. Acceptance now waits for resource loading to finish before sending Escape, matching the readiness rule used for the native title screen.

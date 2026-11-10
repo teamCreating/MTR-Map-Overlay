@@ -39,7 +39,7 @@ def click_button(label):
 
 
 def enter_singleplayer():
-    state = wait(lambda s: s['connected'] or s['screen'].endswith('BetaWarningScreen') or screen_is(s, 'WORLDS') or (screen_is(s, 'TITLE') and not s['languageReloading']), 'normal title screen')
+    state = wait(lambda s: s['connected'] or screen_is(s, 'WORLDS') or ((s['screen'].endswith('BetaWarningScreen') or screen_is(s, 'TITLE')) and not s['languageReloading']), 'normal title screen')
     if state['screen'].endswith('BetaWarningScreen'):
         cli.capture('mtr-beta-notice')
         cli.call('escape')
