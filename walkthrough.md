@@ -271,3 +271,8 @@ The release CLI now enters the single copied fixture through the actual title-sc
 ### 2026-11-11T02:55:43+08:00 — Codex: native keyboard acceptance input
 
 JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping state did not open its screen. QA now sends actual KeyboardHandler press/release events, preserving loader hooks. The runner also waits for title resource loading to finish before clicking. This changes only test tooling; the initial missing-screen attempt is not counted as a product pass.
+
+
+### 2026-11-11T02:59:33+08:00 — Codex: handle native first-run dialogs in QA
+
+Acceptance now waits for asynchronous world-list selection and closes JourneyMap 5's observed first-run About dialog via its native Close button before testing map interaction. The dialog is a normal onboarding screen, not an Overlay failure. Required station, Navigate and native-board assertions remain unchanged.

@@ -43,7 +43,12 @@ def enter_singleplayer():
     state = wait(lambda s: s['screen'].endswith('SelectWorldScreen'), 'native world selection')
     # Every isolated acceptance profile contains exactly one copied test save.
     listing = next(b for b in state['nativeButtons'] if b['label'] == '' and b['w'] == state['guiWidth'])
-    cli.call('click', x=listing['w']/2, y=listing['y']+16)
+    # The world directory is scanned asynchronously after the screen appears.
+    for _ in range(10):
+        cli.call('click', x=listing['w']/2, y=listing['y']+16)
+        time.sleep(.5)
+        if any(b['label'] == 'Play Selected World' and b['active'] for b in cli.call()['nativeButtons']):
+            break
     state = wait(lambda s: any(b['label'] == 'Play Selected World' and b['active'] for b in s['nativeButtons']), 'selected test save')
     button = next(b for b in state['nativeButtons'] if b['label'] == 'Play Selected World')
     cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
@@ -91,6 +96,11 @@ def run(args):
         cli.call('command', command=f'tp Dev {x} {y} {z}'); time.sleep(.5)
         for binding, map_name in [('gui.xaero_open_map', 'xaero'), ('key.journeymap.map_toggle_alt', 'journeymap')]:
             cli.call('key', name=binding); time.sleep(.7)
+            opening = cli.call()
+            if opening['screen'].endswith('AboutDialog'):
+                close = next(b for b in opening['nativeButtons'] if b['label'] == 'Close')
+                cli.call('click', x=close['x']+close['w']/2, y=close['y']+close['h']/2)
+                time.sleep(.7)
             state = select_station(); assert not state['paused']
             assert state['unknownStationAvailable'] == 0
             nav = next(b for b in state['buttons'] if b['label'] == state['labels']['navigate'])
