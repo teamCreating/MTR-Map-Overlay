@@ -1,5 +1,7 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T03:28:46+08:00, Codex: **1.6.0 is held, not published.** Sealed Candidate 42879095868 passed six-target CI; exact candidate production clients passed 48 normal singleplayer cases (both maps × four languages), including NeoForge real HowToGo handoff/two-provider chooser. Publish dry-run 42883569831 passed. Forge 1.20.4 quick-play still disconnects on 49.2.0/49.2.13 and in a control without Overlay/QA. No v1.6.0 tags or real Publish run; dedicated/client-only fallback and performance checklist items remain unvalidated for this candidate. See [release validation](../validation/release-1.6.0.md).
+
 - 2026-11-11T02:13:51+08:00, Codex: User-authorized release target is **1.6.0**, not yet published. Integration/localization ports build on all six supported targets; compatibility tests report 110 pass/1 generator skip each, main 107 pass/1 skip. Preparing exact-candidate production-runtime acceptance, including the known Forge49 singleplayer issue. Publication remains conditional on all required runtime checks.
 
 - 2026-10-26 14:18，Codex-Release：按用户提供的1.5.2内容与形式精简1.5.3公开release note，保留中英文新增/优化、MC/MTR说明及末尾双分支diff，并按用户明确要求移除Forge1.20.4限制段。已更新GitHub正文并回读比对；十附件ID/名称/大小/SHA256/时间戳及正式版标记保持。只改说明，未更改tag、版本、二进制或已封存Candidate。

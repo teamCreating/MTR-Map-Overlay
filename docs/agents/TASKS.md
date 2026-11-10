@@ -6,7 +6,8 @@
 
 ## 进行中
 
-### [进行中] Release 1.6.0 six-platform acceptance and publication
+### [阻塞] Release 1.6.0 six-platform acceptance and publication
+- Codex, 2026-11-11T03:28:46+08:00: six builds and 48 normal-flow native cases passed; Candidate 42879095868 / dry-run 42883569831 retained. Publication is blocked by the reproduced Forge 1.20.4 quick-play failure (also without Overlay), plus incomplete remaining candidate checklist items. Resume after a proper loader-startup fix or an explicit revised acceptance scope; do not dispatch real Publish under the current condition. Evidence: `docs/validation/release-1.6.0.md`.
 - Owner: Codex; claimed 2026-11-11T01:53:55+08:00. User authorizes version 1.6.0 and publication only after Forge/Fabric 1.20.1/1.20.4 and NeoForge/Fabric 1.21.1 pass. Port current integration/localization, fix failures, seal and test exact candidate JARs, then publish through the existing protected release workflow.
 
 

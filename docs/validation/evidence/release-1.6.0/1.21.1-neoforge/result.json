@@ -1,0 +1,119 @@
+{
+  "target": "1.21.1-neoforge",
+  "candidateSha256": "01188bcc5f4385738cd18b6c81ef6229cd43fdc60de279a645fca2a5570916ba",
+  "candidateJar": "C:\\Users\\Ben\\Documents\\Coding\\MC\\MTR\\mtrsurveyor\\.cache\\release-profiles\\1.21.1-neoforge\\mods\\CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar",
+  "passed": true,
+  "cases": [
+    {
+      "language": "en_us",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "howtogoTarget": {
+        "name": "QA Transfer 换乘",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "source": "mtrmap"
+      },
+      "passed": true
+    },
+    {
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "howtogoTarget": {
+        "name": "QA Destination 终点",
+        "x": 630,
+        "y": -59,
+        "z": 20,
+        "source": "mtrmap"
+      },
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-profiles/1.21.1-neoforge/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar%23198!/"
+}

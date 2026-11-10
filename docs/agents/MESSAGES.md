@@ -1,5 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+
+## [2026-11-11T03:28:46+08:00] Codex — 1.6.0 candidate held after six-target baseline
+
+- Candidate 42879095868 locks main 307cfcd75b46eaa0ccb4bbe0bef962267595cbb0 and compat 9869d0d3009db1b95a9ad84f997cea52c7d380ae. Six CI builds and 48 exact-JAR native singleplayer cases pass; real HowToGo handoff passes in both NeoForge maps.
+- Forge 1.20.4 quick-play still fails on 49.2.0/49.2.13, including plain control without Overlay/QA. Normal singleplayer works. No lifecycle injection or patched third-party JAR was shipped.
+- Publication remains blocked under the user's condition. Dry-run 42883569831 passed; no real Publish, v1.6.0 tags or formal release. See `docs/validation/release-1.6.0.md`; raw local archive retained in main build directory.
+
 ## [2026-11-11T01:46:08+08:00] Codex — HowToGo handoff and localization complete
 
 - Added optional public-entry-point HowToGo adapter and per-target provider availability. No available provider means Navigate is dimmed; multiple available providers show the chooser. Existing three-argument MTR Navigation registration remains compatible.
