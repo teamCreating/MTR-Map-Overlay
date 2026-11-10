@@ -256,3 +256,75 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - All four Java17 production targets build with 110 passing tests and one explicit generator skip each. Main builds retain 107 passing tests and one generator skip. Actual HowToGo signature data is now fetched and hash-checked by CI before Gradle; missing data fails instead of silently skipping an acceptance check.
 - Added separately packaged acceptance controllers for NeoForge, Forge and Fabric. They will be installed beside exact candidate JARs in isolated production-launcher profiles, not bundled in released mods. The controller records the loaded Overlay code source.
 - Native mouse bindings use verified Mojang/SRG/intermediary mappings and the platform's input dispatch. Shared keyboard actions use the serialized binding rather than a NeoForge-only helper. Existing Minecraft/loader splits remain independent. Runtime acceptance is still pending.
+
+
+### 2026-11-11T02:49:51+08:00 — Codex: production runtime acceptance tooling
+
+Added raw native widget/arrival-board/server lifecycle observations and a CLI acceptance runner that checks the loaded production JAR hash, both maps, four locales, disabled Navigate and live native arrivals. The separate Forge/NeoForge QA JAR now reuses the target resource-pack metadata; it is never shipped in release assets. Forge 49 normal title-screen singleplayer startup succeeds and initializes native Xaero server data; quick-play while a loading-warning screen is pending can skip lifecycle completion and is not treated as a pass. Production source remains unchanged. Final six-candidate acceptance is still pending.
+
+
+### 2026-11-11T02:51:13+08:00 — Codex: use the native singleplayer startup flow
+
+The release CLI now enters the single copied fixture through the actual title-screen and world-selection buttons, using observed widget bounds and waiting for native selection state. Loading warnings are not dismissed automatically. This preserves loader lifecycle completion and makes startup part of acceptance.
+
+
+### 2026-11-11T02:55:43+08:00 — Codex: native keyboard acceptance input
+
+JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping state did not open its screen. QA now sends actual KeyboardHandler press/release events, preserving loader hooks. The runner also waits for title resource loading to finish before clicking. This changes only test tooling; the initial missing-screen attempt is not counted as a product pass.
+
+
+### 2026-11-11T02:59:33+08:00 — Codex: handle native first-run dialogs in QA
+
+Acceptance now waits for asynchronous world-list selection and closes JourneyMap 5's observed first-run About dialog via its native Close button before testing map interaction. The dialog is a normal onboarding screen, not an Overlay failure. Required station, Navigate and native-board assertions remain unchanged.
+
+
+### 2026-11-11T03:02:46+08:00 — Codex: Forge 47 acceptance adapter
+
+The 1.20.1 native world list predates AbstractWidget inheritance; selection now uses its observed row position relative to the actual search box. Forge 47 exposes production code through a SecureJar union URI with a numeric filesystem id, so acceptance parses only that verified URI form before requiring the exact candidate path and SHA-256. Unknown schemes and malformed union paths still fail. No production source changed.
+
+
+### 2026-11-11T03:03:12+08:00 — Codex: JourneyMap 6 onboarding name
+
+Observed JourneyMap 6 names its native About page AboutScreen rather than AboutDialog. The QA runner recognizes both observed classes and uses the same native Close action; product assertions are unchanged.
+
+
+### 2026-11-11T03:07:25+08:00 — Codex: loader-independent QA screen roles
+
+Production Fabric uses intermediary class names. QA now exposes typed native title/world-selection/disconnection roles via instanceof, avoiding name-string assumptions in the CLI startup check. This is confined to the opt-in QA source set. Forge49 quick-play still fails independently of Overlay, while both Forge normal singleplayer matrices pass; release remains gated.
+
+
+### 2026-11-11T03:13:58+08:00 — Codex: explicit QA loopback endpoint
+
+Measured local bridge GET latency: localhost 2.068 s, 127.0.0.1 0.033 s; the listener is on IPv4 and Windows tries IPv6 first. The CLI now defaults to the observed IPv4 loopback endpoint and permits MTRMAP_QA_URL override. Only the owned test driver was stopped; the game remains open for a full rerun using unchanged candidate JARs.
+
+
+### 2026-11-11T03:19:47+08:00 — Codex: acknowledge native MTR beta notice in QA
+
+MTR 4.1.0-beta.2 displays its first-run BetaWarningScreen and explicitly prompts Escape. Added native KeyboardHandler Escape press/release support to the optional QA bridge. Acceptance captures the notice, invokes the advertised native action and waits for the actual title screen; no config suppression, fake world or direct Screen replacement is used.
+
+
+### 2026-11-11T03:22:16+08:00 — Codex: wait for beta notice resource readiness
+
+The MTR beta notice can appear underneath the initial resource-loading overlay, which correctly consumes native keyboard input. Acceptance now waits for resource loading to finish before sending Escape, matching the readiness rule used for the native title screen.
+
+
+### 2026-11-11T03:28:46+08:00 — Codex: seal six-target baseline and hold 1.6.0 publication
+
+All six exact downloaded candidate JARs passed 48 normal singleplayer cases (Xaero/JourneyMap × four languages), native station boards/timestamps and Navigate availability; NeoForge also passed the two-provider chooser and actual HowToGo destination handoff. Selected native screenshots, JSON, dependency hashes, sealed manifest and failing/control logs are committed in `docs/validation/evidence/release-1.6.0/`. Full raw archive SHA-256 is `32e151e642f6af8dc3af8bd8d1874aa27930d7e051ef921f5baf705b5dc26da7`. Candidate 42879095868 and dry-run 42883569831 pass integrity checks.
+
+Publication remains blocked: Forge 1.20.4 quick-play disconnects with null Xaero server data on both 49.2.0 and recommended 49.2.13, also without Overlay/QA and with newer Xaero. Native normal startup works; source/runtime evidence indicates Forge starts its event bus after quick-play can enter the world. No event-bus/lifecycle injection or dependency patch was added. Dedicated/client-only fallback and performance checks are not claimed complete. No real Publish or v1.6.0 tags; user's publication gate is preserved. See `docs/validation/release-1.6.0.md`.
+
+
+### 2026-11-11T03:30:06+08:00 — Codex: preserve raw release evidence bytes
+
+Added narrow Git attributes for sealed validation manifests/checksums and raw logs so Windows newline conversion cannot change their byte identity. Explicitly tracked the three referenced QA/control logs despite the general build-log ignore rule. Report links are checked against tracked files, not merely working-tree presence.
+
+
+### 2026-11-11T03:31:37+08:00 — Codex: synchronize acceptance branch with protected main
+
+Merged main's existing PR #11 merge commit into the QA branch to satisfy the up-to-date protection rule. This adds ancestry for the already sealed source; no production changes or candidate replacement. Release remains held.
+
+
+### 2026-11-11T03:35:11+08:00 — Codex: clarify native destination-name verification
+
+The acceptance report now states the tested HowToGo name contract precisely: MTR display separators (vertical bars) become spaces, while the native name content and floored block coordinates are preserved. This matches the production bridge and recorded assertion; no product or candidate changed.

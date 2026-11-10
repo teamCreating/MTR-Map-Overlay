@@ -1,0 +1,81 @@
+{
+  "target": "1.20.4-forge",
+  "candidateSha256": "3b2c9c8d5563165489ff8ff0f6793b25c26ff5b4f250f7d9bc00320a7b3bf269",
+  "candidateJar": "C:\\Users\\Ben\\Documents\\Coding\\MC\\MTR\\mtrsurveyor\\.cache\\release-profiles\\1.20.4-forge\\mods\\CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar",
+  "passed": true,
+  "cases": [
+    {
+      "language": "en_us",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-profiles/1.20.4-forge/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar!/"
+}

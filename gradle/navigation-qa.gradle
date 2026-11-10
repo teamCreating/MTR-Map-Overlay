@@ -13,9 +13,10 @@ neoForge {
 }
 
 tasks.register('navigationQaJar', Jar) {
-    dependsOn tasks.named('navigationQaClasses')
+    dependsOn tasks.named('navigationQaClasses'), tasks.named('processResources')
     archiveBaseName = 'mtrmap-acceptance-qa-neoforge'
     archiveVersion = project.version
     destinationDirectory = layout.buildDirectory.dir('qa')
     from sourceSets.navigationQa.output
+    from(sourceSets.main.output.resourcesDir) { include 'pack.mcmeta' }
 }

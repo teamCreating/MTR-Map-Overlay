@@ -1,0 +1,52 @@
+{
+  "connected": false,
+  "screen": "net.minecraft.client.gui.screens.DisconnectedScreen",
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-profiles/1.20.4-forge/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "nativeButtons": [
+    {
+      "active": false,
+      "y": 81,
+      "x": 173,
+      "w": 80,
+      "h": 9,
+      "label": "Connection Lost",
+      "visible": true
+    },
+    {
+      "active": false,
+      "y": 110,
+      "x": 74,
+      "w": 278,
+      "h": 9,
+      "label": "Error loading server minimap properties. Please retry.",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 139,
+      "x": 138,
+      "w": 150,
+      "h": 20,
+      "label": "Back to Server List",
+      "visible": true
+    }
+  ],
+  "providers": [],
+  "targets": [],
+  "buttons": [],
+  "serverEvents": []
+}
