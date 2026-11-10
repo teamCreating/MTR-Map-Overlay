@@ -51,3 +51,8 @@ Both map hosts use the same classic station tooltip, original route metadata, de
 - `/mtrmap config pidsStyle european` selects white text, a blue-gray header, subtle alternating rows and amber countdowns.
 
 The preference persists in the loader's existing local config. It changes presentation only, with identical native arrival data.
+
+
+### Optional per-target navigation availability
+
+New Overlay builds provide `registerNavigation(owner, displayName, Predicate<NavigationTarget> available, Consumer<NavigationTarget> handler)`. The predicate runs on the client thread and must be cheap and side-effect free. It is checked for the selected station while rendering and again on click. No available provider means the Navigate action is disabled. The existing three-argument overload remains supported. Older API implementations throw `UnsupportedOperationException` for the new overload; consumers may retain their previous registration path when targeting older Overlay builds.

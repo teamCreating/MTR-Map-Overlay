@@ -3,6 +3,7 @@ package io.github.teamcreating.mtrmap.api;
 import java.util.*;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /** Optional, client-thread API. Compile against the API JAR; do not shade it. */
 public final class MtrMapApi {
@@ -126,5 +127,12 @@ public final class MtrMapApi {
         ViewSession openView(String owner, String displayName, Purpose purpose, int priority);
         BoardSubscription watchStation(WorldRef world, String stationId, Consumer<Board> listener);
         Registration registerNavigation(String owner, String displayName, Consumer<NavigationTarget> handler);
+        /** Availability is checked on the client thread for the selected station, and again on click.
+         * Keep this check cheap and side-effect free. Older providers remain available for valid targets.
+         * Older Overlay implementations explicitly reject this optional extension. */
+        default Registration registerNavigation(String owner, String displayName, Predicate<NavigationTarget> available,
+                                                Consumer<NavigationTarget> handler) {
+            throw new UnsupportedOperationException("Navigation availability is not supported by this provider");
+        }
     }
 }

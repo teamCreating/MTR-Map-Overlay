@@ -167,7 +167,10 @@ public final class OverlayUi {
         int footer=panelY+panelH-22;
         g.fill(left,footer,panelX+panelW-PAD,footer+1,0xFF49424F);
         action(g,left-2,footer+2,content/2,18,text(expanded?"collapse":"expand"),true,()->{expanded=!expanded;scroll=0;stop();});
-        var providers=ClientOverlayRuntime.INSTANCE.navigation();
+        var runtime=ClientOverlayRuntime.INSTANCE;
+        var world=runtime.world(dimension.replaceFirst("/", ":")).orElse(null);
+        var providers=runtime.navigation(world,selected);
+        if(providers.isEmpty()) navigationChoices=false;
         action(g,left+content/2,footer+2,content-content/2+2,18,text("navigate"),!providers.isEmpty(),()->{
             if(providers.size()==1) navigate(providers.getFirst()); else navigationChoices=!navigationChoices;
         });
@@ -181,7 +184,7 @@ public final class OverlayUi {
             }
         }
     }
-    private static void navigate(ClientOverlayRuntime.Navigation provider) {
+    private static void navigate(NavigationRegistry.Provider provider) {
         navigationChoices=false;
         ClientOverlayRuntime.INSTANCE.world(dimension.replaceFirst("/", ":")).ifPresent(world->ClientOverlayRuntime.INSTANCE.navigate(provider,world,selected));
     }

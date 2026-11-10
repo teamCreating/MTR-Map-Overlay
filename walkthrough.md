@@ -201,3 +201,11 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - Inspect the actual HowToGo API and artifact before choosing an adapter; keep navigation optional and avoid reconstructing another mod's internals.
 - Extend Navigate availability per selected station/world, disable unavailable actions, and preserve existing consumers.
 - Audit visible text and supply matching English, Simplified Chinese, Traditional Chinese, and Japanese resources. Validate both loader builds and focused integration behavior; record precise runtime limits.
+
+
+## [2026-11-11T01:21:17+08:00] Codex — Per-target Navigate availability
+
+- Added an optional four-argument registration overload with a cheap availability predicate. Existing three-argument consumers remain compatible; older implementations explicitly reject the new optional overload.
+- Extracted the client-thread navigation registry so unavailable, closed, replaced or failing providers cannot be invoked. Checks run while rendering choices and again on click; provider failures are isolated and logged once per owner.
+- Overlay validates the current catalog epoch and selected station before offering providers. Empty choices dim Navigate and dismiss an obsolete provider menu.
+- Validation: NeoForge build and all unit tests passed, including availability changes between render/click, stale registrations, missing optional classes, and multiple providers. Version remains 1.5.3.

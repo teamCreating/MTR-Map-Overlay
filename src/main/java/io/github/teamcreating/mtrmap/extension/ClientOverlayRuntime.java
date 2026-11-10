@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /** Client-thread facade. Receiving snapshots never creates a local simulation. */
 public final class ClientOverlayRuntime implements MtrMapApi.Client {
@@ -25,21 +26,28 @@ public final class ClientOverlayRuntime implements MtrMapApi.Client {
     private final Map<Key, List<Watch>> watches = new LinkedHashMap<>();
     private long generation;
     private final ViewRegistry views = new ViewRegistry();
-    public record Navigation(String owner, String name, Consumer<NavigationTarget> handler) {}
-    private final Map<String, Navigation> navigation = new LinkedHashMap<>();
-    public List<Navigation> navigation() { thread(); return List.copyOf(navigation.values()); }
+    private final NavigationRegistry navigation = new NavigationRegistry((owner, error) ->
+            MTRMap.LOGGER.warn("[MTRMap] Navigation provider failed: {}", owner, error));
+    public List<NavigationRegistry.Provider> navigation() { thread(); return navigation.all(); }
     public Registration registerNavigation(String owner, String displayName, Consumer<NavigationTarget> handler) {
-        thread();
-        if (owner == null || !owner.matches("[a-z0-9_.-]+:[a-z0-9_./-]+") || displayName == null || displayName.isBlank() || displayName.length() > 80 || navigation.size() >= 8 || navigation.containsKey(owner))
-            throw new IllegalArgumentException("Invalid or duplicate navigation provider / capacity reached");
-        var value = new Navigation(owner, displayName, Objects.requireNonNull(handler)); navigation.put(owner, value);
-        // Providers live for the client/mod lifetime; world/session data is supplied only on an explicit user click.
-        return () -> { thread(); navigation.remove(owner, value); };
+        return registerNavigation(owner, displayName, target -> true, handler);
     }
-    public void navigate(Navigation provider, WorldRef world, String station) {
-        thread(); if (navigation.get(provider.owner()) != provider || catalog(world).status() != Status.READY) return;
-        try { provider.handler().accept(new NavigationTarget(world, station)); }
-        catch (RuntimeException e) { MTRMap.LOGGER.warn("[MTRMap] Navigation provider failed: {}", provider.owner(), e); }
+    @Override public Registration registerNavigation(String owner, String displayName, Predicate<NavigationTarget> available, Consumer<NavigationTarget> handler) {
+        thread();
+        var registration = navigation.register(owner, displayName, available, handler);
+        return () -> { thread(); registration.close(); };
+    }
+    private NavigationTarget target(WorldRef world, String station) {
+        if (world == null || station == null) return null;
+        var catalog = catalog(world);
+        return catalog.status() == Status.READY && catalog.stations().stream().anyMatch(s -> s.id().equals(station))
+                ? new NavigationTarget(world, station) : null;
+    }
+    public List<NavigationRegistry.Provider> navigation(WorldRef world, String station) {
+        thread(); return navigation.available(target(world, station));
+    }
+    public boolean navigate(NavigationRegistry.Provider provider, WorldRef world, String station) {
+        thread(); return navigation.navigate(provider, target(world, station));
     }
     private boolean clearing;
     private final ThreadPoolExecutor decoder = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
