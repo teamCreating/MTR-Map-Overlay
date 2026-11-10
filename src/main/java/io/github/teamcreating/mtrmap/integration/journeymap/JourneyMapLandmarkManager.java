@@ -143,10 +143,10 @@ final class JourneyMapLandmarkManager {
 
             final StringBuilder title = new StringBuilder(landmark.name());
             if (landmark.type() == MapLandmark.Type.PLATFORM) {
-                title.append("\nPlatform ").append(landmark.symbol());
+                title.append("\n").append(net.minecraft.network.chat.Component.translatable("mtrmap.ui.platform_label",landmark.symbol()).getString());
             }
             if (!landmark.description().isEmpty()) {
-                title.append("\nRoutes:\n- ").append(landmark.description().replace(", ", "\n- "));
+                title.append("\n").append(net.minecraft.network.chat.Component.translatable("mtrmap.ui.routes_label").getString()).append("\n- ").append(landmark.description().replace(", ", "\n- "));
             }
 
             final MarkerOverlay marker = new MarkerOverlay(MTRMap.MOD_ID,
@@ -173,11 +173,11 @@ final class JourneyMapLandmarkManager {
         };
     }
 
-    static void placeTestMarker(BlockPos pos, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension) {
+    static boolean placeTestMarker(BlockPos pos, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension) {
         final IClientAPI api = getJourneyMapAPI();
         if (api == null) {
             MTRMap.LOGGER.warn("[MTRMap] JourneyMap API not initialized yet - try again after JourneyMap loads");
-            return;
+            return false;
         }
 
         final MapImage icon = new MapImage(markerIcon("train", false), 32, 32);
@@ -189,8 +189,8 @@ final class JourneyMapLandmarkManager {
         marker.setDimension(dimension);
         marker.setActiveUIs(Context.UI.Fullscreen);
         marker.setDisplayOrder(JourneyMapLayerOrder.LANDMARK);
-        marker.setLabel("[MTR] Test marker");
-        marker.setTitle("MTR Map Overlay JourneyMap integration works!");
+        marker.setLabel(net.minecraft.network.chat.Component.translatable("mtrmap.ui.test_marker").getString());
+        marker.setTitle(net.minecraft.network.chat.Component.translatable("mtrmap.ui.test_marker_title").getString());
 
         if (testMarker != null) {
             try {
@@ -202,10 +202,11 @@ final class JourneyMapLandmarkManager {
             api.show(marker);
         } catch (Exception e) {
             MTRMap.LOGGER.error("[MTRMap] Failed to show test marker", e);
-            return;
+            return false;
         }
         testMarker = marker;
         MTRMap.LOGGER.info("[MTRMap] JourneyMap test marker placed at {}", pos.toShortString());
+        return true;
     }
 
     // Station mode: one marker per station, placed at the station centre
@@ -292,7 +293,7 @@ final class JourneyMapLandmarkManager {
     }
 
     /**
-     * Build "RouteName â†’ Destination" strings for a platform. Routes are
+     * Build "RouteName → Destination" strings for a platform. Routes are
      * deduplicated by name; the destination is the last station on the route
      * (or its custom destination, if set).
      */
@@ -315,7 +316,7 @@ final class JourneyMapLandmarkManager {
             StringBuilder routeInfo = new StringBuilder(IGui.formatStationName(routeName.split("\\|\\|")[0]));
             String destination = findDestinationForPlatform(route, platform);
             if (destination != null && !destination.isEmpty()) {
-                routeInfo.append(" â†’ ").append(destination);
+                routeInfo.append(" → ").append(destination);
             }
             routeInfos.add(routeInfo.toString());
         }
@@ -354,10 +355,10 @@ final class JourneyMapLandmarkManager {
                 (int) station.getCenter().getZ());
 
         StringBuilder desc = new StringBuilder();
-        desc.append("Fare zone: ").append(station.getZone1());
+        desc.append(net.minecraft.network.chat.Component.translatable("mtrmap.ui.fare_zone", station.getZone1()).getString());
         List<MTRDataSummary.BasicRouteInfo> routesInStation = mtrDataSummary.getRoutesInStation(station);
         if (routesInStation != null && !routesInStation.isEmpty()) {
-            desc.append("\nRoutes: ");
+            desc.append("\n").append(net.minecraft.network.chat.Component.translatable("mtrmap.ui.routes_label").getString()).append(" ");
             for (int i = 0; i < routesInStation.size(); i++) {
                 if (i > 0) {
                     desc.append(", ");

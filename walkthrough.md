@@ -205,3 +205,16 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - User explicitly selects 1.6.0 and authorizes publication after the supported six-target matrix passes. Claim covers ports, compatibility fixes, builds, native UI tests, sealed-candidate verification and the existing release pipeline.
 - Preserve platform split: NeoForge/Fabric 1.21.1 + MTR4.1 on main; Forge/Fabric 1.20.1/1.20.4 + MTR4.0 on the compatibility branch. No unsupported cross-version loader claim.
 - Merge current remote maintainer documentation before changing release data; resolve README conflicts by preserving the maintainer rewrite and adding current integration references. Record and fix known Forge49 singleplayer initialization failure before acceptance rather than substituting dedicated-server success.
+
+
+## [2026-11-11T01:55:56+08:00] Codex — Port Navigate availability and localization to Java17 targets
+
+- Ported the optional public HowToGo bridge, per-target provider registry, translated controls/commands/diagnostic outcomes, and four matching language catalogs from the validated main implementation.
+- Retained Java17 list access and ResourceLocation construction, MTR4.0 client package locations, existing Forge/Fabric entry points, Forge47/49 network/input adapters and generated JourneyMap5 bridges. Build/test failures are release blockers and will be fixed before sealing candidates.
+
+
+## [2026-11-11T02:13:10+08:00] Codex — Six-target release builds and candidate-jar QA support
+
+- All four Java17 production targets build with 110 passing tests and one explicit generator skip each. Main builds retain 107 passing tests and one generator skip. Actual HowToGo signature data is now fetched and hash-checked by CI before Gradle; missing data fails instead of silently skipping an acceptance check.
+- Added separately packaged acceptance controllers for NeoForge, Forge and Fabric. They will be installed beside exact candidate JARs in isolated production-launcher profiles, not bundled in released mods. The controller records the loaded Overlay code source.
+- Native mouse bindings use verified Mojang/SRG/intermediary mappings and the platform's input dispatch. Shared keyboard actions use the serialized binding rather than a NeoForge-only helper. Existing Minecraft/loader splits remain independent. Runtime acceptance is still pending.

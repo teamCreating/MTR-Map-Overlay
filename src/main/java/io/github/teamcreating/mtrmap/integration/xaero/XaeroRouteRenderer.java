@@ -291,12 +291,12 @@ public class XaeroRouteRenderer {
         final List<Component> tooltip = new ArrayList<>();
         tooltip.add(Component.literal(landmark.name()).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD));
         if (landmark.type() == MapLandmark.Type.PLATFORM) {
-            tooltip.add(Component.literal("Platform " + landmark.symbol()).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("mtrmap.ui.platform_label",landmark.symbol()).withStyle(ChatFormatting.GRAY));
         } else if (landmark.type() == MapLandmark.Type.DEPOT) {
-            tooltip.add(Component.literal("Depot").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("mtrmap.ui.depot").withStyle(ChatFormatting.GRAY));
         }
         if (!landmark.description().isEmpty()) {
-            tooltip.add(Component.literal("Routes:").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("mtrmap.ui.routes_label").withStyle(ChatFormatting.GRAY));
             for (String route : landmark.description().split(", ")) {
                 tooltip.add(Component.literal("- " + route));
                 if (tooltip.size() >= 8) {
@@ -404,7 +404,7 @@ public class XaeroRouteRenderer {
             }
         }
         for (TrackRoutePalette.Entry route : bestRoutes) {
-            tooltip.add(Component.literal(route.name() == null ? "Route" : route.name())
+            tooltip.add((route.name() == null ? Component.translatable("mtrmap.ui.route") : Component.literal(route.name()))
                     .withStyle(ChatFormatting.BOLD).withStyle(style -> style.withColor(route.color())));
         }
         if (tooltip.size() > MAX_TOOLTIP_ROUTES) {
@@ -442,10 +442,10 @@ public class XaeroRouteRenderer {
     private static void renderToggleWidgets(GuiGraphics graphics, Font font, int mouseX, int mouseY) {
         drawToggle(graphics, font, mouseX, mouseY, 0,
                 MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
-                Component.literal("Toggle MTR route lines"));
+                Component.translatable("mtrmap.ui.toggle_routes"));
         drawToggle(graphics, font, mouseX, mouseY, 1,
                 MTRMapConfig.INSTANCE.trackLinesEnabled.get(),
-                Component.literal("Toggle MTR track layer"));
+                Component.translatable("mtrmap.ui.toggle_tracks"));
     }
 
     private static void drawToggle(GuiGraphics graphics, Font font, int mouseX, int mouseY, int index,

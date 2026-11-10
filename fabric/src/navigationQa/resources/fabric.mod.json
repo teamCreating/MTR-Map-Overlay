@@ -1,0 +1,1 @@
+{"schemaVersion":1,"id":"mtrmapqa","version":"1","name":"Local Overlay acceptance QA","environment":"client","entrypoints":{"client":["io.github.teamcreating.mtrmap.qa.QaFabric"]},"depends":{"mtrmap":"*"}}
