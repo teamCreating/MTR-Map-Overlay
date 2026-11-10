@@ -255,3 +255,8 @@ Added narrow Git attributes for sealed validation manifests/checksums and raw lo
 ### 2026-11-11T03:31:41+08:00 — Codex: synchronize compatibility acceptance ancestry
 
 Merged the existing PR #12 compatibility merge commit into the QA branch to satisfy protected-branch freshness. No production change or candidate replacement; 1.6.0 remains held for the documented runtime blocker.
+
+
+### 2026-11-11T03:35:11+08:00 — Codex: clarify native destination-name verification
+
+The acceptance report now states the tested HowToGo name contract precisely: MTR display separators (vertical bars) become spaces, while the native name content and floored block coordinates are preserved. This matches the production bridge and recorded assertion; no product or candidate changed.
