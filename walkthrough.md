@@ -281,3 +281,8 @@ Acceptance now waits for asynchronous world-list selection and closes JourneyMap
 ### 2026-11-11T03:02:46+08:00 — Codex: Forge 47 acceptance adapter
 
 The 1.20.1 native world list predates AbstractWidget inheritance; selection now uses its observed row position relative to the actual search box. Forge 47 exposes production code through a SecureJar union URI with a numeric filesystem id, so acceptance parses only that verified URI form before requiring the exact candidate path and SHA-256. Unknown schemes and malformed union paths still fail. No production source changed.
+
+
+### 2026-11-11T03:03:12+08:00 — Codex: JourneyMap 6 onboarding name
+
+Observed JourneyMap 6 names its native About page AboutScreen rather than AboutDialog. The QA runner recognizes both observed classes and uses the same native Close action; product assertions are unchanged.

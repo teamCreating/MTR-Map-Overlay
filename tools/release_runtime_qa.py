@@ -112,7 +112,7 @@ def run(args):
         for binding, map_name in [('gui.xaero_open_map', 'xaero'), ('key.journeymap.map_toggle_alt', 'journeymap')]:
             cli.call('key', name=binding); time.sleep(.7)
             opening = cli.call()
-            if opening['screen'].endswith('AboutDialog'):
+            if opening['screen'].endswith(('AboutDialog', 'AboutScreen')):
                 close = next(b for b in opening['nativeButtons'] if b['label'] == 'Close')
                 cli.call('click', x=close['x']+close['w']/2, y=close['y']+close['h']/2)
                 time.sleep(.7)
