@@ -3,7 +3,7 @@ import argparse
 import json
 import math
 import time
-from overlay_qa_cli import call, capture, OUTPUT
+from overlay_qa_cli import call, capture, OUTPUT, ROOT
 
 
 def wait_ready():
@@ -59,7 +59,8 @@ def run(mode):
     for language in ['en_us', 'zh_cn', 'zh_tw', 'ja_jp']:
         call('resume'); call('language', language=language)
         state = wait_ready(); assert state['language'] == language
-        assert all(not label.startswith('mtrmap.') for label in state['labels'].values())
+        translations = json.loads((ROOT / f'src/main/resources/assets/mtrmap/lang/{language}.json').read_text(encoding='utf-8'))
+        assert all(label == translations['mtrmap.ui.'+key] for key, label in state['labels'].items())
         call('command', command='tp Dev 330 -57 30'); time.sleep(.5)
         for key, map_name in [('gui.xaero_open_map', 'xaero'), ('key.journeymap.map_toggle_alt', 'journeymap')]:
             call('key', name=key); time.sleep(.7)

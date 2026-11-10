@@ -37,6 +37,10 @@ When the mod is installed on the server as well as the client, it can request a 
 
 **Release status (2026-10-31):** GitHub currently marks [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) as a **pre-release**. [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) is the latest stable release. All six 1.5.3 builds include the features above; native arrivals and whole-map trains require matching client/server versions.
 
+### Development integration updates
+
+Current development builds add an optional **HowToGo** destination handoff and per-station Navigate availability checks. No available provider means the action is dimmed; multiple available providers show a chooser. Overlay controls, arrival boards, tooltips and command feedback follow the game language: English, Simplified Chinese, Traditional Chinese or Japanese. These changes are not included in the previously published 1.5.3 attachments. See the [integration test report](docs/validation/howtogo-navigation-i18n-2026-11-11.md).
+
 ### Station boards and the navigation API
 
 Click a station to pin the classic station/platform/route card, then **Expand** to request native arrivals. **Collapse**, closing the map or disconnecting releases the subscription. Rows show destination, line, platform and a right-aligned countdown; a missing prediction is a dash, not zero minutes. Theme changes apply immediately and persist across restarts.
@@ -72,7 +76,7 @@ Every dependency must match your Minecraft version and loader. Xaero's Minimap i
 3. Optionally install the matching MTR Map Overlay JAR and MTR on the server to enable the whole-network view. Client and server must use the `mtrmap` mod ID; older `mtrsurveyor` builds are not compatible with this release.
 4. Open Xaero's World Map or JourneyMap's fullscreen map. Both maps have matching `ROUTES` and `TRACKS` icons (green left bar = on, red = off); JourneyMap puts them in its add-on button panel. The `/mtrmap config routeLines` and `trackLines` switches apply to both maps. Hover over a line or icon for details.
 
-Whole-map trains require matching 1.5.3 builds on both client and server; client-only installs use nearby MTR data. All six builds passed Xaero/JourneyMap development-runtime checks; see [1.5.3 PIDS validation](docs/validation/pids-and-dimmed-1.5.3.md) for the recorded development-runtime checks and remaining limits. Real navigation-provider end-to-end integration, production modpack launch, cross-machine play and large-network performance are not covered.
+Whole-map trains require matching 1.5.3 builds on both client and server; client-only installs use nearby MTR data. All six builds passed Xaero/JourneyMap development-runtime checks; see [1.5.3 PIDS validation](docs/validation/pids-and-dimmed-1.5.3.md) for the recorded development-runtime checks and remaining limits. Those release checks did not cover real navigation-provider handoff, production modpack launch, cross-machine play or large-network performance. The newer development-build HowToGo handoff checks are recorded separately in the [2026-11-11 validation](docs/validation/howtogo-navigation-i18n-2026-11-11.md).
 
 ## Commands and configuration
 

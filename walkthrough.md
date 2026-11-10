@@ -233,3 +233,12 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - Clicks enter Minecraft's MouseHandler, so NeoForge pre/post input events and third-party handlers run. Direct Screen.mouseClicked calls were insufficient because they bypass those platform hooks. The driver also avoids station markers covered by the map toolbar by zooming out.
 - Added absent-provider and real multi-provider scenarios for both maps and all four game languages. The harness selects actual rendered station targets and clicks actual Navigate/provider buttons; it has no direct Navigate-handler endpoint and does not edit routing state.
 - Added `.cache/` to ignored local material for the fetched reference source/artifact. Compile checks passed; final game results and screenshots will be recorded after both scenarios finish.
+
+
+## [2026-11-11T01:46:08+08:00] Codex — Integration verification complete
+
+- Native NeoForge tests passed all 16 combinations of map host, game language and absent/two-real-provider configurations. Disabled buttons reject clicks; both actual providers appear; choosing HowToGo produces its real destination object with the selected station's exact coordinates and closes the map. Existing three-argument MTR Navigation registration was exercised.
+- Audited saved native labels against each locale's actual 100-key catalog, including Japanese. Added that exact-value assertion to the reusable scenario, replacing a weaker missing-key-only check. Recorded raw state/image hashes, artifact hashes and original screenshots in the validation report/evidence JSON.
+- Final NeoForge/Fabric builds, 108 Java tests (107 pass/1 explicit generator skip), language validation, Java17 API class versions and production JAR isolation passed. No QA controller or third-party implementation classes are packaged. Both clients saved and exited normally.
+- Precisely limited the claim: the copied MTR fixture has no HowToGo road graph and its native HUD reports No route. Destination handoff passed; HowToGo road routing/guidance, Fabric client visuals, older targets and large-network performance are not claimed.
+- Updated README/API documentation, completed the task claim and shared the remaining QA boundaries. Version stays 1.5.3; no release or published attachment changed.

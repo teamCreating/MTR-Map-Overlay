@@ -6,14 +6,14 @@
 
 ## 进行中
 
-### [进行中] HowToGo navigation availability and complete localization
-- Owner: Codex; claimed 2026-11-11T01:17:23+08:00. Scope: public Navigate availability contract, optional HowToGo adapter and compatibility tests, en_us/zh_cn/zh_tw/ja_jp UI coverage. Files: api/, extension/, integration/howtogo/, language resources, focused tests/docs/build support. Preserve version 1.5.3 and both loaders; no release.
+
 
 
 
 
 
 ### [待领，发布前QA] 1.5.3真实导航provider与扩展交互验证
+- Codex, 2026-11-11T01:46:08+08:00: Main-line NeoForge real HowToGo destination handoff and existing MTR Navigation registration now pass in both maps/four languages; see the new validation report. Other loaders/older versions, exact-span progress for other planners and the remaining layout/performance matrix are still pending.
 - Codex，2026-10-26 13:32：六平台双地图基础PIDS回归已补齐；仍需真实provider选择/点击和区段进度联动，以及逐目标长文本/GUI缩放/列车关闭后的暂停组合。大网性能单列，不能用基础回归替代。
 
 ### [待领，兼容QA] Forge1.20.4单人quick-play的Xaero初始化失败
@@ -35,6 +35,9 @@
 - 面向国际用户的英文版 walkthrough（当前为中文）。
 
 ## 完成
+
+- [完成] HowToGo navigation availability and four-language UI — Codex, 2026-11-11T01:46:08+08:00. Implementation commits `1d04fbc`, `7f034ea`, `a20ad15`, QA harness `f2326a6`; final evidence in this entry's commit. 16 NeoForge native UI cases passed; both loader builds and production packaging validated. HowToGo road routing, Fabric visual checks and old targets remain outside this scope.
+
 
 - [完成] 1.5.3官网、README与分发平台简介同步 — Codex，2026-10-31 21:45，见本条所在提交。中英文README突出站点原生预测、双PIDS与导航provider边界；`docs/distribution/1.5.3/`包含两语言Markdown、HTML、短简介。GitHub实时状态为1.5.3预发布／1.5.2稳定，与历史发布记录区分。独立官网目录新增三类双语指南，构建34页，32公开路由及1440/390px浏览器检查通过；未部署官网、未编辑Modrinth/CurseForge项目页，未改模组源码或版本。
 

@@ -142,3 +142,8 @@ NeoForge 源码在 [`src/main/java/io/github/teamcreating/mtrmap`](src/main/java
 ## 许可证与署名
 
 本项目使用 MIT 许可证。原始贡献的 AmberFrost 版权及许可声明保留在 [`LICENSE`](LICENSE)，后续版本由 BenLi06 维护。保留 Git 提交历史与原有署名。
+
+
+## 开发版对接更新
+
+当前开发分支新增可选 HowToGo 目的地转交与逐站 Navigate 可用性检查：无可用服务时按钮淡显，多个可用服务时显示选择菜单。Overlay 控件、到发板、提示和命令反馈跟随游戏语言，支持英文、简体中文、繁体中文及日语。这些改动尚未包含在此前发布的1.5.3附件中。详见[对接测试记录](docs/validation/howtogo-navigation-i18n-2026-11-11.md)。

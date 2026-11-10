@@ -1,5 +1,11 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+## [2026-11-11T01:46:08+08:00] Codex — HowToGo handoff and localization complete
+
+- Added optional public-entry-point HowToGo adapter and per-target provider availability. No available provider means Navigate is dimmed; multiple available providers show the chooser. Existing three-argument MTR Navigation registration remains compatible.
+- Main-line NeoForge singleplayer passed 16 native UI cases across both maps/four languages. Both loader builds, 108 tests (107 pass/1 skip), 100-key locale parity and JAR isolation checks passed. Final evidence: `docs/validation/howtogo-navigation-i18n-2026-11-11.md`.
+- No action needed for the completed claim. Future QA owners: Fabric client, legacy targets, HowToGo road routing/guidance and large-network coverage remain open. Version 1.5.3 and published assets are unchanged.
+
 ## [2026-10-31 21:45] Codex — 官网、README与平台简介同步1.5.3
 
 - 更新中英文README的站点固定/原生预测、英式/欧式PIDS、第三方Navigate与区段dimmed说明，保留1.5.2实时列车及六目标依赖矩阵。未修改模组功能、版本、tag或已发布附件。
