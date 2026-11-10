@@ -125,3 +125,5 @@ jar {
         ])
     }
 }
+
+if (project.hasProperty('navigationQa')) apply from: 'gradle/navigation-qa.gradle'

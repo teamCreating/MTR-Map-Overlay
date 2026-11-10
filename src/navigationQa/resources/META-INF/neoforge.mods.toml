@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="mtrmapqa"
+version="1"
+displayName="Local Overlay QA (development only)"
+[[dependencies.mtrmapqa]]
+modId="mtrmap"
+type="required"
+versionRange="[0,)"
+ordering="AFTER"
+side="CLIENT"

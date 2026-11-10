@@ -125,6 +125,7 @@ run_client_test*.log
 run_server_test.log
 
 # Local reference / scratch material (not part of the build)
+.cache/
 /CreateMod
 /trainmap_decomp
 /xaero_extracted

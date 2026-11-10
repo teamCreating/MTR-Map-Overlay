@@ -225,3 +225,11 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - Localized command feedback on both loaders, map tooltips, JourneyMap toolbar text, PIDS style names, and diagnostic marker text. Xaero buttons now sample only the language-neutral icon from the old texture and draw translated labels. Station/route names remain user-owned data.
 - Replaced English-string parsing for diagnostic success with a typed marker result. A not-yet-ready JourneyMap API or failed marker display now reports failure correctly.
 - Added `tools/validate_languages.py` for key/placeholder parity and static Java translation-reference checks. NeoForge build/unit checks and QA-source compilation passed; Fabric build passed before the final three resource-only additions and will be rebuilt for the final package.
+
+
+## [2026-11-11T01:39:02+08:00] Codex — Native CLI integration harness
+
+- Added an opt-in `-PnavigationQa` source set and separate development mod, with a localhost-only CLI, original framebuffer screenshots, resource-language reloads, and read-only provider/target/button evidence. Production builds do not include the QA mod or control port.
+- Clicks enter Minecraft's MouseHandler, so NeoForge pre/post input events and third-party handlers run. Direct Screen.mouseClicked calls were insufficient because they bypass those platform hooks. The driver also avoids station markers covered by the map toolbar by zooming out.
+- Added absent-provider and real multi-provider scenarios for both maps and all four game languages. The harness selects actual rendered station targets and clicks actual Navigate/provider buttons; it has no direct Navigate-handler endpoint and does not edit routing state.
+- Added `.cache/` to ignored local material for the fetched reference source/artifact. Compile checks passed; final game results and screenshots will be recorded after both scenarios finish.

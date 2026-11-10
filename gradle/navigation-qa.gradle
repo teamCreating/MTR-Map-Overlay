@@ -1,0 +1,13 @@
+// Local CLI integration checks only. The development mod is never included in release JARs.
+sourceSets {
+    navigationQa {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+neoForge {
+    mods { mtrmapqa { sourceSet sourceSets.navigationQa } }
+    runs.client {
+        systemProperty 'mtrmap.qa.output', rootProject.file('build/navigation-qa').absolutePath
+    }
+}
