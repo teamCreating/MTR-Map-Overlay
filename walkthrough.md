@@ -228,3 +228,8 @@ Added raw native widget/arrival-board/server lifecycle observations and a CLI ac
 ### 2026-11-11T02:55:43+08:00 — Codex: native keyboard acceptance input
 
 JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping state did not open its screen. QA now sends actual KeyboardHandler press/release events, preserving loader hooks. The runner also waits for title resource loading to finish before clicking. This changes only test tooling; the initial missing-screen attempt is not counted as a product pass.
+
+
+### 2026-11-11T03:07:25+08:00 — Codex: loader-independent QA screen roles
+
+Production Fabric uses intermediary class names. QA now exposes typed native title/world-selection/disconnection roles via instanceof, avoiding name-string assumptions in the CLI startup check. This is confined to the opt-in QA source set. Forge49 quick-play still fails independently of Overlay, while both Forge normal singleplayer matrices pass; release remains gated.

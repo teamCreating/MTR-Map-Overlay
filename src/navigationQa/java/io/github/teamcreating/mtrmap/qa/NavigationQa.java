@@ -35,6 +35,7 @@ public final class NavigationQa {
     private JsonObject state() throws Exception {
         var mc=Minecraft.getInstance();var result=new JsonObject();
         result.addProperty("connected",mc.player!=null);result.addProperty("screen",mc.screen==null?"":mc.screen.getClass().getName());
+        result.addProperty("screenRole",mc.screen instanceof net.minecraft.client.gui.screens.TitleScreen?"TITLE":mc.screen instanceof net.minecraft.client.gui.screens.worldselection.SelectWorldScreen?"WORLDS":mc.screen instanceof net.minecraft.client.gui.screens.DisconnectedScreen?"DISCONNECTED":"OTHER");
         result.addProperty("overlayCodeSource",ClientOverlayRuntime.class.getProtectionDomain().getCodeSource().getLocation().toString());
         result.addProperty("paused",mc.isPaused());result.addProperty("language",mc.options.languageCode);
         result.addProperty("languageReloading",mc.getOverlay()!=null);
