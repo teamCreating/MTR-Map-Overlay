@@ -223,3 +223,8 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 ### 2026-11-11T02:49:51+08:00 — Codex: production runtime acceptance tooling
 
 Added raw native widget/arrival-board/server lifecycle observations and a CLI acceptance runner that checks the loaded production JAR hash, both maps, four locales, disabled Navigate and live native arrivals. The separate Forge/NeoForge QA JAR now reuses the target resource-pack metadata; it is never shipped in release assets. Forge 49 normal title-screen singleplayer startup succeeds and initializes native Xaero server data; quick-play while a loading-warning screen is pending can skip lifecycle completion and is not treated as a pass. Production source remains unchanged. Final six-candidate acceptance is still pending.
+
+
+### 2026-11-11T02:55:43+08:00 — Codex: native keyboard acceptance input
+
+JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping state did not open its screen. QA now sends actual KeyboardHandler press/release events, preserving loader hooks. The runner also waits for title resource loading to finish before clicking. This changes only test tooling; the initial missing-screen attempt is not counted as a product pass.
