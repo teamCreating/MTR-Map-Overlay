@@ -76,6 +76,7 @@ public final class NavigationQa {
             case "resume"->{mc.setScreen(null);mc.options.pauseOnLostFocus=false;mc.options.renderDistance().set(6);mc.options.framerateLimit().set(60);}
             case "command"->{var server=mc.getSingleplayerServer();if(server==null)throw new IllegalStateException("Singleplayer only");String command=request.get("command").getAsString();server.execute(()->server.getCommands().performPrefixedCommand(server.createCommandSourceStack(),command));}
             case "key"->{held=Arrays.stream(mc.options.keyMappings).filter(k->k.getName().equals(request.get("name").getAsString())).findFirst().orElseThrow();key(1);release=ticks+2;}
+            case "escape"->{key(org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE,1);key(org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE,0);}
             case "click"->{
                 move(request.get("x").getAsDouble(),request.get("y").getAsDouble());
                 var method=nativeInput(new String[]{"onPress","m_91530_","method_1601"},long.class,int.class,int.class,int.class);
@@ -93,10 +94,13 @@ public final class NavigationQa {
     }
     public void tick() { ticks++;if(held!=null&&ticks>=release){try{key(0);}catch(Exception e){throw new IllegalStateException("Native key release failed",e);}held=null;} }
     private void key(int action) throws Exception {
+        key(com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()).getValue(),action);
+    }
+    private void key(int keyCode,int action) throws Exception {
         var mc=Minecraft.getInstance();
         for(var name:List.of("keyPress","m_90893_","method_1466"))try{
             var method=KeyboardHandler.class.getDeclaredMethod(name,long.class,int.class,int.class,int.class,int.class);method.setAccessible(true);
-            method.invoke(mc.keyboardHandler,mc.getWindow().getWindow(),com.mojang.blaze3d.platform.InputConstants.getKey(held.saveString()).getValue(),0,action,0);return;
+            method.invoke(mc.keyboardHandler,mc.getWindow().getWindow(),keyCode,0,action,0);return;
         }catch(NoSuchMethodException ignored){}
         throw new NoSuchMethodException("Native keyboard input mapping unavailable");
     }

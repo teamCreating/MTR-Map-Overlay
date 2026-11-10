@@ -296,3 +296,8 @@ Production Fabric uses intermediary class names. QA now exposes typed native tit
 ### 2026-11-11T03:13:58+08:00 — Codex: explicit QA loopback endpoint
 
 Measured local bridge GET latency: localhost 2.068 s, 127.0.0.1 0.033 s; the listener is on IPv4 and Windows tries IPv6 first. The CLI now defaults to the observed IPv4 loopback endpoint and permits MTRMAP_QA_URL override. Only the owned test driver was stopped; the game remains open for a full rerun using unchanged candidate JARs.
+
+
+### 2026-11-11T03:19:47+08:00 — Codex: acknowledge native MTR beta notice in QA
+
+MTR 4.1.0-beta.2 displays its first-run BetaWarningScreen and explicitly prompts Escape. Added native KeyboardHandler Escape press/release support to the optional QA bridge. Acceptance captures the notice, invokes the advertised native action and waits for the actual title screen; no config suppression, fake world or direct Screen replacement is used.
