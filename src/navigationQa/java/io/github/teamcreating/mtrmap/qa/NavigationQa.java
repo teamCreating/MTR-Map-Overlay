@@ -39,6 +39,11 @@ public final class NavigationQa {
         result.addProperty("paused",mc.isPaused());result.addProperty("language",mc.options.languageCode);
         result.addProperty("languageReloading",mc.getOverlay()!=null);
         var labels=new JsonObject();for(var key:List.of("navigate","navigation_unavailable","expand","collapse","routes","tracks","next_arrivals"))labels.addProperty(key,Component.translatable("mtrmap.ui."+key).getString());result.add("labels",labels);
+        result.addProperty("guiWidth",mc.getWindow().getGuiScaledWidth());result.addProperty("guiHeight",mc.getWindow().getGuiScaledHeight());
+        var nativeButtons=new JsonArray();
+        if(mc.screen!=null)for(var child:mc.screen.children())if(child instanceof net.minecraft.client.gui.components.AbstractWidget widget)
+            nativeButtons.add(JSON.toJsonTree(Map.of("label",widget.getMessage().getString(),"x",widget.getX(),"y",widget.getY(),"w",widget.getWidth(),"h",widget.getHeight(),"active",widget.active,"visible",widget.visible)));
+        result.add("nativeButtons",nativeButtons);
         var runtime=ClientOverlayRuntime.INSTANCE;var providers=new JsonArray();runtime.navigation().forEach(p->providers.add(p.owner()));result.add("providers",providers);
         if(mc.level!=null){
             var world=runtime.world(mc.level.dimension().location().toString()).orElse(null);
@@ -56,6 +61,8 @@ public final class NavigationQa {
                 row.add(key,value instanceof Component c?new JsonPrimitive(c.getString()):JSON.toJsonTree(value));
             }values.add(row);
         }result.add("buttons",values);
+        try{result.add("serverEvents",JSON.toJsonTree(Class.forName("io.github.teamcreating.mtrmap.qa.QaForge").getField("EVENTS").get(null)));}catch(ReflectiveOperationException ignored){}
+        var nativeBoard=OverlayUi.class.getDeclaredField("board");nativeBoard.setAccessible(true);result.add("board",JSON.toJsonTree(nativeBoard.get(null)));
         try {
             var navigation=Class.forName("bili.dongsz.howtogo.client.Navigation");var target=navigation.getMethod("target").invoke(null);
             if(target!=null){var row=new JsonObject();for(String key:List.of("name","x","y","z","source"))row.add(key,JSON.toJsonTree(target.getClass().getMethod(key).invoke(target)));result.add("howtogoTarget",row);}

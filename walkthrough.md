@@ -218,3 +218,8 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - All four Java17 production targets build with 110 passing tests and one explicit generator skip each. Main builds retain 107 passing tests and one generator skip. Actual HowToGo signature data is now fetched and hash-checked by CI before Gradle; missing data fails instead of silently skipping an acceptance check.
 - Added separately packaged acceptance controllers for NeoForge, Forge and Fabric. They will be installed beside exact candidate JARs in isolated production-launcher profiles, not bundled in released mods. The controller records the loaded Overlay code source.
 - Native mouse bindings use verified Mojang/SRG/intermediary mappings and the platform's input dispatch. Shared keyboard actions use the serialized binding rather than a NeoForge-only helper. Existing Minecraft/loader splits remain independent. Runtime acceptance is still pending.
+
+
+### 2026-11-11T02:49:51+08:00 — Codex: production runtime acceptance tooling
+
+Added raw native widget/arrival-board/server lifecycle observations and a CLI acceptance runner that checks the loaded production JAR hash, both maps, four locales, disabled Navigate and live native arrivals. The separate Forge/NeoForge QA JAR now reuses the target resource-pack metadata; it is never shipped in release assets. Forge 49 normal title-screen singleplayer startup succeeds and initializes native Xaero server data; quick-play while a loading-warning screen is pending can skip lifecycle completion and is not treated as a pass. Production source remains unchanged. Final six-candidate acceptance is still pending.
