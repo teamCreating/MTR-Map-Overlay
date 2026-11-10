@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [进行中] Release 1.6.0 six-platform acceptance and publication
+- Owner: Codex; claimed 2026-11-11T01:53:55+08:00. User authorizes version 1.6.0 and publication only after Forge/Fabric 1.20.1/1.20.4 and NeoForge/Fabric 1.21.1 pass. Port current integration/localization, fix failures, seal and test exact candidate JARs, then publish through the existing protected release workflow.
+
+
 
 
 
