@@ -121,22 +121,26 @@ public final class JourneyMapIntegration {
      *
      * @return a status message for the command feedback
      */
-    public static String placeTestMarker() {
+    public record MarkerResult(boolean success, net.minecraft.network.chat.Component message) {}
+    public static MarkerResult placeTestMarker() {
         if (!isJourneyMapLoaded()) {
-            return "JourneyMap is not installed - nothing to test";
+            return markerResult(false,"journeymap_missing");
         }
         try {
             final Minecraft mc = Minecraft.getInstance();
             if (mc.player == null || mc.level == null) {
-                return "Not in a world";
+                return markerResult(false,"no_world");
             }
-            JourneyMapLandmarkManager.placeTestMarker(mc.player.blockPosition(), mc.level.dimension());
-            return "Test marker placed at your position - check the JourneyMap fullscreen map (J)";
+            return JourneyMapLandmarkManager.placeTestMarker(mc.player.blockPosition(), mc.level.dimension())
+                    ? markerResult(true,"marker_placed") : markerResult(false,"journeymap_not_ready");
         } catch (NoClassDefFoundError e) {
-            return "JourneyMap API not available: " + e.getMessage();
+            return markerResult(false,"journeymap_not_ready");
         } catch (Throwable e) {
             MTRMap.LOGGER.error("[MTRMap] Failed to place test marker", e);
-            return "Failed: " + e.getMessage();
+            return markerResult(false,"marker_failed");
         }
+    }
+    private static MarkerResult markerResult(boolean success,String key) {
+        return new MarkerResult(success,net.minecraft.network.chat.Component.translatable("mtrmap.command."+key));
     }
 }

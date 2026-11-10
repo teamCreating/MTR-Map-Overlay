@@ -109,3 +109,8 @@
 ## 开源协议与致谢
 
 本项目采用 [MIT 协议](LICENSE) 开源。AmberFrost 的早期贡献版权声明保留于 [`LICENSE`](LICENSE) 及 Git 提交历史中，后续版本由 BenLi06 维护开发。
+
+
+## 导航对接与多语言
+
+开发版新增可选 HowToGo 目的地转交和逐站 Navigate 可用性检查，无可用服务时淡显，多个可用服务时显示选择器。控件支持英文、简体中文、繁体中文和日语。见[对接验证](docs/validation/howtogo-navigation-i18n-2026-11-11.md)。

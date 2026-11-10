@@ -1,0 +1,466 @@
+{
+  "timestamp": "2026-11-11T01:44:36+08:00",
+  "platform": "Minecraft 1.21.1 / NeoForge 21.1.249 / Java 21.0.11 / MTR 4.1.0-beta.2",
+  "maps": [
+    "Xaero World Map 1.45.0",
+    "JourneyMap 6.0.8"
+  ],
+  "world": "HowToGoQa-20261111",
+  "cases": [
+    {
+      "mode": "absent",
+      "language": "en_us",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ Navigate",
+        "navigation_unavailable": "No navigation service can handle this station",
+        "expand": "▸ Expand",
+        "collapse": "▾ Collapse",
+        "routes": "Routes",
+        "tracks": "Tracks",
+        "next_arrivals": "NEXT ARRIVALS"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "c460fbc9ac49819b5ee9ed088ded7f1e395da6e86192fa208739665f7b4c8a9d",
+      "imageSha256": "2911c2c1465adcd56d74af0c9ab6cea5c859c090bc7dd7f31ee3174313fa34b1"
+    },
+    {
+      "mode": "absent",
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ Navigate",
+        "navigation_unavailable": "No navigation service can handle this station",
+        "expand": "▸ Expand",
+        "collapse": "▾ Collapse",
+        "routes": "Routes",
+        "tracks": "Tracks",
+        "next_arrivals": "NEXT ARRIVALS"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "2061b126a704de0fb2a461149e253f633dd60d22f77d5f75e05f15dfe1fb0e5f",
+      "imageSha256": "d0431a930168bb03a6567bf8d92408bd0f691cce53b2bba2f3c28733f0bc00dd"
+    },
+    {
+      "mode": "absent",
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 导航",
+        "navigation_unavailable": "没有可用于此车站的导航服务",
+        "expand": "▸ 展开",
+        "collapse": "▾ 折叠",
+        "routes": "线路",
+        "tracks": "轨道",
+        "next_arrivals": "下一班车"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "3097f0a3b7d1d50956be4fb499f6c071f71e7e0cb168dabc9de13af51c629b20",
+      "imageSha256": "77cce1366cc717af7b6de69b6f4d055605dab4e2ad713b9cf22e7daff7e1b9dd"
+    },
+    {
+      "mode": "absent",
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 导航",
+        "navigation_unavailable": "没有可用于此车站的导航服务",
+        "expand": "▸ 展开",
+        "collapse": "▾ 折叠",
+        "routes": "线路",
+        "tracks": "轨道",
+        "next_arrivals": "下一班车"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "76ec34893c5fe1a1a2690692f74edb8e563fe84f5a85c7e5b068678f3c957e22",
+      "imageSha256": "ecdb03f222d966b51d0450c447a5d40d1ae6414e4f3532b5c54b816704127e8a"
+    },
+    {
+      "mode": "absent",
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 導航",
+        "navigation_unavailable": "沒有可用於此車站的導航服務",
+        "expand": "▸ 展開",
+        "collapse": "▾ 摺疊",
+        "routes": "路綫",
+        "tracks": "軌道",
+        "next_arrivals": "下一班車"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "6ca72e290827ae77dd33982a4d1004b0c81c8f2045ac8b5c0bb1f6acd60bc289",
+      "imageSha256": "f5c5f9af4b6a58fd6bee700fb64495155ce3601804cc8878a885f3dcf4da4dd1"
+    },
+    {
+      "mode": "absent",
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 導航",
+        "navigation_unavailable": "沒有可用於此車站的導航服務",
+        "expand": "▸ 展開",
+        "collapse": "▾ 摺疊",
+        "routes": "路綫",
+        "tracks": "軌道",
+        "next_arrivals": "下一班車"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "881d77fe741c7e3b01c22a61d6e63306c9e94dd4d8507afe6a3a666bd28a8a5f",
+      "imageSha256": "531e48c4f9fd6482bde913422f2159bf8c8b7c1913c8ae3544878863d3602c27"
+    },
+    {
+      "mode": "absent",
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 経路案内",
+        "navigation_unavailable": "この駅に対応する経路案内サービスがありません",
+        "expand": "▸ 展開",
+        "collapse": "▾ 折りたたむ",
+        "routes": "路線",
+        "tracks": "線路",
+        "next_arrivals": "次の到着"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "8588a90622158096fa95aa07deb4658e75dc3891aca05ca0a540ec548cba699c",
+      "imageSha256": "52b48c0614518d03dc9929b508f01376c939363cb90ab228dc4fa4a2abf3ced4"
+    },
+    {
+      "mode": "absent",
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [],
+      "navigateEnabled": false,
+      "labels": {
+        "navigate": "▸ 経路案内",
+        "navigation_unavailable": "この駅に対応する経路案内サービスがありません",
+        "expand": "▸ 展開",
+        "collapse": "▾ 折りたたむ",
+        "routes": "路線",
+        "tracks": "線路",
+        "next_arrivals": "次の到着"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "b68ca51557b27ffd08af9e4b662a9d61059b044e27f636f2b4466f35ea941af9",
+      "imageSha256": "cf43fb08b2e94b30221e44794ac5b90f9b1f47ef3838712b0a4449d021a09405"
+    },
+    {
+      "mode": "providers",
+      "language": "en_us",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ Navigate",
+        "navigation_unavailable": "No navigation service can handle this station",
+        "expand": "▸ Expand",
+        "collapse": "▾ Collapse",
+        "routes": "Routes",
+        "tracks": "Tracks",
+        "next_arrivals": "NEXT ARRIVALS"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "25e95cd1b562575e1b8ad195e8fcf518a6ba545bea72cd18b74bf77aa2629d7a",
+      "imageSha256": "3317223fc3c84c00603ca5e6ed5aa08ed6f5758cbbf335665c178f628b432063",
+      "target": {
+        "name": "QA Middle 中途",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "d7b28990fa61f59114d093db9b1c7866bb490bb74c7c63015d50e945bcfa46c8"
+    },
+    {
+      "mode": "providers",
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ Navigate",
+        "navigation_unavailable": "No navigation service can handle this station",
+        "expand": "▸ Expand",
+        "collapse": "▾ Collapse",
+        "routes": "Routes",
+        "tracks": "Tracks",
+        "next_arrivals": "NEXT ARRIVALS"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "6212475a61296878aad9442379ebf6bf4b3b9599d10a6a0c5ef7cb7d843531f1",
+      "imageSha256": "8d85f3cac013452f82fe544c7baf99426f074711fb849201671999e4d78f3690",
+      "target": {
+        "name": "QA Transfer 换乘",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "dcdbd9c3d0ad3ebe585d92bdb8cc9e35f4ef770e58fd4193ba6eb7b6001b3549"
+    },
+    {
+      "mode": "providers",
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 导航",
+        "navigation_unavailable": "没有可用于此车站的导航服务",
+        "expand": "▸ 展开",
+        "collapse": "▾ 折叠",
+        "routes": "线路",
+        "tracks": "轨道",
+        "next_arrivals": "下一班车"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "2244b550f1f0cf4af0e9b0ec3ccae18b65709903476dfba6eda0e22b1e651e4a",
+      "imageSha256": "e337b9074bd5cb7f47a7d2f1ad688ec00c2f5d027a81bb07141bb3d9f60a125a",
+      "target": {
+        "name": "QA Middle 中途",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "caf34d07e72a121065eb6e28f43d28b6d0b62a138ec88b808e330a033bb5d82c"
+    },
+    {
+      "mode": "providers",
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 导航",
+        "navigation_unavailable": "没有可用于此车站的导航服务",
+        "expand": "▸ 展开",
+        "collapse": "▾ 折叠",
+        "routes": "线路",
+        "tracks": "轨道",
+        "next_arrivals": "下一班车"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "263cf299c529c8c1013c8749836e2d7e7c87784b6d97205cff22616601218ee9",
+      "imageSha256": "b5c07b5923f82a9d2e3d0f24cba3d55475609279a85f624ad1346695c4aede0f",
+      "target": {
+        "name": "QA Transfer 换乘",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "05570c93c26a38fd788c46c77b6791484238d2a0939a7420af512ced4e489037"
+    },
+    {
+      "mode": "providers",
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 導航",
+        "navigation_unavailable": "沒有可用於此車站的導航服務",
+        "expand": "▸ 展開",
+        "collapse": "▾ 摺疊",
+        "routes": "路綫",
+        "tracks": "軌道",
+        "next_arrivals": "下一班車"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "8e537658f41b0713c7ea654cf142bf2e19ff6eb3d94aaedfc59db471d846b78c",
+      "imageSha256": "ad0cbf45e4ac0dd265d6ded4aefb116b243ed0c124d1eefe08242a60adcf3172",
+      "target": {
+        "name": "QA Middle 中途",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "46fc01c6fc589a17c6e73d4416704c1c7af6b3350f272724b4d37c097245e48b"
+    },
+    {
+      "mode": "providers",
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 導航",
+        "navigation_unavailable": "沒有可用於此車站的導航服務",
+        "expand": "▸ 展開",
+        "collapse": "▾ 摺疊",
+        "routes": "路綫",
+        "tracks": "軌道",
+        "next_arrivals": "下一班車"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "91875f3727a8700a8144d2fdd667441d968cc72f72c70350182de5f7a08f47b5",
+      "imageSha256": "52020ff63804a5fa83f3b699e25a97242f34a964ef3c61aef5cb0893975539ba",
+      "target": {
+        "name": "QA Transfer 换乘",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "a0be9f51886659edc12125df154a1f137f9d57a4b109d61d78300dace4789e70"
+    },
+    {
+      "mode": "providers",
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "2d2c6a5c9091d5f3",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 経路案内",
+        "navigation_unavailable": "この駅に対応する経路案内サービスがありません",
+        "expand": "▸ 展開",
+        "collapse": "▾ 折りたたむ",
+        "routes": "路線",
+        "tracks": "線路",
+        "next_arrivals": "次の到着"
+      },
+      "screen": "xaero.map.gui.GuiMap",
+      "stateSha256": "cec4de1552263074d2422d1b69c12e26ba2e53310cb05569cc30885582bb6604",
+      "imageSha256": "678e01882706772c68c3ad249114289bcf0db4614e09da237a17716ee1caa6d2",
+      "target": {
+        "name": "QA Middle 中途",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "5f6e4ae64042a15cfd1907318f0fdd8fb23a8a2494be0b8eea281fcb97daf18c"
+    },
+    {
+      "mode": "providers",
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "23423cb842ffa3d1",
+      "passed": true,
+      "providers": [
+        "mtrmap:howtogo",
+        "mtrnav:journey"
+      ],
+      "navigateEnabled": true,
+      "labels": {
+        "navigate": "▸ 経路案内",
+        "navigation_unavailable": "この駅に対応する経路案内サービスがありません",
+        "expand": "▸ 展開",
+        "collapse": "▾ 折りたたむ",
+        "routes": "路線",
+        "tracks": "線路",
+        "next_arrivals": "次の到着"
+      },
+      "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+      "stateSha256": "a9cc96247a018c9dd0841a592cb29138987dd5c091e4595d7fc63d818cd710ac",
+      "imageSha256": "a6f0bbb0232daa36d4d906a5c94f374e18cc06a169511b99f5d61b18efeb781f",
+      "target": {
+        "name": "QA Transfer 换乘",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "source": "mtrmap"
+      },
+      "handoffStateSha256": "d8316f839415e8916afcf229b382566f6a167c87b222ece65bad5f758d66a4bf"
+    }
+  ],
+  "artifacts": {
+    ".cache/howtogo-0.2.1-neoforge.jar": {
+      "sha256": "00017454e639b22a80f9adc167527b55f29cf9bf96face894db135c751ac7d14",
+      "bytes": 521629
+    },
+    "run/mods/MTR-Navigation-neoforge-0.1.0-alpha.1.jar": {
+      "sha256": "6071e313a9e7e2f1f4e898f2bf5249d3494d4ebf4e3cb7567c670ad4a0a16890",
+      "bytes": 1453380
+    },
+    "build/libs/CRTools-MTR-Map-Overlay-1.5.3.jar": {
+      "sha256": "b266c0126165ad5af9bf42d7b50784f8ddfad54dd00ce8b32d31eceb193117d3",
+      "bytes": 527229
+    },
+    "fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.3.jar": {
+      "sha256": "7ecffd8c383cb1ed0d9c87971903962a171285d74a486e5f8b463b49ea0e74f3",
+      "bytes": 530712
+    },
+    "build/api/mtrmap-api-1.0.0.jar": {
+      "sha256": "e3824aeb087c17d092b9568ea122d55bc399c11daf98843515dbbe1cf2b22634",
+      "bytes": 35613
+    }
+  },
+  "input": "Opt-in loopback CLI -> native MouseHandler -> real NeoForge input events; no direct provider-handler action",
+  "routingScope": "Destination handoff verified. No HowToGo roads in this fixture; native HowToGo reports No route. No road-routing or guidance completion claim.",
+  "tests": {
+    "tests": 108,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "apiClassVersion": 61
+}

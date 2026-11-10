@@ -1,0 +1,26 @@
+sourceSets {
+    navigationQa {
+        java.srcDirs = ['../src/navigationQa/java', 'src/navigationQa/java']
+        java.exclude '**/QaNeoForge.java', '**/QaForge.java'
+        resources.srcDirs = ['src/navigationQa/resources']
+        compileClasspath += sourceSets.main.output + sourceSets.overlayApi.output + sourceSets.main.compileClasspath
+    }
+}
+def rawQa = tasks.register('navigationQaJar', Jar) {
+    dependsOn tasks.named('navigationQaClasses')
+    archiveBaseName = 'mtrmap-acceptance-qa-fabric'
+    archiveVersion = project.version
+    archiveClassifier = 'named'
+    destinationDirectory = layout.buildDirectory.dir('qa')
+    from sourceSets.navigationQa.output
+}
+def remapType = tasks.named('remapJar').get().class.superclass
+tasks.register('remapNavigationQaJar', remapType) {
+    dependsOn rawQa
+    inputFile = rawQa.flatMap { it.archiveFile }
+    archiveBaseName = 'mtrmap-acceptance-qa-fabric'
+    archiveVersion = project.version
+    archiveClassifier = ''
+    destinationDirectory = layout.buildDirectory.dir('qa')
+    addNestedDependencies = false
+}

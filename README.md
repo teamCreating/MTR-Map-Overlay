@@ -45,6 +45,10 @@
 - **Navigation Extension API (Java 17):** Exposes network catalogs, station-board subscriptions, and isolated map view sessions for third-party route planners. When a compatible planner mod is installed, clicking **Navigate** highlights upcoming route segments and dims completed or unused tracks. See the [Public API Guide](docs/api/overlay-api-v1.md) for `MtrMapApi` integration details.
 - **UI & Decode Optimizations:** Station cards capture scroll and click events cleanly without dragging the underlying map, backed by bounded queues and background packet decoding.
 
+## Navigation integration and languages
+
+Development builds add an optional HowToGo destination handoff, per-station Navigate availability checks and English, Simplified Chinese, Traditional Chinese and Japanese controls. No available provider means Navigate is dimmed; multiple providers show a chooser. See the [integration verification](docs/validation/howtogo-navigation-i18n-2026-11-11.md).
+
 ## Requirements & Installation
 
 | Minecraft | Loader | Java | MTR Version | Supported Map Mods (Pick one or both) |

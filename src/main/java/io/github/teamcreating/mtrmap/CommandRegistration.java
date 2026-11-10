@@ -27,8 +27,7 @@ public class CommandRegistration {
                         MTRMapConfig.INSTANCE.showPlatformLandmarks.set(false);
                         JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal(
-                                                        "Map marker mode set to: station")
+                                        () -> Component.translatable("mtrmap.command.mode_set", modeLabel("station"))
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -40,8 +39,7 @@ public class CommandRegistration {
                         MTRMapConfig.INSTANCE.showPlatformLandmarks.set(true);
                         JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal(
-                                                        "Map marker mode set to: platform")
+                                        () -> Component.translatable("mtrmap.command.mode_set", modeLabel("platform"))
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -53,7 +51,7 @@ public class CommandRegistration {
                         MTRMapConfig.INSTANCE.showPlatformLandmarks.set(true);
                         JourneyMapIntegration.requestSync();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal("Map marker mode set to: both (stations and platforms)")
+                                        () -> Component.translatable("mtrmap.command.mode_set", modeLabel("both"))
                                                         .withStyle(ChatFormatting.GREEN),
                                         true);
                         return 1;
@@ -63,7 +61,7 @@ public class CommandRegistration {
                 modeNode.executes(ctx -> {
                         String currentMode = MTRMapConfig.INSTANCE.waypointMode.get();
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal("Current map marker mode: " + currentMode)
+                                        () -> Component.translatable("mtrmap.command.mode_current", modeLabel(currentMode))
                                                         .withStyle(ChatFormatting.AQUA),
                                         false);
                         return 1;
@@ -74,8 +72,7 @@ public class CommandRegistration {
                 syncRoutesNode.executes(ctx -> {
                         ClientNetworkSync.requestSync("manual /mtrmap syncRoutes");
                         ctx.getSource().sendSuccess(
-                                        () -> Component.literal(
-                                                        "Full-network snapshot requested! (If the server also runs this mod, the whole network will appear shortly.)")
+                                        () -> Component.translatable("mtrmap.command.sync_requested")
                                                                         .withStyle(ChatFormatting.GREEN),
                                                         true);
                         return 1;
@@ -87,14 +84,13 @@ public class CommandRegistration {
                                 .executes(ctx -> {
                                         if (!JourneyMapIntegration.isJourneyMapLoaded()) {
                                                 ctx.getSource().sendFailure(
-                                                                Component.literal("JourneyMap is not installed!")
+                                                                Component.translatable("mtrmap.command.journeymap_missing")
                                                                                 .withStyle(ChatFormatting.RED));
                                                 return 1;
                                         }
                                         JourneyMapIntegration.requestSync();
                                         ctx.getSource().sendSuccess(
-                                                        () -> Component.literal(
-                                                                        "Landmark sync requested! Markers will update shortly.")
+                                                        () -> Component.translatable("mtrmap.command.landmarks_requested")
                                                                                         .withStyle(ChatFormatting.GREEN),
                                                         true);
                                         return 1;
@@ -104,17 +100,15 @@ public class CommandRegistration {
                 LiteralArgumentBuilder<CommandSourceStack> testMarkerNode = Commands.literal("testMarker");
                 testMarkerNode
                                 .executes(ctx -> {
-                                        String result = JourneyMapIntegration.placeTestMarker();
-                                        boolean ok = !result.startsWith("Failed") && !result.contains("not installed")
-                                                        && !result.contains("Not in a world");
-                                        if (ok) {
+                                        var result = JourneyMapIntegration.placeTestMarker();
+                                        if (result.success()) {
                                                 ctx.getSource().sendSuccess(
-                                                                () -> Component.literal(result)
+                                                                () -> result.message().copy()
                                                                                 .withStyle(ChatFormatting.GREEN),
                                                                 true);
                                         } else {
                                                 ctx.getSource().sendFailure(
-                                                                Component.literal(result).withStyle(ChatFormatting.RED));
+                                                                result.message().copy().withStyle(ChatFormatting.RED));
                                         }
                                         return 1;
                                 });
@@ -122,35 +116,35 @@ public class CommandRegistration {
                 // Config sub-commands
                 LiteralArgumentBuilder<CommandSourceStack> configNode = Commands.literal("config");
                 var pids = Commands.literal("pidsStyle").executes(ctx -> {
-                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", MTRMapConfig.INSTANCE.pidsStyle.get()), false);
+                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", Component.translatable("mtrmap.pids_style."+MTRMapConfig.INSTANCE.pidsStyle.get())), false);
                         return 1;
                 });
                 for (var style : io.github.teamcreating.mtrmap.config.PidsStyle.values()) pids.then(Commands.literal(style.key).executes(ctx -> {
                         MTRMapConfig.setPidsStyle(style.key);
-                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", style.key), false);
+                        ctx.getSource().sendSuccess(() -> Component.translatable("mtrmap.ui.pids_style", Component.translatable("mtrmap.pids_style."+style.key)), false);
                         return 1;
                 }));
                 configNode.then(pids);
-                configNode.then(createBoolConfigNode("enabled", "MTR map overlays",
+                configNode.then(createBoolConfigNode("enabled", "mtrmap.ui.enabled",
                                 () -> MTRMapConfig.INSTANCE.enabled.get(),
                                 v -> MTRMapConfig.INSTANCE.enabled.set(v)));
-                configNode.then(createBoolConfigNode("showStations", "Station map icons",
+                configNode.then(createBoolConfigNode("showStations", "mtrmap.ui.stations",
                                 () -> MTRMapConfig.INSTANCE.showStationLandmarks.get(),
                                 v -> MTRMapConfig.INSTANCE.showStationLandmarks.set(v)));
-                configNode.then(createBoolConfigNode("showPlatforms", "Platform map icons",
+                configNode.then(createBoolConfigNode("showPlatforms", "mtrmap.ui.platforms",
                                 () -> MTRMapConfig.INSTANCE.showPlatformLandmarks.get(),
                                 v -> MTRMapConfig.INSTANCE.showPlatformLandmarks.set(v)));
-                configNode.then(createBoolConfigNode("showDepots", "Depot map icons",
+                configNode.then(createBoolConfigNode("showDepots", "mtrmap.ui.depots",
                                 () -> MTRMapConfig.INSTANCE.showDepotLandmarks.get(),
                                 v -> MTRMapConfig.INSTANCE.showDepotLandmarks.set(v)));
-                configNode.then(createBoolConfigNode("routeLines", "Map route lines",
+                configNode.then(createBoolConfigNode("routeLines", "mtrmap.ui.routes",
                                 () -> MTRMapConfig.INSTANCE.routeLinesEnabled.get(),
                                 v -> MTRMapConfig.INSTANCE.routeLinesEnabled.set(v)));
-                configNode.then(createBoolConfigNode("trackLines", "Map track layer",
+                configNode.then(createBoolConfigNode("trackLines", "mtrmap.ui.tracks",
                                 () -> MTRMapConfig.INSTANCE.trackLinesEnabled.get(),
                                 v -> MTRMapConfig.INSTANCE.trackLinesEnabled.set(v)));
 
-                configNode.then(createBoolConfigNode("trainCars", "Map train cars",
+                configNode.then(createBoolConfigNode("trainCars", "mtrmap.ui.trains",
                                 () -> MTRMapConfig.INSTANCE.trainCarsEnabled.get(),
                                 v -> MTRMapConfig.INSTANCE.trainCarsEnabled.set(v)));
 
@@ -162,6 +156,9 @@ public class CommandRegistration {
                 dispatcher.register(rootNode);
         }
 
+        private static Component modeLabel(String value) { return Component.translatableWithFallback("mtrmap.mode."+value,value); }
+        private static Component boolLabel(boolean value) { return Component.translatable("mtrmap.value."+(value?"enabled":"disabled")); }
+
         private static LiteralArgumentBuilder<CommandSourceStack> createBoolConfigNode(String configName,
                         String friendlyName, Supplier<Boolean> getValue, Consumer<Boolean> setValue) {
                 LiteralArgumentBuilder<CommandSourceStack> cfgNode = Commands.literal(configName);
@@ -170,15 +167,14 @@ public class CommandRegistration {
                                         boolean enabled = BoolArgumentType.getBool(ctx, "enabled");
                                         setValue.accept(enabled);
                                         ctx.getSource().sendSuccess(
-                                                        () -> Component.literal(friendlyName + " set to " + enabled)
+                                                        () -> Component.translatable("mtrmap.command.config_set", Component.translatable(friendlyName), boolLabel(enabled))
                                                                         .withStyle(ChatFormatting.GREEN),
                                                         true);
                                         return 1;
                                 }))
                                 .executes(ctx -> {
                                         ctx.getSource().sendSuccess(
-                                                        () -> Component.literal(friendlyName + " is currently set to "
-                                                                        + getValue.get())
+                                                        () -> Component.translatable("mtrmap.command.config_current", Component.translatable(friendlyName), boolLabel(getValue.get()))
                                                                         .withStyle(ChatFormatting.AQUA),
                                                         false);
                                         return 1;

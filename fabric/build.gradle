@@ -78,3 +78,5 @@ jar {
 }
 
 if (project.hasProperty('mtrmapRuntimeTest')) apply from: 'runtime-test.gradle'
+
+if (project.hasProperty('navigationQa')) apply from: '../gradle/navigation-qa-fabric.gradle'

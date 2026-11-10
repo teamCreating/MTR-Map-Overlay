@@ -26,36 +26,36 @@ public final class CommandRegistration {
                 .then(literal("platform").executes(ctx -> setMode(ctx.getSource(), "platform", false, true)))
                 .then(literal("both").executes(ctx -> setMode(ctx.getSource(), "both", true, true)))
                 .executes(ctx -> feedback(ctx.getSource(),
-                        "Current map marker mode: " + MTRMapConfig.INSTANCE.waypointMode.get()));
+                        Component.translatable("mtrmap.command.mode_current", modeLabel(MTRMapConfig.INSTANCE.waypointMode.get()))));
 
         LiteralArgumentBuilder<FabricClientCommandSource> config = literal("config")
-                .then(boolConfig("enabled", "MTR map overlays", MTRMapConfig.INSTANCE.enabled::get,
+                .then(boolConfig("enabled", "mtrmap.ui.enabled", MTRMapConfig.INSTANCE.enabled::get,
                         MTRMapConfig.INSTANCE.enabled::set))
-                .then(boolConfig("showStations", "Station map icons",
+                .then(boolConfig("showStations", "mtrmap.ui.stations",
                         MTRMapConfig.INSTANCE.showStationLandmarks::get,
                         MTRMapConfig.INSTANCE.showStationLandmarks::set))
-                .then(boolConfig("showPlatforms", "Platform map icons",
+                .then(boolConfig("showPlatforms", "mtrmap.ui.platforms",
                         MTRMapConfig.INSTANCE.showPlatformLandmarks::get,
                         MTRMapConfig.INSTANCE.showPlatformLandmarks::set))
-                .then(boolConfig("showDepots", "Depot map icons",
+                .then(boolConfig("showDepots", "mtrmap.ui.depots",
                         MTRMapConfig.INSTANCE.showDepotLandmarks::get,
                         MTRMapConfig.INSTANCE.showDepotLandmarks::set))
-                .then(boolConfig("routeLines", "Map route lines",
+                .then(boolConfig("routeLines", "mtrmap.ui.routes",
                         MTRMapConfig.INSTANCE.routeLinesEnabled::get,
                         MTRMapConfig.INSTANCE.routeLinesEnabled::set))
-                .then(boolConfig("trackLines", "Map track layer",
+                .then(boolConfig("trackLines", "mtrmap.ui.tracks",
                         MTRMapConfig.INSTANCE.trackLinesEnabled::get,
                         MTRMapConfig.INSTANCE.trackLinesEnabled::set))
-                .then(boolConfig("trainCars", "Map train cars",
+                .then(boolConfig("trainCars", "mtrmap.ui.trains",
                         MTRMapConfig.INSTANCE.trainCarsEnabled::get,
                         MTRMapConfig.INSTANCE.trainCarsEnabled::set));
 
         var pids = literal("pidsStyle").executes(ctx -> {
-            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", MTRMapConfig.INSTANCE.pidsStyle.get())); return 1;
+            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", Component.translatable("mtrmap.pids_style."+MTRMapConfig.INSTANCE.pidsStyle.get()))); return 1;
         });
         for (var style : io.github.teamcreating.mtrmap.config.PidsStyle.values()) pids.then(literal(style.key).executes(ctx -> {
             MTRMapConfig.setPidsStyle(style.key);
-            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", style.key)); return 1;
+            ctx.getSource().sendFeedback(Component.translatable("mtrmap.ui.pids_style", Component.translatable("mtrmap.pids_style."+style.key))); return 1;
         }));
         config.then(pids);
         dispatcher.register(literal("mtrmap")
@@ -63,24 +63,23 @@ public final class CommandRegistration {
                 .then(config)
                 .then(literal("syncRoutes").executes(ctx -> {
                     ClientNetworkSync.requestSync("manual /mtrmap syncRoutes");
-                    return feedback(ctx.getSource(), "Full-network snapshot requested");
+                    return feedback(ctx.getSource(), Component.translatable("mtrmap.command.sync_requested"));
                 }))
                 .then(literal("syncLandmarks").executes(ctx -> {
                     if (!JourneyMapIntegration.isJourneyMapLoaded()) {
-                        ctx.getSource().sendError(Component.literal("JourneyMap is not installed"));
+                        ctx.getSource().sendError(Component.translatable("mtrmap.command.journeymap_missing"));
                         return 0;
                     }
                     JourneyMapIntegration.requestSync();
-                    return feedback(ctx.getSource(), "Landmark sync requested");
+                    return feedback(ctx.getSource(), Component.translatable("mtrmap.command.landmarks_requested"));
                 }))
                 .then(literal("testMarker").executes(ctx -> {
-                    String result = JourneyMapIntegration.placeTestMarker();
-                    if (result.startsWith("Failed") || result.contains("not installed")
-                            || result.contains("Not in a world")) {
-                        ctx.getSource().sendError(Component.literal(result));
+                    var result = JourneyMapIntegration.placeTestMarker();
+                    if (!result.success()) {
+                        ctx.getSource().sendError(result.message());
                         return 0;
                     }
-                    return feedback(ctx.getSource(), result);
+                    return feedback(ctx.getSource(), result.message());
                 })));
     }
 
@@ -90,7 +89,7 @@ public final class CommandRegistration {
         MTRMapConfig.INSTANCE.showStationLandmarks.set(showStations);
         MTRMapConfig.INSTANCE.showPlatformLandmarks.set(showPlatforms);
         JourneyMapIntegration.requestSync();
-        return feedback(source, "Map marker mode set to: " + mode);
+        return feedback(source, Component.translatable("mtrmap.command.mode_set", modeLabel(mode)));
     }
 
     private static LiteralArgumentBuilder<FabricClientCommandSource> boolConfig(String name,
@@ -100,13 +99,16 @@ public final class CommandRegistration {
                     boolean enabled = BoolArgumentType.getBool(ctx, "enabled");
                     setter.accept(enabled);
                     JourneyMapIntegration.requestSync();
-                    return feedback(ctx.getSource(), label + " set to " + enabled);
+                    return feedback(ctx.getSource(), Component.translatable("mtrmap.command.config_set", Component.translatable(label), boolLabel(enabled)));
                 }))
-                .executes(ctx -> feedback(ctx.getSource(), label + " is currently set to " + getter.get()));
+                .executes(ctx -> feedback(ctx.getSource(), Component.translatable("mtrmap.command.config_current", Component.translatable(label), boolLabel(getter.get()))));
     }
 
-    private static int feedback(FabricClientCommandSource source, String message) {
-        source.sendFeedback(Component.literal(message));
+    private static Component modeLabel(String value) { return Component.translatableWithFallback("mtrmap.mode."+value,value); }
+    private static Component boolLabel(boolean value) { return Component.translatable("mtrmap.value."+(value?"enabled":"disabled")); }
+
+    private static int feedback(FabricClientCommandSource source, Component message) {
+        source.sendFeedback(message);
         return 1;
     }
 }

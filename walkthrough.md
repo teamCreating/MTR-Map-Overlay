@@ -194,3 +194,65 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - 列车实时位置未上地图（客户端 `MinecraftClientData.vehicles` 已有数据，低成本可加）。
 - 洞穴图层（cave layers）下路径线悬浮显示，与 Create 行为一致，暂无解。
 - 路线层画的是站台顺序折线，不沿轨道走线（轨道层负责真实几何；路线沿轨需要图上寻路，工程量大）。
+
+
+## [2026-11-11T01:17:23+08:00] Codex — HowToGo and localization work claimed
+
+- Inspect the actual HowToGo API and artifact before choosing an adapter; keep navigation optional and avoid reconstructing another mod's internals.
+- Extend Navigate availability per selected station/world, disable unavailable actions, and preserve existing consumers.
+- Audit visible text and supply matching English, Simplified Chinese, Traditional Chinese, and Japanese resources. Validate both loader builds and focused integration behavior; record precise runtime limits.
+
+
+## [2026-11-11T01:21:17+08:00] Codex — Per-target Navigate availability
+
+- Added an optional four-argument registration overload with a cheap availability predicate. Existing three-argument consumers remain compatible; older implementations explicitly reject the new optional overload.
+- Extracted the client-thread navigation registry so unavailable, closed, replaced or failing providers cannot be invoked. Checks run while rendering choices and again on click; provider failures are isolated and logged once per owner.
+- Overlay validates the current catalog epoch and selected station before offering providers. Empty choices dim Navigate and dismiss an obsolete provider menu.
+- Validation: NeoForge build and all unit tests passed, including availability changes between render/click, stale registrations, missing optional classes, and multiple providers. Version remains 1.5.3.
+
+
+## [2026-11-11T01:25:55+08:00] Codex — Optional HowToGo destination handoff
+
+- Added an optional adapter using public `Destination(String,int,int,int,String)` and `Navigation.setTarget(Destination)` entry points. Reflection stays at the optional class boundary; no private fields, fake passengers, road edits, or copied routing implementation.
+- Offer the adapter only for finite block coordinates in the player's current dimension. An explicit Navigate click passes the actual catalog station name/position to HowToGo using its configured travel mode, then closes the map for its normal navigation HUD.
+- Added a SHA256-pinned download helper for published HowToGo NeoForge 0.2.1 (CurseForge file 9082013). Offline tests inspect genuine class-file signatures without fabricating Minecraft stubs; destination execution is reserved for the real client check.
+- Validation: NeoForge build/unit suite and Fabric build passed. Mod version remains 1.5.3; no HowToGo classes or JAR are bundled. Game handoff verification will be recorded separately.
+
+
+## [2026-11-11T01:32:33+08:00] Codex — Complete four-language UI resources
+
+- English remains the resource fallback; the game's selected language controls Simplified Chinese, Traditional Chinese and Japanese. All four catalogs contain the same 100 keys, with matching formatting placeholders and no duplicate entries.
+- Localized command feedback on both loaders, map tooltips, JourneyMap toolbar text, PIDS style names, and diagnostic marker text. Xaero buttons now sample only the language-neutral icon from the old texture and draw translated labels. Station/route names remain user-owned data.
+- Replaced English-string parsing for diagnostic success with a typed marker result. A not-yet-ready JourneyMap API or failed marker display now reports failure correctly.
+- Added `tools/validate_languages.py` for key/placeholder parity and static Java translation-reference checks. NeoForge build/unit checks and QA-source compilation passed; Fabric build passed before the final three resource-only additions and will be rebuilt for the final package.
+
+
+## [2026-11-11T01:39:02+08:00] Codex — Native CLI integration harness
+
+- Added an opt-in `-PnavigationQa` source set and separate development mod, with a localhost-only CLI, original framebuffer screenshots, resource-language reloads, and read-only provider/target/button evidence. Production builds do not include the QA mod or control port.
+- Clicks enter Minecraft's MouseHandler, so NeoForge pre/post input events and third-party handlers run. Direct Screen.mouseClicked calls were insufficient because they bypass those platform hooks. The driver also avoids station markers covered by the map toolbar by zooming out.
+- Added absent-provider and real multi-provider scenarios for both maps and all four game languages. The harness selects actual rendered station targets and clicks actual Navigate/provider buttons; it has no direct Navigate-handler endpoint and does not edit routing state.
+- Added `.cache/` to ignored local material for the fetched reference source/artifact. Compile checks passed; final game results and screenshots will be recorded after both scenarios finish.
+
+
+## [2026-11-11T01:46:08+08:00] Codex — Integration verification complete
+
+- Native NeoForge tests passed all 16 combinations of map host, game language and absent/two-real-provider configurations. Disabled buttons reject clicks; both actual providers appear; choosing HowToGo produces its real destination object with the selected station's exact coordinates and closes the map. Existing three-argument MTR Navigation registration was exercised.
+- Audited saved native labels against each locale's actual 100-key catalog, including Japanese. Added that exact-value assertion to the reusable scenario, replacing a weaker missing-key-only check. Recorded raw state/image hashes, artifact hashes and original screenshots in the validation report/evidence JSON.
+- Final NeoForge/Fabric builds, 108 Java tests (107 pass/1 explicit generator skip), language validation, Java17 API class versions and production JAR isolation passed. No QA controller or third-party implementation classes are packaged. Both clients saved and exited normally.
+- Precisely limited the claim: the copied MTR fixture has no HowToGo road graph and its native HUD reports No route. Destination handoff passed; HowToGo road routing/guidance, Fabric client visuals, older targets and large-network performance are not claimed.
+- Updated README/API documentation, completed the task claim and shared the remaining QA boundaries. Version stays 1.5.3; no release or published attachment changed.
+
+
+## [2026-11-11T01:53:55+08:00] Codex — User-authorized 1.6.0 release preparation
+
+- User explicitly selects 1.6.0 and authorizes publication after the supported six-target matrix passes. Claim covers ports, compatibility fixes, builds, native UI tests, sealed-candidate verification and the existing release pipeline.
+- Preserve platform split: NeoForge/Fabric 1.21.1 + MTR4.1 on main; Forge/Fabric 1.20.1/1.20.4 + MTR4.0 on the compatibility branch. No unsupported cross-version loader claim.
+- Merge current remote maintainer documentation before changing release data; resolve README conflicts by preserving the maintainer rewrite and adding current integration references. Record and fix known Forge49 singleplayer initialization failure before acceptance rather than substituting dedicated-server success.
+
+
+## [2026-11-11T02:13:10+08:00] Codex — Six-target release builds and candidate-jar QA support
+
+- All four Java17 production targets build with 110 passing tests and one explicit generator skip each. Main builds retain 107 passing tests and one generator skip. Actual HowToGo signature data is now fetched and hash-checked by CI before Gradle; missing data fails instead of silently skipping an acceptance check.
+- Added separately packaged acceptance controllers for NeoForge, Forge and Fabric. They will be installed beside exact candidate JARs in isolated production-launcher profiles, not bundled in released mods. The controller records the loaded Overlay code source.
+- Native mouse bindings use verified Mojang/SRG/intermediary mappings and the platform's input dispatch. Shared keyboard actions use the serialized binding rather than a NeoForge-only helper. Existing Minecraft/loader splits remain independent. Runtime acceptance is still pending.
