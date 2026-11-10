@@ -25,7 +25,7 @@ Each target loaded its downloaded sealed production JAR, not Gradle development 
 
 All 48 normal-flow cases used actual singleplayer MTR fixtures, native map screens, KeyboardHandler/MouseHandler input, resource reloads and raw framebuffer captures: Xaero/JourneyMap × en_us/zh_cn/zh_tw/ja_jp. Checks cover rendered station selection, collapsed/expanded boards, translated labels, unknown-station rejection, Navigate readiness, native arrivals and advancing server timestamps while maps stay unpaused. Player-defined names are preserved. A native LIMITED board is expected for fixture routes without complete predictions; the UI displays that status instead of inventing arrivals.
 
-The five profiles without a navigation provider show a disabled Navigate action and ignore its click. NeoForge includes actual HowToGo 0.2.1 and MTR Navigation: both providers are available; the chooser invokes HowToGo and its public target contains the exact native station name, floored block coordinates and `mtrmap` source, with the map closed. This tests destination handoff, not HowToGo road-route search or guidance; no road graph was built.
+The five profiles without a navigation provider show a disabled Navigate action and ignore its click. NeoForge includes actual HowToGo 0.2.1 and MTR Navigation: both providers are available; the chooser invokes HowToGo and its public target contains the native station name with MTR display separators (`|`) converted to spaces, floored block coordinates and `mtrmap` source, with the map closed. This tests destination handoff, not HowToGo road-route search or guidance; no road graph was built.
 
 ## Release blocker: Forge 1.20.4 quick-play
 
