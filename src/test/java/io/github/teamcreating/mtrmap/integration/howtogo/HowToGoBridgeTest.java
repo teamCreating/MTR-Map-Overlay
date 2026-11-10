@@ -18,7 +18,7 @@ class HowToGoBridgeTest {
     }
     @Test void publishedHowToGoDeclaresThePublicDestinationAndNavigationEntryPoints() throws Exception {
         var path=Path.of(System.getProperty("mtrmap.howtogoJar", ".cache/howtogo-0.2.1-neoforge.jar"));
-        Assumptions.assumeTrue(Files.isRegularFile(path),"Optional actual HowToGo artifact not downloaded");
+        assertTrue(Files.isRegularFile(path),"Run python tools/download_howtogo_test.py before the integration test suite");
         // javap reads the genuine class file without fabricating Minecraft classes or initializing the mod.
         var suffix=System.getProperty("os.name").toLowerCase(java.util.Locale.ROOT).contains("win")?".exe":"";
         var process=new ProcessBuilder(Path.of(System.getProperty("java.home"),"bin","javap"+suffix).toString(),

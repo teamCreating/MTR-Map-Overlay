@@ -94,6 +94,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty 'mtrmap.howtogoJar', rootProject.file('.cache/howtogo-0.2.1-neoforge.jar').absolutePath
     // Generating a save is an explicit developer action, never part of build/test.
     systemProperty 'mtrmap.generateTestWorld', project.hasProperty('generateTestWorld')
 }
