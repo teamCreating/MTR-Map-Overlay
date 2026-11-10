@@ -33,6 +33,21 @@ def click_button(label):
     return cli.call()
 
 
+def enter_singleplayer():
+    state = wait(lambda s: s['connected'] or s['screen'].endswith('TitleScreen'), 'normal title screen')
+    if state['connected']:
+        return
+    button = next(b for b in state['nativeButtons'] if b['label'] == 'Singleplayer')
+    cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
+    state = wait(lambda s: s['screen'].endswith('SelectWorldScreen'), 'native world selection')
+    # Every isolated acceptance profile contains exactly one copied test save.
+    listing = next(b for b in state['nativeButtons'] if b['label'] == '' and b['w'] == state['guiWidth'])
+    cli.call('click', x=listing['w']/2, y=listing['y']+16)
+    state = wait(lambda s: any(b['label'] == 'Play Selected World' and b['active'] for b in s['nativeButtons']), 'selected test save')
+    button = next(b for b in state['nativeButtons'] if b['label'] == 'Play Selected World')
+    cli.call('click', x=button['x']+button['w']/2, y=button['y']+button['h']/2)
+
+
 def select_station():
     for _ in range(18):
         state = cli.call()
@@ -56,6 +71,7 @@ def run(args):
     result = {'target': args.target, 'candidateSha256': args.sha256, 'candidateJar': str(jar), 'passed': False, 'cases': []}
     path = cli.OUTPUT / 'result.json'
     path.write_text(json.dumps(result, indent=2), encoding='utf-8')
+    enter_singleplayer()
     state = wait(lambda s: s['connected'] and s.get('catalog', {}).get('status') == 'READY', 'native world/catalog')
     source = state['overlayCodeSource']
     uri = source.removeprefix('jar:').removesuffix('!/')
