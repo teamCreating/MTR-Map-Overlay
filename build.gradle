@@ -48,6 +48,7 @@ dependencies {
 }
 test {
     useJUnitPlatform()
+    systemProperty 'mtrmap.howtogoJar', file('.cache/howtogo-0.2.1-neoforge.jar').absolutePath
     systemProperty 'mtrmap.generateTestWorld', project.findProperty('mtrmapGenerateTestWorld') ?: 'false'
     systemProperty 'mtrmap.testWorldMtrPath', project.findProperty('mtrmapTestWorldMtrPath') ?: 'run/saves/TestWorld/mtr'
 }
@@ -118,3 +119,5 @@ if (legacyJourneyMap) {
         config.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
     }
 }
+
+if (project.hasProperty('navigationQa')) apply from: 'gradle/navigation-qa.gradle'

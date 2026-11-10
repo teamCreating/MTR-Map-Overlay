@@ -5,6 +5,7 @@ import io.github.teamcreating.mtrmap.config.MTRMapConfig;
 import journeymap.api.v2.client.fullscreen.IThemeButton;
 import journeymap.api.v2.common.event.FullscreenEventRegistry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -40,19 +41,20 @@ final class JourneyMapToolbar {
         FullscreenEventRegistry.ADDON_BUTTON_DISPLAY_EVENT.subscribe(MTRMap.MOD_ID, event -> {
             final boolean tracksEnabled = MTRMapConfig.INSTANCE.trackLinesEnabled.get();
             final boolean routesEnabled = MTRMapConfig.INSTANCE.routeLinesEnabled.get();
-            trackButton = event.getThemeButtonDisplay().addThemeToggleButton("TRACKS ON", "TRACKS OFF",
+            trackButton = event.getThemeButtonDisplay().addThemeToggleButton(text("tracks_on"), text("tracks_off"),
                     tracksEnabled ? TRACK_ICON_ON : TRACK_ICON_OFF, tracksEnabled, button -> toggle(true));
-            routeButton = event.getThemeButtonDisplay().addThemeToggleButton("ROUTES ON", "ROUTES OFF",
+            routeButton = event.getThemeButtonDisplay().addThemeToggleButton(text("routes_on"), text("routes_off"),
                     routesEnabled ? ROUTE_ICON_ON : ROUTE_ICON_OFF, routesEnabled, button -> toggle(false));
             trackIconEnabled = tracksEnabled;
             routeIconEnabled = routesEnabled;
-            trackButton.setTooltip("TRACKS: physical rails");
-            routeButton.setTooltip("ROUTES: coloured route bands");
+            trackButton.setTooltip(text("tracks_tooltip"));
+            routeButton.setTooltip(text("routes_tooltip"));
         });
     }
 
     static void refreshButtons() {
         if (trackButton != null) {
+            trackButton.setTooltip(text("tracks_tooltip"));
             final boolean enabled = MTRMapConfig.INSTANCE.trackLinesEnabled.get();
             trackButton.setToggled(enabled);
             if (!Boolean.valueOf(enabled).equals(trackIconEnabled)) {
@@ -61,6 +63,7 @@ final class JourneyMapToolbar {
             }
         }
         if (routeButton != null) {
+            routeButton.setTooltip(text("routes_tooltip"));
             final boolean enabled = MTRMapConfig.INSTANCE.routeLinesEnabled.get();
             routeButton.setToggled(enabled);
             if (!Boolean.valueOf(enabled).equals(routeIconEnabled)) {
@@ -69,6 +72,8 @@ final class JourneyMapToolbar {
             }
         }
     }
+
+    private static String text(String key) { return Component.translatable("mtrmap.ui." + key).getString(); }
 
     private static void toggle(boolean track) {
         // Some JourneyMap versions call an add-on action twice for one click.
