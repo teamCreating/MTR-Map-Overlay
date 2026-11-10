@@ -233,3 +233,8 @@ JourneyMap 5 listens to platform keyboard events, so merely setting KeyMapping s
 ### 2026-11-11T03:07:25+08:00 — Codex: loader-independent QA screen roles
 
 Production Fabric uses intermediary class names. QA now exposes typed native title/world-selection/disconnection roles via instanceof, avoiding name-string assumptions in the CLI startup check. This is confined to the opt-in QA source set. Forge49 quick-play still fails independently of Overlay, while both Forge normal singleplayer matrices pass; release remains gated.
+
+
+### 2026-11-11T03:14:26+08:00 — Codex: sync QA loopback endpoint
+
+Synced the main acceptance CLI endpoint fix: default to the observed IPv4 loopback listener with an optional MTRMAP_QA_URL override, avoiding Windows localhost IPv6 fallback delays. No production source or candidate changed.
