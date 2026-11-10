@@ -127,6 +127,7 @@ public final class ClientOverlayRuntime implements MtrMapApi.Client {
         if (!clearing && query != null && MTRNetworkClient.canSendOverlay()) MTRNetworkClient.sendToServer(new OverlayRequest(query.generation, key.dimension, key.station, false));
     }
     public void tick() {
+        io.github.teamcreating.mtrmap.integration.howtogo.HowToGoIntegration.initialize(this);
         thread(); OverlayUi.tick();
         if (Minecraft.getInstance().getConnection() == null) return;
         long now = System.nanoTime(); int sent = 0;

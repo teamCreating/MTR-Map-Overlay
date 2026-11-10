@@ -209,3 +209,11 @@ debugLog 开启时每 3 秒会输出 `screen-trace: <当前 Screen>`，可用于
 - Extracted the client-thread navigation registry so unavailable, closed, replaced or failing providers cannot be invoked. Checks run while rendering choices and again on click; provider failures are isolated and logged once per owner.
 - Overlay validates the current catalog epoch and selected station before offering providers. Empty choices dim Navigate and dismiss an obsolete provider menu.
 - Validation: NeoForge build and all unit tests passed, including availability changes between render/click, stale registrations, missing optional classes, and multiple providers. Version remains 1.5.3.
+
+
+## [2026-11-11T01:25:55+08:00] Codex — Optional HowToGo destination handoff
+
+- Added an optional adapter using public `Destination(String,int,int,int,String)` and `Navigation.setTarget(Destination)` entry points. Reflection stays at the optional class boundary; no private fields, fake passengers, road edits, or copied routing implementation.
+- Offer the adapter only for finite block coordinates in the player's current dimension. An explicit Navigate click passes the actual catalog station name/position to HowToGo using its configured travel mode, then closes the map for its normal navigation HUD.
+- Added a SHA256-pinned download helper for published HowToGo NeoForge 0.2.1 (CurseForge file 9082013). Offline tests inspect genuine class-file signatures without fabricating Minecraft stubs; destination execution is reserved for the real client check.
+- Validation: NeoForge build/unit suite and Fabric build passed. Mod version remains 1.5.3; no HowToGo classes or JAR are bundled. Game handoff verification will be recorded separately.
