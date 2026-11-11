@@ -434,3 +434,7 @@ Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 105, 'fa
 ### 2026-11-11T17:03:13+08:00 — Replace 1.6.0 on explicit user request
 
 Build the already merged generic Navigate correction for six targets; external mods own adapters. Rewrite public notes using 1.5.3 structure: bilingual Added/Optimized sections, MC/MTR compatibility and two final diff links. Preserve original publication metadata and downloaded assets locally before replacement. The user explicitly authorized replacing this version; recreate its release/tags on new sealed sources rather than force-pushing or silently retaining obsolete source tags. Use protected Publish and verify all ten replacement downloads. The old 72-case runtime record is historical, not a new binary runtime claim.
+
+### 2026-11-11T17:11:24+08:00 — Verify replacement 1.6.0 public assets and notes
+
+Candidate42991712783 passed all six builds/tests. Download all ten replacement release assets again and verify bytes/digests, Latest/formal state and both new source tags. Public body exactly matches the committed 1.5.3-style notes. Six-JAR audit confirms only adapter initialization removal and two dedicated class deletions; no new full runtime-matrix claim. Record the original draft association failure and successful fresh-draft protected attempt3. Update API documentation and mark original acceptance report historical.
