@@ -415,3 +415,8 @@ JDWP-enabled cold controls sometimes connect before attachment, so debugger-enab
 
 Add a Forge1.20.1-only real-loopback Netty test source set. With a controlled scheduling barrier at the existing auto-read-cleared callback, the actual socket reaches autoRead=true but OP_READ=0 and does not receive a written byte. Serializing disable/enable on its EventLoop retains OP_READ and receives the actual byte. Both cases pass. This establishes a transport race and a correct ordering invariant, not yet a claim that all Minecraft quick-play failures share that cause. No MTR game data or packets are simulated.
 
+
+### 2026-11-11T13:22:33+08:00 — Candidate fix: serialize the full native client send operation
+
+Build a Forge1.20.1-only candidate that hands the complete remote-client sendPacket operation to its owning Netty EventLoop. Protocol inspection, AUTO_READ transitions and the existing write then share one order; there is no sleep, timeout extension, forced read rearm, handler replacement or fabricated payload. Keep unknown-packet validation on its original exception path and leave local/integrated channels and other loaders unchanged. Extend the real NIO regression to exercise the actual dispatch helper and reject recursive requeue on the owner. Build and the full existing suite pass; native cold-start validation is still required before claiming the quick-play issue fixed.
+

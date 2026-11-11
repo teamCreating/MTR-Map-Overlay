@@ -45,10 +45,14 @@ class NativeReadInterestTest {
     @Test
     void serializedLoopTransitionsRetainReadInterestAndReceiveActualData() throws Exception {
         try (Fixture fixture = new Fixture()) {
-            fixture.client.eventLoop().submit(() -> {
+            var transitioned = new CompletableFuture<Void>();
+            assertTrue(ClientPacketDispatch.enqueueIfNeeded(fixture.client, () -> {
+                assertFalse(ClientPacketDispatch.enqueueIfNeeded(fixture.client, () -> fail("Must not enqueue recursively on the owner")));
                 fixture.client.config().setAutoRead(false);
                 fixture.client.config().setAutoRead(true);
-            }).sync();
+                transitioned.complete(null);
+            }));
+            transitioned.get(3, TimeUnit.SECONDS);
             assertTrue(fixture.client.config().isAutoRead());
             assertEquals(SelectionKey.OP_READ, fixture.client.eventLoop().submit(fixture.client::readInterest).sync().getNow());
             fixture.peer.getOutputStream().write(42);

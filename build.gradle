@@ -121,6 +121,15 @@ if (legacyJourneyMap) {
     }
 }
 
-if (!legacyJourneyMap) sourceSets.test.java.srcDir('compat/mc1201/forge/test')
+if (!legacyJourneyMap) {
+    sourceSets.main.java.srcDir('compat/mc1201/forge/java')
+    sourceSets.test.java.srcDir('compat/mc1201/forge/test')
+    processResources.doLast {
+        def config = new File(destinationDir, 'mtrmap.mixins.json')
+        def json = new groovy.json.JsonSlurper().parse(config)
+        json.client.add('client.ForgeClientConnectionMixin')
+        config.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
+    }
+}
 
 if (project.hasProperty('navigationQa')) apply from: 'gradle/navigation-qa.gradle'
