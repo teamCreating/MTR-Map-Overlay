@@ -1,0 +1,144 @@
+[11Nov2026 12:08:23.856] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserver, --fml.neoForgeVersion, 21.1.249, --fml.fmlVersion, 4.0.44, --fml.mcVersion, 1.21.1, --fml.neoFormVersion, 20240808.144430, nogui]
+[11Nov2026 12:08:23.859] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Oracle Corporation Java HotSpot(TM) 64-Bit Server VM 21.0.11+9-LTS-211
+[11Nov2026 12:08:23.861] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.11 by Oracle Corporation; OS Windows 11 arch amd64 version 10.0
+[11Nov2026 12:08:24.011] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserver
+[11Nov2026 12:08:24.070] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/neoforge1211/server/libraries/net/fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/sponge-mixin-0.15.2+mixin.0.8.7.jar%2373!/ Service=ModLauncher Env=SERVER
+[11Nov2026 12:08:24.361] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "server-1.21.1-20240808.144430-srg.jar" [locator: production server provider +net.neoforged:neoforge:21.1.249:server]
+[11Nov2026 12:08:24.390] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-21.1.249-universal.jar" [locator: PathBasedLocator[name=neoforge, paths=[libraries\net\neoforged\neoforge\21.1.249\neoforge-21.1.249-universal.jar]], reader: mod manifest]
+[11Nov2026 12:08:24.401] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar" [locator: {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\neoforge1211\server\mods}, reader: mod manifest]
+[11Nov2026 12:08:24.411] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "minecraft-transit-railway-NEOFORGE-4.1.0-beta.2+1.21.1.jar" [locator: {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\neoforge1211\server\mods}, reader: mod manifest]
+[11Nov2026 12:08:24.530] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 2 dependencies adding them to mods collection
+[11Nov2026 12:08:24.530] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found gamelibrary file "mixinextras-neoforge-0.5.3.jar" [parent: neoforge-21.1.249-universal.jar, locator: jarinjar, reader: mod manifest]
+[11Nov2026 12:08:24.530] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found library file "net.neoforged.neoforge-coremods-21.1.249.jar" [parent: neoforge-21.1.249-universal.jar, locator: jarinjar, reader: mod manifest]
+[11Nov2026 12:08:24.531] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Minecraft 1.21.1 (minecraft)
+		Minecraft Transit Railway 4.1.0-beta.2 (mtr)
+		MTR Map Overlay 1.6.0 (mtrmap)
+		NeoForge 21.1.249 (neoforge)
+[11Nov2026 12:08:24.933] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[11Nov2026 12:08:24.938] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[11Nov2026 12:08:24.947] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserver' with arguments [nogui]
+[11Nov2026 12:08:25.013] [main/INFO] [MTRMap-Mixin/]: [MTRMap] Xaero's World Map not found - map path layer mixins skipped
+[11Nov2026 12:08:26.534] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.3).
+[11Nov2026 12:08:31.667] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.249, for MC 1.21.1
+[11Nov2026 12:08:31.932] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Starting Minecraft with arguments:
+-Xmx1536M
+--module-path=libraries/cpw/mods/bootstraplauncher/2.0.2/bootstraplauncher-2.0.2.jar;libraries/cpw/mods/securejarhandler/3.0.8/securejarhandler-3.0.8.jar;libraries/org/ow2/asm/asm-commons/9.10.1/asm-commons-9.10.1.jar;libraries/org/ow2/asm/asm-util/9.10.1/asm-util-9.10.1.jar;libraries/org/ow2/asm/asm-analysis/9.10.1/asm-analysis-9.10.1.jar;libraries/org/ow2/asm/asm-tree/9.10.1/asm-tree-9.10.1.jar;libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar;libraries/net/neoforged/JarJarFileSystems/0.4.1/JarJarFileSystems-0.4.1.jar
+--add-modules=ALL-MODULE-PATH
+--add-opens=java.base/java.util.jar=cpw.mods.securejarhandler
+--add-opens=java.base/java.lang.invoke=cpw.mods.securejarhandler
+--add-exports=java.base/sun.security.util=cpw.mods.securejarhandler
+--add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming
+-Djava.net.preferIPv6Addresses=system
+-DignoreList=bootstraplauncher-2.0.2.jar,securejarhandler-3.0.8.jar,asm-commons-9.10.1.jar,asm-util-9.10.1.jar,asm-analysis-9.10.1.jar,asm-tree-9.10.1.jar,asm-9.10.1.jar,JarJarFileSystems-0.4.1.jar
+-Dfml.pluginLayerLibraries=
+-Dfml.gameLayerLibraries=
+-DlibraryDirectory=libraries
+-DlegacyClassPath=libraries/net/neoforged/fancymodloader/earlydisplay/4.0.44/earlydisplay-4.0.44.jar;libraries/net/neoforged/fancymodloader/loader/4.0.44/loader-4.0.44.jar;libraries/net/neoforged/accesstransformers/at-modlauncher/10.0.1/at-modlauncher-10.0.1.jar;libraries/net/neoforged/accesstransformers/10.0.1/accesstransformers-10.0.1.jar;libraries/net/neoforged/bus/8.0.5/bus-8.0.5.jar;libraries/net/neoforged/coremods/7.0.3/coremods-7.0.3.jar;libraries/cpw/mods/modlauncher/11.0.5/modlauncher-11.0.5.jar;libraries/net/neoforged/mergetool/2.0.0/mergetool-2.0.0-api.jar;libraries/com/electronwill/night-config/toml/3.8.3/toml-3.8.3.jar;libraries/com/electronwill/night-config/core/3.8.3/core-3.8.3.jar;libraries/net/neoforged/JarJarSelector/0.4.1/JarJarSelector-0.4.1.jar;libraries/net/neoforged/JarJarMetadata/0.4.1/JarJarMetadata-0.4.1.jar;libraries/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar;libraries/net/jodah/typetools/0.6.3/typetools-0.6.3.jar;libraries/net/minecrell/terminalconsoleappender/1.3.0/terminalconsoleappender-1.3.0.jar;libraries/net/fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/sponge-mixin-0.15.2+mixin.0.8.7.jar;libraries/org/openjdk/nashorn/nashorn-core/15.4/nashorn-core-15.4.jar;libraries/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar;libraries/cpw/mods/bootstraplauncher/2.0.2/bootstraplauncher-2.0.2.jar;libraries/cpw/mods/securejarhandler/3.0.8/securejarhandler-3.0.8.jar;libraries/org/ow2/asm/asm-commons/9.10.1/asm-commons-9.10.1.jar;libraries/org/ow2/asm/asm-util/9.10.1/asm-util-9.10.1.jar;libraries/org/ow2/asm/asm-analysis/9.10.1/asm-analysis-9.10.1.jar;libraries/org/ow2/asm/asm-tree/9.10.1/asm-tree-9.10.1.jar;libraries/org/ow2/asm/asm/9.10.1/asm-9.10.1.jar;libraries/net/neoforged/JarJarFileSystems/0.4.1/JarJarFileSystems-0.4.1.jar;libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar;libraries/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar;libraries/org/antlr/antlr4-runtime/4.13.1/antlr4-runtime-4.13.1.jar;libraries/com/mojang/logging/1.2.7/logging-1.2.7.jar;libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.22.1/log4j-slf4j2-impl-2.22.1.jar;libraries/org/apache/logging/log4j/log4j-core/2.22.1/log4j-core-2.22.1.jar;libraries/org/apache/logging/log4j/log4j-api/2.22.1/log4j-api-2.22.1.jar;libraries/org/jline/jline-reader/3.20.0/jline-reader-3.20.0.jar;libraries/org/jline/jline-terminal/3.20.0/jline-terminal-3.20.0.jar;libraries/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar;libraries/net/minecraftforge/srgutils/0.4.15/srgutils-0.4.15.jar;libraries/com/google/guava/guava/32.1.2-jre/guava-32.1.2-jre.jar;libraries/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar;libraries/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;libraries/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar;libraries/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar;libraries/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar;libraries/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar;libraries/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar;libraries/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar;libraries/com/machinezoo/noexception/noexception/1.7.1/noexception-1.7.1.jar;libraries/com/github/oshi/oshi-core/6.4.10/oshi-core-6.4.10.jar;libraries/com/mojang/authlib/6.0.54/authlib-6.0.54.jar;libraries/com/mojang/brigadier/1.3.10/brigadier-1.3.10.jar;libraries/com/mojang/datafixerupper/8.0.16/datafixerupper-8.0.16.jar;libraries/io/netty/netty-buffer/4.1.97.Final/netty-buffer-4.1.97.Final.jar;libraries/io/netty/netty-codec/4.1.97.Final/netty-codec-4.1.97.Final.jar;libraries/io/netty/netty-common/4.1.97.Final/netty-common-4.1.97.Final.jar;libraries/io/netty/netty-handler/4.1.97.Final/netty-handler-4.1.97.Final.jar;libraries/io/netty/netty-resolver/4.1.97.Final/netty-resolver-4.1.97.Final.jar;libraries/io/netty/netty-transport/4.1.97.Final/netty-transport-4.1.97.Final.jar;libraries/io/netty/netty-transport-classes-epoll/4.1.97.Final/netty-transport-classes-epoll-4.1.97.Final.jar;libraries/io/netty/netty-transport-native-epoll/4.1.97.Final/netty-transport-native-epoll-4.1.97.Final-linux-x86_64.jar;libraries/io/netty/netty-transport-native-epoll/4.1.97.Final/netty-transport-native-epoll-4.1.97.Final-linux-aarch_64.jar;libraries/io/netty/netty-transport-native-unix-common/4.1.97.Final/netty-transport-native-unix-common-4.1.97.Final.jar;libraries/it/unimi/dsi/fastutil/8.5.12/fastutil-8.5.12.jar;libraries/net/java/dev/jna/jna/5.14.0/jna-5.14.0.jar;libraries/net/java/dev/jna/jna-platform/5.14.0/jna-platform-5.14.0.jar;libraries/org/joml/joml/1.10.5/joml-1.10.5.jar;libraries/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar
+[11Nov2026 12:08:31.934] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  __  __     _                                                __    _     
+[11Nov2026 12:08:31.934] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |  \/  |   (_)    _ _      ___     __       _ _   __ _      / _|  | |_   
+[11Nov2026 12:08:31.934] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | |\/| |   | |   | ' \    / -_)   / _|     | '_| / _` |    |  _|  |  _|  
+[11Nov2026 12:08:31.934] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |_|__|_|  _|_|_  |_||_|   \___|   \__|_   _|_|_  \__,_|   _|_|_   _\__|  
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   _____                                     _      _                     
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  |_   _|    _ _   __ _    _ _      ___     (_)    | |_                   
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    | |     | '_| / _` |  | ' \    (_-<     | |    |  _|                  
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   _|_|_   _|_|_  \__,_|  |_||_|   /__/_   _|_|_   _\__|                  
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|                 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'                 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    ___              _       _                      _  _                  
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   | _ \   __ _     (_)     | |   __ __ __ __ _    | || |                 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   |   /  / _` |    | |     | |   \ V  V // _` |    \_, |                 
+[11Nov2026 12:08:31.935] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   |_|_\  \__,_|   _|_|_   _|_|_   \_/\_/ \__,_|   _|__/                  
+[11Nov2026 12:08:31.936] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_| """"|                 
+[11Nov2026 12:08:31.936] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' (4.1.0-beta.2+1.21.4) 
+[11Nov2026 12:08:31.936] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :                                                                          
+[11Nov2026 12:08:32.074] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway blocks
+[11Nov2026 12:08:32.102] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway items
+[11Nov2026 12:08:32.123] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway block entity types
+[11Nov2026 12:08:32.124] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway creative mode tabs
+[11Nov2026 12:08:32.125] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway sound events
+[11Nov2026 12:08:32.126] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway data component types
+[11Nov2026 12:08:33.372] [modloading-worker-0/INFO] [MTR Map Overlay/]: [MTR Map Overlay] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<
+[11Nov2026 12:08:33.451] [modloading-sync-worker/INFO] [MTR Map Overlay/]: [MTRMap] Full-network sync payloads registered (protocol 8)
+[11Nov2026 12:08:33.528] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11Nov2026 12:08:33.664] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/neoforge1211/server/libraries/net/minecraft/server/1.21.1-20240808.144430/server-1.21.1-20240808.144430-srg.jar%23119!/assets/.mcassetsroot' uses unexpected schema
+[11Nov2026 12:08:33.664] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/neoforge1211/server/libraries/net/minecraft/server/1.21.1-20240808.144430/server-1.21.1-20240808.144430-srg.jar%23119!/data/.mcassetsroot' uses unexpected schema
+[11Nov2026 12:08:35.126] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 1630 recipes
+[11Nov2026 12:08:35.296] [main/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1399 advancements
+[11Nov2026 12:08:36.260] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.21.1
+[11Nov2026 12:08:36.260] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[11Nov2026 12:08:36.261] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: CREATIVE
+[11Nov2026 12:08:36.261] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[11Nov2026 12:08:36.316] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on 127.0.0.1:25560
+[11Nov2026 12:08:36.445] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using default channel type
+[11Nov2026 12:08:36.501] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[11Nov2026 12:08:36.501] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[11Nov2026 12:08:36.502] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[11Nov2026 12:08:36.502] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[11Nov2026 12:08:36.569] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "Overlay160Test"
+[11Nov2026 12:08:36.796] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[11Nov2026 12:08:36.991] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 12:08:37.090] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 294 ms
+[11Nov2026 12:08:37.091] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (0.564s)! For help, type "help"
+[11Nov2026 12:08:37.110] [LanServerPinger #1/WARN] [net.minecraft.client.server.LanServerPinger/]: LanServerPinger: No route to host: sendto
+[11Nov2026 12:08:37.132] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[11Nov2026 12:08:37.223] [Server thread/INFO] [MinecraftTransitRailway/]: Found available port: 8888
+[11Nov2026 12:08:37.870] [Server thread/INFO] [MinecraftTransitRailway/]: Starting server as a dedicated server
+[11Nov2026 12:08:38.651] [Yggdrasil Key Fetcher/ERROR] [com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo/]: Failed to request yggdrasil public key
+com.mojang.authlib.exceptions.MinecraftClientException: Failed to read from https://api.minecraftservices.com/publickeys due to Read timed out
+	at MC-BOOTSTRAP/authlib@6.0.54/com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:108) ~[authlib-6.0.54.jar%2398!/:?]
+	at MC-BOOTSTRAP/authlib@6.0.54/com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:57) ~[authlib-6.0.54.jar%2398!/:?]
+	at MC-BOOTSTRAP/authlib@6.0.54/com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.fetch(YggdrasilServicesKeyInfo.java:114) ~[authlib-6.0.54.jar%2398!/:?]
+	at MC-BOOTSTRAP/authlib@6.0.54/com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:89) ~[authlib-6.0.54.jar%2398!/:?]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:278) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:304) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346) ~[?:?]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796) ~[?:?]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:489) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:483) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:160) ~[?:?]
+	at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1505) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1420) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455) ~[?:?]
+	at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:426) ~[?:?]
+	at java.base/sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:586) ~[?:?]
+	at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:187) ~[?:?]
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1691) ~[?:?]
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1615) ~[?:?]
+	at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:531) ~[?:?]
+	at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:307) ~[?:?]
+	at MC-BOOTSTRAP/authlib@6.0.54/com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:84) ~[authlib-6.0.54.jar%2398!/:?]
+	... 9 more
+[11Nov2026 12:09:09.436] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[/127.0.0.1:56535] logged in with entity id 1 at (330.0, -60.0, 50.0)
+[11Nov2026 12:09:09.463] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[11Nov2026 12:09:10.127] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Teleported Dev to 330.000000, -53.000000, 50.000000
+[11Nov2026 12:09:12.905] [Server thread/INFO] [MTR Map Overlay/]: [MTRMap] Sent full-network snapshot for minecraft/overworld to Dev (4 routes, 10 rails, 9700 bytes, 1 chunk(s))
+[11Nov2026 12:09:12.906] [Server thread/INFO] [MTR Map Overlay/]: [MTRMap] Sent full-network snapshot for minecraft/the_end to Dev (0 routes, 0 rails, 43 bytes, 1 chunk(s))
+[11Nov2026 12:09:12.906] [Server thread/INFO] [MTR Map Overlay/]: [MTRMap] Sent full-network snapshot for minecraft/the_nether to Dev (0 routes, 0 rails, 46 bytes, 1 chunk(s))
+[11Nov2026 12:09:24.588] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[11Nov2026 12:09:24.588] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[11Nov2026 12:09:25.674] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping the server
+[11Nov2026 12:09:25.752] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[11Nov2026 12:09:25.753] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[11Nov2026 12:09:25.754] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[11Nov2026 12:09:25.794] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11Nov2026 12:09:25.813] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11Nov2026 12:09:25.824] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11Nov2026 12:09:25.844] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11Nov2026 12:09:25.844] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11Nov2026 12:09:25.844] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11Nov2026 12:09:25.844] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved

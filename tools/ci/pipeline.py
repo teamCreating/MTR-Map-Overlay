@@ -70,9 +70,6 @@ def build(args):
     diagnostics = Path(args.out).resolve().parent / 'build.log'
     diagnostics.parent.mkdir(parents=True, exist_ok=True)
     with diagnostics.open('w', encoding='utf-8') as log:
-        helper = root / 'tools/download_howtogo_test.py'
-        if helper.is_file():
-            subprocess.run([sys.executable, str(helper)], cwd=root, stdout=log, stderr=subprocess.STDOUT, check=True)
         process = subprocess.Popen(command, cwd=root, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                    encoding='utf-8', errors='replace')
         for line in process.stdout:

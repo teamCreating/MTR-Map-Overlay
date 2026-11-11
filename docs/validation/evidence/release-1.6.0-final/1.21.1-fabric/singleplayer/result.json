@@ -1,0 +1,81 @@
+{
+  "target": "final160-singleplayer-1.21.1-fabric",
+  "candidateSha256": "8dd3eae46332ece1908859f077c8913f1d8e7a58779d6bc29bd2a0a9e4f657ef",
+  "candidateJar": "C:\\Users\\Ben\\Documents\\Coding\\MC\\MTR\\mtrsurveyor\\.cache\\final160-singleplayer\\1.21.1-fabric\\mods\\CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar",
+  "passed": true,
+  "cases": [
+    {
+      "language": "en_us",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "23423cb842ffa3d1",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "1de34b7597f20c9a",
+      "providers": [],
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-singleplayer/1.21.1-fabric/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar"
+}

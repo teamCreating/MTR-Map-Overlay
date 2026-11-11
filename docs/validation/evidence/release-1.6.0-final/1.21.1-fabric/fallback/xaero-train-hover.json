@@ -1,0 +1,335 @@
+{
+  "connected": true,
+  "screen": "xaero.map.gui.GuiMap",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.21.1-fabric/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "zStepX": 0.0,
+    "zStepY": 1.5,
+    "originX": -281.5,
+    "originY": 45.0,
+    "xStepX": 1.5,
+    "xStepY": 0.0
+  },
+  "nativeButtons": [
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 220,
+      "active": true,
+      "visible": true,
+      "label": "Map Switching Options"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 200,
+      "active": true,
+      "visible": true,
+      "label": "Cave Mode"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 180,
+      "active": true,
+      "visible": true,
+      "label": "(unset)§r Toggle dimension (hold shift to reverse)"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 140,
+      "active": true,
+      "visible": true,
+      "label": "Hop to specified coordinates"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 120,
+      "active": true,
+      "visible": true,
+      "label": "Camera is not attached to your character"
+    },
+    {
+      "h": 30,
+      "w": 30,
+      "x": 0,
+      "y": 0,
+      "active": true,
+      "visible": true,
+      "label": "]§r Open settings"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 220,
+      "active": true,
+      "visible": true,
+      "label": "Open waypoint mini-menu"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 200,
+      "active": true,
+      "visible": true,
+      "label": "(unset) Rendering waypoints"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 180,
+      "active": true,
+      "visible": true,
+      "label": "Open tracked player menu"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 160,
+      "active": true,
+      "visible": true,
+      "label": "(unset) Minimap entity radar is displayed (requires Xaero's Minimap)"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 140,
+      "active": false,
+      "visible": true,
+      "label": "The chunk claim feature requires the Open Parties and Claims mod!"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 120,
+      "active": true,
+      "visible": true,
+      "label": "Export the map as a PNG file"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 100,
+      "active": true,
+      "visible": true,
+      "label": "Controls \n \n Click and drag to scroll the map. \n Scroll the mouse wheel to zoom in and out (CTRL for precise). \n Right-click the map for some useful shortcuts. \n Hold right-click and drag the mouse to select an area for an action (e.g claiming). \n Some UI buttons have additional key bindings displayed in their tooltip. \n \n Right-click a map element (e.g. waypoint) for options. \n B§r to create a new waypoint. \n +§r to create a quick temporary waypoint. \n (unset)§r to switch the waypoint set. \n (unset)§r to toggle rendering all waypoint sets. \n U§r to open the full waypoint menu. \n \n Click here to edit the key bindings."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 80,
+      "active": true,
+      "visible": true,
+      "label": "(unset) Zoom out \n (or mouse wheel)"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 407,
+      "y": 60,
+      "active": true,
+      "visible": true,
+      "label": "(unset) Zoom in \n (or mouse wheel)"
+    }
+  ],
+  "providers": [],
+  "nativeMapData": {
+    "serverSynced": false,
+    "tracks": 5,
+    "routes": 2,
+    "landmarks": 4
+  },
+  "trainDataSource": "nearby",
+  "renderedCars": [
+    {
+      "vehicleId": 6750141084754803108,
+      "index": 0,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 320.4999999562886,
+        "y": -59.0,
+        "z": 19.4999995628861
+      },
+      "backRight": {
+        "x": 300.4999999562886,
+        "y": -59.0,
+        "z": 19.5000004371139
+      },
+      "backLeft": {
+        "x": 300.5000000437114,
+        "y": -59.0,
+        "z": 21.5000004371139
+      },
+      "frontLeft": {
+        "x": 320.5000000437114,
+        "y": -59.0,
+        "z": 21.4999995628861
+      },
+      "reversed": false
+    },
+    {
+      "vehicleId": 6750141084754803108,
+      "index": 1,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 340.4999999562886,
+        "y": -59.0,
+        "z": 19.4999995628861
+      },
+      "backRight": {
+        "x": 320.4999999562886,
+        "y": -59.0,
+        "z": 19.5000004371139
+      },
+      "backLeft": {
+        "x": 320.5000000437114,
+        "y": -59.0,
+        "z": 21.5000004371139
+      },
+      "frontLeft": {
+        "x": 340.5000000437114,
+        "y": -59.0,
+        "z": 21.4999995628861
+      },
+      "reversed": false
+    },
+    {
+      "vehicleId": 4848827510191748561,
+      "index": 0,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 340.4999999562886,
+        "y": -59.0,
+        "z": -0.5000004371138991
+      },
+      "backRight": {
+        "x": 320.4999999562886,
+        "y": -59.0,
+        "z": -0.49999956288609904
+      },
+      "backLeft": {
+        "x": 320.5000000437114,
+        "y": -59.0,
+        "z": 1.500000437113899
+      },
+      "frontLeft": {
+        "x": 340.5000000437114,
+        "y": -59.0,
+        "z": 1.499999562886099
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 4848827510191748561,
+      "index": 1,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 360.4999999562886,
+        "y": -59.0,
+        "z": -0.5000004371138991
+      },
+      "backRight": {
+        "x": 340.4999999562886,
+        "y": -59.0,
+        "z": -0.49999956288609904
+      },
+      "backLeft": {
+        "x": 340.5000000437114,
+        "y": -59.0,
+        "z": 1.500000437113899
+      },
+      "frontLeft": {
+        "x": 360.5000000437114,
+        "y": -59.0,
+        "z": 1.499999562886099
+      },
+      "reversed": true
+    }
+  ],
+  "targets": [
+    {
+      "x": 213.5,
+      "y": 60.0,
+      "station": "23423cb842ffa3d1",
+      "marker": {
+        "id": "station:23423CB842FFA3D1",
+        "type": "STATION",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "name": "QA Transfer|换乘",
+        "symbol": "QA Transfer|换乘",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘, QA Blue→QA Destination|终点, QA Blue Return→QA Transfer|换乘",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "x": 5,
+      "y": 60,
+      "w": 78,
+      "h": 23,
+      "enabled": true,
+      "label": "Routes"
+    },
+    {
+      "x": 5,
+      "y": 88,
+      "w": 78,
+      "h": 23,
+      "enabled": true,
+      "label": "Tracks"
+    }
+  ]
+}

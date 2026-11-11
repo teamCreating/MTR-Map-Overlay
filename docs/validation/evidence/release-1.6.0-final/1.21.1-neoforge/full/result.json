@@ -1,0 +1,35 @@
+{
+  "target": "1.21.1-neoforge",
+  "mode": "full",
+  "candidateSha256": "367bcf516a2c8e4fc67b99c46d7e39937004e7cb855133725f54f72768612c91",
+  "passed": true,
+  "cases": [
+    {
+      "map": "xaero",
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "nativeMapData": {
+        "tracks": 10,
+        "routes": 4,
+        "landmarks": 11,
+        "serverSynced": true
+      },
+      "trainDataSource": "server",
+      "passed": true
+    },
+    {
+      "map": "journeymap",
+      "arrivalCount": 1,
+      "serverTimeAdvanced": true,
+      "nativeMapData": {
+        "tracks": 10,
+        "routes": 4,
+        "landmarks": 11,
+        "serverSynced": true
+      },
+      "trainDataSource": "server",
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.21.1-neoforge/full/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar%23198!/"
+}

@@ -1,0 +1,40 @@
+[
+  {
+    "target": "1.21.1-neoforge",
+    "jarSha256": "367bcf516a2c8e4fc67b99c46d7e39937004e7cb855133725f54f72768612c91",
+    "qaAbsent": true,
+    "forge1204GuardPresent": false
+  },
+  {
+    "target": "1.21.1-fabric",
+    "jarSha256": "8dd3eae46332ece1908859f077c8913f1d8e7a58779d6bc29bd2a0a9e4f657ef",
+    "qaAbsent": true,
+    "forge1204GuardPresent": false
+  },
+  {
+    "target": "1.20.1-forge",
+    "jarSha256": "56c640ed877e315f059088a816c041bcbfa25cab34b7e01c1a95b9e517f29c8d",
+    "qaAbsent": true,
+    "forge1204GuardPresent": false,
+    "nativeOptionalChannelClassSha256": "0fa010edcf36c28ebf4a28f434e2d8edd7a3a9bff007514be0a378194142a8bb"
+  },
+  {
+    "target": "1.20.1-fabric",
+    "jarSha256": "631f732355dfc7374ad82c6ff7b6f99c6bd1e993aed360f81e7a278ee457568c",
+    "qaAbsent": true,
+    "forge1204GuardPresent": false
+  },
+  {
+    "target": "1.20.4-forge",
+    "jarSha256": "66d4536189bff967d21278c855878b4182e994189175bb23731c5d66317f1290",
+    "qaAbsent": true,
+    "forge1204GuardPresent": true,
+    "guardClassSha256": "e08cbaf4af84881b67968eef351842911066c6aa38acd39c4de3fa38d7a3eeb0"
+  },
+  {
+    "target": "1.20.4-fabric",
+    "jarSha256": "a4eaf94f2243636f3c3cd9aff68c2686fc0ce5eb01855499856c0843981e8852",
+    "qaAbsent": true,
+    "forge1204GuardPresent": false
+  }
+]

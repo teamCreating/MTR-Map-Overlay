@@ -1,0 +1,118 @@
+[11Nov2026 11:51:35.590] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_server, nogui]
+[11Nov2026 11:51:35.592] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 17.0.19+10
+[11Nov2026 11:51:35.593] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.1.2 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[11Nov2026 11:51:35.734] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_server
+[11Nov2026 11:51:35.831] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar!/ Service=ModLauncher Env=SERVER
+[11Nov2026 11:51:36.035] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[11Nov2026 11:51:36.761] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_server' with arguments [nogui]
+[11Nov2026 11:51:37.114] [main/WARN] [oshi.util.FileUtil/]: Configuration conflict: there is more than one oshi.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties]
+[11Nov2026 11:51:37.396] [main/WARN] [oshi.util.FileUtil/]: Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1204/server/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties]
+[11Nov2026 11:51:42.398] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 49.2.0, for MC 1.20.4 with MCP 20231207.112700
+[11Nov2026 11:51:42.401] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v49.2.0 Initialized
+[11Nov2026 11:51:42.455] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[11Nov2026 11:51:42.710] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Starting Minecraft with arguments:
+-Xmx1536M
+-Djava.net.preferIPv6Addresses=system
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  __  __ _                            __ _    
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |  \/  (_)                          / _| |   
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | \  / |_ _ __   ___  ___ _ __ __ _| |_| |_  
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | |\/| | | '_ \ / _ \/ __| '__/ _` |  _| __| 
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | |  | | | | | |  __/ (__| | | (_| | | | |_  
+[11Nov2026 11:51:42.712] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |_|__|_|_|_| |_|\___|\___|_|_ \__,_|_|  \__| 
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |__   __|                (_) |               
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    | |_ __ __ _ _ __  ___ _| |_              
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    | | '__/ _` | '_ \/ __| | __|             
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    | | | | (_| | | | \__ \ | |_              
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    |_|_|  \__,_|_| |_|___/_|\__|             
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  _____       _ _                             
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |  __ \     (_) |                            
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | |__) |__ _ _| |_      ____ _ _   _         
+[11Nov2026 11:51:42.713] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |  _  // _` | | \ \ /\ / / _` | | | |        
+[11Nov2026 11:51:42.714] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | | \ \ (_| | | |\ V  V / (_| | |_| |        
+[11Nov2026 11:51:42.714] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |_|  \_\__,_|_|_| \_/\_/ \__,_|\__, |        
+[11Nov2026 11:51:42.714] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :                                 __/ |        
+[11Nov2026 11:51:42.714] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :                                |___/ (4.0.5+1.20.4) 
+[11Nov2026 11:51:42.714] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :                                              
+[11Nov2026 11:51:42.796] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway blocks
+[11Nov2026 11:51:42.821] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway items
+[11Nov2026 11:51:42.869] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway block entity types
+[11Nov2026 11:51:42.877] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway entity types
+[11Nov2026 11:51:42.877] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway creative mode tabs
+[11Nov2026 11:51:42.878] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway sound events
+[11Nov2026 11:51:42.878] [modloading-worker-0/INFO] [MinecraftMappings/]: Minecraft Mappings logging enabled
+[11Nov2026 11:51:43.408] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[11Nov2026 11:51:44.325] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 49.2.0 Target: 49.2.13
+[11Nov2026 11:51:44.790] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11Nov2026 11:51:44.931] [main/WARN] [net.minecraftforge.common.ForgeHooks/WP]: The following mods have version differences that were not resolved:
+mtrmap (version 1.6.0 -> MISSING)
+Things may not work well.
+[11Nov2026 11:51:45.883] [main/WARN] [net.minecraft.server.MinecraftServer/]: Missing data pack mod:mtrmap
+[11Nov2026 11:51:46.988] [Worker-Main-9/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_unloader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_unloader
+[11Nov2026 11:51:47.148] [Worker-Main-9/ERROR] [net.minecraft.world.level.storage.loot.LootDataType/]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_loader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_loader
+[11Nov2026 11:51:47.247] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[11Nov2026 11:51:47.461] [main/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[11Nov2026 11:51:48.315] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.20.4
+[11Nov2026 11:51:48.316] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[11Nov2026 11:51:48.316] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: CREATIVE
+[11Nov2026 11:51:48.316] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[11Nov2026 11:51:48.375] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on 127.0.0.1:25560
+[11Nov2026 11:51:48.495] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using default channel type
+[11Nov2026 11:51:48.676] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[11Nov2026 11:51:48.676] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[11Nov2026 11:51:48.676] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[11Nov2026 11:51:48.676] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[11Nov2026 11:51:48.734] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "Overlay160Test"
+[11Nov2026 11:51:48.936] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[11Nov2026 11:51:50.566] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:51:50.566] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:51:50.568] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:51:50.568] [Worker-Main-8/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:51:50.937] [Worker-Main-9/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 14%
+[11Nov2026 11:51:51.336] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 2400 ms
+[11Nov2026 11:51:51.336] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (2.645s)! For help, type "help"
+[11Nov2026 11:51:51.351] [LanServerPinger #1/WARN] [net.minecraft.client.server.LanServerPinger/]: LanServerPinger: No route to host: sendto
+[11Nov2026 11:51:51.355] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[11Nov2026 11:51:51.427] [Server thread/INFO] [MinecraftTransitRailway/]: Found available port: 8888
+[11Nov2026 11:51:51.431] [Server thread/INFO] [TransportSimulationCore/]: Loading files...
+[11Nov2026 11:51:51.655] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/overworld in 0.191 second(s)
+[11Nov2026 11:51:51.782] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/the_end in 0.002 second(s)
+[11Nov2026 11:51:51.787] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/the_nether in 0.002 second(s)
+[11Nov2026 11:51:51.809] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.util.log/]: Logging initialized @18268ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[11Nov2026 11:51:51.925] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.Server/]: jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[11Nov2026 11:51:51.970] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.handler.ContextHandler/]: Started o.m.l.o.e.j.s.ServletContextHandler@6799c37a{/,null,AVAILABLE}
+[11Nov2026 11:51:52.015] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.AbstractConnector/]: Started ServerConnector@4e781396{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11Nov2026 11:51:52.016] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.Server/]: Started @18475ms
+[11Nov2026 11:51:52.016] [Server thread/INFO] [TransportSimulationCore/]: Server started with dimensions [minecraft/overworld, minecraft/the_end, minecraft/the_nether]
+[11Nov2026 11:51:52.017] [Server thread/INFO] [MinecraftTransitRailway/]: Starting server as a dedicated server
+[11Nov2026 11:51:52.123] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h36m for minecraft/overworld caught up with 2188 ticks in 0.062 second(s)
+[11Nov2026 11:51:52.125] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h36m for minecraft/the_end caught up with 2188 ticks in 0.001 second(s)
+[11Nov2026 11:51:52.127] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h36m for minecraft/the_nether caught up with 2188 ticks in 0.002 second(s)
+[11Nov2026 11:52:17.091] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[/127.0.0.1:59370] logged in with entity id 87 at (235.0, -60.0, 80.0)
+[11Nov2026 11:52:17.121] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[11Nov2026 11:52:18.513] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Teleported Dev to 235.000000, -53.000000, 80.000000
+[11Nov2026 11:52:32.241] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[11Nov2026 11:52:32.241] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[11Nov2026 11:52:33.874] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping the server
+[11Nov2026 11:52:33.932] [Server thread/INFO] [TransportSimulationCore/]: Stopping...
+[11Nov2026 11:52:33.943] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.AbstractConnector/]: Stopped ServerConnector@4e781396{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11Nov2026 11:52:33.945] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.handler.ContextHandler/]: Stopped o.m.l.o.e.j.s.ServletContextHandler@6799c37a{/,null,STOPPED}
+[11Nov2026 11:52:33.947] [Server thread/INFO] [TransportSimulationCore/]: Starting full save...
+[11Nov2026 11:52:33.950] [Server thread/INFO] [TransportSimulationCore/]: - Changed sidings: 1
+[11Nov2026 11:52:33.952] [Server thread/INFO] [TransportSimulationCore/]: - Changed depots: 1
+[11Nov2026 11:52:33.952] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/overworld in 0.005 second(s)
+[11Nov2026 11:52:33.953] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:52:33.953] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/the_end in 0.0 second(s)
+[11Nov2026 11:52:33.953] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:52:33.954] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/the_nether in 0.001 second(s)
+[11Nov2026 11:52:33.954] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:52:33.954] [Server thread/INFO] [TransportSimulationCore/]: Stopped
+[11Nov2026 11:52:33.955] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[11Nov2026 11:52:33.955] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[11Nov2026 11:52:33.955] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[11Nov2026 11:52:34.248] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11Nov2026 11:52:34.626] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11Nov2026 11:52:34.633] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11Nov2026 11:52:34.662] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11Nov2026 11:52:34.662] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11Nov2026 11:52:34.662] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11Nov2026 11:52:34.662] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved

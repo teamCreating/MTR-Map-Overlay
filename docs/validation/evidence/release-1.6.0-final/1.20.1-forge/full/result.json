@@ -1,0 +1,35 @@
+{
+  "target": "1.20.1-forge",
+  "mode": "full",
+  "candidateSha256": "56c640ed877e315f059088a816c041bcbfa25cab34b7e01c1a95b9e517f29c8d",
+  "passed": true,
+  "cases": [
+    {
+      "map": "xaero",
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "nativeMapData": {
+        "tracks": 6,
+        "serverSynced": true,
+        "landmarks": 7,
+        "routes": 3
+      },
+      "trainDataSource": "server",
+      "passed": true
+    },
+    {
+      "map": "journeymap",
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "nativeMapData": {
+        "tracks": 6,
+        "serverSynced": true,
+        "landmarks": 7,
+        "routes": 3
+      },
+      "trainDataSource": "server",
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.20.1-forge/full/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar%23162!/"
+}

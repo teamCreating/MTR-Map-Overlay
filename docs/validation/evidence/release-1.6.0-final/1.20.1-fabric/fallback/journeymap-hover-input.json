@@ -1,0 +1,39 @@
+{
+  "car": {
+    "vehicleId": 385526019407665708,
+    "index": 0,
+    "count": 3,
+    "leading": false,
+    "modelId": "m_train_head_1",
+    "routeName": "Local",
+    "destination": "Charlie",
+    "color": 28440,
+    "frontRight": {
+      "x": 147.24209495350507,
+      "y": -59.0,
+      "z": 70.94617190502073
+    },
+    "backRight": {
+      "x": 164.93856027676676,
+      "y": -59.0,
+      "z": 80.2647080058574
+    },
+    "backLeft": {
+      "x": 166.33634069189227,
+      "y": -59.0,
+      "z": 77.61023820736814
+    },
+    "frontLeft": {
+      "x": 148.63987536863058,
+      "y": -59.0,
+      "z": 68.29170210653147
+    },
+    "reversed": true
+  },
+  "nativeInput": {
+    "x": 174.39460891134934,
+    "y": 117.13910252809723
+  },
+  "scale": 0.5,
+  "trainDataSource": "nearby"
+}

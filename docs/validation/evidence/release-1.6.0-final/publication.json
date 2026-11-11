@@ -1,0 +1,79 @@
+{
+  "verifiedAt": "2026-11-11T13:40:41+08:00",
+  "releaseUrl": "https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0",
+  "releaseId": 441280896,
+  "publishedAt": "2026-11-11T05:39:52Z",
+  "latest": true,
+  "draft": false,
+  "prerelease": false,
+  "publishRun": 42967128625,
+  "candidateRun": 42953810741,
+  "tags": {
+    "v1.6.0": "0e65abde81938f6d6a854a1a3b9c9eeea8cd3034",
+    "v1.6.0-mc1.20": "5e758c8feec7124c7109e511f18492a1f8e3a925"
+  },
+  "assets": [
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar",
+      "bytes": 527192,
+      "sha256": "367bcf516a2c8e4fc67b99c46d7e39937004e7cb855133725f54f72768612c91",
+      "assetId": 734293168
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar",
+      "bytes": 530675,
+      "sha256": "8dd3eae46332ece1908859f077c8913f1d8e7a58779d6bc29bd2a0a9e4f657ef",
+      "assetId": 734293266
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar",
+      "bytes": 528586,
+      "sha256": "56c640ed877e315f059088a816c041bcbfa25cab34b7e01c1a95b9e517f29c8d",
+      "assetId": 734293336
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-fabric.jar",
+      "bytes": 529078,
+      "sha256": "631f732355dfc7374ad82c6ff7b6f99c6bd1e993aed360f81e7a278ee457568c",
+      "assetId": 734293428
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar",
+      "bytes": 530820,
+      "sha256": "66d4536189bff967d21278c855878b4182e994189175bb23731c5d66317f1290",
+      "assetId": 734293536
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-fabric.jar",
+      "bytes": 530638,
+      "sha256": "a4eaf94f2243636f3c3cd9aff68c2686fc0ce5eb01855499856c0843981e8852",
+      "assetId": 734293648
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 764,
+      "sha256": "8eaeb422fb667d10c0f41acc918e4fb20c169bf6bccfb46ddce10c1aea54e0c6",
+      "assetId": 734293745
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 61909,
+      "sha256": "647c58fe0b072a29ab8608a46ad737d9306fad4d6384c8d9c7ce7258e2091414",
+      "assetId": 734293832
+    },
+    {
+      "name": "MANUAL-VALIDATION.md",
+      "bytes": 945,
+      "sha256": "353a9dc7b5c89f2ef4140c5c38667f16d2261784ec4c3bc46193ae36b94083e6",
+      "assetId": 734293921
+    },
+    {
+      "name": "validation-evidence.zip",
+      "bytes": 281183,
+      "sha256": "3bf1657c9afca3ea31c4c785f2b8ec61a3c33a429ab6868632ae4c642af1c375",
+      "assetId": 734294021
+    }
+  ],
+  "limitationDisclosed": true,
+  "experimentalPatchIncluded": false
+}

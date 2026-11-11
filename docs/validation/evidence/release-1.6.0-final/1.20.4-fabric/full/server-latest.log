@@ -1,0 +1,162 @@
+[11:57:42] [main/INFO]: Loading Minecraft 1.20.4 with Fabric Loader 0.16.14
+[11:57:42] [main/INFO]: Loading 44 mods:
+	- fabric-api 0.97.3+1.20.4
+	   |-- fabric-api-base 0.4.37+78d798af4f
+	   |-- fabric-api-lookup-api-v1 1.6.50+82b1bb3e4f
+	   |-- fabric-biome-api-v1 13.0.17+78d798af4f
+	   |-- fabric-block-api-v1 1.0.17+3e2216cb4f
+	   |-- fabric-block-view-api-v2 1.0.5+78d798af4f
+	   |-- fabric-blockrenderlayer-v1 1.1.47+78d798af4f
+	   |-- fabric-client-tags-api-v1 1.1.8+78d798af4f
+	   |-- fabric-command-api-v1 1.2.42+f71b366f4f
+	   |-- fabric-command-api-v2 2.2.21+78d798af4f
+	   |-- fabric-commands-v0 0.2.59+df3654b34f
+	   |-- fabric-containers-v0 0.1.88+df3654b34f
+	   |-- fabric-content-registries-v0 5.0.16+78d798af4f
+	   |-- fabric-convention-tags-v1 1.5.11+78d798af4f
+	   |-- fabric-crash-report-info-v1 0.2.24+78d798af4f
+	   |-- fabric-data-attachment-api-v1 1.1.5+b90db5744f
+	   |-- fabric-data-generation-api-v1 13.2.6+5c0133444f
+	   |-- fabric-dimensions-v1 2.1.63+6605d1a84f
+	   |-- fabric-entity-events-v1 1.6.2+09fc25014f
+	   |-- fabric-events-interaction-v0 0.7.2+389931eb4f
+	   |-- fabric-events-lifecycle-v0 0.2.76+df3654b34f
+	   |-- fabric-game-rule-api-v1 1.0.47+78d798af4f
+	   |-- fabric-item-api-v1 2.3.1+cadc140c4f
+	   |-- fabric-item-group-api-v1 4.0.27+ee30b13a4f
+	   |-- fabric-key-binding-api-v1 1.0.42+78d798af4f
+	   |-- fabric-keybindings-v0 0.2.40+df3654b34f
+	   |-- fabric-lifecycle-events-v1 2.3.1+a67ffb5d4f
+	   |-- fabric-loot-api-v2 2.1.10+78d798af4f
+	   |-- fabric-message-api-v1 6.0.6+78d798af4f
+	   |-- fabric-mining-level-api-v1 2.1.66+78d798af4f
+	   |-- fabric-model-loading-api-v1 1.0.9+78d798af4f
+	   |-- fabric-models-v0 0.4.8+9386d8a74f
+	   |-- fabric-networking-api-v1 3.1.9+6abb6a4b4f
+	   |-- fabric-object-builder-api-v1 13.1.0+dba1195c4f
+	   |-- fabric-particles-v1 1.1.8+78d798af4f
+	   |-- fabric-recipe-api-v1 2.0.22+78d798af4f
+	   |-- fabric-registry-sync-v0 4.0.21+ee30b13a4f
+	   |-- fabric-renderer-api-v1 3.2.5+78d798af4f
+	   |-- fabric-renderer-indigo 1.5.6+d331d3144f
+	   |-- fabric-renderer-registries-v1 3.2.54+df3654b34f
+	   |-- fabric-rendering-data-attachment-v1 0.3.43+73761d2e4f
+	   |-- fabric-rendering-fluids-v1 3.1.2+e761c6694f
+	   |-- fabric-rendering-v0 1.1.57+df3654b34f
+	   |-- fabric-rendering-v1 3.2.1+6fd945a04f
+	   |-- fabric-resource-conditions-api-v1 2.3.15+78d798af4f
+	   |-- fabric-resource-loader-v0 0.11.21+ee30b13a4f
+	   |-- fabric-screen-api-v1 2.0.18+78d798af4f
+	   |-- fabric-screen-handler-api-v1 1.3.57+78d798af4f
+	   |-- fabric-sound-api-v1 1.0.18+78d798af4f
+	   |-- fabric-transfer-api-v1 4.0.12+90f2d7b14f
+	   \-- fabric-transitive-access-wideners-v1 5.0.15+78d798af4f
+	- fabricloader 0.16.14
+	   \-- mixinextras 0.4.1
+	- java 17
+	- minecraft 1.20.4
+	- mtr 4.0.5
+	- mtrmap 1.6.0
+[11:57:42] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/fabric1204/server/libraries/net/fabricmc/sponge-mixin/0.15.5+mixin.0.8.7/sponge-mixin-0.15.5+mixin.0.8.7.jar Service=Knot/Fabric Env=SERVER
+[11:57:42] [main/INFO]: Compatibility level set to JAVA_17
+[11:57:43] [main/INFO]: [MTRMap] Xaero's World Map not found - map path layer mixins skipped
+[11:57:43] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
+[11:57:49] [main/INFO]: Starting Minecraft with arguments:
+-Xmx1536M
+[11:57:49] [main/INFO]: :  __  __ _                            __ _    
+[11:57:49] [main/INFO]: : |  \/  (_)                          / _| |   
+[11:57:49] [main/INFO]: : | \  / |_ _ __   ___  ___ _ __ __ _| |_| |_  
+[11:57:49] [main/INFO]: : | |\/| | | '_ \ / _ \/ __| '__/ _` |  _| __| 
+[11:57:49] [main/INFO]: : | |  | | | | | |  __/ (__| | | (_| | | | |_  
+[11:57:49] [main/INFO]: : |_|__|_|_|_| |_|\___|\___|_|_ \__,_|_|  \__| 
+[11:57:49] [main/INFO]: : |__   __|                (_) |               
+[11:57:49] [main/INFO]: :    | |_ __ __ _ _ __  ___ _| |_              
+[11:57:49] [main/INFO]: :    | | '__/ _` | '_ \/ __| | __|             
+[11:57:49] [main/INFO]: :    | | | | (_| | | | \__ \ | |_              
+[11:57:49] [main/INFO]: :    |_|_|  \__,_|_| |_|___/_|\__|             
+[11:57:49] [main/INFO]: :  _____       _ _                             
+[11:57:49] [main/INFO]: : |  __ \     (_) |                            
+[11:57:49] [main/INFO]: : | |__) |__ _ _| |_      ____ _ _   _         
+[11:57:49] [main/INFO]: : |  _  // _` | | \ \ /\ / / _` | | | |        
+[11:57:49] [main/INFO]: : | | \ \ (_| | | |\ V  V / (_| | |_| |        
+[11:57:49] [main/INFO]: : |_|  \_\__,_|_|_| \_/\_/ \__,_|\__, |        
+[11:57:49] [main/INFO]: :                                 __/ |        
+[11:57:49] [main/INFO]: :                                |___/ (4.0.5+1.20.4) 
+[11:57:49] [main/INFO]: :                                              
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway blocks
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway items
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway block entity types
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway entity types
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway creative mode tabs
+[11:57:49] [main/INFO]: Registering Minecraft Transit Railway sound events
+[11:57:49] [main/INFO]: Minecraft Mappings logging enabled
+[11:57:49] [main/INFO]: [MTR Map Overlay] Fabric loaded; JourneyMap not found, Xaero World Map not found
+[11:57:49] [main/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11:57:51] [Worker-Main-13/ERROR]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_unloader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_unloader
+[11:57:51] [Worker-Main-13/ERROR]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_loader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_loader
+[11:57:51] [main/INFO]: Loaded 7 recipes
+[11:57:51] [main/INFO]: Loaded 1271 advancements
+[11:57:52] [main/INFO]: Applied 0 biome modifications to 0 of 64 new biomes in 1.554 ms
+[11:57:52] [Server thread/INFO]: Starting minecraft server version 1.20.4
+[11:57:52] [Server thread/INFO]: Loading properties
+[11:57:52] [Server thread/INFO]: Default game type: CREATIVE
+[11:57:52] [Server thread/INFO]: Generating keypair
+[11:57:52] [Server thread/INFO]: Starting Minecraft server on 127.0.0.1:25560
+[11:57:52] [Server thread/INFO]: Using default channel type
+[11:57:53] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[11:57:53] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[11:57:53] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[11:57:53] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[11:57:53] [Server thread/INFO]: Preparing level "Overlay160Test"
+[11:57:53] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[11:57:54] [Worker-Main-7/INFO]: Preparing spawn area: 0%
+[11:57:54] [Worker-Main-7/INFO]: Preparing spawn area: 0%
+[11:57:54] [Worker-Main-7/INFO]: Preparing spawn area: 0%
+[11:57:54] [Worker-Main-5/INFO]: Preparing spawn area: 0%
+[11:57:55] [Worker-Main-12/INFO]: Preparing spawn area: 37%
+[11:57:55] [Server thread/INFO]: Time elapsed: 2258 ms
+[11:57:55] [Server thread/INFO]: Done (2.442s)! For help, type "help"
+[11:57:55] [Server thread/INFO]: Found available port: 8888
+[11:57:55] [Server thread/INFO]: Loading files...
+[11:57:55] [Server thread/INFO]: Data loading complete for minecraft/overworld in 0.166 second(s)
+[11:57:55] [Server thread/INFO]: Data loading complete for minecraft/the_end in 0.003 second(s)
+[11:57:55] [Server thread/INFO]: Data loading complete for minecraft/the_nether in 0.003 second(s)
+[11:57:55] [Server thread/INFO]: Logging initialized @14152ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[11:57:56] [Server thread/INFO]: jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[11:57:56] [Server thread/INFO]: Started o.m.l.o.e.j.s.ServletContextHandler@3ec18cf6{/,null,AVAILABLE}
+[11:57:56] [Server thread/INFO]: Started ServerConnector@13a7d446{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11:57:56] [Server thread/INFO]: Started @14301ms
+[11:57:56] [Server thread/INFO]: Server started with dimensions [minecraft/overworld, minecraft/the_end, minecraft/the_nether]
+[11:57:56] [Server thread/INFO]: Starting server as a dedicated server
+[11:58:24] [Server thread/INFO]: Dev[/127.0.0.1:61340] logged in with entity id 30 at (235.0, -60.0, 80.0)
+[11:58:24] [Server thread/INFO]: Dev joined the game
+[11:58:25] [Server thread/INFO]: Teleported Dev to 235.000000, -53.000000, 80.000000
+[11:58:28] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/overworld to Dev (3 routes, 6 rails, 6397 bytes, 1 chunk(s))
+[11:58:28] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_end to Dev (0 routes, 0 rails, 43 bytes, 1 chunk(s))
+[11:58:28] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_nether to Dev (0 routes, 0 rails, 46 bytes, 1 chunk(s))
+[11:58:40] [Server thread/INFO]: Dev lost connection: Disconnected
+[11:58:40] [Server thread/INFO]: Dev left the game
+[11:58:40] [Server thread/INFO]: Stopping the server
+[11:58:41] [Server thread/INFO]: Stopping...
+[11:58:41] [Server thread/INFO]: Stopped ServerConnector@13a7d446{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11:58:41] [Server thread/INFO]: Stopped o.m.l.o.e.j.s.ServletContextHandler@3ec18cf6{/,null,STOPPED}
+[11:58:41] [Server thread/INFO]: Starting full save...
+[11:58:41] [Server thread/INFO]: - Changed sidings: 1
+[11:58:41] [Server thread/INFO]: - Changed depots: 1
+[11:58:41] [Server thread/INFO]: Save complete for minecraft/overworld in 0.005 second(s)
+[11:58:41] [Server thread/INFO]: - Changed settings: 1
+[11:58:41] [Server thread/INFO]: Save complete for minecraft/the_end in 0.0 second(s)
+[11:58:41] [Server thread/INFO]: - Changed settings: 1
+[11:58:41] [Server thread/INFO]: Save complete for minecraft/the_nether in 0.001 second(s)
+[11:58:41] [Server thread/INFO]: - Changed settings: 1
+[11:58:41] [Server thread/INFO]: Stopped
+[11:58:41] [Server thread/INFO]: Stopping server
+[11:58:41] [Server thread/INFO]: Saving players
+[11:58:41] [Server thread/INFO]: Saving worlds
+[11:58:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:58:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:58:41] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:58:41] [Server thread/INFO]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11:58:41] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11:58:41] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11:58:41] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
