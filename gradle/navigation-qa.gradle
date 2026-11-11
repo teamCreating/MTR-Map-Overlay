@@ -18,5 +18,6 @@ tasks.register('navigationQaJar', Jar) {
     archiveVersion = project.version
     destinationDirectory = layout.buildDirectory.dir('qa')
     from sourceSets.navigationQa.output
+    exclude 'mtrmap*.mixins.json', 'mtrmap*.refmap.json'
     from(sourceSets.main.output.resourcesDir) { include 'pack.mcmeta' }
 }

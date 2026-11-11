@@ -333,3 +333,13 @@ The acceptance report now states the tested HowToGo name contract precisely: MTR
 ### 2026-11-11T10:23:54+08:00 — Codex: synchronize verified Forge repair status and release notes
 
 Recorded compatibility-only Forge1.20.4 repair evidence (48 native UI cases/four diagnostics, both tested Forge49 versions) in the main documentation and added the bilingual1.6.0 release-note fix. Main production source and version are unchanged. Resumed the existing user-authorized release claim for a fresh sealed candidate and remaining dedicated/client-only-fallback acceptance. The old candidate is retained as historical evidence, not approved for publishing a repaired build.
+
+
+### 2026-11-11T10:42:05+08:00 — Codex: isolate QA resources during sealed-candidate acceptance
+
+Candidate42946243079 first launch exposed an old QA JAR carrying mtrmap.refmap.json. Its stale map could shadow the production mod's correct refmap. Production and locally tested refmaps match byte for byte; the old QA refmap lacks the new hook. Claimed packaging repair under the existing release task: exclude production Mixin resources from the separate QA artifacts, then retry the unchanged sealed candidate. No injector is disabled and no candidate binary is edited.
+
+
+### 2026-11-11T10:46:58+08:00 — Codex: validate QA isolation across six outputs
+
+Added a reviewable QA artifact checker for production Mixin resources/manifest registration, QA-only class identity and loader metadata. All six rebuilt QA JARs pass; the original colliding QA JAR is correctly rejected. The sealed candidate remains untouched.

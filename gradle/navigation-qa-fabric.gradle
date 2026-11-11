@@ -13,6 +13,7 @@ def rawQa = tasks.register('navigationQaJar', Jar) {
     archiveClassifier = 'named'
     destinationDirectory = layout.buildDirectory.dir('qa')
     from sourceSets.navigationQa.output
+    exclude 'mtrmap*.mixins.json', 'mtrmap*.refmap.json'
 }
 def remapType = tasks.named('remapJar').get().class.superclass
 tasks.register('remapNavigationQaJar', remapType) {
