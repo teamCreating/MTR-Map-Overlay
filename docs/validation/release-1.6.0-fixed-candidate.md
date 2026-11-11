@@ -1,6 +1,6 @@
-# Repaired 1.6.0 candidate acceptance — in progress
+# Repaired 1.6.0 candidate acceptance — held
 
-Tester: Codex, 2026-11-11T11:10:36+08:00 (UTC+08:00). Publication remains conditional on the remaining dedicated-server checks.
+Tester: Codex, 2026-11-11T11:10:36+08:00 (UTC+08:00). Candidate42946243079 is held: Forge1.20.1 rejects MTR-only servers because its optional-channel predicate compares ChannelData to String. A source fix now uses the native acceptMissingOr helper; a new sealed candidate is required before publication.
 
 ## Identity
 

@@ -1,5 +1,7 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+- 2026-11-11T11:25:43+08:00, Codex: Candidate42946243079 is held after a real Forge1.20.1 MTR-only server failure. NetworkRegistry.ABSENT is ChannelData; object/String equality rejects all three optional channels. Compat source now uses native acceptMissingOr; local build/tests passed and native fallback verification is running. Forge1.20.4 server full-sync/fallback already passed; a fresh candidate is required.
+
 - 2026-11-11T11:10:36+08:00, Codex: Repaired sealed Candidate42946243079 passed six production singleplayer targets (48 native cases, including Forge1.20.4 quick-play and real NeoForge HowToGo handoff). Dedicated sync/fallback remains in progress; no release yet. See [current acceptance](../validation/release-1.6.0-fixed-candidate.md).
 
 

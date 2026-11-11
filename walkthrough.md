@@ -351,3 +351,7 @@ Candidate42946243079 passed six production targets, 48 native cases. Record exac
 
 The sealed-candidate MTR-only dedicated-server check exposed three rejected Overlay channels. Forge 47.4.0 NetworkRegistry.ABSENT is a ChannelData record; comparing that object with a predicate's String version always rejects a missing channel. Use Forge's public acceptMissingOr helper for static, train and station-overlay channel predicates in both directions. It preserves exact protocol matching, accepts the loader's absent/vanilla sentinels, and rejects other installed protocol versions. Forge1.20.4 uses its separate override and is unchanged. Candidate42946243079 is now held; build and verify a new candidate before publishing. Native failed handshake and mismatch-page evidence is retained.
 
+
+### 2026-11-11T11:25:43+08:00 — Hold the candidate for the Forge1.20.1 fallback defect
+
+Retain the actual mismatched-channel screen, inventories and native logs. Update both-language release notes to include the native optional-channel correction. Existing singleplayer passes remain historical; Candidate42946243079 cannot be published. The repaired Forge1.20.4 full/fallback dedicated results pass, but the next release must seal and validate the additional Forge1.20.1 fix.
