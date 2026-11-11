@@ -302,3 +302,8 @@ QA now reads the 1.20.4 public isGameLoadFinished getter when available, without
 ### 2026-11-11T10:07:29+08:00 — Codex: verify production naming of the read-only QA getter
 
 The native getter is mapped in production. The QA collector now uses its exact verified Mojang/SRG names (`isGameLoadFinished` / `m_293453_` from the selected mappings), retaining optional absence on 1.20.1. No private state or game logic is changed. QA build passed.
+
+
+### 2026-11-11T10:12:04+08:00 — Codex: document the final callback control flow precisely
+
+Clarified that cancelling onGameLoadFinished preserves the native diagnostic screen but still lets its outer resource callback return normally. The removed late completion call must stay removed for both success and diagnostic results. This is a comment-only clarification with unchanged source line counts and runtime instructions.

@@ -32,8 +32,8 @@ public abstract class ForgeInitialLoadMixin {
             at = @At(value = "INVOKE", remap = false,
                     target = "Lnet/minecraftforge/client/loading/ClientModLoader;completeModLoading()Z"))
     private boolean mtrmap$removeLateCompletion() {
-        // The same guard has already run above. A true result returned from
-        // the callback before vanilla startup; reaching here means success.
+        // The real guard already handled success or its diagnostic screen at
+        // the vanilla boundary. Do not invoke completion twice at this late site.
         return false;
     }
 }
