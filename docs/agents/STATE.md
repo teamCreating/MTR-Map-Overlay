@@ -1,5 +1,7 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
+- 2026-11-11T12:17:53+08:00, Codex: User explicitly chose to fix Forge47.4.0 quick-play multiplayer before publishing. Candidate42953810741 has 72 passing normal-entry cases but is not approved for release. Investigate the native handshake without modifying dependencies or fabricating state; Forge1.20.4 remains verified.
+
 - 2026-11-11T12:11:04+08:00, Codex: Final Candidate42953810741 passed 48 singleplayer and 24 dedicated native map cases across six targets; 12 full-server train hovers reviewed. Native Forge47 quick-play base-control limitation remains explicit. Both Overlay corrections are present. Normal-entry matrix passed; publication held pending scope choice unless explicitly accepted. No tags/release written. See [final acceptance](../validation/release-1.6.0.md).
 
 - 2026-11-11T11:36:44+08:00, Codex: Both fixes merged. New Candidate42953810741 is building main0e65abde / compat5e758c8. Forge1.20.1 full/fallback local production checks pass; quick-play handshake timeout also reproduces without Overlay/QA, while native multiplayer-list entry passes. Retain this base-control observation; publication remains pending exact new-candidate checks.
