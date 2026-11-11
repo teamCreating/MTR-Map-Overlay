@@ -423,3 +423,7 @@ Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 108, 'fa
 ### 2026-11-11T16:49:35+08:00 — Refresh compatibility verification after branch switching
 
 Clean the Java compilation and test outputs before rerunning the existing suite. The clean run passes 107 tests with one explicit generator skip. This supersedes the earlier count contaminated by stale output from the diagnostic branch; no new product changes.
+
+### 2026-11-11T17:03:13+08:00 — Replace 1.6.0 on explicit user request
+
+Build the already merged generic Navigate correction for six targets; external mods own adapters. Rewrite public notes using 1.5.3 structure: bilingual Added/Optimized sections, MC/MTR compatibility and two final diff links. Preserve original publication metadata and downloaded assets locally before replacement. The user explicitly authorized replacing this version; recreate its release/tags on new sealed sources rather than force-pushing or silently retaining obsolete source tags. Use protected Publish and verify all ten replacement downloads. The old 72-case runtime record is historical, not a new binary runtime claim.
