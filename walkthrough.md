@@ -260,3 +260,8 @@ Merged the existing PR #12 compatibility merge commit into the QA branch to sati
 ### 2026-11-11T03:35:11+08:00 — Codex: clarify native destination-name verification
 
 The acceptance report now states the tested HowToGo name contract precisely: MTR display separators (vertical bars) become spaces, while the native name content and floored block coordinates are preserved. This matches the production bridge and recorded assertion; no product or candidate changed.
+
+
+### 2026-11-11T09:43:56+08:00 — Codex: claim Forge 1.20.4 startup repair
+
+User requests an attempted fix for the reproduced quick-play failure. Work is isolated on `fix/forge1204-quickplay` from the current compatibility branch. Investigate the verified startup-order defect and repair the loader completion boundary, preserving native load warnings/errors and keeping unrelated targets unchanged. Version stays 1.6.0; publication remains conditional.
