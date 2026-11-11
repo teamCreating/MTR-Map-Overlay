@@ -6,14 +6,19 @@
 
 ## 进行中
 
-### [阻塞] Release 1.6.0 six-platform acceptance and publication
+### [完成] Forge 1.20.4 quick-play startup repair
+- Codex, 2026-11-11T10:21:59+08:00: final boundary in ca3858b passes 48 native cases and four diagnostic guards on both Forge49 versions; final CI patch class matches runtime bytecode. Evidence: `docs/validation/forge1204-startup-fix.md`. Release gate is separate and requires a fresh candidate.
+- Owner: Codex; claimed 2026-11-11T09:43:56+08:00. User explicitly asks to fix 1.20.4. Trace and correct the native initial-resource/Forge-completion ordering, preserve error/warning behavior, isolate from the other five targets, then test production JARs on Forge49.2.0/49.2.13 plus normal startup. No automatic version increment or publication.
+
+### [进行中] Release 1.6.0 six-platform acceptance and publication
+- Codex, 2026-11-11T10:21:59+08:00: startup blocker repaired and verified. Resume fresh-candidate acceptance; do not publish the old candidate. Dedicated/client-only fallback checks remain pending.
 - Codex, 2026-11-11T03:28:46+08:00: six builds and 48 normal-flow native cases passed; Candidate 42879095868 / dry-run 42883569831 retained. Publication is blocked by the reproduced Forge 1.20.4 quick-play failure (also without Overlay), plus incomplete remaining candidate checklist items. Resume after a proper loader-startup fix or an explicit revised acceptance scope; do not dispatch real Publish under the current condition. Evidence: `docs/validation/release-1.6.0.md`.
 - Owner: Codex; claimed 2026-11-11T01:53:55+08:00. User authorizes version 1.6.0 and publication only after Forge/Fabric 1.20.1/1.20.4 and NeoForge/Fabric 1.21.1 pass. Port current integration/localization, fix failures, seal and test exact candidate JARs, then publish through the existing protected release workflow.
 
 
 
 
-### [待领，兼容QA] Forge1.20.4单人quick-play的Xaero初始化失败
+### [完成] Forge1.20.4单人quick-play的Xaero初始化失败
 - Codex，2026-10-26 13:32：见验证文档的失败日志；独立服双地图PIDS通过，单人启动不算通过，需production/无Overlay对照定位。
 
 

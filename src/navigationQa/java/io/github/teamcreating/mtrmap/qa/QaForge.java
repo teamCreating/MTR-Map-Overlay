@@ -6,6 +6,17 @@ import net.minecraftforge.event.TickEvent;
 public final class QaForge {
  public static final java.util.List<String> EVENTS=new java.util.concurrent.CopyOnWriteArrayList<>();
  public QaForge() throws Exception {var qa=new NavigationQa();
+ if(Boolean.getBoolean("mtrmap.qa.loadWarning")) {
+  net.minecraftforge.fml.ModLoader.get().addWarning(new net.minecraftforge.fml.ModLoadingWarning(
+   net.minecraftforge.fml.ModLoadingContext.get().getActiveContainer().getModInfo(),
+   net.minecraftforge.fml.ModLoadingStage.CONSTRUCT,"fml.modloading.brokenresources",
+   "mtrmapqa (intentional acceptance warning)"));
+ }
+ net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus().addListener(
+  (net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent e)->{
+   if(Boolean.getBoolean("mtrmap.qa.failClientSetup"))
+    throw new IllegalStateException("Intentional acceptance-test client setup failure");
+  });
  MinecraftForge.EVENT_BUS.addListener((net.minecraftforge.event.server.ServerAboutToStartEvent e)->trace("about-to-start",e.getServer()));
  MinecraftForge.EVENT_BUS.addListener((net.minecraftforge.event.server.ServerStartingEvent e)->trace("starting",e.getServer()));
  MinecraftForge.EVENT_BUS.addListener((net.minecraftforge.event.server.ServerStartedEvent e)->trace("started",e.getServer()));

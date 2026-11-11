@@ -36,6 +36,8 @@ public final class NavigationQa {
         var mc=Minecraft.getInstance();var result=new JsonObject();
         result.addProperty("connected",mc.player!=null);result.addProperty("screen",mc.screen==null?"":mc.screen.getClass().getName());
         result.addProperty("screenRole",mc.screen instanceof net.minecraft.client.gui.screens.TitleScreen?"TITLE":mc.screen instanceof net.minecraft.client.gui.screens.worldselection.SelectWorldScreen?"WORLDS":mc.screen instanceof net.minecraft.client.gui.screens.DisconnectedScreen?"DISCONNECTED":"OTHER");
+        // Verified Mojang/SRG names of the 1.20.4 public getter; absent on 1.20.1.
+        for(var name:List.of("isGameLoadFinished","m_293453_"))try{result.add("gameLoadFinished",JSON.toJsonTree(mc.getClass().getMethod(name).invoke(mc)));break;}catch(NoSuchMethodException ignored){}
         result.addProperty("overlayCodeSource",ClientOverlayRuntime.class.getProtectionDomain().getCodeSource().getLocation().toString());
         result.addProperty("paused",mc.isPaused());result.addProperty("language",mc.options.languageCode);
         result.addProperty("languageReloading",mc.getOverlay()!=null);

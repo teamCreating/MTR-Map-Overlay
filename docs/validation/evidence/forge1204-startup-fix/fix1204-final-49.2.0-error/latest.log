@@ -1,0 +1,285 @@
+[10:11:26] [main/INFO]: ModLauncher running: args [--launchTarget, forge_client, --username, Dev, --version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --assetIndex, 12, --uuid, 380df991f603344ca090369bad2a924a, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[10:11:26] [main/INFO]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 17.0.19+10
+[10:11:26] [main/INFO]: ModLauncher 10.1.2 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[10:11:26] [main/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\config\fml.toml is not correct. Correcting
+[10:11:26] [main/INFO]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[10:11:26] [main/INFO]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[10:11:26] [main/INFO]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[10:11:26] [main/INFO]: Incorrect key [detectNonForgeModsToml] was corrected from null to true
+[10:11:26] [main/INFO]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[10:11:26] [main/INFO]: Loading ImmediateWindowProvider fmlearlywindow
+[10:11:26] [main/INFO]: Trying GL version 4.6
+[10:11:26] [main/INFO]: If this message is the only thing at the bottom of your log before a crash, you probably have a driver issue.
+
+Possible solutions:
+A) Make sure Minecraft is set to prefer high performance graphics in the OS and/or driver control panel
+B) Check for driver updates on the graphics brand's website
+C) Try reinstalling your graphics drivers
+D) If still not working after trying all of the above, ask for further help on the Forge forums or Discord
+
+You can safely ignore this message if the game starts up successfully.
+[10:11:26] [main/INFO]: Requested GL version 4.6 got version 4.6
+[10:11:26] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar!/ Service=ModLauncher Env=CLIENT
+[10:11:26] [EarlyDisplay/INFO]: GL info: Intel(R) Arc(TM) 130T GPU (16GB) GL version 4.6.0 - Build 32.0.101.8826, Intel
+[10:11:26] [main/INFO]: Found mod file CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.6.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file journeymap-1.20.4-5.10.0-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file minecraft-transit-railway-FORGE-4.0.5+1.20.4.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file mtrmap-acceptance-qa-forge-1.6.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file xaeros-minimap-forge-1.20.4-26.4.2.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file xaeros-world-map-forge-1.20.4-1.45.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\mods}
+[10:11:26] [main/INFO]: Found mod file forge-1.20.4-49.2.0-client.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@3af9aa66
+[10:11:26] [main/INFO]: Found mod file lowcodelanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[10:11:26] [main/INFO]: Found mod file mclanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[10:11:26] [main/INFO]: Found mod file fmlcore-1.20.4-49.2.0.jar of type LIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[10:11:26] [main/INFO]: Found mod file forge-1.20.4-49.2.0-universal.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[10:11:26] [main/INFO]: Found mod file javafmllanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[10:11:27] [main/INFO]: Found 1 dependencies adding them to mods collection
+[10:11:27] [main/INFO]: Found mod file xaerolib-forge-1.20.4-1.7.1.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@522ba524
+[10:11:27] [main/INFO]: Compatibility level set to JAVA_17
+[10:11:27] [main/INFO]: Launching target 'forge_client' with arguments [--version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --uuid, 380df991f603344ca090369bad2a924a, --username, Dev, --assetIndex, 12, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[10:11:28] [main/INFO]: [MTRMap] Xaero's World Map detected - map path layer mixins will be applied
+[10:11:28] [main/WARN]: Configuration conflict: there is more than one oshi.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties]
+[10:11:28] [main/WARN]: Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties]
+[10:11:31] [Datafixer Bootstrap/INFO]: 198 Datafixer optimizations took 123 milliseconds
+[10:11:32] [main/WARN]: Unrecognized user type: 
+[10:11:32] [Render thread/INFO]: [MTRMap] Applied TrainMapPauseMixin to Minecraft
+[10:11:33] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[10:11:33] [Render thread/INFO]: Setting user: Dev
+[10:11:33] [Render thread/INFO]: Backend library: LWJGL version 3.3.2+13
+[10:11:33] [modloading-worker-0/INFO]: Forge mod loading, version 49.2.0, for MC 1.20.4 with MCP 20231207.112700
+[10:11:33] [modloading-worker-0/INFO]: MinecraftForge v49.2.0 Initialized
+[10:11:33] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapAccessor to GuiMap
+[10:11:33] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapMixin to GuiMap
+[10:11:33] [modloading-worker-0/INFO]: Xaero's Minimap: World Map found!
+[10:11:33] [modloading-worker-0/INFO]: No Optifine!
+[10:11:33] [modloading-worker-0/INFO]: Xaero's Minimap: No Vivecraft!
+[10:11:33] [modloading-worker-0/INFO]: Registering common data for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[10:11:33] [modloading-worker-0/INFO]: [MTR Map Overlay] JourneyMap detected - landmark integration enabled
+[10:11:33] [modloading-worker-0/INFO]: [MTR Map Overlay] Xaero's World Map detected - map-only landmark icons enabled
+[10:11:33] [modloading-worker-0/INFO]: Registering client data for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary common config for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary client config for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerominimap:main!
+[10:11:33] [modloading-worker-0/INFO]: Registering common data for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Registering client data for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary common config for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary client config for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerolib:main!
+[10:11:33] [modloading-worker-0/INFO]: Registering common data for channel xaeroworldmap:main!
+[10:11:33] [modloading-worker-0/INFO]: Registering client data for channel xaeroworldmap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary common config for channel xaeroworldmap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading server config profiles for channel xaeroworldmap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading primary client config for channel xaeroworldmap:main!
+[10:11:33] [modloading-worker-0/INFO]: Loading client config profiles for channel xaeroworldmap:main!
+[10:11:33] [Download-2/ERROR]: Failed to fetch user properties
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:59) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:150) ~[authlib-6.0.52.jar!/:?]
+	at net.minecraft.client.Minecraft.m_303974_(Minecraft.java:434) ~[forge-1.20.4-49.2.0-client.jar!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at java.lang.Thread.run(Thread.java:840) ~[?:?]
+Caused by: com.mojang.authlib.exceptions.MinecraftClientHttpException: Status: 401
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:100) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:57) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:121) ~[authlib-6.0.52.jar!/:?]
+	... 5 more
+[10:11:33] [modloading-worker-0/INFO]: Starting Minecraft with arguments:
+-Djava.net.preferIPv6Addresses=system
+-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+-Djava.library.path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Djna.tmpdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dio.netty.native.workdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dminecraft.launcher.brand=portablemc
+-Dminecraft.launcher.version=5.0.6
+-Dlog4j.configurationFile=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets\log_configs\client-1.12.xml
+-Xmx3G
+-Dmtrmap.qa.output=C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/build/acceptance160/fix1204-final-49.2.0-error
+-Dmtrmap.qa.failClientSetup=true
+[10:11:33] [modloading-worker-0/INFO]: :  __  __     _                                                __    _     
+[10:11:33] [modloading-worker-0/INFO]: : |  \/  |   (_)    _ _      ___     __       _ _   __ _      / _|  | |_   
+[10:11:33] [modloading-worker-0/INFO]: : | |\/| |   | |   | ' \    / -_)   / _|     | '_| / _` |    |  _|  |  _|  
+[10:11:33] [modloading-worker-0/INFO]: : |_|__|_|  _|_|_  |_||_|   \___|   \__|_   _|_|_  \__,_|   _|_|_   _\__|  
+[10:11:33] [modloading-worker-0/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+[10:11:33] [modloading-worker-0/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+[10:11:33] [modloading-worker-0/INFO]: :   _____                                     _      _                     
+[10:11:33] [modloading-worker-0/INFO]: :  |_   _|    _ _   __ _    _ _      ___     (_)    | |_                   
+[10:11:33] [modloading-worker-0/INFO]: :    | |     | '_| / _` |  | ' \    (_-<     | |    |  _|                  
+[10:11:33] [modloading-worker-0/INFO]: :   _|_|_   _|_|_  \__,_|  |_||_|   /__/_   _|_|_   _\__|                  
+[10:11:33] [modloading-worker-0/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|                 
+[10:11:33] [modloading-worker-0/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'                 
+[10:11:33] [modloading-worker-0/INFO]: :    ___              _       _                      _  _                  
+[10:11:33] [modloading-worker-0/INFO]: :   | _ \   __ _     (_)     | |   __ __ __ __ _    | || |                 
+[10:11:33] [modloading-worker-0/INFO]: :   |   /  / _` |    | |     | |   \ V  V // _` |    \_, |                 
+[10:11:33] [modloading-worker-0/INFO]: :   |_|_\  \__,_|   _|_|_   _|_|_   \_/\_/ \__,_|   _|__/                  
+[10:11:33] [modloading-worker-0/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_| """"|                 
+[10:11:33] [modloading-worker-0/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' (4.0.5+1.20.4) 
+[10:11:33] [modloading-worker-0/INFO]: :                                                                          
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway blocks
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway items
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway block entity types
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway entity types
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway creative mode tabs
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway sound events
+[10:11:34] [modloading-worker-0/INFO]: Minecraft Mappings logging enabled
+[10:11:34] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway key bindings
+[10:11:35] [Render thread/INFO]: Registering Keybinds
+[10:11:35] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[10:11:35] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\config\forge-client.toml is not correct. Correcting
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client was corrected from null to its default, SimpleCommentedConfig:{}. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.alwaysSetupTerrainOffThread was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.experimentalForgeLightPipelineEnabled was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.showLoadWarnings was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.useCombinedDepthStencilAttachment was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.compressLanIPv6Addresses was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.calculateAllNormals was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.stabilizeDirectionGetNearest was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key client.allowMipmapLowering was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\config\mtrmap.toml is not correct. Correcting
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key formalInitLog was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key debugLog was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key enabled was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key waypointMode was corrected from null to its default, both. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key routeLinesEnabled was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key trackLinesEnabled was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key trainCarsEnabled was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key pidsStyle was corrected from null to its default, british. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key networkSync was corrected from null to its default, SimpleCommentedConfig:{}. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key networkSync.enabled was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key networkSync.refreshIntervalSeconds was corrected from null to its default, 300. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility was corrected from null to its default, SimpleCommentedConfig:{}. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility.showStationLandmarks was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility.showPlatformLandmarks was corrected from null to its default, true. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility.showDepotLandmarks was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility.showEmptyStation was corrected from null to its default, false. 
+[10:11:35] [modloading-worker-0/WARN]: Incorrect key visibility.showHiddenRoute was corrected from null to its default, false. 
+[10:11:35] [Worker-Main-10/INFO]: Loading XaeroLib common 1/2!
+[10:11:35] [Worker-Main-11/INFO]: Found @Ljourneymap/client/api/ClientPlugin;: io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin
+[10:11:35] [Worker-Main-8/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[10:11:35] [Worker-Main-4/INFO]: [MTR Map Overlay] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<
+[10:11:35] [Forge Version Check/INFO]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[10:11:35] [Worker-Main-1/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[10:11:35] [Worker-Main-1/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[10:11:35] [Worker-Main-1/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[10:11:35] [Render thread/INFO]: Initializing Packet Registries
+[10:11:35] [Worker-Main-10/INFO]: Loading XaeroLib client 1/2!
+[10:11:35] [Worker-Main-12/INFO]: Loading Xaero's Minimap - Stage 1/2
+[10:11:35] [Worker-Main-2/INFO]: Loading Xaero's World Map - Stage 1/2
+[10:11:35] [Worker-Main-4/ERROR]: Exception caught during firing event: Intentional acceptance-test client setup failure
+	Index: 1
+	Listeners:
+		0: NORMAL
+		1: net.minecraftforge.eventbus.EventBus$$Lambda$5607/0x000002c03eca5dc0@7f7e77a3
+java.lang.IllegalStateException: Intentional acceptance-test client setup failure
+	at TRANSFORMER/mtrmapqa@1/io.github.teamcreating.mtrmap.qa.QaForge.lambda$new$0(QaForge.java:18)
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:256)
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.lambda$addListener$3(EventBus.java:249)
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:302)
+	at SECURE-BOOTSTRAP/net.minecraftforge.eventbus/net.minecraftforge.eventbus.EventBus.post(EventBus.java:288)
+	at LAYER PLUGIN/net.minecraftforge.javafmlmod@1.20.4-49.2.0/net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:112)
+	at LAYER PLUGIN/net.minecraftforge.fmlcore@1.20.4-49.2.0/net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$5(ModContainer.java:126)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+
+[10:11:35] [Worker-Main-4/ERROR]: Caught exception during event FMLClientSetupEvent dispatch for modid mtrmapqa
+java.lang.IllegalStateException: Intentional acceptance-test client setup failure
+	at io.github.teamcreating.mtrmap.qa.QaForge.lambda$new$0(QaForge.java:18) ~[mtrmap-acceptance-qa-forge-1.6.0.jar!/:?]
+	at net.minecraftforge.eventbus.EventBus.doCastFilter(EventBus.java:256) ~[eventbus-6.2.27.jar!/:?]
+	at net.minecraftforge.eventbus.EventBus.lambda$addListener$3(EventBus.java:249) ~[eventbus-6.2.27.jar!/:?]
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302) ~[eventbus-6.2.27.jar!/:?]
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:288) ~[eventbus-6.2.27.jar!/:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.acceptEvent(FMLModContainer.java:112) ~[javafmllanguage-1.20.4-49.2.0.jar!/:49.2.0]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$5(ModContainer.java:126) ~[fmlcore-1.20.4-49.2.0.jar!/:1.0]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+[10:11:35] [Worker-Main-11/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[10:11:36] [Forge Version Check/INFO]: [forge] Found status: OUTDATED Current: 49.2.0 Target: 49.2.13
+[10:11:36] [Forge Version Check/INFO]: [journeymap] Starting version check at https://forge.curseupdate.com/32274/journeymap
+[10:11:36] [Worker-Main-10/WARN]: io exception while checking patreon: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[10:11:36] [modloading-worker-0/FATAL]: Failed to complete lifecycle event SIDED_SETUP, 1 errors found
+[10:11:36] [Forge Version Check/INFO]: [journeymap] Found status: UP_TO_DATE Current: 5.10.0 Target: null
+[10:11:37] [Worker-Main-12/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.ModelEvent$ModifyBakingResult to a broken mod state
+[10:11:37] [modloading-worker-0/ERROR]: Cowardly refusing to process mod state change request from ModLoadingState[name=ENQUEUE_IMC, previous=, message=net.minecraftforge.fml.ModLoadingState$$Lambda$5444/0x000002c03ec37600@74a015d2, size=net.minecraftforge.fml.ModLoadingState$$Lambda$5445/0x000002c03ec37840@1f650098, phase=COMPLETE, inlineRunnable=Optional.empty, transition=Optional[ParallelTransition[stage=ENQUEUE_IMC, event=class net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent]]]
+[10:11:37] [modloading-worker-0/ERROR]: Cowardly refusing to process mod state change request from ModLoadingState[name=PROCESS_IMC, previous=ENQUEUE_IMC, message=net.minecraftforge.fml.ModLoadingState$$Lambda$5444/0x000002c03ec37600@2af82edb, size=net.minecraftforge.fml.ModLoadingState$$Lambda$5445/0x000002c03ec37840@1f650098, phase=COMPLETE, inlineRunnable=Optional.empty, transition=Optional[ParallelTransition[stage=PROCESS_IMC, event=class net.minecraftforge.fml.event.lifecycle.InterModProcessEvent]]]
+[10:11:37] [modloading-worker-0/ERROR]: Cowardly refusing to process mod state change request from ModLoadingState[name=COMPLETE, previous=PROCESS_IMC, message=net.minecraftforge.fml.core.ModStateProvider$$Lambda$5449/0x000002c03ec326c8@4a60ead9, size=net.minecraftforge.fml.ModLoadingState$$Lambda$5440/0x000002c03ec36f90@5d32c1c7, phase=COMPLETE, inlineRunnable=Optional.empty, transition=Optional[ParallelTransition[stage=COMPLETE, event=class net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent]]]
+[10:11:37] [modloading-worker-0/ERROR]: Cowardly refusing to process mod state change request from ModLoadingState[name=FREEZE_DATA, previous=COMPLETE, message=net.minecraftforge.fml.ModLoadingState$$Lambda$5442/0x000002c03ec371a8@6c78bd18, size=net.minecraftforge.fml.ModLoadingState$$Lambda$5443/0x000002c03ec373e8@25b4754a, phase=COMPLETE, inlineRunnable=Optional[net.minecraftforge.common.ForgeStatesProvider$$Lambda$5455/0x000002c03ec33868@71dc8ba], transition=Optional.empty]
+[10:11:37] [modloading-worker-0/ERROR]: Cowardly refusing to process mod state change request from ModLoadingState[name=NETWORK_LOCK, previous=FREEZE_DATA, message=net.minecraftforge.fml.ModLoadingState$$Lambda$5442/0x000002c03ec371a8@6a586e9a, size=net.minecraftforge.fml.ModLoadingState$$Lambda$5443/0x000002c03ec373e8@25b4754a, phase=COMPLETE, inlineRunnable=Optional[net.minecraftforge.common.ForgeStatesProvider$$Lambda$5456/0x000002c03ec33a90@2723672a], transition=Optional.empty]
+[10:11:37] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[10:11:37] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[10:11:37] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[10:11:38] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[10:11:38] [Render thread/INFO]: Sound engine started
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.sound.SoundEngineLoadEvent to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.ModelEvent$BakingCompleted to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.EntityRenderersEvent$AddLayers to a broken mod state
+[10:11:38] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.RegisterShadersEvent to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[10:11:38] [Render thread/ERROR]: Cowardly refusing to send event net.minecraftforge.client.event.TextureStitchEvent$Post to a broken mod state
+[10:11:38] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[10:11:38] [Render thread/WARN]: Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties]
+[10:11:38] [Render thread/ERROR]: Negative index in crash report handler (32/34)
+[10:11:38] [Render thread/FATAL]: Preparing crash report with UUID ab395fbc-a8a0-4fb3-8d56-46eb2d3a8db5
+[10:11:38] [Render thread/FATAL]: Crash report saved to C:\Users\Ben\Documents\Coding\MC\MTR\mtrmap-mc120\.cache\startup-qa\fix1204-final-49.2.0-error\crash-reports\crash-2026-11-11_10.11.38-fml.txt
+[10:11:38] [Render thread/FATAL]: Preparing crash report with UUID efeb1ab1-197a-4158-a999-af56d5db5aeb
+[10:11:40] [Render thread/INFO]: Stopping!

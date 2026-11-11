@@ -260,3 +260,55 @@ Merged the existing PR #12 compatibility merge commit into the QA branch to sati
 ### 2026-11-11T03:35:11+08:00 — Codex: clarify native destination-name verification
 
 The acceptance report now states the tested HowToGo name contract precisely: MTR display separators (vertical bars) become spaces, while the native name content and floored block coordinates are preserved. This matches the production bridge and recorded assertion; no product or candidate changed.
+
+
+### 2026-11-11T09:43:56+08:00 — Codex: claim Forge 1.20.4 startup repair
+
+User requests an attempted fix for the reproduced quick-play failure. Work is isolated on `fix/forge1204-quickplay` from the current compatibility branch. Investigate the verified startup-order defect and repair the loader completion boundary, preserving native load warnings/errors and keeping unrelated targets unchanged. Version stays 1.6.0; publication remains conditional.
+
+
+### 2026-11-11T09:48:52+08:00 — Codex: repair Forge 49 initial resource callback ordering
+
+Added a Forge-1.20.4-only Mixin in the target-specific source set. The verified Forge callback `lambda$new$6` keeps its self-test/resource-tracker work, then runs the original ClientModLoader.completeModLoading guard before vanilla onResourceLoadFinished can synchronously quick-play. A true guard result cancels the callback, preserving Forge warning/error pages; the obsolete late call is redirected away so completion runs once. Both sites require exactly one match. Normal Mixin remapping resolves the vanilla boundary to production m_293750_; no direct event-bus start, synthetic server event, Xaero state injection or exception suppression.
+
+Forge 1.20.4 production/QA builds and existing 110-pass/1-opt-in-skip tests pass. JAR inspection confirms the target-only class/config and correct refmap. Runtime validation is pending; version stays 1.6.0 and the old sealed candidate is unchanged.
+
+
+### 2026-11-11T09:53:50+08:00 — Codex: native startup warning/error acceptance fixtures
+
+Added opt-in properties to the separate QA mod: `mtrmap.qa.loadWarning` submits a native ModLoadingWarning through Forge's public API; `mtrmap.qa.failClientSetup` deliberately fails that QA mod's client setup event. These default-off fixtures test that the corrected completion guard preserves warning/error screens and does not enter a quick-play world after a loading failure. No dependency JAR, metadata, or production code is modified by the fixtures. QA build passed.
+
+
+### 2026-11-11T09:56:38+08:00 — Codex: isolate local startup test profiles
+
+Ignored the project-local .cache directory used for cloned singleplayer saves, original dependency JARs and launcher state. Reviewable source and selected validation evidence remain tracked explicitly; generated worlds and binaries are not part of the change.
+
+
+### 2026-11-11T10:04:13+08:00 — Codex: preserve vanilla loading-complete state before the Forge guard
+
+Native warning acknowledgement exposed a real boundary defect in the first patch: cancelling before onResourceLoadFinished skipped vanilla gameLoadFinished, leaving menus visually stale. The guard now runs at onGameLoadFinished HEAD, after vanilla sets that state and before initial screens/quick-play are built. Its vanilla method maps normally; the obsolete Forge callback completion remains redirected. This preserves the native completion marker and the warning/error guard together, without fabricating either. The earlier binary's normal/quick-play passes are preliminary and will not substitute for retesting the final JAR. The first retry command failed before compilation because PowerShell split an unquoted target property. The corrected quoted-property invocation subsequently passed the production build and existing tests; final runtime matrix remains pending.
+
+
+### 2026-11-11T10:05:11+08:00 — Codex: confirm final-boundary build with the exact target property
+
+Rebuilt using the quoted `-Pminecraft_version=1.20.4` argument. Compilation, refmap generation, production packaging and the existing 110-pass/1-opt-in-skip suite pass for the final onGameLoadFinished boundary. No failed configuration attempt is counted as validation.
+
+
+### 2026-11-11T10:06:30+08:00 — Codex: observe the real vanilla loading-complete marker
+
+QA now reads the 1.20.4 public isGameLoadFinished getter when available, without accessing or modifying private state. The final warning/error tests require this marker to be true while no world/server lifecycle has started. Older loaders without that extension remain supported by the optional QA collector. QA build passed.
+
+
+### 2026-11-11T10:07:29+08:00 — Codex: verify production naming of the read-only QA getter
+
+The native getter is mapped in production. The QA collector now uses its exact verified Mojang/SRG names (`isGameLoadFinished` / `m_293453_` from the selected mappings), retaining optional absence on 1.20.1. No private state or game logic is changed. QA build passed.
+
+
+### 2026-11-11T10:12:04+08:00 — Codex: document the final callback control flow precisely
+
+Clarified that cancelling onGameLoadFinished preserves the native diagnostic screen but still lets its outer resource callback return normally. The removed late completion call must stay removed for both success and diagnostic results. This is a comment-only clarification with unchanged source line counts and runtime instructions.
+
+
+### 2026-11-11T10:21:59+08:00 — Codex: finalize the Forge 1.20.4 repair matrix
+
+Final production JAR SHA-256 df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d3c7224fd9b047 passes both Forge versions, quick-play/menu/warning acknowledgement, 48 two-map/four-locale native cases and four loading diagnostic guards. Native completion marker is true on diagnostic pages, no world starts before acknowledgement or after an error, and actual lifecycle/Xaero initialization occurs once after valid world entry. Final CI 42944368485 passes all four targets; the patch class is byte-identical to the tested class, isolated to Forge1.20.4, with QA absent from production. Selected evidence and full local raw archive are retained; report links checked. Version remains1.6.0; old candidate is not replaced or approved for publication.
