@@ -1,0 +1,11 @@
+# Forge 1.20.1 optional-channel correction
+
+Codex, 2026-11-11T11:28:19+08:00 (UTC+08:00).
+
+Candidate42946243079 rejects an original MTR-only Forge47.4.0 dedicated server. Native multiplayer-list ping and login both reject mtrmap:network_v8, mtrmap:trains_v1 and mtrmap:overlay_v1; the real mismatch screen names Overlay three times. [Failure](evidence/forge1201-optional-channel-fix/failure.png), [client log](evidence/forge1201-optional-channel-fix/client-latest.log).
+
+The selected Forge47.4.0 API exposes NetworkRegistry.ABSENT as a ServerStatusPing.ChannelData record, while SimpleChannel predicates receive String versions. ChannelData.equals(String) cannot match. Use the public NetworkRegistry.acceptMissingOr(expectedVersion) for all three channels in both directions. The native helper accepts the expected version, ABSENT.version() and ACCEPTVANILLA; installed incompatible versions remain rejected. No custom sentinel, dependency edit or permissive accept-all predicate is introduced. Forge1.20.4 has a separate source override and is unchanged.
+
+The corrected production JAR built with Java17 output and passed the existing 110 tests (one explicit generator skip). Actual native multiplayer-list connection to the same MTR-only dedicated server now succeeds. Both Xaero and JourneyMap render real nearby rails/routes/stations/cars, identify nearby-only trains, disable Navigate and show the unsupported-arrivals message with no fabricated board. [Passing native result](evidence/forge1201-optional-channel-fix/passed-fallback/result.json). Tested production SHA-256: `2f1db390e1ae150e1f6da16fe6f43a2e6401995c0a09489955925b6f8d547b89`. Separate QA JAR only observes native caches/projection and supplies actual keyboard/mouse input; no QA mod runs server-side.
+
+This is a local production-build verification, not final sealed-candidate acceptance. Seal a new six-target candidate containing the correction, complete matching-client/server checks and then use the protected publication workflow. The unrepaired candidate remains held. A preliminary quick-play connection timed out before native channel diagnostics; ordinary native multiplayer-list login exposed the underlying rejection. That timeout is retained and is not claimed separately fixed.
