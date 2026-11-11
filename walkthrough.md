@@ -405,3 +405,8 @@ The late client snapshot confirms LOGIN protocol, autoRead=1, a registered Forge
 
 The stalled client has LOGIN protocol and auto-read enabled but no incoming packet rate. Add read-only capture of the actual NIO selection-key interest/ready flags and readPending state. This checks whether the socket reader is registered consistently with channel configuration, rather than assuming protocol or handler initialization is the cause.
 
+
+### 2026-11-11T13:02:14+08:00 — Observe an ordinary JVM without startup debugger flags
+
+JDWP-enabled cold controls sometimes connect before attachment, so debugger-enabled startup is not a reliable reproduction. Add a late attach observer for an ordinary unmodified client JVM: verify the native game directory, read connection/selector fields and write a fixture snapshot. It does not transform/redefine classes, change game fields, invoke game methods or send packets; it opens only reflection access to the diagnostic agent module where Java module access requires it. Keep the NIO read-interest hypothesis unconfirmed until a failing ordinary startup is captured.
+
