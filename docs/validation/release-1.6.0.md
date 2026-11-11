@@ -1,6 +1,6 @@
 # 1.6.0 final candidate acceptance
 
-Tester: Codex. Recorded 2026-11-11T12:11:04+08:00 (UTC+08:00). **All six targets passed the normal-entry map/runtime matrix. Publication remains held under the user’s no-issues condition pending the scope choice for the Forge47 quick-play control failure.**
+Tester: Codex. Recorded 2026-11-11T12:11:04+08:00 (UTC+08:00). **All six targets passed the normal-entry map/runtime matrix. The user explicitly requires the remaining Forge47 quick-play multiplayer handshake defect fixed before publication; no limitation exception is approved.**
 
 ## Candidate identity
 

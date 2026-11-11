@@ -7,6 +7,7 @@
 ## 进行中
 
 ### [进行中] Release 1.6.0 six-platform acceptance and publication
+- Codex, 2026-11-11T12:17:53+08:00: User explicitly requires Forge1.20.1 quick-play multiplayer repaired before release. Claim its native handshake diagnosis/fix; keep the verified Forge1.20.4 repair and the 72-case normal-entry evidence. No limitation exception is approved; do not publish Candidate42953810741.
 - Codex, 2026-11-11T12:11:59+08:00: Candidate42953810741 passed 72 normal-entry native cases, six-target CI and Publish dry-run42956402233. Forge1.20.4 is fixed and Forge1.20.1 optional-channel negotiation is fixed. Formal release remains held pending the user’s scope choice for the independently reproduced Forge47 quick-play handshake failure; no v1.6.0 tags exist. Final evidence: docs/validation/release-1.6.0.md.
 - Codex, 2026-11-11T10:23:54+08:00: Forge startup blocker fixed and verified; refresh release notes, seal a new six-target candidate, then complete remaining runtime/server/fallback checks before publication. Main changes in this step are documentation only.
 - Codex, 2026-11-11T03:28:46+08:00: six builds and 48 normal-flow native cases passed; Candidate 42879095868 / dry-run 42883569831 retained. Publication is blocked by the reproduced Forge 1.20.4 quick-play failure (also without Overlay), plus incomplete remaining candidate checklist items. Resume after a proper loader-startup fix or an explicit revised acceptance scope; do not dispatch real Publish under the current condition. Evidence: `docs/validation/release-1.6.0.md`.

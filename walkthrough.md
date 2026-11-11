@@ -382,3 +382,7 @@ Candidate42953810741 passed six production clients, 48 native map/locale cases p
 ### 2026-11-11T12:11:59+08:00 — Keep the release gate explicit
 
 Update the active release task with completed normal-entry acceptance and the pending Forge47 quick-play scope choice. The user required all platforms to have no issues before publication; an unsubmitted choice is not approval. Do not create tags or dispatch real Publish until this condition is resolved.
+
+### 2026-11-11T12:17:53+08:00 — Extend the release blocker to native Forge47 quick-play
+
+The user explicitly chose to repair automatic multiplayer entry before release. Preserve all 72 normal-entry passes and the verified Forge1.20.4 patch; do not publish the existing candidate under an exception. Claim native Forge47 handshake investigation. Current Forge47 source already completes mod loading before initial screens, so do not blindly apply the Forge49 startup patch. Read native connection/handshake state and capture the actual failing operation before choosing a correction.

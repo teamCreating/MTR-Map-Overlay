@@ -9,5 +9,7 @@
   "reviewedFullServerTrainHovers": 12,
   "readyForProtectedPublication": false,
   "published": false,
-  "pendingScopeChoice": "Forge47.4.0 quick-play multiplayer also fails in the plain control; user asked all platforms to have no issues before release"
+  "pendingScopeChoice": null,
+  "blockingCondition": "User requires Forge47.4.0 quick-play multiplayer repaired before release",
+  "userDecisionAt": "2026-11-11T12:17:53+08:00"
 }
