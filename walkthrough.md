@@ -442,3 +442,7 @@ Candidate42991712783 passed all six builds/tests. Download all ten replacement r
 ### 2026-11-11T17:23:32+08:00 — Resolve pending release PR integration
 
 Claim PR27/28 conflict resolution and CI validation. Merge the current base without rewriting history; preserve replacement acceptance and sealed manifest bytes. Compare older PR21/22 against the merged branches before closing duplicate evidence PRs. Release assets, tags and production code do not change.
+
+### 2026-11-11T17:26:03+08:00 — Verify release PR conflict resolution
+
+Preserve the newer PR records, including all base history. Compare each file present in old PR21/22, excluding newly added replacement evidence from the equality test; all original evidence/diagnostic blobs match. The initial verifier incorrectly treated new evidence as a mismatch and the PowerShell command chain continued; immediately repair the compatibility bookkeeping markers and require checked subprocess execution before further commits. Verify no conflict markers remain. Production files, release assets and tags are unchanged. CI gates and normal PR merges follow.

@@ -6,7 +6,7 @@
 
 ## 进行中
 
-### [进行中] Resolve release PR integration
+### [完成] Resolve release PR integration
 - Codex, 2026-11-11T17:23:32+08:00: Inspect PR27/28 conflicts and merge current base normally; preserve sealed evidence bytes and published artifacts. Verify superseded PR21/22 contents before closing them.
 
 
