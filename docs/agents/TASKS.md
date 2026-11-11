@@ -6,6 +6,7 @@
 
 ## 进行中
 
+<<<<<<< HEAD
 ### [进行中] Resolve release PR integration
 - Codex, 2026-11-11T17:23:32+08:00: Inspect PR27/28 conflicts and merge current base normally; preserve sealed evidence bytes and published artifacts. Verify superseded PR21/22 contents before closing them.
 
@@ -13,6 +14,9 @@
 ### [完成] Replace release 1.6.0 with provider-owned Navigate builds
 - 2026-11-11T17:11:24+08:00, Codex: Replaced [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) on explicit user instruction. Candidate42991712783 / protected Publish42992406825 attempt3 passed. Ten replacement public downloads match candidate/digests; both tags match new sealed sources. Six-JAR audit confirms only adapter removal; generic API and Forge49 guard preserved. Public notes exactly match the requested 1.5.3 structure. See [replacement verification](../validation/release-1.6.0-replacement.md).
 
+=======
+### [进行中] Replace release 1.6.0 with provider-owned Navigate builds
+>>>>>>> origin/compat/mtr-4.0-mc-1.20
 - Codex, 2026-11-11T17:03:13+08:00: User explicitly requests replacing release1.6.0 and matching the 1.5.3 note format. Build the merged provider-boundary correction on all six targets, retain the old publication metadata/downloads locally, replace release assets and version tags through normal protected publication, and verify public bytes.
 
 

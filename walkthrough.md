@@ -427,6 +427,7 @@ Clean the Java compilation and test outputs before rerunning the existing suite.
 ### 2026-11-11T17:03:13+08:00 — Replace 1.6.0 on explicit user request
 
 Build the already merged generic Navigate correction for six targets; external mods own adapters. Rewrite public notes using 1.5.3 structure: bilingual Added/Optimized sections, MC/MTR compatibility and two final diff links. Preserve original publication metadata and downloaded assets locally before replacement. The user explicitly authorized replacing this version; recreate its release/tags on new sealed sources rather than force-pushing or silently retaining obsolete source tags. Use protected Publish and verify all ten replacement downloads. The old 72-case runtime record is historical, not a new binary runtime claim.
+<<<<<<< HEAD
 
 ### 2026-11-11T17:11:24+08:00 — Verify replacement 1.6.0 public assets and notes
 
@@ -435,3 +436,5 @@ Candidate42991712783 passed all six builds/tests. Download all ten replacement r
 ### 2026-11-11T17:23:32+08:00 — Resolve pending release PR integration
 
 Claim PR27/28 conflict resolution and CI validation. Merge the current base without rewriting history; preserve replacement acceptance and sealed manifest bytes. Compare older PR21/22 against the merged branches before closing duplicate evidence PRs. Release assets, tags and production code do not change.
+=======
+>>>>>>> origin/compat/mtr-4.0-mc-1.20
