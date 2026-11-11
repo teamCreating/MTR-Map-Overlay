@@ -1,0 +1,81 @@
+{
+  "target": "fix1204-final-49.2.13-warning",
+  "candidateSha256": "df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d3c7224fd9b047",
+  "candidateJar": "C:\\Users\\Ben\\Documents\\Coding\\MC\\MTR\\mtrmap-mc120\\.cache\\startup-qa\\fix1204-final-49.2.13-warning\\mods\\CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.6.0.jar",
+  "passed": true,
+  "cases": [
+    {
+      "language": "en_us",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "en_us",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_cn",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "zh_tw",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "xaero",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    },
+    {
+      "language": "ja_jp",
+      "map": "journeymap",
+      "station": "999cb066dc884403",
+      "providers": [],
+      "arrivalCount": 2,
+      "serverTimeAdvanced": true,
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrmap-mc120/.cache/startup-qa/fix1204-final-49.2.13-warning/mods/CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.6.0.jar!/"
+}

@@ -1,0 +1,63 @@
+{
+  "connected": false,
+  "screen": "net.minecraftforge.client.gui.LoadingErrorScreen",
+  "screenRole": "OTHER",
+  "gameLoadFinished": true,
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrmap-mc120/.cache/startup-qa/fix1204-final-49.2.13-error/mods/CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.6.0.jar!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "nativeButtons": [
+    {
+      "active": true,
+      "visible": true,
+      "label": "Open Mods Folder",
+      "h": 20,
+      "w": 158,
+      "x": 50,
+      "y": 194
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Open latest.log",
+      "h": 20,
+      "w": 158,
+      "x": 218,
+      "y": 194
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Open crash-2026-11-11_10.11.59-fml.txt",
+      "h": 20,
+      "w": 213,
+      "x": 106,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "",
+      "h": 240,
+      "w": 427,
+      "x": 0,
+      "y": 35
+    }
+  ],
+  "providers": [],
+  "targets": [],
+  "buttons": [],
+  "serverEvents": []
+}

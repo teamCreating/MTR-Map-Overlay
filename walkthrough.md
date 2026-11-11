@@ -307,3 +307,8 @@ The native getter is mapped in production. The QA collector now uses its exact v
 ### 2026-11-11T10:12:04+08:00 — Codex: document the final callback control flow precisely
 
 Clarified that cancelling onGameLoadFinished preserves the native diagnostic screen but still lets its outer resource callback return normally. The removed late completion call must stay removed for both success and diagnostic results. This is a comment-only clarification with unchanged source line counts and runtime instructions.
+
+
+### 2026-11-11T10:21:59+08:00 — Codex: finalize the Forge 1.20.4 repair matrix
+
+Final production JAR SHA-256 df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d3c7224fd9b047 passes both Forge versions, quick-play/menu/warning acknowledgement, 48 two-map/four-locale native cases and four loading diagnostic guards. Native completion marker is true on diagnostic pages, no world starts before acknowledgement or after an error, and actual lifecycle/Xaero initialization occurs once after valid world entry. Final CI 42944368485 passes all four targets; the patch class is byte-identical to the tested class, isolated to Forge1.20.4, with QA absent from production. Selected evidence and full local raw archive are retained; report links checked. Version remains1.6.0; old candidate is not replaced or approved for publication.
