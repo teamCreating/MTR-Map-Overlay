@@ -317,3 +317,8 @@ Final production JAR SHA-256 df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d
 ### 2026-11-11T10:42:05+08:00 — Codex: isolate QA resources during sealed-candidate acceptance
 
 Candidate42946243079 first launch exposed an old QA JAR carrying mtrmap.refmap.json. Its stale map could shadow the production mod's correct refmap. Production and locally tested refmaps match byte for byte; the old QA refmap lacks the new hook. Claimed packaging repair under the existing release task: exclude production Mixin resources from the separate QA artifacts, then retry the unchanged sealed candidate. No injector is disabled and no candidate binary is edited.
+
+
+### 2026-11-11T10:43:59+08:00 — Codex: synchronize QA-isolation branch ancestry
+
+The two worktrees share Git branch names; compatibility QA packaging is on its distinct `test/qa-resource-isolation-mc120` branch. Merged the existing protected compatibility merge commit, preserving the QA resource exclusion. No production source or sealed candidate changes.
