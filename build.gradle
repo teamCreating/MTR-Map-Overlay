@@ -121,4 +121,6 @@ if (legacyJourneyMap) {
     }
 }
 
+if (!legacyJourneyMap) sourceSets.test.java.srcDir('compat/mc1201/forge/test')
+
 if (project.hasProperty('navigationQa')) apply from: 'gradle/navigation-qa.gradle'

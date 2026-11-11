@@ -410,3 +410,8 @@ The stalled client has LOGIN protocol and auto-read enabled but no incoming pack
 
 JDWP-enabled cold controls sometimes connect before attachment, so debugger-enabled startup is not a reliable reproduction. Add a late attach observer for an ordinary unmodified client JVM: verify the native game directory, read connection/selector fields and write a fixture snapshot. It does not transform/redefine classes, change game fields, invoke game methods or send packets; it opens only reflection access to the diagnostic agent module where Java module access requires it. Keep the NIO read-interest hypothesis unconfirmed until a failing ordinary startup is captured.
 
+
+### 2026-11-11T13:17:37+08:00 — Reproduce the read-interest race with actual NIO sockets
+
+Add a Forge1.20.1-only real-loopback Netty test source set. With a controlled scheduling barrier at the existing auto-read-cleared callback, the actual socket reaches autoRead=true but OP_READ=0 and does not receive a written byte. Serializing disable/enable on its EventLoop retains OP_READ and receives the actual byte. Both cases pass. This establishes a transport race and a correct ordering invariant, not yet a claim that all Minecraft quick-play failures share that cause. No MTR game data or packets are simulated.
+
