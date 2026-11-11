@@ -6,6 +6,9 @@
 
 ## 进行中
 
+### [完成] Refresh English and Chinese README for 1.6.0
+- Codex, 2026-11-11T17:44:00+08:00 (UTC+08:00): Preserved tone/structure, core features, requirements and badges; updated current release links, provider-owned Navigate availability, four-language support and compatibility notes. Removed obsolete development-only HowToGo claims. Both Markdown renders and 30 relative-link checks passed, along with git diff --check. Reasoning is recorded in root walkthrough.md; documentation-only commit.
+
 ### [完成] Resolve release PR integration
 - Codex, 2026-11-11T17:23:32+08:00: Inspect PR27/28 conflicts and merge current base normally; preserve sealed evidence bytes and published artifacts. Verify superseded PR21/22 contents before closing them.
 

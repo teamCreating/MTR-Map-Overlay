@@ -1,5 +1,7 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+- 2026-11-11T17:44:00+08:00 (UTC+08:00), Codex: Updated both READMEs to stable 1.6.0 with per-station provider availability, optional registration extension and four in-game languages. Removed stale built-in HowToGo/development-copy claims; retained layout, existing core features and badges. Corrected old compatibility notes and build artifact examples. Markdown renders and 30 relative-link checks passed; see root walkthrough.md. Runtime code, release assets and tags were not modified.
+
 - 2026-11-11T17:26:03+08:00, Codex: PR integration conflicts resolved; old PR21/22 evidence and diagnostics are all preserved byte-for-byte. New replacement evidence is additional. Close superseded old PRs; merge refreshed PR27/28 after CI. Release assets, tags and production code remain unchanged.
 
 - 2026-11-11T17:11:24+08:00, Codex: Replaced [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) on explicit user instruction. Candidate42991712783 / protected Publish42992406825 attempt3 passed. Ten replacement public downloads match candidate/digests; both tags match new sealed sources. Six-JAR audit confirms only adapter removal; generic API and Forge49 guard preserved. Public notes exactly match the requested 1.5.3 structure. See [replacement verification](../validation/release-1.6.0-replacement.md).

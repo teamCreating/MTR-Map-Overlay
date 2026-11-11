@@ -1,5 +1,7 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T17:44:00+08:00 (UTC+08:00), Codex: English/Chinese README refreshed for the published 1.6.0 release, generic provider-owned Navigate and four-language interface. Existing features/requirements/badges retained; stale development adapter claims and Forge49 warning corrected. Markdown and relative-link checks passed. Documentation only; no new game-runtime validation claimed.
+
 - 2026-11-11T17:26:03+08:00, Codex: PR integration conflicts resolved; old PR21/22 evidence and diagnostics are all preserved byte-for-byte. New replacement evidence is additional. Close superseded old PRs; merge refreshed PR27/28 after CI. Release assets, tags and production code remain unchanged.
 
 - 2026-11-11T17:11:24+08:00, Codex: Replaced [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) on explicit user instruction. Candidate42991712783 / protected Publish42992406825 attempt3 passed. Ten replacement public downloads match candidate/digests; both tags match new sealed sources. Six-JAR audit confirms only adapter removal; generic API and Forge49 guard preserved. Public notes exactly match the requested 1.5.3 structure. See [replacement verification](../validation/release-1.6.0-replacement.md).
