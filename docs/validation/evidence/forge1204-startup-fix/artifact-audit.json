@@ -1,0 +1,34 @@
+{
+  "ciRun": "42944368485",
+  "runtimeJarSha256": "df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d3c7224fd9b047",
+  "runtimeFixClassSha256": "e08cbaf4af84881b67968eef351842911066c6aa38acd39c4de3fa38d7a3eeb0",
+  "results": [
+    {
+      "jar": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-fabric.jar",
+      "fixPresent": false,
+      "qaAbsent": true,
+      "sha256": "631f732355dfc7374ad82c6ff7b6f99c6bd1e993aed360f81e7a278ee457568c"
+    },
+    {
+      "jar": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar",
+      "fixPresent": false,
+      "qaAbsent": true,
+      "sha256": "d673c15f369e4810d3e697a0c088d23e19d35d84a8d48167feddf9cb2026e482"
+    },
+    {
+      "jar": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-fabric.jar",
+      "fixPresent": false,
+      "qaAbsent": true,
+      "sha256": "a4eaf94f2243636f3c3cd9aff68c2686fc0ce5eb01855499856c0843981e8852"
+    },
+    {
+      "jar": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar",
+      "fixPresent": true,
+      "qaAbsent": true,
+      "sha256": "9f279fdbb02f3670fe91b892f6e8dff0bc5fd5a09abdb094707ceb77e783672b",
+      "fixClassSha256": "e08cbaf4af84881b67968eef351842911066c6aa38acd39c4de3fa38d7a3eeb0",
+      "matchesRuntimeTestedClass": true,
+      "vanillaBoundaryMapping": "Lnet/minecraft/client/Minecraft;m_286052_(Lnet/minecraft/client/Minecraft$GameLoadCookie;)V"
+    }
+  ]
+}

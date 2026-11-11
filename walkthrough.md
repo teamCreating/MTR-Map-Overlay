@@ -328,3 +328,8 @@ Merged main's existing PR #11 merge commit into the QA branch to satisfy the up-
 ### 2026-11-11T03:35:11+08:00 — Codex: clarify native destination-name verification
 
 The acceptance report now states the tested HowToGo name contract precisely: MTR display separators (vertical bars) become spaces, while the native name content and floored block coordinates are preserved. This matches the production bridge and recorded assertion; no product or candidate changed.
+
+
+### 2026-11-11T10:23:54+08:00 — Codex: synchronize verified Forge repair status and release notes
+
+Recorded compatibility-only Forge1.20.4 repair evidence (48 native UI cases/four diagnostics, both tested Forge49 versions) in the main documentation and added the bilingual1.6.0 release-note fix. Main production source and version are unchanged. Resumed the existing user-authorized release claim for a fresh sealed candidate and remaining dedicated/client-only-fallback acceptance. The old candidate is retained as historical evidence, not approved for publishing a repaired build.

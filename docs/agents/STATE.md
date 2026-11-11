@@ -1,5 +1,7 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T10:23:54+08:00, Codex: Forge1.20.4 startup repair verified on49.2.0/49.2.13 (48 native UI cases, four warning/error guards). It is isolated to the compatibility Forge1.20.4 build; main platforms are unchanged. See [repair](../validation/forge1204-startup-fix.md). Release1.6.0 resumes fresh-candidate acceptance; old Candidate42879095868 lacks the repair and is not approved for publication.
+
 - 2026-11-11T03:28:46+08:00, Codex: **1.6.0 is held, not published.** Sealed Candidate 42879095868 passed six-target CI; exact candidate production clients passed 48 normal singleplayer cases (both maps × four languages), including NeoForge real HowToGo handoff/two-provider chooser. Publish dry-run 42883569831 passed. Forge 1.20.4 quick-play still disconnects on 49.2.0/49.2.13 and in a control without Overlay/QA. No v1.6.0 tags or real Publish run; dedicated/client-only fallback and performance checklist items remain unvalidated for this candidate. See [release validation](../validation/release-1.6.0.md).
 
 - 2026-11-11T02:13:51+08:00, Codex: User-authorized release target is **1.6.0**, not yet published. Integration/localization ports build on all six supported targets; compatibility tests report 110 pass/1 generator skip each, main 107 pass/1 skip. Preparing exact-candidate production-runtime acceptance, including the known Forge49 singleplayer issue. Publication remains conditional on all required runtime checks.
