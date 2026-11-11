@@ -8,10 +8,12 @@
   "dedicatedMapCases": 24,
   "reviewedFullServerTrainHovers": 12,
   "readyForProtectedPublication": true,
-  "published": false,
+  "published": true,
   "pendingScopeChoice": null,
   "blockingCondition": null,
   "userDecisionAt": "2026-11-11T13:38:47+08:00",
   "userDecision": "Publish immediately; stop further repair investigation; retain the disclosed Forge47 quick-play limitation",
-  "experimentalPatchIncluded": false
+  "experimentalPatchIncluded": false,
+  "releaseUrl": "https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0",
+  "publishRun": 42967128625
 }

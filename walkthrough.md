@@ -409,3 +409,7 @@ The stalled client has LOGIN protocol and auto-read enabled but no incoming pack
 ### 2026-11-11T13:38:47+08:00 — Publish the tested candidate on explicit user instruction
 
 The user stopped further diagnosis and explicitly requested immediate publication, superseding the prior Forge47 repair gate. Use unchanged Candidate42953810741 (48 singleplayer plus 24 dedicated native cases); do not merge or publish the experimental EventLoop patch. Disclose the Forge47.4.0 quick-play handshake limitation and working ordinary multiplayer-list connection in the public acceptance text. Keep the protected environment review and sealed manifest/hash checks. No further game tests or candidate rebuilds are requested.
+
+### 2026-11-11T13:40:41+08:00 — Verify the published 1.6.0 release
+
+Protected Publish42967128625 completed successfully. Download all ten public assets again; compare bytes/SHA-256 with unchanged Candidate42953810741 and GitHub digests. Verify formal/Latest status and exact main/compat tag SHAs. All checks pass. Public notes retain the Forge47 quick-play limitation; experimental patch branches remain unmerged and excluded. Update acceptance/state/task records with the exact publication identity.
