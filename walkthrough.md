@@ -406,3 +406,8 @@ The bounded read-only probe reproduces the timeout and sees client login-channel
 
 A breakpoint-delayed control joined successfully, but the observer hit JDWP INVALID_SLOT reading a synthetic bridge frame and detached; do not call this a product fix. Skip bridge argument reads. Add a late-attach snapshot mode that suspends briefly only after the unmodified startup has stalled, reads the current ConnectScreen connection, packet counters, channel protocol/handshake attributes and auto-read flag, then resumes/detaches. It neither invokes target methods nor rewrites fields, and avoids inserting debugger pauses into the startup ordering being investigated.
 
+
+### 2026-11-11T12:48:26+08:00 — Compare both ends after the handshake stalls
+
+The late client snapshot confirms LOGIN protocol, autoRead=1, a registered Forge handshake object, and no incoming packet rate; it rules out a simply disabled client reader. Extend the same read-only JDI snapshot to the native server connection list, channel attributes, packet counters and outbound-buffer counters. Observe after the failure is already established, without debugger breakpoints during startup, to distinguish server dispatch from transport/decoder state.
+

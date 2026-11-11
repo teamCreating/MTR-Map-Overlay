@@ -168,7 +168,53 @@ public final class ForgeHandshakeProbe {
                     stack(thread);
                 }
             }
+            for (ReferenceType hooks : vm.classesByName("net.minecraftforge.server.ServerLifecycleHooks")) {
+                for (Field f : hooks.allFields()) {
+                    if (!f.isStatic() || !f.typeName().equals("net.minecraft.server.MinecraftServer")) continue;
+                    if (!(hooks.getValue(f) instanceof ObjectReference server)) continue;
+                    for (Field sf : server.referenceType().allFields()) {
+                        if (sf.isStatic() || !sf.typeName().equals("net.minecraft.server.network.ServerConnectionListener")) continue;
+                        if (!(server.getValue(sf) instanceof ObjectReference listener)) continue;
+                        for (Field lf : listener.referenceType().allFields()) {
+                            if (lf.isStatic() || !lf.typeName().equals("java.util.List")) continue;
+                            if (!(listener.getValue(lf) instanceof ObjectReference list)) continue;
+                            for (Value entry : listValues(list, 0)) {
+                                if (entry instanceof ObjectReference connection && connection.referenceType().name().equals("net.minecraft.network.Connection")) {
+                                    emit("SERVER_CONNECTION");
+                                    for (Field cf : connection.referenceType().allFields()) {
+                                        if (cf.isStatic()) continue;
+                                        Value data = connection.getValue(cf);
+                                        if (data instanceof PrimitiveValue || cf.typeName().equals("net.minecraft.network.PacketListener")) emit("SERVER " + cf.name() + "=" + describe(data));
+                                        if (cf.typeName().equals("io.netty.channel.Channel") && data instanceof ObjectReference channel) {
+                                            if (value(channel, "config") instanceof ObjectReference config) emit("SERVER_AUTO_READ " + field(config, "autoRead"));
+                                            if (value(channel, "attributes") instanceof ArrayReference attrs) for (Value attribute : attrs.getValues()) {
+                                                if (attribute instanceof ObjectReference a) emit("SERVER_ATTRIBUTE " + field(a, "key") + " value=" + field(a, "value"));
+                                            }
+                                            if (value(channel, "unsafe") instanceof ObjectReference unsafe) emit("SERVER_OUTBOUND " + field(unsafe, "outboundBuffer"));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         } finally { vm.resume(); }
+    }
+
+    private static List<Value> listValues(ObjectReference list, int depth) {
+        if (depth > 4) return List.of();
+        for (String field : List.of("elementData", "a")) {
+            if (value(list, field) instanceof ArrayReference array) {
+                int length = array.length();
+                if (value(list, "size") instanceof IntegerValue size) length = Math.min(length, size.value());
+                return array.getValues(0, length);
+            }
+        }
+        for (String field : List.of("list", "c")) {
+            if (value(list, field) instanceof ObjectReference wrapped) return listValues(wrapped, depth + 1);
+        }
+        return List.of();
     }
 
     private static Value value(ObjectReference object, String name) {
@@ -186,6 +232,7 @@ public final class ForgeHandshakeProbe {
                 if (f.isStatic()) continue;
                 Value content = object.getValue(f);
                 if (content instanceof StringReference string) text.append(' ').append(f.name()).append('=').append(string.value());
+                else if (content instanceof PrimitiveValue primitive) text.append(' ').append(f.name()).append('=').append(primitive);
             }
             return text.toString();
         }
