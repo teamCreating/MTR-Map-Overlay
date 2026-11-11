@@ -370,3 +370,63 @@ Retain the actual mismatched-channel screen, inventories and native logs. Update
 ### 2026-11-11T11:28:19+08:00 — Verify optional-channel correction on a native MTR-only server
 
 The corrected Forge1.20.1 production build passes both native maps against the same original MTR-only server through the native multiplayer list. Local rail/route/station/car caches are nonempty; remote Overlay catalog/arrivals are absent and Navigate is correctly disabled. Preserve the real mismatch and passing logs side by side. Existing suite: 110 pass/one explicit generator skip. Seal a new candidate before release; see docs/validation/forge1201-optional-channel-fix.md.
+
+### 2026-11-11T11:36:44+08:00 — Seal both corrections and retain a plain Forge47 control
+
+PR19/20 merged after successful gates; a Maven Central429 transient was retried without changing dependencies or weakening checks. Candidate42953810741 now builds all six targets. The Forge1.20.1 optional-channel fix passed full-sync and MTR-only fallback on both maps. A plain four-mod client without Overlay/QA independently reproduces quick-play handshake timeout; native multiplayer-list entry is the valid completed path. Keep that observation explicit and test the new candidate through normal menus on Forge47.4.0.
+
+### 2026-11-11T12:11:04+08:00 — Complete exact final-candidate acceptance
+
+Candidate42953810741 passed six production clients, 48 native map/locale cases plus 24 dedicated full/fallback cases. Verify loaded archive/hash, native data sources, actual arrivals/timestamps and both maps native train tooltips. Preserve the Forge47 quick-play control limitation and old failed candidates explicitly. Record complete local archive identity and selected raw evidence. Production JARs remain sealed; Publish dry-run42956402233 passed without tags or release writes. Publication remains held pending the Forge47 quick-play scope choice; do not treat elapsed time or an unsubmitted preselected option as approval.
+
+### 2026-11-11T12:11:59+08:00 — Keep the release gate explicit
+
+Update the active release task with completed normal-entry acceptance and the pending Forge47 quick-play scope choice. The user required all platforms to have no issues before publication; an unsubmitted choice is not approval. Do not create tags or dispatch real Publish until this condition is resolved.
+
+### 2026-11-11T12:17:53+08:00 — Extend the release blocker to native Forge47 quick-play
+
+The user explicitly chose to repair automatic multiplayer entry before release. Preserve all 72 normal-entry passes and the verified Forge1.20.4 patch; do not publish the existing candidate under an exception. Claim native Forge47 handshake investigation. Current Forge47 source already completes mod loading before initial screens, so do not blindly apply the Forge49 startup patch. Read native connection/handshake state and capture the actual failing operation before choosing a correction.
+
+### 2026-11-11T12:19:20+08:00 — Add a read-only native handshake probe
+
+Add an opt-in JDK JDI CLI observer for NetworkHooks registration/payload dispatch, NetworkInstance event-bus flags/error callbacks, caught Forge network exceptions and handshake lookup results. It reads fields/stack frames only; it never invokes target methods, rewrites fields, patches dependencies or fabricates packets. Compile with the installed JDK21 jdk.jdi module. Use a loopback-only suspended debug JVM in an isolated native fixture to capture the first actual Forge47 quick-play failure before choosing a product fix.
+
+
+### 2026-11-11T12:26:43+08:00 — Reduce probe overhead and recover the owned fixture cleanly
+
+The initial JDI method-exit request made SecureJar package scanning run too slowly to reach the handshake before the diagnostic timeout. Exclude that attempt from product evidence and remove method-exit tracking; retain only targeted breakpoints and caught Forge-network exceptions. Its controller timed out before a game window appeared and lost its stdin pipe. Add an explicit fixture-directory-checked attach helper that calls Forge's public current-server/native halt API, allowing normal save/shutdown instead of forcing process termination. Compile the helper for Java17; it does not redefine classes or patch dependencies. The native handshake observer itself remains read-only.
+
+
+### 2026-11-11T12:33:54+08:00 — Observe the actual inbound login packet listener
+
+The bounded read-only probe reproduces the timeout and sees client login-channel registration, but no Forge payload-dispatch entry or network exception. Extend observation to the native Connection read/protocol boundary and custom-query listener, and dump only that listener's actual VM bytecode/constant pool for comparison. This distinguishes a transport/protocol stall from a transformed listener bypass without rewriting classes or invoking target methods. The first clean diagnostic exits client/server/probe normally; no diagnosis is yet claimed from missing callbacks alone.
+
+
+### 2026-11-11T12:41:05+08:00 — Snapshot only after the native stall is established
+
+A breakpoint-delayed control joined successfully, but the observer hit JDWP INVALID_SLOT reading a synthetic bridge frame and detached; do not call this a product fix. Skip bridge argument reads. Add a late-attach snapshot mode that suspends briefly only after the unmodified startup has stalled, reads the current ConnectScreen connection, packet counters, channel protocol/handshake attributes and auto-read flag, then resumes/detaches. It neither invokes target methods nor rewrites fields, and avoids inserting debugger pauses into the startup ordering being investigated.
+
+
+### 2026-11-11T12:48:26+08:00 — Compare both ends after the handshake stalls
+
+The late client snapshot confirms LOGIN protocol, autoRead=1, a registered Forge handshake object, and no incoming packet rate; it rules out a simply disabled client reader. Extend the same read-only JDI snapshot to the native server connection list, channel attributes, packet counters and outbound-buffer counters. Observe after the failure is already established, without debugger breakpoints during startup, to distinguish server dispatch from transport/decoder state.
+
+
+### 2026-11-11T12:51:13+08:00 — Inspect the NIO read registration
+
+The stalled client has LOGIN protocol and auto-read enabled but no incoming packet rate. Add read-only capture of the actual NIO selection-key interest/ready flags and readPending state. This checks whether the socket reader is registered consistently with channel configuration, rather than assuming protocol or handler initialization is the cause.
+
+
+### 2026-11-11T13:38:47+08:00 — Publish the tested candidate on explicit user instruction
+
+The user stopped further diagnosis and explicitly requested immediate publication, superseding the prior Forge47 repair gate. Use unchanged Candidate42953810741 (48 singleplayer plus 24 dedicated native cases); do not merge or publish the experimental EventLoop patch. Disclose the Forge47.4.0 quick-play handshake limitation and working ordinary multiplayer-list connection in the public acceptance text. Keep the protected environment review and sealed manifest/hash checks. No further game tests or candidate rebuilds are requested.
+
+### 2026-11-11T13:40:41+08:00 — Verify the published 1.6.0 release
+
+Protected Publish42967128625 completed successfully. Download all ten public assets again; compare bytes/SHA-256 with unchanged Candidate42953810741 and GitHub digests. Verify formal/Latest status and exact main/compat tag SHAs. All checks pass. Public notes retain the Forge47 quick-play limitation; experimental patch branches remain unmerged and excluded. Update acceptance/state/task records with the exact publication identity.
+
+### 2026-11-11T16:47:01+08:00 — Restore provider ownership of Navigate integration
+
+The user clarified that Overlay should improve the generic Navigate API so external mods can adapt to it. Remove the built-in HowToGo reflection bridge and automatic registration, together with its dedicated tests and mandatory build-time download. Preserve the generic provider predicate overload, chooser, stale-provider handling and disabled-state behavior. Keep original QA observations as historical evidence. Published 1.6.0 binaries/tags are unchanged; they still contain the earlier adapter, so document this boundary explicitly instead of rewriting release history.
+
+Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 105, 'failures': 0, 'errors': 0, 'skipped': 1}. Production Java has no HowToGo discovery, bridge or registration. Generic Navigate implementation and API signatures are preserved. Public release scope correction was read back; all ten asset IDs and digests remain unchanged.

@@ -1,0 +1,524 @@
+{
+  "connected": true,
+  "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.21.1-fabric/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "zStepX": 0.0,
+    "zStepY": 0.5,
+    "originX": 48.5,
+    "originY": 95.0,
+    "xStepX": 0.5,
+    "xStepY": 0.0
+  },
+  "nativeButtons": [
+    {
+      "h": 20,
+      "w": 20,
+      "x": 81,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Day"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 101,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Night"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 141,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Topography"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 121,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Biome"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 161,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Cave Layers"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 80,
+      "active": true,
+      "visible": true,
+      "label": "Open location finder"
+    },
+    {
+      "h": 16,
+      "w": 40,
+      "x": 699,
+      "y": 466,
+      "active": true,
+      "visible": false,
+      "label": "x:"
+    },
+    {
+      "h": 16,
+      "w": 40,
+      "x": 466,
+      "y": 466,
+      "active": true,
+      "visible": false,
+      "label": "z:"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0,
+      "active": true,
+      "visible": false,
+      "label": "Pan to location"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 100,
+      "active": false,
+      "visible": true,
+      "label": "Follow"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 120,
+      "active": true,
+      "visible": true,
+      "label": "Zoom In"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 140,
+      "active": true,
+      "visible": true,
+      "label": "Zoom Out"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 133,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Waypoints..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 153,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Options..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 24,
+      "active": true,
+      "visible": false,
+      "label": "Newer version available: 6.0.8"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Close"
+    },
+    {
+      "h": 20,
+      "w": 80,
+      "x": 6,
+      "y": 214,
+      "active": true,
+      "visible": true,
+      "label": "Purist"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 184,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Caves"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 204,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Mobs"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 224,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Animals"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 244,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Pets"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 264,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Villagers"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 284,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Players"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 304,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Grid"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 324,
+      "y": 4,
+      "active": true,
+      "visible": true,
+      "label": "Show Keys"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 173,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "About..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0,
+      "active": true,
+      "visible": false,
+      "label": " region display off"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 233,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Save Map"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0,
+      "active": false,
+      "visible": false,
+      "label": "Use Browser"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 253,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Auto-Map..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 213,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Delete Map..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 273,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Disable Mapping"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 193,
+      "y": 216,
+      "active": true,
+      "visible": true,
+      "label": "Color Palette..."
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 100,
+      "active": true,
+      "visible": true,
+      "label": "TRACKS ON"
+    },
+    {
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 120,
+      "active": true,
+      "visible": true,
+      "label": "ROUTES ON"
+    }
+  ],
+  "providers": [],
+  "nativeMapData": {
+    "serverSynced": false,
+    "tracks": 5,
+    "routes": 2,
+    "landmarks": 4
+  },
+  "trainDataSource": "nearby",
+  "renderedCars": [
+    {
+      "vehicleId": 4848827510191748561,
+      "index": 0,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 340.4999999562886,
+        "y": -59.0,
+        "z": -0.5000004371138991
+      },
+      "backRight": {
+        "x": 320.4999999562886,
+        "y": -59.0,
+        "z": -0.49999956288609904
+      },
+      "backLeft": {
+        "x": 320.5000000437114,
+        "y": -59.0,
+        "z": 1.500000437113899
+      },
+      "frontLeft": {
+        "x": 340.5000000437114,
+        "y": -59.0,
+        "z": 1.499999562886099
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 4848827510191748561,
+      "index": 1,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 360.4999999562886,
+        "y": -59.0,
+        "z": -0.5000004371138991
+      },
+      "backRight": {
+        "x": 340.4999999562886,
+        "y": -59.0,
+        "z": -0.49999956288609904
+      },
+      "backLeft": {
+        "x": 340.5000000437114,
+        "y": -59.0,
+        "z": 1.500000437113899
+      },
+      "frontLeft": {
+        "x": 360.5000000437114,
+        "y": -59.0,
+        "z": 1.499999562886099
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 6750141084754803108,
+      "index": 0,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 320.5000719562886,
+        "y": -59.0,
+        "z": 19.4999995628861
+      },
+      "backRight": {
+        "x": 300.5000719562886,
+        "y": -59.0,
+        "z": 19.5000004371139
+      },
+      "backLeft": {
+        "x": 300.5000720437114,
+        "y": -59.0,
+        "z": 21.5000004371139
+      },
+      "frontLeft": {
+        "x": 320.5000720437114,
+        "y": -59.0,
+        "z": 21.4999995628861
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 6750141084754803108,
+      "index": 1,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 340.5000719562886,
+        "y": -59.0,
+        "z": 19.4999995628861
+      },
+      "backRight": {
+        "x": 320.5000719562886,
+        "y": -59.0,
+        "z": 19.5000004371139
+      },
+      "backLeft": {
+        "x": 320.5000720437114,
+        "y": -59.0,
+        "z": 21.5000004371139
+      },
+      "frontLeft": {
+        "x": 340.5000720437114,
+        "y": -59.0,
+        "z": 21.4999995628861
+      },
+      "reversed": true
+    }
+  ],
+  "selected": "23423cb842ffa3d1",
+  "targets": [
+    {
+      "x": 213.5,
+      "y": 100.0,
+      "station": "23423cb842ffa3d1",
+      "marker": {
+        "id": "station:23423CB842FFA3D1",
+        "type": "STATION",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "name": "QA Transfer|换乘",
+        "symbol": "QA Transfer|换乘",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘, QA Blue→QA Destination|终点, QA Blue Return→QA Transfer|换乘",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "x": 377,
+      "y": 40,
+      "w": 14,
+      "h": 14,
+      "enabled": true,
+      "label": "×"
+    },
+    {
+      "x": 61,
+      "y": 190,
+      "w": 162,
+      "h": 18,
+      "enabled": true,
+      "label": "▾ Collapse"
+    },
+    {
+      "x": 225,
+      "y": 190,
+      "w": 164,
+      "h": 18,
+      "enabled": false,
+      "label": "▸ Navigate"
+    }
+  ]
+}

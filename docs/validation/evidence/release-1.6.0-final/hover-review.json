@@ -1,0 +1,98 @@
+[
+  {
+    "target": "1.20.4-forge",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:57:02+08:00",
+    "sha256": "6925fe481af9f8d06eb12ad5273688c5a0d4ab2fb411c061fdee49badd87eff3",
+    "observed": "Native Train tooltip, Local to Charlie, 3 carriages; global-train status and actual native car geometry visible"
+  },
+  {
+    "target": "1.20.4-forge",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:57:02+08:00",
+    "sha256": "5c96b6ad4ae5d5736af55260b3f84f09405d7bd6e221a7fcc1c1337f08080c77",
+    "observed": "Native Train tooltip, Local to Charlie, 3 carriages; global-train status and actual native car geometry visible"
+  },
+  {
+    "target": "1.20.1-forge",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:57:53+08:00",
+    "sha256": "63c9e52d672bbdd1883d1e62c87abff8bc66038ebea214868d744ea458793954",
+    "observed": "Native Train tooltip and 3 carriages visible, with global-train status and real car geometry; vanilla movement tutorial toast partially overlaps route text"
+  },
+  {
+    "target": "1.20.1-forge",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:57:53+08:00",
+    "sha256": "8b64649f93c204f3113ec0b61af2c1cc50381b63b848a083bfa702958af903a4",
+    "observed": "Native Train tooltip and 3 carriages visible, with global-train status and real car geometry; vanilla movement tutorial toast partially overlaps route text"
+  },
+  {
+    "target": "1.20.4-fabric",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:59:57+08:00",
+    "sha256": "297fbd3dcc248e3006770121d9dc9c35d1d8e4ecbabf03fc8c98d6411affbfaf",
+    "observed": "Native Train/Local tooltip and 3 carriages visible with global-train status; JourneyMap route text partly overlaps vanilla tutorial toast"
+  },
+  {
+    "target": "1.20.4-fabric",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T11:59:57+08:00",
+    "sha256": "765fdb06b07487cd719067cc373840a9f806d9ebae5c8d1d3e07133f880b469b",
+    "observed": "Native Train/Local tooltip and 3 carriages visible with global-train status; JourneyMap route text partly overlaps vanilla tutorial toast"
+  },
+  {
+    "target": "1.20.1-fabric",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:06:40+08:00",
+    "sha256": "cd30b41819ce2d352aabc54d2965ab851292ae05c8f6dd6e4d02cea667df521a",
+    "observed": "Native Train tooltip and 3 carriages visible with global-train status and real coach outlines; vanilla movement toast partly overlaps title/route"
+  },
+  {
+    "target": "1.20.1-fabric",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:06:40+08:00",
+    "sha256": "8f78209f321e5b79b67a318f142c63ac08d2457b43b53a2a4347423c336a8fe7",
+    "observed": "Native Train tooltip and 3 carriages visible with global-train status and real coach outlines; vanilla movement toast partly overlaps title/route"
+  },
+  {
+    "target": "1.21.1-fabric",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:08:36+08:00",
+    "sha256": "4833ae01b54756a9373eb082dce5704ebe4c7538e7f5799fb5e754e45df2d6e6",
+    "observed": "Native M-Train Cab (Forwards, Small) tooltip; QA Blue Return to QA Transfer mixed-language station name; 2 carriages; global status 2 trains"
+  },
+  {
+    "target": "1.21.1-fabric",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:08:36+08:00",
+    "sha256": "309c6d3db0669972a152a66e384334c1c34d6e78a42d92b3ad0b750c93d3afcb",
+    "observed": "Native M-Train Cab (Forwards, Small) tooltip; QA Red to QA Transfer mixed-language station name; 2 carriages; global status 2 trains"
+  },
+  {
+    "target": "1.21.1-neoforge",
+    "map": "xaero",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:11:04+08:00",
+    "sha256": "332f6cd017e826af35cc6c4b146f470bc936d57d1ec60b88ed91ce473fb6d1fc",
+    "observed": "Native M-Train Cab tooltip, QA Blue route and 2 carriages visible; global status 2 trains; vanilla toast partly obscures model/destination text and HowToGo legend is visible"
+  },
+  {
+    "target": "1.21.1-neoforge",
+    "map": "journeymap",
+    "reviewed": true,
+    "reviewedAt": "2026-11-11T12:11:04+08:00",
+    "sha256": "31b2cbe5b7325e9a719b2841d85d52028eb247cf446f735ea1a171cf61882389",
+    "observed": "Native M-Train Cab (Forwards, Small) tooltip, QA Red Return to QA Origin mixed-language name and 2 carriages; global status 2 trains"
+  }
+]

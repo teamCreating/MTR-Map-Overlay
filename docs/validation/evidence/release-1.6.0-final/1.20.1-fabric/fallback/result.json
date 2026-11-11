@@ -1,0 +1,39 @@
+{
+  "target": "1.20.1-fabric",
+  "mode": "fallback",
+  "candidateSha256": "631f732355dfc7374ad82c6ff7b6f99c6bd1e993aed360f81e7a278ee457568c",
+  "passed": true,
+  "cases": [
+    {
+      "map": "xaero",
+      "serverCatalogAbsent": true,
+      "navigateDisabled": true,
+      "noInventedArrivals": true,
+      "nativeStationCount": 1,
+      "nativeMapData": {
+        "landmarks": 2,
+        "routes": 1,
+        "tracks": 3,
+        "serverSynced": false
+      },
+      "trainDataSource": "nearby",
+      "passed": true
+    },
+    {
+      "map": "journeymap",
+      "serverCatalogAbsent": true,
+      "navigateDisabled": true,
+      "noInventedArrivals": true,
+      "nativeStationCount": 1,
+      "nativeMapData": {
+        "landmarks": 2,
+        "routes": 1,
+        "tracks": 3,
+        "serverSynced": false
+      },
+      "trainDataSource": "nearby",
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.20.1-fabric/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-fabric.jar"
+}

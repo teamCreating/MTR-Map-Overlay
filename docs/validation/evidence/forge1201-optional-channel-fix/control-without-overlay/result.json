@@ -1,0 +1,13 @@
+{
+  "withoutOverlayAndQa": true,
+  "joined": false,
+  "nativeDisconnect": true,
+  "closedOwnedClientWindows": [
+    54276,
+    54276,
+    54276,
+    54276
+  ],
+  "clientExit": 0,
+  "serverExit": 0
+}

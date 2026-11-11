@@ -1,0 +1,39 @@
+{
+  "car": {
+    "vehicleId": 4848827510191748561,
+    "index": 1,
+    "count": 2,
+    "leading": true,
+    "modelId": "m_train_small_cab_2",
+    "routeName": "QA Red Return",
+    "destination": "QA Origin|\u8d77\u70b9",
+    "color": 15223627,
+    "frontRight": {
+      "x": 360.4999999562886,
+      "y": -59.0,
+      "z": -0.5000004371138991
+    },
+    "backRight": {
+      "x": 340.4999999562886,
+      "y": -59.0,
+      "z": -0.49999956288609904
+    },
+    "backLeft": {
+      "x": 340.5000000437114,
+      "y": -59.0,
+      "z": 1.500000437113899
+    },
+    "frontLeft": {
+      "x": 360.5000000437114,
+      "y": -59.0,
+      "z": 1.499999562886099
+    },
+    "reversed": true
+  },
+  "nativeInput": {
+    "x": 223.75,
+    "y": 95.25
+  },
+  "scale": 0.5,
+  "trainDataSource": "nearby"
+}

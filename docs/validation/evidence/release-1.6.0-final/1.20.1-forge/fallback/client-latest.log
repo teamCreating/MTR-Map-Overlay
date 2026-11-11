@@ -1,0 +1,279 @@
+[11:54:44] [main/INFO]: ModLauncher running: args [--launchTarget, forgeclient, --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --username, Dev, --version, forge-1.20.1-47.4.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --assetIndex, 5, --uuid, 380df991f603344ca090369bad2a924a, --accessToken, ????????, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480]
+[11:54:44] [main/INFO]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[11:54:45] [main/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\config\fml.toml is not correct. Correcting
+[11:54:45] [main/INFO]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[11:54:45] [main/INFO]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[11:54:45] [main/INFO]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[11:54:45] [main/INFO]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[11:54:45] [main/INFO]: Loading ImmediateWindowProvider fmlearlywindow
+[11:54:45] [main/INFO]: Trying GL version 4.6
+[11:54:45] [main/INFO]: If this message is the only thing at the bottom of your log before a crash, you probably have a driver issue.
+
+Possible solutions:
+A) Make sure Minecraft is set to prefer high performance graphics in the OS and/or driver control panel
+B) Check for driver updates on the graphics brand's website
+C) Try reinstalling your graphics drivers
+D) If still not working after trying all of the above, ask for further help on the Forge forums or Discord
+
+You can safely ignore this message if the game starts up successfully.
+[11:54:45] [main/INFO]: Requested GL version 4.6 got version 4.6
+[11:54:45] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar%23100!/ Service=ModLauncher Env=CLIENT
+[11:54:45] [pool-2-thread-1/INFO]: GL info: Intel(R) Arc(TM) 130T GPU (16GB) GL version 4.6.0 - Build 32.0.101.8826, Intel
+[11:54:45] [main/INFO]: Found mod file CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/INFO]: Found mod file journeymap-1.20.1-6.0.6+forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/INFO]: Found mod file minecraft-transit-railway-FORGE-4.0.5+1.20.1.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/INFO]: Found mod file mtrmap-acceptance-qa-forge-1.6.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/INFO]: Found mod file xaeros-minimap-forge-1.20.1-26.4.2.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/INFO]: Found mod file xaeros-world-map-forge-1.20.1-1.45.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\mods}
+[11:54:45] [main/WARN]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries\net\minecraftforge\fmlcore\1.20.1-47.4.0\fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
+[11:54:45] [main/WARN]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries\net\minecraftforge\javafmllanguage\1.20.1-47.4.0\javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11:54:45] [main/WARN]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries\net\minecraftforge\lowcodelanguage\1.20.1-47.4.0\lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11:54:45] [main/WARN]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries\net\minecraftforge\mclanguage\1.20.1-47.4.0\mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11:54:45] [main/INFO]: Found mod file fmlcore-1.20.1-47.4.0.jar of type LIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found mod file javafmllanguage-1.20.1-47.4.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found mod file lowcodelanguage-1.20.1-47.4.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found mod file mclanguage-1.20.1-47.4.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found mod file client-1.20.1-20230612.114412-srg.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found mod file forge-1.20.1-47.4.0-universal.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@5e63cad
+[11:54:45] [main/INFO]: Found 4 dependencies adding them to mods collection
+[11:54:45] [main/INFO]: Found mod file pngj-2.1.0.jar of type GAMELIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@bb095
+[11:54:45] [main/INFO]: Found mod file common-networking-forge-1.0.6-1.20.1.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@bb095
+[11:54:45] [main/INFO]: Found mod file xaerolib-forge-1.20.1-1.7.1.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@bb095
+[11:54:45] [main/INFO]: Found mod file journeymap-api-forge-1.20.1-2.0.0.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@bb095
+[11:54:47] [main/INFO]: Compatibility level set to JAVA_17
+[11:54:47] [main/INFO]: Launching target 'forgeclient' with arguments [--version, forge-1.20.1-47.4.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --uuid, 380df991f603344ca090369bad2a924a, --username, Dev, --assetIndex, 5, --accessToken, ????????, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480]
+[11:54:47] [main/INFO]: [MTRMap] Xaero's World Map detected - map path layer mixins will be applied
+[11:54:47] [main/INFO]: [MTRMap] Applied TrainMapPauseMixin to Minecraft
+[11:54:51] [Datafixer Bootstrap/INFO]: 188 Datafixer optimizations took 123 milliseconds
+[11:54:53] [main/WARN]: Unrecognized user type: 
+[11:54:53] [Render thread/WARN]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar%23168!/assets/.mcassetsroot' uses unexpected schema
+[11:54:53] [Render thread/WARN]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/net/minecraft/client/1.20.1-20230612.114412/client-1.20.1-20230612.114412-srg.jar%23168!/data/.mcassetsroot' uses unexpected schema
+[11:54:53] [Render thread/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[11:54:54] [Render thread/ERROR]: Failed to verify authentication
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:56) ~[authlib-4.0.43.jar%23111!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:156) ~[authlib-4.0.43.jar%23111!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.<init>(YggdrasilUserApiService.java:55) ~[authlib-4.0.43.jar%23111!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.createUserApiService(YggdrasilAuthenticationService.java:124) ~[authlib-4.0.43.jar%23111!/:?]
+	at net.minecraft.client.Minecraft.m_193585_(Minecraft.java:649) ~[client-1.20.1-20230612.114412-srg.jar%23168!/:?]
+	at net.minecraft.client.Minecraft.<init>(Minecraft.java:413) ~[client-1.20.1-20230612.114412-srg.jar%23168!/:?]
+	at net.minecraft.client.main.Main.main(Main.java:182) ~[forge-1.20.1-47.4.0.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:569) ~[?:?]
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.runTarget(CommonLaunchHandler.java:111) ~[fmlloader-1.20.1-47.4.0.jar:?]
+	at net.minecraftforge.fml.loading.targets.CommonLaunchHandler.clientService(CommonLaunchHandler.java:99) ~[fmlloader-1.20.1-47.4.0.jar:?]
+	at net.minecraftforge.fml.loading.targets.CommonClientLaunchHandler.lambda$makeService$0(CommonClientLaunchHandler.java:25) ~[fmlloader-1.20.1-47.4.0.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+Caused by: com.mojang.authlib.exceptions.MinecraftClientHttpException: Status: 401
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:85) ~[authlib-4.0.43.jar%23111!/:?]
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:48) ~[authlib-4.0.43.jar%23111!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:129) ~[authlib-4.0.43.jar%23111!/:?]
+	... 20 more
+[11:54:54] [Render thread/INFO]: Setting user: Dev
+[11:54:54] [Render thread/INFO]: Backend library: LWJGL version 3.3.1 build 7
+[11:54:54] [modloading-worker-0/INFO]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
+[11:54:54] [modloading-worker-0/INFO]: MinecraftForge v47.4.0 Initialized
+[11:54:54] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapAccessor to GuiMap
+[11:54:54] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapMixin to GuiMap
+[11:54:54] [modloading-worker-0/INFO]: Xaero's Minimap: World Map found!
+[11:54:54] [modloading-worker-0/INFO]: No Optifine!
+[11:54:54] [modloading-worker-0/INFO]: Xaero's Minimap: No Vivecraft!
+[11:54:54] [modloading-worker-0/INFO]: [MTR Map Overlay] JourneyMap detected - landmark integration enabled
+[11:54:54] [modloading-worker-0/INFO]: [MTR Map Overlay] Xaero's World Map detected - map-only landmark icons enabled
+[11:54:54] [modloading-worker-0/INFO]: Registering common data for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Registering client data for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary common config for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading server config profiles for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary client config for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading client config profiles for channel xaeroworldmap:main!
+[11:54:54] [modloading-worker-0/INFO]: Registering common data for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Registering client data for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary common config for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary client config for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerominimap:main!
+[11:54:54] [modloading-worker-0/INFO]: Registering common data for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Registering client data for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary common config for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading primary client config for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerolib:main!
+[11:54:54] [modloading-worker-0/INFO]: Starting Minecraft with arguments:
+-Djava.net.preferIPv6Addresses=system
+-DignoreList=bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,JarJarFileSystems,client-extra,fmlcore,javafmllanguage,lowcodelanguage,mclanguage,forge-,forge-1.20.1-47.4.0.jar
+-DmergeModules=jna-5.10.0.jar,jna-platform-5.10.0.jar
+-DlibraryDirectory=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries
+--module-path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/org/ow2/asm/asm-commons/9.7.1/asm-commons-9.7.1.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/org/ow2/asm/asm-util/9.7.1/asm-util-9.7.1.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/org/ow2/asm/asm-analysis/9.7.1/asm-analysis-9.7.1.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/org/ow2/asm/asm-tree/9.7.1/asm-tree-9.7.1.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar;C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\libraries/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar
+--add-modules=ALL-MODULE-PATH
+--add-opens=java.base/java.util.jar=cpw.mods.securejarhandler
+--add-opens=java.base/java.lang.invoke=cpw.mods.securejarhandler
+--add-exports=java.base/sun.security.util=cpw.mods.securejarhandler
+--add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming
+-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+-Djava.library.path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.1-47.4.0-5539cedc-3d82-555b-aa67-86a59a6b3570
+-Djna.tmpdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.1-47.4.0-5539cedc-3d82-555b-aa67-86a59a6b3570
+-Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.1-47.4.0-5539cedc-3d82-555b-aa67-86a59a6b3570
+-Dio.netty.native.workdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.1-47.4.0-5539cedc-3d82-555b-aa67-86a59a6b3570
+-Dminecraft.launcher.brand=portablemc
+-Dminecraft.launcher.version=5.0.6
+-Dlog4j.configurationFile=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets\log_configs\client-1.12.xml
+-Xmx3G
+-Dmtrmap.qa.output=C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/build/acceptance160/final160-server-1.20.1-forge-fallback
+[11:54:54] [modloading-worker-0/INFO]: :  __  __ _                            __ _    
+[11:54:54] [modloading-worker-0/INFO]: : |  \/  (_)                          / _| |   
+[11:54:54] [modloading-worker-0/INFO]: : | \  / |_ _ __   ___  ___ _ __ __ _| |_| |_  
+[11:54:54] [modloading-worker-0/INFO]: : | |\/| | | '_ \ / _ \/ __| '__/ _` |  _| __| 
+[11:54:54] [modloading-worker-0/INFO]: : | |  | | | | | |  __/ (__| | | (_| | | | |_  
+[11:54:54] [modloading-worker-0/INFO]: : |_|__|_|_|_| |_|\___|\___|_|_ \__,_|_|  \__| 
+[11:54:54] [modloading-worker-0/INFO]: : |__   __|                (_) |               
+[11:54:54] [modloading-worker-0/INFO]: :    | |_ __ __ _ _ __  ___ _| |_              
+[11:54:54] [modloading-worker-0/INFO]: :    | | '__/ _` | '_ \/ __| | __|             
+[11:54:54] [modloading-worker-0/INFO]: :    | | | | (_| | | | \__ \ | |_              
+[11:54:54] [modloading-worker-0/INFO]: :    |_|_|  \__,_|_| |_|___/_|\__|             
+[11:54:54] [modloading-worker-0/INFO]: :  _____       _ _                             
+[11:54:54] [modloading-worker-0/INFO]: : |  __ \     (_) |                            
+[11:54:54] [modloading-worker-0/INFO]: : | |__) |__ _ _| |_      ____ _ _   _         
+[11:54:54] [modloading-worker-0/INFO]: : |  _  // _` | | \ \ /\ / / _` | | | |        
+[11:54:54] [modloading-worker-0/INFO]: : | | \ \ (_| | | |\ V  V / (_| | |_| |        
+[11:54:54] [modloading-worker-0/INFO]: : |_|  \_\__,_|_|_| \_/\_/ \__,_|\__, |        
+[11:54:54] [modloading-worker-0/INFO]: :                                 __/ |        
+[11:54:54] [modloading-worker-0/INFO]: :                                |___/ (4.0.5+1.20.1) 
+[11:54:54] [modloading-worker-0/INFO]: :                                              
+[11:54:54] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway blocks
+[11:54:54] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway items
+[11:54:55] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway block entity types
+[11:54:55] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway entity types
+[11:54:55] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway creative mode tabs
+[11:54:55] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway sound events
+[11:54:55] [modloading-worker-0/INFO]: Minecraft Mappings logging enabled
+[11:54:55] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway key bindings
+[11:54:56] [Render thread/INFO]: Registering Keybinds
+[11:54:56] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:54:56] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\config\forge-client.toml is not correct. Correcting
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.alwaysSetupTerrainOffThread was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.experimentalForgeLightPipelineEnabled was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.showLoadWarnings was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.useCombinedDepthStencilAttachment was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.compressLanIPv6Addresses was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.calculateAllNormals was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.stabilizeDirectionGetNearest was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key client.allowMipmapLowering was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-server-clients\1.20.1-forge\fallback\config\mtrmap.toml is not correct. Correcting
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key formalInitLog was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key debugLog was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key enabled was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key waypointMode was corrected from null to its default, both. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key routeLinesEnabled was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key trackLinesEnabled was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key trainCarsEnabled was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key pidsStyle was corrected from null to its default, british. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key networkSync was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key networkSync.enabled was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key networkSync.refreshIntervalSeconds was corrected from null to its default, 300. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility.showStationLandmarks was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility.showPlatformLandmarks was corrected from null to its default, true. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility.showDepotLandmarks was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility.showEmptyStation was corrected from null to its default, false. 
+[11:54:56] [modloading-worker-0/WARN]: Incorrect key visibility.showHiddenRoute was corrected from null to its default, false. 
+[11:54:56] [Worker-Main-10/INFO]: Loading XaeroLib common 1/2!
+[11:54:56] [Worker-Main-13/INFO]: Loaded null for service interface journeymap.api.services.WebMapService
+[11:54:56] [Worker-Main-13/INFO]: Loaded journeymap.common.helpers.ForgeClientHooks@2f3d7975 for service interface journeymap.api.services.ClientPlatformService
+[11:54:56] [Worker-Main-13/INFO]: Loaded journeymap.common.helpers.ForgeHooks@7e0e1125 for service interface journeymap.api.services.CommonPlatformService
+[11:54:56] [Worker-Main-11/INFO]: [MTR Map Overlay] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<
+[11:54:56] [Worker-Main-2/INFO]: Found unifont_all_no_pua-15.0.06.hex, loading
+[11:54:56] [Worker-Main-13/INFO]: Skipping dev-only plugin (set -Djourneymap.dev_plugins=true to enable): journeymap.api.plugins.OverlayLifecycleProfilingPlugin
+[11:54:56] [Worker-Main-13/INFO]: Skipping dev-only plugin (set -Djourneymap.dev_plugins=true to enable): journeymap.api.plugins.DebugVerificationPlugin
+[11:54:56] [Worker-Main-13/INFO]: Found @JourneyMapPlugin: io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin
+[11:54:56] [Forge Version Check/INFO]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[11:54:56] [Worker-Main-7/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:54:56] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:54:56] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:54:56] [Worker-Main-8/INFO]: Loading XaeroLib client 1/2!
+[11:54:56] [Worker-Main-4/INFO]: Loading Xaero's Minimap - Stage 1/2
+[11:54:56] [Worker-Main-5/INFO]: Loading Xaero's World Map - Stage 1/2
+[11:54:57] [Worker-Main-9/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:54:57] [Forge Version Check/INFO]: [forge] Found status: OUTDATED Current: 47.4.0 Target: 47.4.28
+[11:54:57] [Forge Version Check/INFO]: [journeymap] Starting version check at https://forge.curseupdate.com/32274/journeymap
+[11:54:57] [Worker-Main-8/WARN]: io exception while checking patreon: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:54:57] [Render thread/INFO]: Journeymap Initializing
+[11:54:58] [Forge Version Check/INFO]: [journeymap] Found status: OUTDATED Current: 1.20.1-6.0.6 Target: 1.20.1-6.0.7
+[11:54:58] [Render thread/INFO]: [MTR Map Overlay] JourneyMap v2 API initialized!
+[11:54:58] [Render thread/INFO]: Loading Xaero's Minimap - Stage 2/2
+[11:54:59] [Render thread/WARN]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:54:59] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:54:59] [Render thread/WARN]: Mod 'xaerominimap' took 1.269 s to run a deferred task.
+[11:54:59] [Render thread/INFO]: Loading Xaero's World Map - Stage 2/2
+[11:54:59] [Render thread/INFO]: New world map region cache hash code: 747283566
+[11:55:00] [Render thread/ERROR]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:55:00] [Render thread/INFO]: Registered player tracker system: map_synced
+[11:55:00] [Render thread/INFO]: Xaero's WorldMap Mod: Xaero's minimap found!
+[11:55:00] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:55:00] [Render thread/INFO]: No Optifine!
+[11:55:00] [Render thread/INFO]: Xaero's World Map: No Vivecraft!
+[11:55:00] [Render thread/WARN]: Mod 'xaeroworldmap' took 1.179 s to run a deferred task.
+[11:55:00] [Render thread/INFO]: Loading XaeroLib common 2/2!
+[11:55:00] [Render thread/INFO]: Loading XaeroLib client 2/2!
+[11:55:02] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:55:02] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:55:03] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:55:03] [Render thread/INFO]: Sound engine started
+[11:55:03] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:55:04] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:55:04] [Render thread/INFO]: Loaded 142 signs
+[11:55:04] [Render thread/INFO]: Loaded 3 rails
+[11:55:04] [Render thread/INFO]: Loaded 1 objects
+[11:55:04] [Render thread/INFO]: Loaded 1 lifts
+[11:55:04] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:55:04] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:55:04] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:55:04] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:55:04] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:55:06] [Realms Notification Availability checker #1/INFO]: Could not authorize you against Realms server: javax.ws.rs.BadRequestException: Invalid session
+[11:55:07] [Render thread/WARN]: Unable to start LAN server detection: No route to host: setsockopt
+[11:55:11] [Render thread/INFO]: Connecting to 127.0.0.1, 25560
+[11:55:12] [Render thread/INFO]: Injecting existing registry data into this CLIENT instance
+[11:55:13] [Netty Client IO #1/INFO]: Connected to a modded server.
+[11:55:13] [Render thread/INFO]: Minimap required item set to nothing.
+[11:55:13] [Render thread/INFO]: New Xaero hud session initialized!
+[11:55:13] [Render thread/INFO]: Fullscreen map required item set to nothing.
+[11:55:13] [Render thread/INFO]: New world map session initialized!
+[11:55:13] [Render thread/INFO]: Found available port: 80
+[11:55:13] [Render thread/INFO]: Logging initialized @31101ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[11:55:14] [Render thread/INFO]: jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[11:55:14] [Render thread/INFO]: Started o.m.l.o.e.j.s.ServletContextHandler@4361eb5b{/,null,AVAILABLE}
+[11:55:14] [Render thread/INFO]: Started ServerConnector@3e5e2f13{HTTP/1.1, (http/1.1)}{0.0.0.0:80}
+[11:55:14] [Render thread/INFO]: Started @31261ms
+[11:55:14] [Render thread/INFO]: Open the Transport System Map at http://localhost:80
+[11:55:14] [Render thread/INFO]: Open the Resource Pack Creator at http://localhost:80/creator/
+[11:55:14] [Render thread/WARN]: Server side doesn't have XaeroLib installed! Resetting.
+[11:55:15] [Render thread/INFO]: Loaded 2 advancements
+[11:55:15] [Render thread/INFO]: Reloading radar icon resources...
+[11:55:15] [Render thread/INFO]: Reloaded radar icon resources!
+[11:55:16] [Render thread/INFO]: [System] [CHAT] §eJourneyMap:§f Press [§bJ§f]
+[11:55:18] [Render thread/INFO]: [MTRMap] Path layer render hook into Xaero's World Map is active
+[11:55:29] [Render thread/INFO]: Stopping!
+[11:55:29] [Render thread/INFO]: Xaero hud session finalized.
+[11:55:29] [Render thread/INFO]: Finalizing world map session...
+[11:55:29] [Thread-6/INFO]: World map cleaned normally!
+[11:55:29] [Render thread/INFO]: World map session finalized.
+[11:55:29] [Render thread/INFO]: Stopped ServerConnector@3e5e2f13{HTTP/1.1, (http/1.1)}{0.0.0.0:80}
+[11:55:29] [Render thread/INFO]: Stopped o.m.l.o.e.j.s.ServletContextHandler@4361eb5b{/,null,STOPPED}

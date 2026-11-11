@@ -1,0 +1,226 @@
+[11Nov2026 11:54:25.007] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserver, --fml.forgeVersion, 47.4.0, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, nogui]
+[11Nov2026 11:54:25.012] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[11Nov2026 11:54:25.189] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgeserver
+[11Nov2026 11:54:25.251] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1201/server/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar%2365!/ Service=ModLauncher Env=SERVER
+[11Nov2026 11:54:25.485] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\forge1201\server\libraries\net\minecraftforge\fmlcore\1.20.1-47.4.0\fmlcore-1.20.1-47.4.0.jar is missing mods.toml file
+[11Nov2026 11:54:25.491] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\forge1201\server\libraries\net\minecraftforge\javafmllanguage\1.20.1-47.4.0\javafmllanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11Nov2026 11:54:25.498] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\forge1201\server\libraries\net\minecraftforge\lowcodelanguage\1.20.1-47.4.0\lowcodelanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11Nov2026 11:54:25.505] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\server-install160\forge1201\server\libraries\net\minecraftforge\mclanguage\1.20.1-47.4.0\mclanguage-1.20.1-47.4.0.jar is missing mods.toml file
+[11Nov2026 11:54:25.599] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[11Nov2026 11:54:26.609] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserver' with arguments [nogui]
+[11Nov2026 11:54:32.581] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.0, for MC 1.20.1 with MCP 20230612.114412
+[11Nov2026 11:54:32.584] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.0 Initialized
+[11Nov2026 11:54:32.978] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Starting Minecraft with arguments:
+-Xmx1536M
+--module-path=libraries/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar;libraries/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar;libraries/org/ow2/asm/asm-commons/9.7.1/asm-commons-9.7.1.jar;libraries/org/ow2/asm/asm-util/9.7.1/asm-util-9.7.1.jar;libraries/org/ow2/asm/asm-analysis/9.7.1/asm-analysis-9.7.1.jar;libraries/org/ow2/asm/asm-tree/9.7.1/asm-tree-9.7.1.jar;libraries/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar;libraries/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar
+--add-modules=ALL-MODULE-PATH
+--add-opens=java.base/java.util.jar=cpw.mods.securejarhandler
+--add-opens=java.base/java.lang.invoke=cpw.mods.securejarhandler
+--add-exports=java.base/sun.security.util=cpw.mods.securejarhandler
+--add-exports=jdk.naming.dns/com.sun.jndi.dns=java.naming
+-Djava.net.preferIPv6Addresses=system
+-DignoreList=bootstraplauncher-1.1.2.jar,securejarhandler-2.1.10.jar,asm-commons-9.7.1.jar,asm-util-9.7.1.jar,asm-analysis-9.7.1.jar,asm-tree-9.7.1.jar,asm-9.7.1.jar,JarJarFileSystems-0.3.19.jar
+-DlibraryDirectory=libraries
+-DlegacyClassPath=libraries/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar;libraries/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar;libraries/org/ow2/asm/asm-commons/9.7.1/asm-commons-9.7.1.jar;libraries/org/ow2/asm/asm-tree/9.7.1/asm-tree-9.7.1.jar;libraries/org/ow2/asm/asm-util/9.7.1/asm-util-9.7.1.jar;libraries/org/ow2/asm/asm-analysis/9.7.1/asm-analysis-9.7.1.jar;libraries/net/minecraftforge/accesstransformers/8.0.4/accesstransformers-8.0.4.jar;libraries/org/antlr/antlr4-runtime/4.9.1/antlr4-runtime-4.9.1.jar;libraries/net/minecraftforge/eventbus/6.0.5/eventbus-6.0.5.jar;libraries/net/minecraftforge/forgespi/7.0.1/forgespi-7.0.1.jar;libraries/net/minecraftforge/coremods/5.2.4/coremods-5.2.4.jar;libraries/cpw/mods/modlauncher/10.0.9/modlauncher-10.0.9.jar;libraries/net/minecraftforge/unsafe/0.2.0/unsafe-0.2.0.jar;libraries/net/minecraftforge/mergetool/1.1.5/mergetool-1.1.5-api.jar;libraries/com/electronwill/night-config/core/3.6.4/core-3.6.4.jar;libraries/com/electronwill/night-config/toml/3.6.4/toml-3.6.4.jar;libraries/org/apache/maven/maven-artifact/3.8.5/maven-artifact-3.8.5.jar;libraries/net/jodah/typetools/0.6.3/typetools-0.6.3.jar;libraries/net/minecrell/terminalconsoleappender/1.2.0/terminalconsoleappender-1.2.0.jar;libraries/org/jline/jline-reader/3.12.1/jline-reader-3.12.1.jar;libraries/org/jline/jline-terminal/3.12.1/jline-terminal-3.12.1.jar;libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar;libraries/org/openjdk/nashorn/nashorn-core/15.4/nashorn-core-15.4.jar;libraries/net/minecraftforge/JarJarSelector/0.3.19/JarJarSelector-0.3.19.jar;libraries/net/minecraftforge/JarJarMetadata/0.3.19/JarJarMetadata-0.3.19.jar;libraries/net/minecraftforge/fmlloader/1.20.1-47.4.0/fmlloader-1.20.1-47.4.0.jar;libraries/net/minecraft/server/1.20.1-20230612.114412/server-1.20.1-20230612.114412-extra.jar;libraries/com/github/oshi/oshi-core/6.2.2/oshi-core-6.2.2.jar;libraries/com/google/code/gson/gson/2.10/gson-2.10.jar;libraries/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar;libraries/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar;libraries/com/mojang/authlib/4.0.43/authlib-4.0.43.jar;libraries/com/mojang/brigadier/1.1.8/brigadier-1.1.8.jar;libraries/com/mojang/datafixerupper/6.0.8/datafixerupper-6.0.8.jar;libraries/com/mojang/logging/1.1.1/logging-1.1.1.jar;libraries/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar;libraries/io/netty/netty-buffer/4.1.82.Final/netty-buffer-4.1.82.Final.jar;libraries/io/netty/netty-codec/4.1.82.Final/netty-codec-4.1.82.Final.jar;libraries/io/netty/netty-common/4.1.82.Final/netty-common-4.1.82.Final.jar;libraries/io/netty/netty-handler/4.1.82.Final/netty-handler-4.1.82.Final.jar;libraries/io/netty/netty-resolver/4.1.82.Final/netty-resolver-4.1.82.Final.jar;libraries/io/netty/netty-transport/4.1.82.Final/netty-transport-4.1.82.Final.jar;libraries/io/netty/netty-transport-classes-epoll/4.1.82.Final/netty-transport-classes-epoll-4.1.82.Final.jar;libraries/io/netty/netty-transport-native-epoll/4.1.82.Final/netty-transport-native-epoll-4.1.82.Final-linux-x86_64.jar;libraries/io/netty/netty-transport-native-epoll/4.1.82.Final/netty-transport-native-epoll-4.1.82.Final-linux-aarch_64.jar;libraries/io/netty/netty-transport-native-unix-common/4.1.82.Final/netty-transport-native-unix-common-4.1.82.Final.jar;libraries/it/unimi/dsi/fastutil/8.5.9/fastutil-8.5.9.jar;libraries/net/java/dev/jna/jna/5.12.1/jna-5.12.1.jar;libraries/net/java/dev/jna/jna-platform/5.12.1/jna-platform-5.12.1.jar;libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar;libraries/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar;libraries/org/apache/logging/log4j/log4j-api/2.19.0/log4j-api-2.19.0.jar;libraries/org/apache/logging/log4j/log4j-core/2.19.0/log4j-core-2.19.0.jar;libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.19.0/log4j-slf4j2-impl-2.19.0.jar;libraries/org/joml/joml/1.10.5/joml-1.10.5.jar;libraries/org/slf4j/slf4j-api/2.0.1/slf4j-api-2.0.1.jar
+[11Nov2026 11:54:32.980] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  __  __     _                                                __    _     
+[11Nov2026 11:54:32.980] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |  \/  |   (_)    _ _      ___     __       _ _   __ _      / _|  | |_   
+[11Nov2026 11:54:32.980] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : | |\/| |   | |   | ' \    / -_)   / _|     | '_| / _` |    |  _|  |  _|  
+[11Nov2026 11:54:32.980] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : |_|__|_|  _|_|_  |_||_|   \___|   \__|_   _|_|_  \__,_|   _|_|_   _\__|  
+[11Nov2026 11:54:32.980] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   _____                                     _      _                     
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :  |_   _|    _ _   __ _    _ _      ___     (_)    | |_                   
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    | |     | '_| / _` |  | ' \    (_-<     | |    |  _|                  
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   _|_|_   _|_|_  \__,_|  |_||_|   /__/_   _|_|_   _\__|                  
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|                 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'                 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :    ___              _       _                      _  _                  
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   | _ \   __ _     (_)     | |   __ __ __ __ _    | || |                 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   |   /  / _` |    | |     | |   \ V  V // _` |    \_, |                 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :   |_|_\  \__,_|   _|_|_   _|_|_   \_/\_/ \__,_|   _|__/                  
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_| """"|                 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' (4.0.5+1.20.1) 
+[11Nov2026 11:54:32.981] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: :                                                                          
+[11Nov2026 11:54:33.071] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway blocks
+[11Nov2026 11:54:33.098] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway items
+[11Nov2026 11:54:33.152] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway block entity types
+[11Nov2026 11:54:33.167] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway entity types
+[11Nov2026 11:54:33.168] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway creative mode tabs
+[11Nov2026 11:54:33.169] [modloading-worker-0/INFO] [MinecraftTransitRailway/]: Registering Minecraft Transit Railway sound events
+[11Nov2026 11:54:33.170] [modloading-worker-0/INFO] [MinecraftMappings/]: Minecraft Mappings logging enabled
+[11Nov2026 11:54:33.733] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[11Nov2026 11:54:34.660] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 47.4.0 Target: 47.4.28
+[11Nov2026 11:54:35.334] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[11Nov2026 11:54:36.373] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1201/server/libraries/net/minecraft/server/1.20.1-20230612.114412/server-1.20.1-20230612.114412-srg.jar%23103!/assets/.mcassetsroot' uses unexpected schema
+[11Nov2026 11:54:36.373] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/server-install160/forge1201/server/libraries/net/minecraft/server/1.20.1-20230612.114412/server-1.20.1-20230612.114412-srg.jar%23103!/data/.mcassetsroot' uses unexpected schema
+[11Nov2026 11:54:37.520] [Worker-Main-7/ERROR] [net.minecraftforge.common.ForgeHooks/]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_unloader
+com.google.gson.JsonSyntaxException: Expected name to be an item, was unknown string 'mtr:train_cargo_unloader'
+	at net.minecraft.util.GsonHelper.m_13866_(GsonHelper.java:145) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.Optional.orElseThrow(Optional.java:403) ~[?:?]
+	at net.minecraft.util.GsonHelper.m_13874_(GsonHelper.java:145) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13909_(GsonHelper.java:153) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootItem$Serializer.m_7267_(LootItem.java:55) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootItem$Serializer.m_7267_(LootItem.java:40) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer$Serializer.m_5921_(LootPoolSingletonContainer.java:151) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer$Serializer.m_5921_(LootPoolSingletonContainer.java:129) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Serializer.m_7561_(LootPoolEntryContainer.java:86) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Serializer.m_7561_(LootPoolEntryContainer.java:74) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.GsonAdapterFactory$JsonAdapter.deserialize(GsonAdapterFactory.java:102) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.ArrayTypeAdapter.read(ArrayTypeAdapter.java:72) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1290) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl.deserialize(TreeTypeAdapter.java:179) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraft.util.GsonHelper.m_13808_(GsonHelper.java:463) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13836_(GsonHelper.java:471) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootPool$Serializer.deserialize(LootPool.java:192) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootPool$Serializer.deserialize(LootPool.java:189) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.ArrayTypeAdapter.read(ArrayTypeAdapter.java:72) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1290) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl.deserialize(TreeTypeAdapter.java:179) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraft.util.GsonHelper.m_13808_(GsonHelper.java:463) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13845_(GsonHelper.java:481) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootTable$Serializer.deserialize(LootTable.java:294) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootTable$Serializer.deserialize(LootTable.java:291) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1261) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraftforge.common.ForgeHooks.loadLootTable(ForgeHooks.java:871) ~[forge-1.20.1-47.4.0-universal.jar%23108!/:?]
+	at net.minecraftforge.common.ForgeHooks.lambda$getLootTableDeserializer$3(ForgeHooks.java:848) ~[forge-1.20.1-47.4.0-universal.jar%23108!/:?]
+	at net.minecraft.world.level.storage.loot.LootDataType.deserialize(LootDataType.java:45) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootDataManager.lambda$scheduleElementParse$4(LootDataManager.java:56) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.HashMap.forEach(HashMap.java:1421) ~[?:?]
+	at net.minecraft.world.level.storage.loot.LootDataManager.m_278660_(LootDataManager.java:55) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+[11Nov2026 11:54:37.684] [Worker-Main-7/ERROR] [net.minecraftforge.common.ForgeHooks/]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_loader
+com.google.gson.JsonSyntaxException: Expected name to be an item, was unknown string 'mtr:train_cargo_loader'
+	at net.minecraft.util.GsonHelper.m_13866_(GsonHelper.java:145) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.Optional.orElseThrow(Optional.java:403) ~[?:?]
+	at net.minecraft.util.GsonHelper.m_13874_(GsonHelper.java:145) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13909_(GsonHelper.java:153) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootItem$Serializer.m_7267_(LootItem.java:55) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootItem$Serializer.m_7267_(LootItem.java:40) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer$Serializer.m_5921_(LootPoolSingletonContainer.java:151) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer$Serializer.m_5921_(LootPoolSingletonContainer.java:129) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Serializer.m_7561_(LootPoolEntryContainer.java:86) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer$Serializer.m_7561_(LootPoolEntryContainer.java:74) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.GsonAdapterFactory$JsonAdapter.deserialize(GsonAdapterFactory.java:102) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.ArrayTypeAdapter.read(ArrayTypeAdapter.java:72) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1290) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl.deserialize(TreeTypeAdapter.java:179) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraft.util.GsonHelper.m_13808_(GsonHelper.java:463) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13836_(GsonHelper.java:471) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootPool$Serializer.deserialize(LootPool.java:192) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootPool$Serializer.deserialize(LootPool.java:189) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.read(TypeAdapterRuntimeTypeWrapper.java:40) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.ArrayTypeAdapter.read(ArrayTypeAdapter.java:72) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1290) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter$GsonContextImpl.deserialize(TreeTypeAdapter.java:179) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraft.util.GsonHelper.m_13808_(GsonHelper.java:463) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.util.GsonHelper.m_13845_(GsonHelper.java:481) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootTable$Serializer.deserialize(LootTable.java:294) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootTable$Serializer.deserialize(LootTable.java:291) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:76) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1214) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1319) ~[gson-2.10.jar%2372!/:?]
+	at com.google.gson.Gson.fromJson(Gson.java:1261) ~[gson-2.10.jar%2372!/:?]
+	at net.minecraftforge.common.ForgeHooks.loadLootTable(ForgeHooks.java:871) ~[forge-1.20.1-47.4.0-universal.jar%23108!/:?]
+	at net.minecraftforge.common.ForgeHooks.lambda$getLootTableDeserializer$3(ForgeHooks.java:848) ~[forge-1.20.1-47.4.0-universal.jar%23108!/:?]
+	at net.minecraft.world.level.storage.loot.LootDataType.deserialize(LootDataType.java:45) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at net.minecraft.world.level.storage.loot.LootDataManager.lambda$scheduleElementParse$4(LootDataManager.java:56) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.HashMap.forEach(HashMap.java:1421) ~[?:?]
+	at net.minecraft.world.level.storage.loot.LootDataManager.m_278660_(LootDataManager.java:55) ~[server-1.20.1-20230612.114412-srg.jar%23103!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+[11Nov2026 11:54:37.746] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[11Nov2026 11:54:37.865] [main/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1271 advancements
+[11Nov2026 11:54:38.604] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.20.1
+[11Nov2026 11:54:38.605] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[11Nov2026 11:54:38.605] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: CREATIVE
+[11Nov2026 11:54:38.605] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[11Nov2026 11:54:38.703] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on 127.0.0.1:25560
+[11Nov2026 11:54:38.724] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using default channel type
+[11Nov2026 11:54:38.987] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[11Nov2026 11:54:38.988] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[11Nov2026 11:54:38.988] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[11Nov2026 11:54:38.988] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[11Nov2026 11:54:39.035] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "Overlay160Test"
+[11Nov2026 11:54:39.241] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[11Nov2026 11:54:40.649] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:54:40.655] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:54:40.661] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:54:40.742] [Worker-Main-8/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[11Nov2026 11:54:41.241] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 62%
+[11Nov2026 11:54:41.454] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 2213 ms
+[11Nov2026 11:54:41.455] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (2.451s)! For help, type "help"
+[11Nov2026 11:54:41.473] [LanServerPinger #1/WARN] [net.minecraft.client.server.LanServerPinger/]: LanServerPinger: No route to host: sendto
+[11Nov2026 11:54:41.478] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[11Nov2026 11:54:41.542] [Server thread/INFO] [MinecraftTransitRailway/]: Found available port: 8888
+[11Nov2026 11:54:41.544] [Server thread/INFO] [TransportSimulationCore/]: Loading files...
+[11Nov2026 11:54:41.735] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/overworld in 0.169 second(s)
+[11Nov2026 11:54:41.869] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/the_nether in 0.002 second(s)
+[11Nov2026 11:54:41.874] [Server thread/INFO] [TransportSimulationCore/]: Data loading complete for minecraft/the_end in 0.002 second(s)
+[11Nov2026 11:54:41.895] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.util.log/]: Logging initialized @18748ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[11Nov2026 11:54:42.034] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.Server/]: jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[11Nov2026 11:54:42.074] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.handler.ContextHandler/]: Started o.m.l.o.e.j.s.ServletContextHandler@240e7efc{/,null,AVAILABLE}
+[11Nov2026 11:54:42.114] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.AbstractConnector/]: Started ServerConnector@5c0ef7e7{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11Nov2026 11:54:42.114] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.Server/]: Started @18969ms
+[11Nov2026 11:54:42.115] [Server thread/INFO] [TransportSimulationCore/]: Server started with dimensions [minecraft/overworld, minecraft/the_nether, minecraft/the_end]
+[11Nov2026 11:54:42.115] [Server thread/INFO] [MinecraftTransitRailway/]: Starting server as a dedicated server
+[11Nov2026 11:54:42.259] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h19m for minecraft/overworld caught up with 1150 ticks in 0.048 second(s)
+[11Nov2026 11:54:42.262] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h19m for minecraft/the_nether caught up with 1150 ticks in 0.002 second(s)
+[11Nov2026 11:54:42.264] [Server thread/INFO] [TransportSimulationCore/]: Simulation difference of 0h19m for minecraft/the_end caught up with 1150 ticks in 0.002 second(s)
+[11Nov2026 11:55:13.575] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[/127.0.0.1:64301] logged in with entity id 82 at (235.0, -60.0, 80.0)
+[11Nov2026 11:55:13.609] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[11Nov2026 11:55:15.100] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Teleported Dev to 235.000000, -53.000000, 80.000000
+[11Nov2026 11:55:29.635] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[11Nov2026 11:55:29.635] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[11Nov2026 11:55:31.178] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping the server
+[11Nov2026 11:55:31.222] [Server thread/INFO] [TransportSimulationCore/]: Stopping...
+[11Nov2026 11:55:31.237] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.AbstractConnector/]: Stopped ServerConnector@5c0ef7e7{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11Nov2026 11:55:31.241] [Server thread/INFO] [org.mtr.libraries.org.eclipse.jetty.server.handler.ContextHandler/]: Stopped o.m.l.o.e.j.s.ServletContextHandler@240e7efc{/,null,STOPPED}
+[11Nov2026 11:55:31.246] [Server thread/INFO] [TransportSimulationCore/]: Starting full save...
+[11Nov2026 11:55:31.248] [Server thread/INFO] [TransportSimulationCore/]: - Changed sidings: 1
+[11Nov2026 11:55:31.250] [Server thread/INFO] [TransportSimulationCore/]: - Changed depots: 1
+[11Nov2026 11:55:31.250] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/overworld in 0.004 second(s)
+[11Nov2026 11:55:31.251] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:55:31.252] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/the_nether in 0.0 second(s)
+[11Nov2026 11:55:31.253] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:55:31.254] [Server thread/INFO] [TransportSimulationCore/]: Save complete for minecraft/the_end in 0.001 second(s)
+[11Nov2026 11:55:31.255] [Server thread/INFO] [TransportSimulationCore/]: - Changed settings: 1
+[11Nov2026 11:55:31.255] [Server thread/INFO] [TransportSimulationCore/]: Stopped
+[11Nov2026 11:55:31.255] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[11Nov2026 11:55:31.256] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[11Nov2026 11:55:31.256] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[11Nov2026 11:55:31.564] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11Nov2026 11:55:31.929] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11Nov2026 11:55:31.931] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11Nov2026 11:55:31.951] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11Nov2026 11:55:31.951] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11Nov2026 11:55:31.951] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11Nov2026 11:55:31.951] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
