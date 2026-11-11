@@ -292,3 +292,8 @@ Native warning acknowledgement exposed a real boundary defect in the first patch
 ### 2026-11-11T10:05:11+08:00 — Codex: confirm final-boundary build with the exact target property
 
 Rebuilt using the quoted `-Pminecraft_version=1.20.4` argument. Compilation, refmap generation, production packaging and the existing 110-pass/1-opt-in-skip suite pass for the final onGameLoadFinished boundary. No failed configuration attempt is counted as validation.
+
+
+### 2026-11-11T10:06:30+08:00 — Codex: observe the real vanilla loading-complete marker
+
+QA now reads Forge 49's public isGameLoadFinished extension when available, without accessing or modifying private state. The final warning/error tests require this marker to be true while no world/server lifecycle has started. Older loaders without that extension remain supported by the optional QA collector. QA build passed.
