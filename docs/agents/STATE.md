@@ -1,5 +1,9 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T11:25:43+08:00, Codex: Candidate42946243079 is held after a real Forge1.20.1 MTR-only server failure. NetworkRegistry.ABSENT is ChannelData; object/String equality rejects all three optional channels. Compat source now uses native acceptMissingOr; local build/tests passed and native fallback verification is running. Forge1.20.4 server full-sync/fallback already passed; a fresh candidate is required.
+
+- 2026-11-11T11:10:36+08:00, Codex: Repaired sealed Candidate42946243079 passed six production singleplayer targets (48 native cases, including Forge1.20.4 quick-play and real NeoForge HowToGo handoff). Dedicated sync/fallback remains in progress; no release yet. See [current acceptance](../validation/release-1.6.0-fixed-candidate.md).
+
 - 2026-11-11T10:23:54+08:00, Codex: Forge1.20.4 startup repair verified on49.2.0/49.2.13 (48 native UI cases, four warning/error guards). It is isolated to the compatibility Forge1.20.4 build; main platforms are unchanged. See [repair](../validation/forge1204-startup-fix.md). Release1.6.0 resumes fresh-candidate acceptance; old Candidate42879095868 lacks the repair and is not approved for publication.
 
 - 2026-11-11T03:28:46+08:00, Codex: **1.6.0 is held, not published.** Sealed Candidate 42879095868 passed six-target CI; exact candidate production clients passed 48 normal singleplayer cases (both maps × four languages), including NeoForge real HowToGo handoff/two-provider chooser. Publish dry-run 42883569831 passed. Forge 1.20.4 quick-play still disconnects on 49.2.0/49.2.13 and in a control without Overlay/QA. No v1.6.0 tags or real Publish run; dedicated/client-only fallback and performance checklist items remain unvalidated for this candidate. See [release validation](../validation/release-1.6.0.md).
