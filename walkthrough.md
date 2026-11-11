@@ -296,4 +296,9 @@ Rebuilt using the quoted `-Pminecraft_version=1.20.4` argument. Compilation, ref
 
 ### 2026-11-11T10:06:30+08:00 — Codex: observe the real vanilla loading-complete marker
 
-QA now reads Forge 49's public isGameLoadFinished extension when available, without accessing or modifying private state. The final warning/error tests require this marker to be true while no world/server lifecycle has started. Older loaders without that extension remain supported by the optional QA collector. QA build passed.
+QA now reads the 1.20.4 public isGameLoadFinished getter when available, without accessing or modifying private state. The final warning/error tests require this marker to be true while no world/server lifecycle has started. Older loaders without that extension remain supported by the optional QA collector. QA build passed.
+
+
+### 2026-11-11T10:07:29+08:00 — Codex: verify production naming of the read-only QA getter
+
+The native getter is mapped in production. The QA collector now uses its exact verified Mojang/SRG names (`isGameLoadFinished` / `m_293453_` from the selected mappings), retaining optional absence on 1.20.1. No private state or game logic is changed. QA build passed.
