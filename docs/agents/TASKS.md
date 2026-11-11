@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [进行中] Replace release 1.6.0 with provider-owned Navigate builds
+- Codex, 2026-11-11T17:03:13+08:00: User explicitly requests replacing release1.6.0 and matching the 1.5.3 note format. Build the merged provider-boundary correction on all six targets, retain the old publication metadata/downloads locally, replace release assets and version tags through normal protected publication, and verify public bytes.
+
+
 ### [完成] Provider-owned navigation boundary
 - Codex, 2026-11-11T16:47:01+08:00: User clarified Overlay provides the generic Navigate API; external mods own adapters. Remove production HowToGo discovery/registration, preserve generic availability and chooser, and document the already published binary boundary.
 
