@@ -322,3 +322,8 @@ Candidate42946243079 first launch exposed an old QA JAR carrying mtrmap.refmap.j
 ### 2026-11-11T10:43:59+08:00 — Codex: synchronize QA-isolation branch ancestry
 
 The two worktrees share Git branch names; compatibility QA packaging is on its distinct `test/qa-resource-isolation-mc120` branch. Merged the existing protected compatibility merge commit, preserving the QA resource exclusion. No production source or sealed candidate changes.
+
+
+### 2026-11-11T10:46:58+08:00 — Codex: validate QA isolation across six outputs
+
+Added a reviewable QA artifact checker for production Mixin resources/manifest registration, QA-only class identity and loader metadata. All six rebuilt QA JARs pass; the original colliding QA JAR is correctly rejected. The sealed candidate remains untouched.
