@@ -282,3 +282,8 @@ Added opt-in properties to the separate QA mod: `mtrmap.qa.loadWarning` submits 
 ### 2026-11-11T09:56:38+08:00 — Codex: isolate local startup test profiles
 
 Ignored the project-local .cache directory used for cloned singleplayer saves, original dependency JARs and launcher state. Reviewable source and selected validation evidence remain tracked explicitly; generated worlds and binaries are not part of the change.
+
+
+### 2026-11-11T10:04:13+08:00 — Codex: preserve vanilla loading-complete state before the Forge guard
+
+Native warning acknowledgement exposed a real boundary defect in the first patch: cancelling before onResourceLoadFinished skipped vanilla gameLoadFinished, leaving menus visually stale. The guard now runs at onGameLoadFinished HEAD, after vanilla sets that state and before initial screens/quick-play are built. Its vanilla method maps normally; the obsolete Forge callback completion remains redirected. This preserves the native completion marker and the warning/error guard together, without fabricating either. The earlier binary's normal/quick-play passes are preliminary and will not substitute for retesting the final JAR. Production build and existing tests passed; final runtime matrix pending.

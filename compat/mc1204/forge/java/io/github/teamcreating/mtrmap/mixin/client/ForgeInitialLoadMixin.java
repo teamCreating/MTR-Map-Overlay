@@ -16,12 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(Minecraft.class)
 public abstract class ForgeInitialLoadMixin {
-    // Forge adds this synthetic method; its name is identical in named/SRG
-    // artifacts. The vanilla invocation inside it still needs normal remapping.
-    @Inject(method = "lambda$new$6", remap = false, require = 1, allow = 1,
-            at = @At(value = "INVOKE", remap = true,
-                    target = "Lnet/minecraft/client/Minecraft;onResourceLoadFinished(Lnet/minecraft/client/Minecraft$GameLoadCookie;)V"),
-            cancellable = true)
+    // Vanilla has now set gameLoadFinished, which its menu renderer needs.
+    // Guard before building initial screens or synchronously connecting a world.
+    @Inject(method = "onGameLoadFinished", at = @At("HEAD"),
+            require = 1, allow = 1, cancellable = true)
     private void mtrmap$completeForgeBeforeInitialScreens(CallbackInfo callback) {
         if (ClientModLoader.completeModLoading()) {
             // Keep Forge's warning/error screen and do not enter a world.
@@ -29,6 +27,7 @@ public abstract class ForgeInitialLoadMixin {
         }
     }
 
+    // Forge adds this callback with the same name in named and SRG artifacts.
     @Redirect(method = "lambda$new$6", remap = false, require = 1, allow = 1,
             at = @At(value = "INVOKE", remap = false,
                     target = "Lnet/minecraftforge/client/loading/ClientModLoader;completeModLoading()Z"))
