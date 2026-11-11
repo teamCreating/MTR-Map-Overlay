@@ -1,0 +1,53 @@
+{
+  "connected": false,
+  "screen": "net.minecraftforge.client.gui.ModMismatchDisconnectedScreen",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-server-clients160/1.20.1-forge/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar%23162!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "nativeButtons": [
+    {
+      "label": "Open latest.log",
+      "h": 20,
+      "w": 193,
+      "x": 10,
+      "y": 190,
+      "active": true,
+      "visible": true
+    },
+    {
+      "label": "Open Mods Folder",
+      "h": 20,
+      "w": 193,
+      "x": 224,
+      "y": 190,
+      "active": true,
+      "visible": true
+    },
+    {
+      "label": "Back to Server List",
+      "h": 20,
+      "w": 193,
+      "x": 117,
+      "y": 215,
+      "active": true,
+      "visible": true
+    }
+  ],
+  "providers": [],
+  "targets": [],
+  "buttons": [],
+  "serverEvents": []
+}

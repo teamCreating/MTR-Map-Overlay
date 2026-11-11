@@ -327,3 +327,35 @@ The two worktrees share Git branch names; compatibility QA packaging is on its d
 ### 2026-11-11T10:46:58+08:00 — Codex: validate QA isolation across six outputs
 
 Added a reviewable QA artifact checker for production Mixin resources/manifest registration, QA-only class identity and loader metadata. All six rebuilt QA JARs pass; the original colliding QA JAR is correctly rejected. The sealed candidate remains untouched.
+
+### 2026-11-11T10:58:12+08:00 — Respect the native MTR beta-notice countdown
+
+The fresh 1.21.1 Fabric profile reached MTR's BetaWarningScreen before its reading countdown allowed Escape. A single early Escape was ignored and the acceptance runner timed out. Retry ordinary native Escape while that same screen remains, bounded by a timeout; preserve the countdown and native close/configuration behavior. Production candidate 42946243079 is unchanged. Retain the failed attempt separately and rerun the fresh profile; do not count the timeout as a pass.
+
+
+### 2026-11-11T11:02:04+08:00 — Observe native map and rendered train data in opt-in QA
+
+Expose native map counts/server-sync availability and read the existing rendered-car cache (global stream or nearby MTR collector) in QA snapshots. This supports exact-candidate server/fallback assertions and native train-hover input without manufacturing vehicles or packets. The observer does not start subscriptions or overwrite state; production sources and sealed candidate remain unchanged. QA remains a separate opt-in artifact.
+
+
+### 2026-11-11T11:09:12+08:00 — Observe the native map projection for hover acceptance
+
+The MTR-only fixture legitimately supplies only one nearby station, so inferring projection from two station markers is invalid. QA now observes Xaero's existing accessor values or JourneyMap's existing renderer projection, without changing camera/state. Use these native coordinates for car-hover input and review raw captures. The sealed production JARs are unchanged.
+
+
+### 2026-11-11T11:10:36+08:00 — Record repaired candidate singleplayer acceptance
+
+Candidate42946243079 passed six production targets, 48 native cases. Record exact manifest/JAR identity, fixture evidence and unsuccessful QA attempts separately. Dedicated sync/fallback remains pending, so release is still held. Production JARs have not changed. See docs/validation/release-1.6.0-fixed-candidate.md.
+
+### 2026-11-11T11:23:20+08:00 — Fix Forge 1.20.1 optional-channel negotiation
+
+The sealed-candidate MTR-only dedicated-server check exposed three rejected Overlay channels. Forge 47.4.0 NetworkRegistry.ABSENT is a ChannelData record; comparing that object with a predicate's String version always rejects a missing channel. Use Forge's public acceptMissingOr helper for static, train and station-overlay channel predicates in both directions. It preserves exact protocol matching, accepts the loader's absent/vanilla sentinels, and rejects other installed protocol versions. Forge1.20.4 uses its separate override and is unchanged. Candidate42946243079 is now held; build and verify a new candidate before publishing. Native failed handshake and mismatch-page evidence is retained.
+
+
+### 2026-11-11T11:25:43+08:00 — Hold the candidate for the Forge1.20.1 fallback defect
+
+Retain the actual mismatched-channel screen, inventories and native logs. Update both-language release notes to include the native optional-channel correction. Existing singleplayer passes remain historical; Candidate42946243079 cannot be published. The repaired Forge1.20.4 full/fallback dedicated results pass, but the next release must seal and validate the additional Forge1.20.1 fix.
+
+### 2026-11-11T11:28:19+08:00 — Verify optional-channel correction on a native MTR-only server
+
+The corrected Forge1.20.1 production build passes both native maps against the same original MTR-only server through the native multiplayer list. Local rail/route/station/car caches are nonempty; remote Overlay catalog/arrivals are absent and Navigate is correctly disabled. Preserve the real mismatch and passing logs side by side. Existing suite: 110 pass/one explicit generator skip. Seal a new candidate before release; see docs/validation/forge1201-optional-channel-fix.md.
