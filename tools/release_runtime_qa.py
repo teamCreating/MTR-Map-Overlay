@@ -42,7 +42,16 @@ def enter_singleplayer():
     state = wait(lambda s: s['connected'] or screen_is(s, 'WORLDS') or ((s['screen'].endswith('BetaWarningScreen') or screen_is(s, 'TITLE')) and not s['languageReloading']), 'normal title screen')
     if state['screen'].endswith('BetaWarningScreen'):
         cli.capture('mtr-beta-notice')
-        cli.call('escape')
+        # MTR keeps the native notice open during its reading countdown.
+        # Repeat normal Escape input until it permits dismissal; do not edit
+        # its configuration or bypass the screen's close handler.
+        deadline = time.monotonic() + 45
+        while state['screen'].endswith('BetaWarningScreen'):
+            if time.monotonic() >= deadline:
+                raise TimeoutError('MTR beta notice did not permit native dismissal')
+            time.sleep(1)
+            cli.call('escape')
+            state = cli.call()
         state = wait(lambda s: screen_is(s, 'TITLE') and not s['languageReloading'], 'title after native MTR beta notice')
     if state['connected']:
         return

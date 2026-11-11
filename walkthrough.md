@@ -343,3 +343,8 @@ Candidate42946243079 first launch exposed an old QA JAR carrying mtrmap.refmap.j
 ### 2026-11-11T10:46:58+08:00 — Codex: validate QA isolation across six outputs
 
 Added a reviewable QA artifact checker for production Mixin resources/manifest registration, QA-only class identity and loader metadata. All six rebuilt QA JARs pass; the original colliding QA JAR is correctly rejected. The sealed candidate remains untouched.
+
+### 2026-11-11T10:58:12+08:00 — Respect the native MTR beta-notice countdown
+
+The fresh 1.21.1 Fabric profile reached MTR's BetaWarningScreen before its reading countdown allowed Escape. A single early Escape was ignored and the acceptance runner timed out. Retry ordinary native Escape while that same screen remains, bounded by a timeout; preserve the countdown and native close/configuration behavior. Production candidate 42946243079 is unchanged. Retain the failed attempt separately and rerun the fresh profile; do not count the timeout as a pass.
+
