@@ -116,6 +116,7 @@ if (legacyJourneyMap) {
         def config = new File(destinationDir, 'mtrmap.mixins.json')
         def json = new groovy.json.JsonSlurper().parse(config)
         json.client.add('client.journeymap.JourneyMapFullscreenMixin')
+        json.client.add('client.ForgeInitialLoadMixin')
         config.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(json))
     }
 }
