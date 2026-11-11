@@ -11,15 +11,13 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public final class MTRNetwork {
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(MTRMap.MOD_ID, "network_v8"), () -> "8",
-            version -> "8".equals(version) || NetworkRegistry.ABSENT.equals(version)
-                    || NetworkRegistry.ACCEPTVANILLA.equals(version),
-            version -> "8".equals(version) || NetworkRegistry.ABSENT.equals(version)
-                    || NetworkRegistry.ACCEPTVANILLA.equals(version));
+            NetworkRegistry.acceptMissingOr("8"), NetworkRegistry.acceptMissingOr("8"));
     public static final SimpleChannel TRAINS = NetworkRegistry.newSimpleChannel(
       new ResourceLocation(MTRMap.MOD_ID, "trains_v1"), () -> "1",
-      version -> "1".equals(version) || NetworkRegistry.ABSENT.equals(version) || NetworkRegistry.ACCEPTVANILLA.equals(version),
-      version -> "1".equals(version) || NetworkRegistry.ABSENT.equals(version) || NetworkRegistry.ACCEPTVANILLA.equals(version));
-    public static final SimpleChannel OVERLAY = NetworkRegistry.newSimpleChannel(new ResourceLocation(MTRMap.MOD_ID, "overlay_v1"), () -> "1", v -> "1".equals(v) || NetworkRegistry.ABSENT.equals(v) || NetworkRegistry.ACCEPTVANILLA.equals(v), v -> "1".equals(v) || NetworkRegistry.ABSENT.equals(v) || NetworkRegistry.ACCEPTVANILLA.equals(v));
+      NetworkRegistry.acceptMissingOr("1"), NetworkRegistry.acceptMissingOr("1"));
+    public static final SimpleChannel OVERLAY = NetworkRegistry.newSimpleChannel(
+      new ResourceLocation(MTRMap.MOD_ID, "overlay_v1"), () -> "1",
+      NetworkRegistry.acceptMissingOr("1"), NetworkRegistry.acceptMissingOr("1"));
     public static void register() {
         OVERLAY.messageBuilder(OverlayRequest.class, 0, NetworkDirection.PLAY_TO_SERVER)
             .encoder((m,b)->OverlayRequest.write(b,m)).decoder(OverlayRequest::read)

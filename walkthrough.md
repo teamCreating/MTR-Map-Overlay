@@ -346,3 +346,8 @@ The MTR-only fixture legitimately supplies only one nearby station, so inferring
 ### 2026-11-11T11:10:36+08:00 — Record repaired candidate singleplayer acceptance
 
 Candidate42946243079 passed six production targets, 48 native cases. Record exact manifest/JAR identity, fixture evidence and unsuccessful QA attempts separately. Dedicated sync/fallback remains pending, so release is still held. Production JARs have not changed. See docs/validation/release-1.6.0-fixed-candidate.md.
+
+### 2026-11-11T11:23:20+08:00 — Fix Forge 1.20.1 optional-channel negotiation
+
+The sealed-candidate MTR-only dedicated-server check exposed three rejected Overlay channels. Forge 47.4.0 NetworkRegistry.ABSENT is a ChannelData record; comparing that object with a predicate's String version always rejects a missing channel. Use Forge's public acceptMissingOr helper for static, train and station-overlay channel predicates in both directions. It preserves exact protocol matching, accepts the loader's absent/vanilla sentinels, and rejects other installed protocol versions. Forge1.20.4 uses its separate override and is unchanged. Candidate42946243079 is now held; build and verify a new candidate before publishing. Native failed handshake and mismatch-page evidence is retained.
+
