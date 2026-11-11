@@ -1,0 +1,96 @@
+[
+  {
+    "target": "1.21.1-neoforge",
+    "sha256": "416234a68760f226567b522c167c10018cb5772f40d460dcbbd639c2f8306d38",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "passed": 104,
+      "skipped": 1,
+      "reports": 22
+    }
+  },
+  {
+    "target": "1.21.1-fabric",
+    "sha256": "3cd66d39ab41d436b7c8992cdf023b361300aa42dde22a033b300f72a786fe02",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "shared_with": "1.21.1-neoforge"
+    }
+  },
+  {
+    "target": "1.20.1-forge",
+    "sha256": "f9b995b53adb5ec5bac95d46498c4b2569418a3fa674666d2428aef334b805ce",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "passed": 107,
+      "skipped": 1,
+      "reports": 23
+    }
+  },
+  {
+    "target": "1.20.1-fabric",
+    "sha256": "cb7d6cc97b7b836ce6953f400bcc65f21934d678b1b4c0f1d529e9545d3268ad",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "passed": 107,
+      "skipped": 1,
+      "reports": 23
+    }
+  },
+  {
+    "target": "1.20.4-forge",
+    "sha256": "0940bc9c6742f2d8c10f1b6416129ca3a042bc1ee08b0826e6ca8c20e99139d9",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "passed": 107,
+      "skipped": 1,
+      "reports": 23
+    }
+  },
+  {
+    "target": "1.20.4-fabric",
+    "sha256": "687fdb76c64f78e1bbb6b132e5e2b7710d1b6e90e8cab95141bc33f2c713c4c0",
+    "changedClasses": [
+      "io/github/teamcreating/mtrmap/extension/ClientOverlayRuntime.class"
+    ],
+    "removedClasses": [
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoBridge.class",
+      "io/github/teamcreating/mtrmap/integration/howtogo/HowToGoIntegration.class"
+    ],
+    "tests": {
+      "passed": 107,
+      "skipped": 1,
+      "reports": 23
+    }
+  }
+]

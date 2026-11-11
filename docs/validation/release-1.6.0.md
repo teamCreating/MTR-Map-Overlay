@@ -1,5 +1,7 @@
 # 1.6.0 final candidate acceptance
 
+**Superseded by the user-authorized [replacement publication](release-1.6.0-replacement.md). The identities and runtime results below describe the original binaries.**
+
 **Publication authorization — 2026-11-11T13:38:47+08:00:** The user explicitly instructed “直接发布，不要搞了”, superseding the previous repair-before-release condition. Publish the already sealed Candidate42953810741 with the Forge47.4.0 quick-play limitation disclosed. The experimental EventLoop patch and diagnostic branches are excluded from this release.
 Tester: Codex. Recorded 2026-11-11T12:11:04+08:00 (UTC+08:00). **All six targets passed the normal-entry map/runtime matrix. The user explicitly requires the remaining Forge47 quick-play multiplayer handshake defect fixed before publication; no limitation exception is approved.**
 

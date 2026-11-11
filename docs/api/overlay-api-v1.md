@@ -62,4 +62,4 @@ New Overlay builds provide `registerNavigation(owner, displayName, Predicate<Nav
 
 Overlay exposes a generic Navigate registration API. Navigation mods or separate compatibility mods register their own availability predicate and target handler; Overlay does not discover their classes or register providers on their behalf. Without an available registered provider, Navigate remains disabled. HowToGo was used as an interoperability test reference, not an API dependency.
 
-The published v1.6.0 binaries included an Overlay-owned HowToGo adapter. That adapter has been removed from development sources after the scope correction; the published assets and tags have not been replaced.
+The replacement v1.6.0 release removes the earlier Overlay-owned HowToGo adapter. Navigation integrations register through the public API from their own mod or a separate compatibility mod.

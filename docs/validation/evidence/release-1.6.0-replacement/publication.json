@@ -1,0 +1,79 @@
+{
+  "verifiedAt": "2026-11-11T17:11:24+08:00",
+  "releaseUrl": "https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0",
+  "releaseId": 441447811,
+  "latest": true,
+  "draft": false,
+  "prerelease": false,
+  "candidateRun": 42991712783,
+  "publishRun": 42992406825,
+  "publishAttempt": 3,
+  "manifestSha256": "0e48ca24964365b9832507416f50ebccd7ab399de26f0aaaa27ab3def8e229d2",
+  "tags": {
+    "v1.6.0": "af08a840bf8d5091bb9599cfd2edbbd541bfb82c",
+    "v1.6.0-mc1.20": "3adc8ce8085422462808a8c8bf87e798665bf3c7"
+  },
+  "assets": [
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar",
+      "sha256": "416234a68760f226567b522c167c10018cb5772f40d460dcbbd639c2f8306d38",
+      "bytes": 522160,
+      "assetId": 734864359
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar",
+      "sha256": "3cd66d39ab41d436b7c8992cdf023b361300aa42dde22a033b300f72a786fe02",
+      "bytes": 525548,
+      "assetId": 734864488
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar",
+      "sha256": "f9b995b53adb5ec5bac95d46498c4b2569418a3fa674666d2428aef334b805ce",
+      "bytes": 523490,
+      "assetId": 734864598
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-fabric.jar",
+      "sha256": "cb7d6cc97b7b836ce6953f400bcc65f21934d678b1b4c0f1d529e9545d3268ad",
+      "bytes": 523953,
+      "assetId": 734864696
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar",
+      "sha256": "0940bc9c6742f2d8c10f1b6416129ca3a042bc1ee08b0826e6ca8c20e99139d9",
+      "bytes": 525724,
+      "assetId": 734864797
+    },
+    {
+      "name": "CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-fabric.jar",
+      "sha256": "687fdb76c64f78e1bbb6b132e5e2b7710d1b6e90e8cab95141bc33f2c713c4c0",
+      "bytes": 525513,
+      "assetId": 734864893
+    },
+    {
+      "name": "release-manifest.json",
+      "sha256": "0e48ca24964365b9832507416f50ebccd7ab399de26f0aaaa27ab3def8e229d2",
+      "bytes": 59162,
+      "assetId": 734865357
+    },
+    {
+      "name": "SHA256SUMS",
+      "sha256": "287c0e2e4bde9f68a5d7d43a0a28bd61d5ad2dfa0e740bca804e36c87ea74bd0",
+      "bytes": 764,
+      "assetId": 734865053
+    },
+    {
+      "name": "MANUAL-VALIDATION.md",
+      "sha256": "353a9dc7b5c89f2ef4140c5c38667f16d2261784ec4c3bc46193ae36b94083e6",
+      "bytes": 945,
+      "assetId": 734865502
+    },
+    {
+      "name": "validation-evidence.zip",
+      "sha256": "9e9165eb9819bb1f45eec55927630bbbf99c348c05229f4da7ed47555c6281e5",
+      "bytes": 268820,
+      "assetId": 734865620
+    }
+  ],
+  "releaseNotesMatch153Format": true
+}
