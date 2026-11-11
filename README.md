@@ -9,7 +9,7 @@
     <a href="README.md">English</a> · 
     <a href="README.zh-CN.md">简体中文</a> · 
     <a href="https://mtrmapoverlay.benli06.site/en/">Website &amp; Docs</a> · 
-    <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">v1.5.3 Pre-release</a> · 
+    <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0">v1.6.0 Latest Release</a> ·
     <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/snapshot">Snapshots</a>
   </p>
 
@@ -21,7 +21,7 @@
 
 **MTR Map Overlay** brings your [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) network into **Xaero's World Map** and **JourneyMap**. It reads MTR data directly without relying on MTR Surveyor, drawing physical tracks, color-coded transit lines, real-time train positions, and interactive station departure boards.
 
-**Supported versions (`v1.5.3`):** Minecraft **1.20.1 / 1.20.4** (Forge & Fabric) and **1.21.1** (NeoForge & Fabric).
+**Supported versions (`v1.6.0`):** Minecraft **1.20.1 / 1.20.4** (Forge & Fabric) and **1.21.1** (NeoForge & Fabric).
 
 ## Core Features
 
@@ -34,20 +34,20 @@
 - **Readable Interchanges & Line Styles:** Multiple routes sharing a single track sit side-by-side in parallel color bands instead of overlapping. Light rail renders at 70% width, while high-speed lines feature alternating route-color and white blocks with a continuous border.
 - **Whole-Network Live Trains:** When installed on both client and server, the map streams real-time train positions across the entire dimension (~4 Hz). Hovering over a train displays its vehicle model, route, destination, and consist length.
 - **Interactive Station PIDS Boards:** Click any station to pin its info card, then click **Expand** to view live upcoming departures by destination, line, and platform. Supports both **British** (black/amber) and **European** (airport-style) themes via `/mtrmap config pidsStyle british|european`.
-- **Client-Only Fallback:** Works out of the box on vanilla/unmodded MTR servers using nearby chunk data sent by MTR. Installing the mod on the server unlocks full-dimension snapshots, global live trains, and live station arrivals.
+- **Client-Only Fallback:** Works on MTR servers without Overlay using nearby data sent by MTR. Installing the mod on the server unlocks full-dimension snapshots, global live trains, and live station arrivals.
 
-## What's New in v1.5.3
+## What's New in v1.6.0
 
-> **Release Status:** [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) is currently marked as a **pre-release** ([v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2) remains the latest stable build). Full-map live trains and station arrival boards require matching `1.5.3` builds on both client and server.
+> **Release Status:** [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) is the **latest stable release**, available for all six supported builds. Full-map live trains and station arrival boards require matching `1.6.0` builds on both client and server.
 
-- **Pinned Stations & Live Arrivals:** Expand station cards to subscribe to live PIDS departure countdowns directly from MTR/TSC. Missing predictions are explicitly shown as `-` rather than `0 min`.Closing the map or collapsing the card automatically releases the network subscription.
-- **Switchable PIDS Themes:** Toggle between `british` and `european` board styles; preferences persist across restarts.
-- **Navigation Extension API (Java 17):** Exposes network catalogs, station-board subscriptions, and isolated map view sessions for third-party route planners. When a compatible planner mod is installed, clicking **Navigate** highlights upcoming route segments and dims completed or unused tracks. See the [Public API Guide](docs/api/overlay-api-v1.md) for `MtrMapApi` integration details.
-- **UI & Decode Optimizations:** Station cards capture scroll and click events cleanly without dragging the underlying map, backed by bounded queues and background packet decoding.
+- **Availability-Aware Navigate:** The station card checks which registered providers can handle the selected station. No available provider means a dimmed button; multiple available providers show a chooser, with availability checked again on click.
+- **Compatible Navigation API (Java 17):** Third-party mods can register a per-target availability predicate while keeping the original registration overload. Providers supply navigation and can highlight upcoming route segments while dimming completed or unused tracks. See the [Public API Guide](docs/api/overlay-api-v1.md).
+- **Four Interface Languages:** English, Simplified Chinese, Traditional Chinese and Japanese cover map controls, PIDS boards, tooltips, commands and diagnostic feedback. The interface follows Minecraft's language; player-defined station and route names stay unchanged.
+- **Provider & UI Improvements:** Closed, stale or failing providers cannot be invoked, and one provider's failure does not disable others. Map labels and PIDS style names are localized; native arrivals, both PIDS themes, whole-map trains and 2D rendering remain available.
 
 ## Navigation integration and languages
 
-Development builds add an optional HowToGo destination handoff, per-station Navigate availability checks and English, Simplified Chinese, Traditional Chinese and Japanese controls. No available provider means Navigate is dimmed; multiple providers show a chooser. See the [integration verification](docs/validation/howtogo-navigation-i18n-2026-11-11.md).
+1.6.0 provides the generic Navigate API; compatible third-party mods supply their own adapters and route planners. Only providers available for the selected station appear in the chooser. The interface follows your game language, while command names such as `/mtrmap config pidsStyle` remain unchanged. See the [Public API Guide](docs/api/overlay-api-v1.md) for integration details.
 
 ## Requirements & Installation
 
@@ -59,7 +59,7 @@ Development builds add an optional HowToGo destination handoff, per-station Navi
 
 *Note: Xaero's Minimap is not required; if present, it is only used to clean up legacy `[MTR]` waypoints from older releases.*
 
-1. Download the JAR matching your exact Minecraft version and mod loader from [Releases](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) and drop it into your client's `mods` folder.
+1. Download the JAR matching your exact Minecraft version and mod loader from [Releases](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) and drop it into your client's `mods` folder.
 2. Install the matching **MTR** build and at least one supported map mod (**Xaero's World Map** or **JourneyMap**). Fabric users must also install **Fabric API**.
 3. *(Optional, Recommended)* Install the matching **MTR Map Overlay** JAR on the server to enable full-dimension route snapshots, whole-map live trains, and live station boards. *(Note: Both sides now use the `mtrmap` mod ID; remove any legacy `mtrsurveyor` JARs before upgrading.)*
 4. Open your fullscreen map. Use the `ROUTES` and `TRACKS` buttons on the map toolbar (green indicator = enabled, red = disabled) or client commands to toggle layers.
@@ -92,7 +92,7 @@ All `/mtrmap` commands register on the **client** and work on any server:
 
 - **Rendering & Caching:** Both map integrations render fixed 2D layers from bottom to top: physical rail backing → colored routes → live train cars → station/platform icons. Static rail/route geometry is cached separately from dynamic train poses with viewport prefetching (see [planar cache validation](docs/validation/planar-cache.md)).
 - **Network Protocol:** Full-map train sync uses compact 24-byte per-car coordinate frames relative to a shared train origin, avoiding repeated string metadata (see [global train validation](docs/validation/global-trains.md)). In singleplayer, Xaero keeps the integrated server unpaused while the live train layer is active so train movement continues updating.
-- **Known Limitations:** In `1.5.3` validation, Forge 1.20.4 singleplayer quick-play experienced a disconnect during Xaero server-data initialization (dedicated server tests passed). See [1.5.3 validation notes](docs/validation/pids-and-dimmed-1.5.3.md) and [v1.5.3 release notes](docs/releases/v1.5.3.md) for test coverage details.
+- **Compatibility & Validation:** 1.6.0 fixes the earlier Forge 1.20.4 singleplayer loading issue and Forge 1.20.1 connections to servers without Overlay. If Forge 1.20.1 launcher quick-play times out, join through the normal multiplayer server list. See the [runtime record](docs/validation/release-1.6.0.md) and [published-build verification](docs/validation/release-1.6.0-replacement.md) for coverage and remaining limits.
 
 ## Building from Source
 
@@ -100,8 +100,8 @@ Requires a **Java 21** toolchain. The `main` branch targets **Minecraft 1.21.1**
 
 | Loader | Windows | macOS / Linux | Output Artifact |
 | :--- | :--- | :--- | :--- |
-| **NeoForge** | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.3.jar` |
-| **Fabric** | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.3.jar` |
+| **NeoForge** | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.6.0.jar` |
+| **Fabric** | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.6.0.jar` |
 
 ### Architecture Overview
 

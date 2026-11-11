@@ -446,3 +446,11 @@ Claim PR27/28 conflict resolution and CI validation. Merge the current base with
 ### 2026-11-11T17:26:03+08:00 — Verify release PR conflict resolution
 
 Preserve the newer PR records, including all base history. Compare each file present in old PR21/22, excluding newly added replacement evidence from the equality test; all original evidence/diagnostic blobs match. The initial verifier incorrectly treated new evidence as a mismatch and the PowerShell command chain continued; immediately repair the compatibility bookkeeping markers and require checked subprocess execution before further commits. Verify no conflict markers remain. Production files, release assets and tags are unchanged. CI gates and normal PR merges follow.
+
+### 2026-11-11T17:44:00+08:00 (UTC+08:00) — Refresh the 1.6.0 README
+
+Make a small English/Chinese README update while retaining the current tone, section layout, core-feature explanations, platform matrix and download/support badges. Point current release links and local artifact examples to 1.6.0. Replace the previous-release highlights with per-station Navigate availability, the optional provider predicate overload, compatible registration and four interface languages following Minecraft's language. Player-defined names and command identifiers remain unchanged.
+
+Remove outdated development-only HowToGo integration claims: released Overlay exposes the generic API and external mods own their adapters. Replace the old Forge 1.20.4 warning with the documented repair and the remaining Forge 1.20.1 launcher quick-play workaround. Link the existing runtime record and replacement-publication verification without claiming fresh game tests. A misleading "vanilla/unmodded MTR servers" phrase now correctly says MTR servers without Overlay.
+
+Validation: both files rendered with the existing Astro Markdown processor (English: five tables, Chinese: four). All 30 relative file/directory/image links resolve. Current download links point to v1.6.0, stale 1.5.3 version references and bundled-adapter claims are absent, and `git diff --check` passes. No dependency installation or mod rebuild was needed for this documentation change.

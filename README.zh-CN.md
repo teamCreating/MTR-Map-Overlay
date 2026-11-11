@@ -9,7 +9,7 @@
     <a href="README.md">English</a> · 
     <a href="README.zh-CN.md">简体中文</a> · 
     <a href="https://mtrmapoverlay.benli06.site/zh/">官网与文档</a> · 
-    <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3">v1.5.3 预览版</a> · 
+    <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0">v1.6.0 正式版</a> ·
     <a href="https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/snapshot">快照构建</a>
   </p>
 
@@ -21,7 +21,7 @@
 
 **MTR Map Overlay** 可将 [Minecraft Transit Railway (MTR)](https://github.com/Minecraft-Transit-Railway/Minecraft-Transit-Railway) 的交通网络直接渲染至 **Xaero's World Map（Xaero 的世界地图）** 与 **JourneyMap（旅行地图）**。本模组直接读取 MTR 原生数据（不依赖 MTR Surveyor），支持显示物理铁轨、彩色运营线路、实时运行的列车位置以及交互式车站 PIDS 到站看板。
 
-**当前支持版本（`v1.5.3`）：** Minecraft **1.20.1 / 1.20.4**（Forge & Fabric）以及 **1.21.1**（NeoForge & Fabric）。
+**当前支持版本（`v1.6.0`）：** Minecraft **1.20.1 / 1.20.4**（Forge & Fabric）以及 **1.21.1**（NeoForge & Fabric）。
 
 ## 核心特性
 
@@ -36,14 +36,14 @@
 - **交互式车站 PIDS 看板**：点击任意车站可固定信息卡片，点击 **Expand（展开）** 即可实时查看各站台、各线路的列车到站倒计时。支持通过 `/mtrmap config pidsStyle british|european` 切换英式（黑底琥珀字）与欧式（机场风格）显示屏主题。
 - **纯客户端兼容**：若服务端未安装本模组，客户端依然可以利用 MTR 同步的周围区块数据正常渲染附近路网；在服务端安装本模组后即可解锁全图路网快照、全图实时列车与实时到站预测。
 
-## v1.5.3 更新亮点
+## v1.6.0 更新亮点
 
-> **版本状态说明：** [v1.5.3](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) 目前标记为 **Pre-release（预览版）**，最新稳定版为 [v1.5.2](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.2)。全图实时列车与车站到站看板需要客户端与服务端同时安装相同版本的 `1.5.3` 构建。
+> **版本状态说明：** [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) 已作为**最新稳定版**发布，六个平台均有对应构建。全图实时列车与车站到站看板需要客户端与服务端同时安装相同版本的 `1.6.0` 构建。
 
-- **固定车站卡片与实时到站（PIDS）**：直接接入 MTR/TSC 的 PIDS 接口获取预计到站时间；无预测数据时明确显示为 `-` 而非 `0 分钟`。收起卡片或关闭地图时会自动释放订阅。
-- **PIDS 主题切换**：新增 `british`（默认）与 `european` 两种车站看板样式，修改后自动保存。
-- **导航扩展 API（Java 17）**：面向第三方寻路/导航模组开放 `MtrMapApi`，支持读取路网目录、订阅车站看板及创建独立的地图高亮视图。当安装了兼容的第三方导航插件时，点击 **Navigate** 即可高亮前方乘车区间并压暗已驶过或无关的轨道（详见 [API 接入指南](docs/api/overlay-api-v1.md)）。
-- **交互与解码优化**：固定后的车站卡片支持独立内部滚动与点击，不会误触底层地图拖拽；网络包采用后台解码与有界队列以减少主线程开销。
+- **逐站 Navigate 可用性检查**：车站卡片会检查哪些已注册服务能处理当前车站。没有可用服务时按钮淡显；多个可用服务时显示选择器，点击时再确认一次。
+- **兼容的导航 API（Java 17）**：第三方模组可注册逐目标可用性判定，原有注册重载继续兼容。具体导航由外部模组提供，并可高亮待乘区段、淡化已走或无关轨道（详见 [API 接入指南](docs/api/overlay-api-v1.md)）。
+- **四语言界面**：英文、简体中文、繁体中文与日语覆盖地图控件、PIDS 看板、提示、命令和诊断反馈，跟随 Minecraft 的语言设置；玩家自定义站名、线路名保持原样。
+- **服务与界面优化**：关闭、过期或异常服务不会被调用，单个服务出错不会影响其他服务。补全地图标签与 PIDS 样式名翻译，保留原生到站板、双 PIDS 主题、全图列车和 2D 绘制。
 
 ## 环境要求与安装
 
@@ -55,7 +55,7 @@
 
 *注：无需安装 Xaero's Minimap（小地图）；若已安装，本模组仅会用它来清理早期版本遗留的 `[MTR]` 旧路径点。*
 
-1. 前往 [Releases](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.5.3) 下载与你的 **MC 版本 + 加载器** 完全匹配的单个 JAR 文件，放入客户端 `.minecraft/mods` 目录（文件名中已标明对应的加载器与 MTR 版本）。
+1. 前往 [Releases](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) 下载与你的 **MC 版本 + 加载器** 完全匹配的单个 JAR 文件，放入客户端 `.minecraft/mods` 目录（文件名中已标明对应的加载器与 MTR 版本）。
 2. 安装对应版本的 **MTR** 与任意一款支持的地图模组（Fabric 环境需额外安装 **Fabric API**）。
 3. *（可选但推荐）* 在服务端同样放入匹配的 **MTR Map Overlay** JAR 文件，以启用全维度路网同步、全图实时列车与车站到站看板。*（注意：新版 Mod ID 已统一为 `mtrmap`，升级前请删除旧版 `mtrsurveyor` 文件。）*
 4. 进入游戏并打开全屏地图，可通过地图界面上的 `ROUTES`（线路）和 `TRACKS`（轨道）图标按钮（绿条为开启，红条为关闭）或客户端指令控制图层显示。
@@ -89,8 +89,8 @@
 
 | 加载器 | Windows | macOS / Linux | 构建产物路径 |
 | :--- | :--- | :--- | :--- |
-| **NeoForge** | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.5.3.jar` |
-| **Fabric** | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.5.3.jar` |
+| **NeoForge** | `.\gradlew.bat build` | `./gradlew build` | `build/libs/CRTools-MTR-Map-Overlay-1.6.0.jar` |
+| **Fabric** | `.\fabric\gradlew.bat -p fabric build` | `./fabric/gradlew -p fabric build` | `fabric/build/libs/CRTools-MTR-Map-Overlay-fabric-1.6.0.jar` |
 
 ## 常见问题排查 (Troubleshooting)
 
@@ -98,6 +98,7 @@
 - **Xaero 地图上没有任何线条**：请确认安装的是 **Xaero's World Map（世界地图）** 而非仅有小地图，并检查 `latest.log` 中是否输出了 `Path layer render hook into Xaero's World Map is active`。
 - **小地图或游戏画面里没有路径点**：这是正常设计。所有图标仅绘制在全屏大地图上，避免遮挡日常游戏视野。
 - **从旧版 `mtrsurveyor` 升级失败**：请先删掉 `mods` 文件夹里的旧版 `mtrsurveyor` JAR 包，切勿新旧混装。
+- **Forge 快速进入问题**：1.6.0 已修复 Forge 1.20.4 单人加载和 Forge 1.20.1 连接未装 Overlay 服务器的问题。若 Forge 1.20.1 启动器自动直连超时，可改用游戏内多人服务器列表连接；验证范围见[实机记录](docs/validation/release-1.6.0.md)和[发布包检查](docs/validation/release-1.6.0-replacement.md)。
 
 ## 支持开发
 
@@ -113,4 +114,4 @@
 
 ## 导航对接与多语言
 
-开发版新增可选 HowToGo 目的地转交和逐站 Navigate 可用性检查，无可用服务时淡显，多个可用服务时显示选择器。控件支持英文、简体中文、繁体中文和日语。见[对接验证](docs/validation/howtogo-navigation-i18n-2026-11-11.md)。
+1.6.0 提供通用 Navigate API，具体适配与路线规划由兼容的第三方模组提供。选择器只列出能处理当前车站的服务。界面跟随游戏语言，`/mtrmap config pidsStyle` 这类命令名称保持不变。接入细节见 [API 指南](docs/api/overlay-api-v1.md)。
