@@ -337,3 +337,8 @@ The fresh 1.21.1 Fabric profile reached MTR's BetaWarningScreen before its readi
 
 Expose native map counts/server-sync availability and read the existing rendered-car cache (global stream or nearby MTR collector) in QA snapshots. This supports exact-candidate server/fallback assertions and native train-hover input without manufacturing vehicles or packets. The observer does not start subscriptions or overwrite state; production sources and sealed candidate remain unchanged. QA remains a separate opt-in artifact.
 
+
+### 2026-11-11T11:09:12+08:00 — Observe the native map projection for hover acceptance
+
+The MTR-only fixture legitimately supplies only one nearby station, so inferring projection from two station markers is invalid. QA now observes Xaero's existing accessor values or JourneyMap's existing renderer projection, without changing camera/state. Use these native coordinates for car-hover input and review raw captures. The sealed production JARs are unchanged.
+
