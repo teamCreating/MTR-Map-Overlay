@@ -47,6 +47,14 @@ public final class NavigationQa {
         result.add("nativeButtons",nativeButtons);
         var runtime=ClientOverlayRuntime.INSTANCE;var providers=new JsonArray();runtime.navigation().forEach(p->providers.add(p.owner()));result.add("providers",providers);
         if(mc.level!=null){
+            String dimension=mc.level.dimension().location().getNamespace()+"/"+mc.level.dimension().location().getPath();
+            var mapData=io.github.teamcreating.mtrmap.mapdata.MapDataCache.get(dimension);
+            result.add("nativeMapData",JSON.toJsonTree(Map.of("serverSynced",io.github.teamcreating.mtrmap.mapdata.MapDataCache.hasServerData(dimension),"routes",mapData.routes.size(),"tracks",mapData.tracks.size(),"landmarks",mapData.landmarks.size())));
+            var unsupported=io.github.teamcreating.mtrmap.train.ClientTrainStream.class.getDeclaredField("unsupported");unsupported.setAccessible(true);
+            boolean nearby=unsupported.getBoolean(null)||!io.github.teamcreating.mtrmap.config.MTRMapConfig.INSTANCE.networkSyncEnabled.get();
+            Class<?> carOwner=nearby?io.github.teamcreating.mtrmap.mapdata.ClientTrainCollector.class:io.github.teamcreating.mtrmap.train.ClientTrainStream.class;
+            var renderedCars=carOwner.getDeclaredField(nearby?"cars":"cached");renderedCars.setAccessible(true);
+            result.addProperty("trainDataSource",nearby?"nearby":"server");result.add("renderedCars",JSON.toJsonTree(renderedCars.get(null)));
             var world=runtime.world(mc.level.dimension().location().toString()).orElse(null);
             if(world!=null){var catalog=runtime.catalog(world);result.add("catalog",JSON.toJsonTree(catalog));
                 var available=new JsonObject();for(var station:catalog.stations())available.add(station.id(),JSON.toJsonTree(runtime.navigation(world,station.id()).stream().map(p->p.owner()).toList()));

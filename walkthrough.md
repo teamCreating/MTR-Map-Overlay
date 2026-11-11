@@ -348,3 +348,8 @@ Added a reviewable QA artifact checker for production Mixin resources/manifest r
 
 The fresh 1.21.1 Fabric profile reached MTR's BetaWarningScreen before its reading countdown allowed Escape. A single early Escape was ignored and the acceptance runner timed out. Retry ordinary native Escape while that same screen remains, bounded by a timeout; preserve the countdown and native close/configuration behavior. Production candidate 42946243079 is unchanged. Retain the failed attempt separately and rerun the fresh profile; do not count the timeout as a pass.
 
+
+### 2026-11-11T11:02:04+08:00 — Observe native map and rendered train data in opt-in QA
+
+Expose native map counts/server-sync availability and read the existing rendered-car cache (global stream or nearby MTR collector) in QA snapshots. This supports exact-candidate server/fallback assertions and native train-hover input without manufacturing vehicles or packets. The observer does not start subscriptions or overwrite state; production sources and sealed candidate remain unchanged. QA remains a separate opt-in artifact.
+
