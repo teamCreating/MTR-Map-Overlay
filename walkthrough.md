@@ -286,4 +286,9 @@ Ignored the project-local .cache directory used for cloned singleplayer saves, o
 
 ### 2026-11-11T10:04:13+08:00 — Codex: preserve vanilla loading-complete state before the Forge guard
 
-Native warning acknowledgement exposed a real boundary defect in the first patch: cancelling before onResourceLoadFinished skipped vanilla gameLoadFinished, leaving menus visually stale. The guard now runs at onGameLoadFinished HEAD, after vanilla sets that state and before initial screens/quick-play are built. Its vanilla method maps normally; the obsolete Forge callback completion remains redirected. This preserves the native completion marker and the warning/error guard together, without fabricating either. The earlier binary's normal/quick-play passes are preliminary and will not substitute for retesting the final JAR. Production build and existing tests passed; final runtime matrix pending.
+Native warning acknowledgement exposed a real boundary defect in the first patch: cancelling before onResourceLoadFinished skipped vanilla gameLoadFinished, leaving menus visually stale. The guard now runs at onGameLoadFinished HEAD, after vanilla sets that state and before initial screens/quick-play are built. Its vanilla method maps normally; the obsolete Forge callback completion remains redirected. This preserves the native completion marker and the warning/error guard together, without fabricating either. The earlier binary's normal/quick-play passes are preliminary and will not substitute for retesting the final JAR. The first retry command failed before compilation because PowerShell split an unquoted target property. The corrected quoted-property invocation subsequently passed the production build and existing tests; final runtime matrix remains pending.
+
+
+### 2026-11-11T10:05:11+08:00 — Codex: confirm final-boundary build with the exact target property
+
+Rebuilt using the quoted `-Pminecraft_version=1.20.4` argument. Compilation, refmap generation, production packaging and the existing 110-pass/1-opt-in-skip suite pass for the final onGameLoadFinished boundary. No failed configuration attempt is counted as validation.
