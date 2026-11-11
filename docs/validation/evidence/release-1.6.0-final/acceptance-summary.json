@@ -7,9 +7,11 @@
   "dedicatedWorldRuns": 12,
   "dedicatedMapCases": 24,
   "reviewedFullServerTrainHovers": 12,
-  "readyForProtectedPublication": false,
+  "readyForProtectedPublication": true,
   "published": false,
   "pendingScopeChoice": null,
-  "blockingCondition": "User requires Forge47.4.0 quick-play multiplayer repaired before release",
-  "userDecisionAt": "2026-11-11T12:17:53+08:00"
+  "blockingCondition": null,
+  "userDecisionAt": "2026-11-11T13:38:47+08:00",
+  "userDecision": "Publish immediately; stop further repair investigation; retain the disclosed Forge47 quick-play limitation",
+  "experimentalPatchIncluded": false
 }
