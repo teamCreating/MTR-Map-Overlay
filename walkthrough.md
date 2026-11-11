@@ -375,3 +375,8 @@ Update the active release task with completed normal-entry acceptance and the pe
 ### 2026-11-11T12:17:53+08:00 — Extend the release blocker to native Forge47 quick-play
 
 The user explicitly chose to repair automatic multiplayer entry before release. Preserve all 72 normal-entry passes and the verified Forge1.20.4 patch; do not publish the existing candidate under an exception. Claim native Forge47 handshake investigation. Current Forge47 source already completes mod loading before initial screens, so do not blindly apply the Forge49 startup patch. Read native connection/handshake state and capture the actual failing operation before choosing a correction.
+
+### 2026-11-11T12:19:20+08:00 — Add a read-only native handshake probe
+
+Add an opt-in JDK JDI CLI observer for NetworkHooks registration/payload dispatch, NetworkInstance event-bus flags/error callbacks, caught Forge network exceptions and handshake lookup results. It reads fields/stack frames only; it never invokes target methods, rewrites fields, patches dependencies or fabricates packets. Compile with the installed JDK21 jdk.jdi module. Use a loopback-only suspended debug JVM in an isolated native fixture to capture the first actual Forge47 quick-play failure before choosing a product fix.
+
