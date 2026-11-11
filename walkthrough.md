@@ -401,3 +401,8 @@ The initial JDI method-exit request made SecureJar package scanning run too slow
 
 The bounded read-only probe reproduces the timeout and sees client login-channel registration, but no Forge payload-dispatch entry or network exception. Extend observation to the native Connection read/protocol boundary and custom-query listener, and dump only that listener's actual VM bytecode/constant pool for comparison. This distinguishes a transport/protocol stall from a transformed listener bypass without rewriting classes or invoking target methods. The first clean diagnostic exits client/server/probe normally; no diagnosis is yet claimed from missing callbacks alone.
 
+
+### 2026-11-11T12:41:05+08:00 — Snapshot only after the native stall is established
+
+A breakpoint-delayed control joined successfully, but the observer hit JDWP INVALID_SLOT reading a synthetic bridge frame and detached; do not call this a product fix. Skip bridge argument reads. Add a late-attach snapshot mode that suspends briefly only after the unmodified startup has stalled, reads the current ConnectScreen connection, packet counters, channel protocol/handshake attributes and auto-read flag, then resumes/detaches. It neither invokes target methods nor rewrites fields, and avoids inserting debugger pauses into the startup ordering being investigated.
+
