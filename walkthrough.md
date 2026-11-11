@@ -418,4 +418,8 @@ Protected Publish42967128625 completed successfully. Download all ten public ass
 
 Remove built-in HowToGo bridge/registration and dedicated tests/download requirement. Preserve the generic predicate overload, chooser and dimming. External mods own their adapters. Original v1.6.0 binaries/tags remain unchanged; document that they still contain the earlier adapter.
 
-Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 113, 'failures': 0, 'errors': 0, 'skipped': 1}. Production Java has no HowToGo discovery, bridge or registration. Generic Navigate implementation and API signatures are preserved. Public release scope correction was read back; all ten asset IDs and digests remain unchanged.
+Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 108, 'failures': 0, 'errors': 0, 'skipped': 1}. Production Java has no HowToGo discovery, bridge or registration. Generic Navigate implementation and API signatures are preserved. Public release scope correction was read back; all ten asset IDs and digests remain unchanged.
+
+### 2026-11-11T16:49:35+08:00 — Refresh compatibility verification after branch switching
+
+Clean the Java compilation and test outputs before rerunning the existing suite. The clean run passes 107 tests with one explicit generator skip. This supersedes the earlier count contaminated by stale output from the diagnostic branch; no new product changes.
