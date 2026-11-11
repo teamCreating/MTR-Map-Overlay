@@ -41,6 +41,18 @@ public final class NavigationQa {
         result.addProperty("languageReloading",mc.getOverlay()!=null);
         var labels=new JsonObject();for(var key:List.of("navigate","navigation_unavailable","expand","collapse","routes","tracks","next_arrivals"))labels.addProperty(key,Component.translatable("mtrmap.ui."+key).getString());result.add("labels",labels);
         result.addProperty("guiWidth",mc.getWindow().getGuiScaledWidth());result.addProperty("guiHeight",mc.getWindow().getGuiScaledHeight());
+        if(mc.screen instanceof io.github.teamcreating.mtrmap.mixin.client.xaero.XaeroWorldMapAccessor map){
+            double scale=map.getScale()/((double)mc.getWindow().getWidth()/mc.getWindow().getGuiScaledWidth());
+            result.add("mapProjection",JSON.toJsonTree(Map.of("originX",mc.screen.width/2d-map.getCameraX()*scale,"originY",mc.screen.height/2d-map.getCameraZ()*scale,"xStepX",scale,"xStepY",0d,"zStepX",0d,"zStepY",scale)));
+        }else if(mc.screen!=null&&mc.screen.getClass().getName().equals("journeymap.client.ui.fullscreen.Fullscreen")){
+            var renderer=Class.forName("io.github.teamcreating.mtrmap.integration.journeymap.JourneyMapForegroundRenderer");
+            var field=renderer.getDeclaredField("mapRenderer");field.setAccessible(true);
+            if(field.get(null)!=null){
+                var project=renderer.getDeclaredMethod("project",double.class,double.class);project.setAccessible(true);
+                var origin=(java.awt.geom.Point2D)project.invoke(null,0d,0d);var x=(java.awt.geom.Point2D)project.invoke(null,1d,0d);var z=(java.awt.geom.Point2D)project.invoke(null,0d,1d);double scale=mc.getWindow().getGuiScale();
+                result.add("mapProjection",JSON.toJsonTree(Map.of("originX",origin.getX()/scale,"originY",origin.getY()/scale,"xStepX",(x.getX()-origin.getX())/scale,"xStepY",(x.getY()-origin.getY())/scale,"zStepX",(z.getX()-origin.getX())/scale,"zStepY",(z.getY()-origin.getY())/scale)));
+            }
+        }
         var nativeButtons=new JsonArray();
         if(mc.screen!=null)for(var child:mc.screen.children())if(child instanceof net.minecraft.client.gui.components.AbstractWidget widget)
             nativeButtons.add(JSON.toJsonTree(Map.of("label",widget.getMessage().getString(),"x",widget.getX(),"y",widget.getY(),"w",widget.getWidth(),"h",widget.getHeight(),"active",widget.active,"visible",widget.visible)));
