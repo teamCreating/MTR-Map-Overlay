@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [完成] Provider-owned navigation boundary
+- Codex, 2026-11-11T16:47:01+08:00: User clarified Overlay provides the generic Navigate API; external mods own adapters. Remove production HowToGo discovery/registration, preserve generic availability and chooser, and document the already published binary boundary.
+
+
 ### [完成] Forge 1.20.4 quick-play startup repair
 - Codex, 2026-11-11T10:21:59+08:00: final boundary in ca3858b passes 48 native cases and four diagnostic guards on both Forge49 versions; final CI patch class matches runtime bytecode. Evidence: `docs/validation/forge1204-startup-fix.md`. Release gate is separate and requires a fresh candidate.
 - Owner: Codex; claimed 2026-11-11T09:43:56+08:00. User explicitly asks to fix 1.20.4. Trace and correct the native initial-resource/Forge-completion ordering, preserve error/warning behavior, isolate from the other five targets, then test production JARs on Forge49.2.0/49.2.13 plus normal startup. No automatic version increment or publication.

@@ -413,3 +413,9 @@ The user stopped further diagnosis and explicitly requested immediate publicatio
 ### 2026-11-11T13:40:41+08:00 — Verify the published 1.6.0 release
 
 Protected Publish42967128625 completed successfully. Download all ten public assets again; compare bytes/SHA-256 with unchanged Candidate42953810741 and GitHub digests. Verify formal/Latest status and exact main/compat tag SHAs. All checks pass. Public notes retain the Forge47 quick-play limitation; experimental patch branches remain unmerged and excluded. Update acceptance/state/task records with the exact publication identity.
+
+### 2026-11-11T16:48:02+08:00 — Restore provider-owned Navigate adapters
+
+Remove built-in HowToGo bridge/registration and dedicated tests/download requirement. Preserve the generic predicate overload, chooser and dimming. External mods own their adapters. Original v1.6.0 binaries/tags remain unchanged; document that they still contain the earlier adapter.
+
+Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 113, 'failures': 0, 'errors': 0, 'skipped': 1}. Production Java has no HowToGo discovery, bridge or registration. Generic Navigate implementation and API signatures are preserved. Public release scope correction was read back; all ten asset IDs and digests remain unchanged.

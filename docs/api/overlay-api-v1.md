@@ -51,3 +51,15 @@ Both map hosts use the same classic station tooltip, original route metadata, de
 - `/mtrmap config pidsStyle european` selects white text, a blue-gray header, subtle alternating rows and amber countdowns.
 
 The preference persists in the loader's existing local config. It changes presentation only, with identical native arrival data.
+
+
+### Optional per-target navigation availability
+
+New Overlay builds provide `registerNavigation(owner, displayName, Predicate<NavigationTarget> available, Consumer<NavigationTarget> handler)`. The predicate runs on the client thread and must be cheap and side-effect free. It is checked for the selected station while rendering and again on click. No available provider means the Navigate action is disabled. The existing three-argument overload remains supported. An implementation using the new interface but not implementing this extension throws `UnsupportedOperationException`. Published older Overlay JARs also carry an older interface, so linking the new overload there can throw `NoSuchMethodError`. Consumers supporting both generations should guard this optional call and retain their three-argument registration path. The existing three-argument ABI is unchanged.
+
+
+### Provider-owned adapters
+
+Overlay exposes a generic Navigate registration API. Navigation mods or separate compatibility mods register their own availability predicate and target handler; Overlay does not discover their classes or register providers on their behalf. Without an available registered provider, Navigate remains disabled. HowToGo was used as an interoperability test reference, not an API dependency.
+
+The published v1.6.0 binaries included an Overlay-owned HowToGo adapter. That adapter has been removed from development sources after the scope correction; the published assets and tags have not been replaced.
