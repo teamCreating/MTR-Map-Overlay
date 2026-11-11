@@ -152,6 +152,8 @@ public final class ForgeHandshakeProbe {
                                 if (data instanceof PrimitiveValue || f.typeName().equals("net.minecraft.network.PacketListener")) emit("CONNECTION " + f.name() + "=" + describe(data));
                                 if (!f.typeName().equals("io.netty.channel.Channel") || !(data instanceof ObjectReference channel)) continue;
                                 if (value(channel, "config") instanceof ObjectReference config) emit("AUTO_READ " + field(config, "autoRead"));
+                                emit("NIO_SELECTION_KEY " + field(channel, "selectionKey"));
+                                emit("NIO_READ_PENDING " + field(channel, "readPending"));
                                 if (value(channel, "attributes") instanceof ArrayReference attributes) {
                                     for (Value entry : attributes.getValues()) {
                                         if (entry instanceof ObjectReference attribute) emit("ATTRIBUTE " + field(attribute, "key") + " value=" + field(attribute, "value"));

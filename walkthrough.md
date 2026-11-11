@@ -411,3 +411,8 @@ A breakpoint-delayed control joined successfully, but the observer hit JDWP INVA
 
 The late client snapshot confirms LOGIN protocol, autoRead=1, a registered Forge handshake object, and no incoming packet rate; it rules out a simply disabled client reader. Extend the same read-only JDI snapshot to the native server connection list, channel attributes, packet counters and outbound-buffer counters. Observe after the failure is already established, without debugger breakpoints during startup, to distinguish server dispatch from transport/decoder state.
 
+
+### 2026-11-11T12:51:13+08:00 — Inspect the NIO read registration
+
+The stalled client has LOGIN protocol and auto-read enabled but no incoming packet rate. Add read-only capture of the actual NIO selection-key interest/ready flags and readPending state. This checks whether the socket reader is registered consistently with channel configuration, rather than assuming protocol or handler initialization is the cause.
+
