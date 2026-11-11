@@ -37,6 +37,10 @@ public final class ForgeHandshakeProbe {
         if (vm == null) throw new IllegalStateException("No owned loopback JDWP target became available");
         try {
             emit("ATTACHED " + vm.name() + " " + vm.version());
+            if (Boolean.getBoolean("forge.probe.snapshotOnly")) {
+                snapshot(vm);
+                return;
+            }
             var requests = vm.eventRequestManager();
             for (String name : WATCHED) {
                 var prepare = requests.createClassPrepareRequest();
@@ -109,7 +113,7 @@ public final class ForgeHandshakeProbe {
                 }
             }
         }
-        var arguments = frame.getArgumentValues();
+        var arguments = event.location().method().isBridge() ? List.<Value>of() : frame.getArgumentValues();
         for (Value argument : arguments) {
             if (argument instanceof ObjectReference object && object.referenceType().name().endsWith("CustomQueryPacket")) {
                 for (Field f : object.referenceType().allFields()) {
@@ -126,6 +130,45 @@ public final class ForgeHandshakeProbe {
             emit("DISPATCH_ERROR " + describe(arguments.get(arguments.size() - 1)));
             stack(event.thread());
         }
+    }
+
+    private static void snapshot(VirtualMachine vm) throws Exception {
+        vm.suspend();
+        try {
+            for (ReferenceType type : vm.classesByName("net.minecraft.client.Minecraft")) {
+                for (Field singleton : type.allFields()) {
+                    if (!singleton.isStatic() || !singleton.typeName().equals(type.name())) continue;
+                    if (!(type.getValue(singleton) instanceof ObjectReference minecraft)) continue;
+                    for (Field screenField : minecraft.referenceType().allFields()) {
+                        if (screenField.isStatic() || !screenField.typeName().equals("net.minecraft.client.gui.screens.Screen")) continue;
+                        if (!(minecraft.getValue(screenField) instanceof ObjectReference screen)) continue;
+                        emit("SCREEN " + describe(screen));
+                        for (Field connectionField : screen.referenceType().allFields()) {
+                            if (connectionField.isStatic() || !connectionField.typeName().equals("net.minecraft.network.Connection")) continue;
+                            if (!(screen.getValue(connectionField) instanceof ObjectReference connection)) continue;
+                            for (Field f : connection.referenceType().allFields()) {
+                                if (f.isStatic()) continue;
+                                Value data = connection.getValue(f);
+                                if (data instanceof PrimitiveValue || f.typeName().equals("net.minecraft.network.PacketListener")) emit("CONNECTION " + f.name() + "=" + describe(data));
+                                if (!f.typeName().equals("io.netty.channel.Channel") || !(data instanceof ObjectReference channel)) continue;
+                                if (value(channel, "config") instanceof ObjectReference config) emit("AUTO_READ " + field(config, "autoRead"));
+                                if (value(channel, "attributes") instanceof ArrayReference attributes) {
+                                    for (Value entry : attributes.getValues()) {
+                                        if (entry instanceof ObjectReference attribute) emit("ATTRIBUTE " + field(attribute, "key") + " value=" + field(attribute, "value"));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for (ThreadReference thread : vm.allThreads()) {
+                if (thread.name().equals("Render thread") || thread.name().startsWith("Netty Client IO")) {
+                    emit("THREAD " + thread.name());
+                    stack(thread);
+                }
+            }
+        } finally { vm.resume(); }
     }
 
     private static Value value(ObjectReference object, String name) {
