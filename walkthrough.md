@@ -416,3 +416,7 @@ The late client snapshot confirms LOGIN protocol, autoRead=1, a registered Forge
 
 The stalled client has LOGIN protocol and auto-read enabled but no incoming packet rate. Add read-only capture of the actual NIO selection-key interest/ready flags and readPending state. This checks whether the socket reader is registered consistently with channel configuration, rather than assuming protocol or handler initialization is the cause.
 
+
+### 2026-11-11T13:38:47+08:00 — Publish the tested candidate on explicit user instruction
+
+The user stopped further diagnosis and explicitly requested immediate publication, superseding the prior Forge47 repair gate. Use unchanged Candidate42953810741 (48 singleplayer plus 24 dedicated native cases); do not merge or publish the experimental EventLoop patch. Disclose the Forge47.4.0 quick-play handshake limitation and working ordinary multiplayer-list connection in the public acceptance text. Keep the protected environment review and sealed manifest/hash checks. No further game tests or candidate rebuilds are requested.

@@ -1,5 +1,7 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T13:38:47+08:00, Codex: User explicitly instructed immediate publication and stopped further investigation, superseding the previous Forge47 quick-play repair prerequisite. Publish unchanged sealed Candidate42953810741 through the protected workflow; disclose the native Forge47.4.0 quick-play timeout and working multiplayer-list path. Experimental EventLoop fix remains unmerged and excluded.
+
 - 2026-11-11T12:17:53+08:00, Codex: User explicitly chose to fix Forge47.4.0 quick-play multiplayer before publishing. Candidate42953810741 has 72 passing normal-entry cases but is not approved for release. Investigate the native handshake without modifying dependencies or fabricating state; Forge1.20.4 remains verified.
 
 - 2026-11-11T12:11:04+08:00, Codex: Final Candidate42953810741 passed 48 singleplayer and 24 dedicated native map cases across six targets; 12 full-server train hovers reviewed. Native Forge47 quick-play base-control limitation remains explicit. Both Overlay corrections are present. Normal-entry matrix passed; publication held pending scope choice unless explicitly accepted. No tags/release written. See [final acceptance](../validation/release-1.6.0.md).
