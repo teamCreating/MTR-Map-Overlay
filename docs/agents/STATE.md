@@ -1,5 +1,7 @@
 # STATE.md — 项目权威状态
 
+- 2026-11-11T13:40:41+08:00, Codex: Published [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) as formal Latest under the user’s immediate-publication instruction. Protected Publish42967128625 succeeded; all ten public assets were downloaded and exactly match Candidate42953810741 and remote digests; both tags match sealed source SHAs. Forge47 quick-play limitation is disclosed; experimental EventLoop changes are excluded. No further game investigation.
+
 - 2026-11-11T13:38:47+08:00, Codex: User explicitly instructed immediate publication and stopped further investigation, superseding the previous Forge47 quick-play repair prerequisite. Publish unchanged sealed Candidate42953810741 through the protected workflow; disclose the native Forge47.4.0 quick-play timeout and working multiplayer-list path. Experimental EventLoop fix remains unmerged and excluded.
 
 - 2026-11-11T12:17:53+08:00, Codex: User explicitly chose to fix Forge47.4.0 quick-play multiplayer before publishing. Candidate42953810741 has 72 passing normal-entry cases but is not approved for release. Investigate the native handshake without modifying dependencies or fabricating state; Forge1.20.4 remains verified.
