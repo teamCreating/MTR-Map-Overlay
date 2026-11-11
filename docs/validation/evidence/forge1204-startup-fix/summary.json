@@ -1,0 +1,11 @@
+{
+  "recorded_at": "2026-11-11T10:21:58+08:00",
+  "versions": [
+    "49.2.0",
+    "49.2.13"
+  ],
+  "runtime_jar_sha256": "df9beb778c262f71522c9d1834cc54ef542e1c25b3ff835a93d3c7224fd9b047",
+  "native_ui_cases_passed": 48,
+  "diagnostic_guards_passed": 4,
+  "release_approved": false
+}

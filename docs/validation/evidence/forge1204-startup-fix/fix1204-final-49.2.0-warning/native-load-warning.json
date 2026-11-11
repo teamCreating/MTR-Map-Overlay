@@ -1,0 +1,63 @@
+{
+  "connected": false,
+  "screen": "net.minecraftforge.client.gui.LoadingErrorScreen",
+  "screenRole": "OTHER",
+  "gameLoadFinished": true,
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrmap-mc120/.cache/startup-qa/fix1204-final-49.2.0-warning/mods/CRTools-MTR-Map-Overlay-forge-mc1.20.4-1.6.0.jar!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "nativeButtons": [
+    {
+      "visible": true,
+      "active": true,
+      "y": 194,
+      "x": 50,
+      "w": 158,
+      "h": 20,
+      "label": "Open Mods Folder"
+    },
+    {
+      "visible": true,
+      "active": true,
+      "y": 194,
+      "x": 218,
+      "w": 158,
+      "h": 20,
+      "label": "Open latest.log"
+    },
+    {
+      "visible": true,
+      "active": true,
+      "y": 216,
+      "x": 106,
+      "w": 213,
+      "h": 20,
+      "label": "Proceed to main menu"
+    },
+    {
+      "visible": true,
+      "active": true,
+      "y": 35,
+      "x": 0,
+      "w": 427,
+      "h": 240,
+      "label": ""
+    }
+  ],
+  "providers": [],
+  "targets": [],
+  "buttons": [],
+  "serverEvents": []
+}

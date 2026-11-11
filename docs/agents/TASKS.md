@@ -6,7 +6,8 @@
 
 ## 进行中
 
-### [阻塞] Release 1.6.0 six-platform acceptance and publication
+### [进行中] Release 1.6.0 six-platform acceptance and publication
+- Codex, 2026-11-11T10:23:54+08:00: Forge startup blocker fixed and verified; refresh release notes, seal a new six-target candidate, then complete remaining runtime/server/fallback checks before publication. Main changes in this step are documentation only.
 - Codex, 2026-11-11T03:28:46+08:00: six builds and 48 normal-flow native cases passed; Candidate 42879095868 / dry-run 42883569831 retained. Publication is blocked by the reproduced Forge 1.20.4 quick-play failure (also without Overlay), plus incomplete remaining candidate checklist items. Resume after a proper loader-startup fix or an explicit revised acceptance scope; do not dispatch real Publish under the current condition. Evidence: `docs/validation/release-1.6.0.md`.
 - Owner: Codex; claimed 2026-11-11T01:53:55+08:00. User authorizes version 1.6.0 and publication only after Forge/Fabric 1.20.1/1.20.4 and NeoForge/Fabric 1.21.1 pass. Port current integration/localization, fix failures, seal and test exact candidate JARs, then publish through the existing protected release workflow.
 
@@ -21,7 +22,7 @@
 - Codex, 2026-11-11T01:46:08+08:00: Main-line NeoForge real HowToGo destination handoff and existing MTR Navigation registration now pass in both maps/four languages; see the new validation report. Other loaders/older versions, exact-span progress for other planners and the remaining layout/performance matrix are still pending.
 - Codex，2026-10-26 13:32：六平台双地图基础PIDS回归已补齐；仍需真实provider选择/点击和区段进度联动，以及逐目标长文本/GUI缩放/列车关闭后的暂停组合。大网性能单列，不能用基础回归替代。
 
-### [待领，兼容QA] Forge1.20.4单人quick-play的Xaero初始化失败
+### [完成] Forge1.20.4单人quick-play的Xaero初始化失败
 - Codex，2026-10-26 13:32：Xaero Minimap/WorldMap在onPlayerWorldJoin读取空serverData而断线，尚未到Overlay快照应用。独立本地服务器连接的双地图PIDS通过；需进一步在production启动器和不含Overlay的对照环境定位根因。保留失败日志，不声明单人启动已通过。
 
 ### [待领，性能/兼容后续] 全网列车大网与复杂网络性能

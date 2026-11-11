@@ -1,6 +1,12 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
 
+## [2026-11-11T10:23:54+08:00] Codex — verified compatibility startup fix
+
+- Forge1.20.4-only repair retains vanilla completion state and runs the native Forge guard before initial screens/quick-play. Final48 native cases and four warning/error guards pass on49.2.0/49.2.13; CI artifact isolation and runtime bytecode match pass.
+- Main product code is unchanged. See `docs/validation/forge1204-startup-fix.md`. Old Candidate42879095868 is historical and lacks the fix; new-candidate/server/fallback acceptance resumes before any publication.
+
+
 ## [2026-11-11T03:28:46+08:00] Codex — 1.6.0 candidate held after six-target baseline
 
 - Candidate 42879095868 locks main 307cfcd75b46eaa0ccb4bbe0bef962267595cbb0 and compat 9869d0d3009db1b95a9ad84f997cea52c7d380ae. Six CI builds and 48 exact-JAR native singleplayer cases pass; real HowToGo handoff passes in both NeoForge maps.

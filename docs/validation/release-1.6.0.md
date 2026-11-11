@@ -1,5 +1,7 @@
 # 1.6.0 release acceptance — held
 
+> Startup blocker subsequently repaired and verified on a new binary: [Forge 1.20.4 fix](forge1204-startup-fix.md). This remains the historical acceptance of Candidate42879095868, which does not contain that repair.
+
 Tester: Codex. Recorded 2026-11-11T03:28:00+08:00 (UTC+08:00). **No formal release or v1.6.0 tags were created.**
 
 ## Candidate identity
