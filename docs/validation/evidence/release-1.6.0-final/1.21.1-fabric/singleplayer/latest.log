@@ -1,0 +1,506 @@
+[11:47:22] [main/INFO]: Loading Minecraft 1.21.1 with Fabric Loader 0.16.14
+[11:47:22] [main/INFO]: Fabric is preparing JARs on first launch, this may take a few seconds...
+[11:47:22] [main/INFO]: Loading 67 mods:
+	- fabric-api 0.116.17+1.21.1
+	   |-- fabric-api-base 0.4.42+6573ed8c19
+	   |-- fabric-api-lookup-api-v1 1.6.72+7b3d111d19
+	   |-- fabric-biome-api-v1 13.0.31+d527f9fd19
+	   |-- fabric-block-api-v1 1.1.0+0bc3503219
+	   |-- fabric-block-view-api-v2 1.0.11+ebb2264e19
+	   |-- fabric-blockrenderlayer-v1 1.1.52+0af3f5a719
+	   |-- fabric-client-tags-api-v1 1.2.0+1eb36c0719
+	   |-- fabric-command-api-v1 1.2.49+f71b366f19
+	   |-- fabric-command-api-v2 2.2.28+6ced4dd919
+	   |-- fabric-commands-v0 0.2.66+df3654b319
+	   |-- fabric-content-registries-v0 8.0.19+b559734419
+	   |-- fabric-convention-tags-v1 2.1.7+7f945d5b19
+	   |-- fabric-convention-tags-v2 2.12.0+c3656daa19
+	   |-- fabric-crash-report-info-v1 0.2.29+0af3f5a719
+	   |-- fabric-data-attachment-api-v1 1.4.7+5b36e0f719
+	   |-- fabric-data-generation-api-v1 20.3.0+1eb36c0719
+	   |-- fabric-dimensions-v1 4.0.1+65213ef819
+	   |-- fabric-entity-events-v1 1.8.0+2b27e0a419
+	   |-- fabric-events-interaction-v0 0.7.14+ba9dae0619
+	   |-- fabric-game-rule-api-v1 1.0.53+6ced4dd919
+	   |-- fabric-item-api-v1 11.3.0+467044f319
+	   |-- fabric-item-group-api-v1 4.1.7+def88e3a19
+	   |-- fabric-key-binding-api-v1 1.0.47+0af3f5a719
+	   |-- fabric-keybindings-v0 0.2.45+df3654b319
+	   |-- fabric-lifecycle-events-v1 2.6.0+0865547519
+	   |-- fabric-loot-api-v2 3.0.15+3f89f5a519
+	   |-- fabric-loot-api-v3 1.0.3+3f89f5a519
+	   |-- fabric-message-api-v1 6.0.14+8aaf3aca19
+	   |-- fabric-model-loading-api-v1 2.1.0+b4d813fc19
+	   |-- fabric-networking-api-v1 4.3.1+d30f6a7919
+	   |-- fabric-object-builder-api-v1 15.2.1+40875a9319
+	   |-- fabric-particles-v1 4.0.2+6573ed8c19
+	   |-- fabric-recipe-api-v1 5.0.16+2475392c19
+	   |-- fabric-registry-sync-v0 5.3.2+e3eddc2119
+	   |-- fabric-renderer-api-v1 3.4.1+b4d813fc19
+	   |-- fabric-renderer-indigo 1.7.1+c705a49c19
+	   |-- fabric-renderer-registries-v1 3.2.71+df3654b319
+	   |-- fabric-rendering-data-attachment-v1 0.3.49+73761d2e19
+	   |-- fabric-rendering-fluids-v1 3.1.6+1daea21519
+	   |-- fabric-rendering-v0 1.1.74+df3654b319
+	   |-- fabric-rendering-v1 5.2.1+f44c2eea19
+	   |-- fabric-resource-conditions-api-v1 4.3.0+8dc279b119
+	   |-- fabric-resource-loader-v0 1.3.1+5b5275af19
+	   |-- fabric-screen-api-v1 2.0.26+639b4c0719
+	   |-- fabric-screen-handler-api-v1 1.3.91+b559734419
+	   |-- fabric-sound-api-v1 1.0.23+6573ed8c19
+	   |-- fabric-tag-api-v1 1.3.0+1eb36c0719
+	   |-- fabric-transfer-api-v1 5.4.4+7b3d111d19
+	   \-- fabric-transitive-access-wideners-v1 6.2.0+45b9699719
+	- fabricloader 0.16.14
+	   \-- mixinextras 0.4.1
+	- java 21
+	- journeymap 1.21.1-6.0.8
+	   |-- ar_com_hjg_pngj 2.1.0
+	   |-- commonnetworking 1.0.21-1.21.1
+	   \-- journeymap-api-fabric 2.0.0-1.21.1
+	- minecraft 1.21.1
+	- mtr 4.1.0-beta.2
+	   |-- elementa 743
+	   |-- org_jetbrains_kotlin_kotlin-stdlib 2.4.20-Beta1
+	   \-- universalcraft 497
+	- mtrmap 1.6.0
+	- mtrmapqa 1
+	- xaerominimap 26.4.2
+	   \-- xaerolib 1.7.1
+	- xaeroworldmap 1.45.0
+	   \-- xaerolib 1.7.1
+[11:47:22] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/net/fabricmc/sponge-mixin/0.15.5+mixin.0.8.7/sponge-mixin-0.15.5+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[11:47:23] [main/INFO]: Compatibility level set to JAVA_17
+[11:47:23] [main/INFO]: Compatibility level set to JAVA_21
+[11:47:23] [main/INFO]: [MTRMap] Xaero's World Map detected - map path layer mixins will be applied
+[11:47:23] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.4.1).
+[11:47:25] [Datafixer Bootstrap/INFO]: 226 Datafixer optimizations took 338 milliseconds
+[11:47:29] [main/WARN]: Unrecognized user type: 
+[11:47:29] [Render thread/INFO]: [MTRMap] Applied TrainMapPauseMixin to class_310
+[11:47:29] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11:47:30] [Render thread/INFO]: Setting user: Dev
+[11:47:30] [Render thread/INFO]: Initializing ServerSide Packet Registries
+[11:47:30] [Render thread/INFO]: Starting Minecraft with arguments:
+-DFabricMcEmu= net.minecraft.client.main.Main 
+-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+-Djava.library.path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\fabric-1.21.1-0.16.14-38e15c1f-d6f2-5dd0-b695-ba6adab11962
+-Djna.tmpdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\fabric-1.21.1-0.16.14-38e15c1f-d6f2-5dd0-b695-ba6adab11962
+-Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\fabric-1.21.1-0.16.14-38e15c1f-d6f2-5dd0-b695-ba6adab11962
+-Dio.netty.native.workdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\fabric-1.21.1-0.16.14-38e15c1f-d6f2-5dd0-b695-ba6adab11962
+-Dminecraft.launcher.brand=portablemc
+-Dminecraft.launcher.version=5.0.6
+-Dlog4j.configurationFile=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets\log_configs\client-1.12.xml
+-Xmx3G
+-Dmtrmap.qa.output=C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/build/acceptance160/final160-singleplayer-1.21.1-fabric
+[11:47:30] [Render thread/INFO]: :  __  __     _                                                __    _     
+[11:47:30] [Render thread/INFO]: : |  \/  |   (_)    _ _      ___     __       _ _   __ _      / _|  | |_   
+[11:47:30] [Render thread/INFO]: : | |\/| |   | |   | ' \    / -_)   / _|     | '_| / _` |    |  _|  |  _|  
+[11:47:30] [Render thread/INFO]: : |_|__|_|  _|_|_  |_||_|   \___|   \__|_   _|_|_  \__,_|   _|_|_   _\__|  
+[11:47:30] [Render thread/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+[11:47:30] [Render thread/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
+[11:47:30] [Render thread/INFO]: :   _____                                     _      _                     
+[11:47:30] [Render thread/INFO]: :  |_   _|    _ _   __ _    _ _      ___     (_)    | |_                   
+[11:47:30] [Render thread/INFO]: :    | |     | '_| / _` |  | ' \    (_-<     | |    |  _|                  
+[11:47:30] [Render thread/INFO]: :   _|_|_   _|_|_  \__,_|  |_||_|   /__/_   _|_|_   _\__|                  
+[11:47:30] [Render thread/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|                 
+[11:47:30] [Render thread/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'                 
+[11:47:30] [Render thread/INFO]: :    ___              _       _                      _  _                  
+[11:47:30] [Render thread/INFO]: :   | _ \   __ _     (_)     | |   __ __ __ __ _    | || |                 
+[11:47:30] [Render thread/INFO]: :   |   /  / _` |    | |     | |   \ V  V // _` |    \_, |                 
+[11:47:30] [Render thread/INFO]: :   |_|_\  \__,_|   _|_|_   _|_|_   \_/\_/ \__,_|   _|__/                  
+[11:47:30] [Render thread/INFO]: : _|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_| """"|                 
+[11:47:30] [Render thread/INFO]: : "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' (4.1.0-beta.2+1.21.4) 
+[11:47:30] [Render thread/INFO]: :                                                                          
+[11:47:30] [Render thread/INFO]: [STDERR]: 2026-11-11T03:47:30.573212900Z Render thread ERROR Log4j API could not find a logging provider.
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway blocks
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway items
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway block entity types
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway creative mode tabs
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway sound events
+[11:47:30] [Render thread/INFO]: Registering Minecraft Transit Railway data component types
+[11:47:31] [Render thread/INFO]: [MTRMap] Fabric full-network sync payloads registered (protocol 8)
+[11:47:31] [Render thread/INFO]: [MTR Map Overlay] Fabric loaded; JourneyMap detected, Xaero World Map detected
+[11:47:31] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
+[11:47:31] [Render thread/INFO]: Registering Minecraft Transit Railway key bindings
+[11:47:31] [Render thread/INFO]: [STDOUT]: [NavigationQA] Local CLI on /127.0.0.1:18762
+[11:47:31] [Render thread/INFO]: Registering common data for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Registering client data for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Loading primary common config for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Loading server config profiles for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Loading primary client config for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Loading client config profiles for channel xaerolib:main!
+[11:47:31] [Render thread/INFO]: Loading XaeroLib common 1/2!
+[11:47:31] [Render thread/INFO]: Loading XaeroLib client 1/2!
+[11:47:32] [Render thread/WARN]: io exception while checking patreon: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:47:32] [Render thread/INFO]: [MTRMap] Applied XaeroWorldMapAccessor to GuiMap
+[11:47:32] [Render thread/INFO]: [MTRMap] Applied XaeroWorldMapMixin to GuiMap
+[11:47:32] [Render thread/INFO]: Xaero's Minimap: World Map found!
+[11:47:32] [Render thread/INFO]: No Optifine!
+[11:47:32] [Render thread/INFO]: Xaero's Minimap: No Vivecraft!
+[11:47:32] [Render thread/INFO]: Registering common data for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Registering client data for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Loading primary common config for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Loading server config profiles for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Loading primary client config for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Loading client config profiles for channel xaerominimap:main!
+[11:47:32] [Render thread/INFO]: Loading Xaero's Minimap - Stage 1/2
+[11:47:32] [Render thread/INFO]: Registering common data for channel xaeroworldmap:main!
+[11:47:32] [Render thread/INFO]: Registering client data for channel xaeroworldmap:main!
+[11:47:32] [Render thread/INFO]: Loading primary common config for channel xaeroworldmap:main!
+[11:47:32] [Render thread/INFO]: Loading server config profiles for channel xaeroworldmap:main!
+[11:47:33] [Render thread/INFO]: Loading primary client config for channel xaeroworldmap:main!
+[11:47:33] [Render thread/INFO]: Loading client config profiles for channel xaeroworldmap:main!
+[11:47:33] [Render thread/INFO]: Loading Xaero's World Map - Stage 1/2
+[11:47:33] [Render thread/INFO]: Backend library: LWJGL version 3.3.3-snapshot
+[11:47:34] [Render thread/WARN]: Removed resource pack xaerolib from options because it is no longer compatible
+[11:47:34] [Render thread/WARN]: Removed resource pack xaerominimap from options because it is no longer compatible
+[11:47:34] [Render thread/WARN]: Removed resource pack xaeroworldmap from options because it is no longer compatible
+[11:47:35] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:47:35] [Render thread/INFO]: Loaded null for service interface journeymap.api.services.WebMapService
+[11:47:35] [Render thread/INFO]: Loaded journeymap.common.helpers.FabricClientHooks@371d916e for service interface journeymap.api.services.ClientPlatformService
+[11:47:35] [Render thread/INFO]: Loaded journeymap.common.helpers.FabricHooks@355c8e3 for service interface journeymap.api.services.CommonPlatformService
+[11:47:35] [Worker-Main-10/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:47:35] [Render thread/INFO]: Skipping dev-only plugin (set -Djourneymap.dev_plugins=true to enable): journeymap.api.plugins.DebugVerificationPlugin
+[11:47:35] [Render thread/INFO]: Skipping dev-only plugin (set -Djourneymap.dev_plugins=true to enable): journeymap.api.plugins.OverlayLifecycleProfilingPlugin
+[11:47:35] [Render thread/INFO]: Found @JourneyMapPlugin: io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin
+[11:47:35] [Worker-Main-7/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:47:35] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:47:35] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:47:35] [Render thread/INFO]: [MTR Map Overlay] JourneyMap v2 API initialized!
+[11:47:35] [Worker-Main-6/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:47:35] [Worker-Main-1/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:47:35] [Worker-Main-1/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:47:36] [Render thread/INFO]: Loading Xaero's World Map - Stage 2/2
+[11:47:36] [Render thread/INFO]: New world map region cache hash code: -879299625
+[11:47:37] [Render thread/ERROR]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:47:37] [Render thread/INFO]: Registered player tracker system: map_synced
+[11:47:37] [Render thread/INFO]: Xaero's WorldMap Mod: Xaero's minimap found!
+[11:47:37] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:47:37] [Render thread/INFO]: No Optifine!
+[11:47:37] [Render thread/INFO]: Xaero's World Map: No Vivecraft!
+[11:47:37] [Render thread/INFO]: Loading Xaero's Minimap - Stage 2/2
+[11:47:38] [Render thread/WARN]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:47:38] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:47:38] [Render thread/INFO]: Loading XaeroLib common 2/2!
+[11:47:38] [Render thread/INFO]: Loading XaeroLib client 2/2!
+[11:47:38] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:47:38] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:47:39] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:47:39] [Render thread/INFO]: Sound engine started
+[11:47:40] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:47:40] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:47:40] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:47:40] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:47:40] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:47:40] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:47:40] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:47:42] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:47:42] [Render thread/INFO]: Loaded 135 signs
+[11:47:42] [Render thread/INFO]: Loaded 3 rails
+[11:47:42] [Render thread/INFO]: Loaded 1 objects
+[11:47:42] [Render thread/INFO]: Loaded 1 lifts
+[11:47:42] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:48:05] [Render thread/WARN]: Missing data pack mod_data
+[11:48:05] [Render thread/INFO]: Found new data pack fabric, loading it automatically
+[11:48:05] [Render thread/INFO]: Found new data pack fabric-convention-tags-v2, loading it automatically
+[11:48:05] [Render thread/INFO]: Found new data pack mtr, loading it automatically
+[11:48:06] [Render thread/INFO]: Loaded 1630 recipes
+[11:48:06] [Render thread/INFO]: Loaded 1399 advancements
+[11:48:07] [Render thread/INFO]: Applied 0 biome modifications to 0 of 64 new biomes in 913.1 μs
+[11:48:07] [Server thread/INFO]: Starting integrated minecraft server version 1.21.1
+[11:48:07] [Server thread/INFO]: Generating keypair
+[11:48:07] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[11:48:08] [Render thread/INFO]: Preparing spawn area: 0%
+[11:48:08] [Render thread/INFO]: Time elapsed: 255 ms
+[11:48:08] [Server thread/INFO]: Found available port: 8888
+[11:48:08] [Server thread/INFO]: [STDERR]: SLF4J(E): A service provider failed to instantiate:
+org.mtr.libraries.org.slf4j.spi.SLF4JServiceProvider: Provider org.mtr.libraries.org.apache.logging.slf4j.SLF4JServiceProvider not found
+[11:48:08] [Server thread/INFO]: [STDERR]: SLF4J(W): No SLF4J providers were found.
+[11:48:08] [Server thread/INFO]: [STDERR]: SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+[11:48:08] [Server thread/INFO]: [STDERR]: SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+[11:48:08] [Server thread/INFO]: Starting server as a non-dedicated server
+[11:48:10] [Server thread/INFO]: Changing view distance to 6, from 10
+[11:48:10] [Server thread/INFO]: Changing simulation distance to 12, from 0
+[11:48:10] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 2223ms or 44 ticks behind
+[11:48:11] [Server thread/INFO]: Dev[local:E:56937773] logged in with entity id 1 at (330.5, -63.0, 30.5)
+[11:48:11] [Server thread/INFO]: Dev joined the game
+[11:48:11] [Render thread/INFO]: Minimap required item set to nothing.
+[11:48:11] [Render thread/INFO]: New Xaero hud session initialized!
+[11:48:11] [Render thread/INFO]: Fullscreen map required item set to nothing.
+[11:48:11] [Render thread/INFO]: New world map session initialized!
+[11:48:11] [Render thread/INFO]: Open the Transport System Map at http://localhost:8888
+[11:48:11] [Render thread/INFO]: Open the Resource Pack Creator at http://localhost:8888/creator/
+[11:48:11] [Render thread/INFO]: Minimap updated server level id: -415565149 for world ResourceKey[minecraft:dimension / minecraft:overworld]
+[11:48:11] [Render thread/INFO]: Loaded 2 advancements
+[11:48:11] [Render thread/INFO]: Reloading radar icon resources...
+[11:48:11] [Render thread/INFO]: Reloaded radar icon resources!
+[11:48:12] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:48:12] [Worker-Main-3/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:48:12] [Worker-Main-11/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:48:12] [Worker-Main-11/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:48:12] [Worker-Main-11/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:48:12] [Worker-Main-3/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:48:12] [Server thread/INFO]: Saving and pausing game...
+[11:48:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:48:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:48:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:48:12] [Worker-Main-5/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:48:12] [Worker-Main-5/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:48:12] [Render thread/INFO]: [System] [CHAT] §eJourneyMap:§f Press [§bJ§f]
+[11:48:13] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:48:13] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:48:14] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:48:14] [Render thread/INFO]: Sound engine started
+[11:48:14] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:48:14] [Render thread/INFO]: Radar icon manager reset!
+[11:48:14] [Render thread/INFO]: Reloading radar icon resources...
+[11:48:14] [Render thread/INFO]: Reloaded radar icon resources!
+[11:48:14] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:48:14] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:48:14] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:48:14] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:48:14] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:48:14] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:48:14] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:48:16] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:48:16] [Render thread/INFO]: Loaded 135 signs
+[11:48:16] [Render thread/INFO]: Loaded 3 rails
+[11:48:16] [Render thread/INFO]: Loaded 1 objects
+[11:48:16] [Render thread/INFO]: Loaded 1 lifts
+[11:48:16] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:48:18] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/overworld to Dev (4 routes, 10 rails, 9700 bytes, 1 chunk(s))
+[11:48:18] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_nether to Dev (0 routes, 0 rails, 46 bytes, 1 chunk(s))
+[11:48:18] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_end to Dev (0 routes, 0 rails, 43 bytes, 1 chunk(s))
+[11:48:18] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/overworld: 4 routes, 10 rails, 11 landmarks
+[11:48:18] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/the_nether: 0 routes, 0 rails, 0 landmarks
+[11:48:18] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/the_end: 0 routes, 0 rails, 0 landmarks
+[11:48:18] [Server thread/INFO]: Teleported Dev to 330.000000, -53.000000, 50.000000
+[11:48:18] [Render thread/INFO]: [System] [CHAT] [Server: Teleported Dev to 330.000000, -53.000000, 50.000000]
+[11:48:19] [Render thread/INFO]: [MTRMap] Path layer render hook into Xaero's World Map is active
+[11:48:24] [Server thread/INFO]: Saving and pausing game...
+[11:48:24] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:48:24] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:48:24] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:48:30] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:48:30] [Worker-Main-9/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:48:30] [Server thread/INFO]: Saving and pausing game...
+[11:48:30] [Worker-Main-3/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:48:30] [Worker-Main-3/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:48:30] [Worker-Main-3/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:48:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:48:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:48:30] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:48:30] [Worker-Main-9/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:48:30] [Worker-Main-4/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:48:30] [Worker-Main-4/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:48:31] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:48:31] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:48:31] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:48:31] [Render thread/INFO]: Sound engine started
+[11:48:32] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:48:32] [Render thread/INFO]: Radar icon manager reset!
+[11:48:32] [Render thread/INFO]: Reloading radar icon resources...
+[11:48:32] [Render thread/INFO]: Reloaded radar icon resources!
+[11:48:32] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:48:32] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:48:32] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:48:32] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:48:32] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:48:32] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:48:32] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:48:33] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:48:33] [Render thread/INFO]: Loaded 135 signs
+[11:48:33] [Render thread/INFO]: Loaded 3 rails
+[11:48:33] [Render thread/INFO]: Loaded 1 objects
+[11:48:33] [Render thread/INFO]: Loaded 1 lifts
+[11:48:33] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:48:35] [Server thread/INFO]: 已将Dev传送至330.000000, -53.000000, 50.000000
+[11:48:35] [Render thread/INFO]: [System] [CHAT] [Server: 已将Dev传送至330.000000, -53.000000, 50.000000]
+[11:48:46] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:48:46] [Worker-Main-10/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:48:46] [Server thread/INFO]: Saving and pausing game...
+[11:48:46] [Worker-Main-12/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:48:46] [Worker-Main-12/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:48:46] [Worker-Main-12/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:48:46] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:48:46] [Worker-Main-3/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:48:46] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:48:46] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:48:46] [Worker-Main-2/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:48:46] [Worker-Main-2/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:48:47] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:48:47] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:48:47] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:48:47] [Render thread/INFO]: Sound engine started
+[11:48:47] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:48:47] [Render thread/INFO]: Radar icon manager reset!
+[11:48:47] [Render thread/INFO]: Reloading radar icon resources...
+[11:48:47] [Render thread/INFO]: Reloaded radar icon resources!
+[11:48:47] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:48:47] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:48:47] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:48:47] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:48:47] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:48:47] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:48:47] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:48:49] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:48:49] [Render thread/INFO]: Loaded 135 signs
+[11:48:49] [Render thread/INFO]: Loaded 3 rails
+[11:48:49] [Render thread/INFO]: Loaded 1 objects
+[11:48:49] [Render thread/INFO]: Loaded 1 lifts
+[11:48:49] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:48:51] [Server thread/INFO]: 已將 Dev 傳送到 330.000000, -53.000000, 50.000000
+[11:48:51] [Render thread/INFO]: [System] [CHAT] [Server: 已將 Dev 傳送到 330.000000, -53.000000, 50.000000]
+[11:49:01] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:49:01] [Worker-Main-8/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:49:01] [Worker-Main-9/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:49:01] [Worker-Main-9/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:49:01] [Worker-Main-9/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:49:01] [Server thread/INFO]: Saving and pausing game...
+[11:49:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:49:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:49:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:49:01] [Worker-Main-12/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:49:01] [Worker-Main-13/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:49:01] [Worker-Main-13/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:49:02] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:49:02] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:49:03] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:49:03] [Render thread/INFO]: Sound engine started
+[11:49:03] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:49:03] [Render thread/INFO]: Radar icon manager reset!
+[11:49:03] [Render thread/INFO]: Reloading radar icon resources...
+[11:49:03] [Render thread/INFO]: Reloaded radar icon resources!
+[11:49:03] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:49:03] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:49:03] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:49:03] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:49:03] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:49:03] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:49:03] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:49:04] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:49:04] [Render thread/INFO]: Loaded 135 signs
+[11:49:04] [Render thread/INFO]: Loaded 3 rails
+[11:49:04] [Render thread/INFO]: Loaded 1 objects
+[11:49:04] [Render thread/INFO]: Loaded 1 lifts
+[11:49:04] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:49:06] [Server thread/INFO]: Devを330.000000, -53.000000, 50.000000にテレポートさせました
+[11:49:06] [Render thread/INFO]: [System] [CHAT] ［Server：Devを330.000000, -53.000000, 50.000000にテレポートさせました］
+[11:49:17] [Render thread/INFO]: Reloading ResourceManager: vanilla, fabric, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-renderer-registries-v1, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v0, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, journeymap, mtr, mtrmap, xaerolib, xaerominimap, xaeroworldmap
+[11:49:17] [Worker-Main-4/INFO]: Found unifont_all_no_pua-15.1.05.hex, loading
+[11:49:17] [Worker-Main-10/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:49:17] [Worker-Main-10/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:49:17] [Worker-Main-10/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:49:17] [Server thread/INFO]: Saving and pausing game...
+[11:49:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:49:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:49:17] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:49:17] [Worker-Main-10/INFO]: Found unifont_jp_patch-15.1.05.hex, loading
+[11:49:17] [Worker-Main-7/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:49:17] [Worker-Main-7/WARN]: minecraft:textures/atlas/blocks.png: dropping miplevel from 4 to 2, because of minimum power of two: 4
+[11:49:18] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:49:18] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:49:18] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:49:18] [Render thread/INFO]: Sound engine started
+[11:49:19] [Render thread/INFO]: Created: 4096x2048x2 minecraft:textures/atlas/blocks.png-atlas
+[11:49:19] [Render thread/INFO]: Radar icon manager reset!
+[11:49:19] [Render thread/INFO]: Reloading radar icon resources...
+[11:49:19] [Render thread/INFO]: Reloaded radar icon resources!
+[11:49:19] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 64x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[11:49:19] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:49:19] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:49:19] [Render thread/WARN]: Shader journeymap:sepia_3 could not find uniform named ColorModulator in the specified shader program.
+[11:49:19] [Render thread/WARN]: Shader journeymap:sepia_2 could not find uniform named ColorModulator in the specified shader program.
+[11:49:19] [Render thread/WARN]: Shader journeymap:sepia_1 could not find uniform named ColorModulator in the specified shader program.
+[11:49:19] [Render thread/ERROR]: [mtr:textures/block/transparent.png] Invalid model!
+[11:49:20] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:49:20] [Render thread/INFO]: Loaded 135 signs
+[11:49:20] [Render thread/INFO]: Loaded 3 rails
+[11:49:20] [Render thread/INFO]: Loaded 1 objects
+[11:49:20] [Render thread/INFO]: Loaded 1 lifts
+[11:49:20] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:49:22] [Render thread/INFO]: Stopping!
+[11:49:22] [Render thread/INFO]: Xaero hud session finalized.
+[11:49:22] [Render thread/INFO]: Finalizing world map session...
+[11:49:22] [Thread-4/INFO]: World map force-cleaned!
+[11:49:22] [Server thread/INFO]: Dev lost connection: Disconnected
+[11:49:22] [Server thread/INFO]: Dev left the game
+[11:49:22] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[11:49:22] [Render thread/INFO]: World map session finalized.
+[11:49:22] [Server thread/INFO]: Stopping server
+[11:49:22] [Server thread/INFO]: Saving players
+[11:49:22] [Server thread/INFO]: Saving worlds
+[11:49:22] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:overworld
+[11:49:22] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_nether
+[11:49:22] [Server thread/INFO]: Saving chunks for level 'ServerLevel[MTR Navigation Test]'/minecraft:the_end
+[11:49:22] [Server thread/INFO]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11:49:22] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11:49:22] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11:49:22] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved

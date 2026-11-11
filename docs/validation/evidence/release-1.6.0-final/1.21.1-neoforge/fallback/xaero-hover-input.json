@@ -1,0 +1,39 @@
+{
+  "car": {
+    "vehicleId": -4114333985002459073,
+    "index": 1,
+    "count": 2,
+    "leading": true,
+    "modelId": "m_train_small_cab_2",
+    "routeName": "QA Red",
+    "destination": "QA Transfer|\u6362\u4e58",
+    "color": 15223627,
+    "frontRight": {
+      "x": 210.4999999562886,
+      "y": -59.0,
+      "z": -0.5000004371138991
+    },
+    "backRight": {
+      "x": 190.49999995628863,
+      "y": -59.0,
+      "z": -0.49999956288609904
+    },
+    "backLeft": {
+      "x": 190.5000000437114,
+      "y": -59.0,
+      "z": 1.500000437113899
+    },
+    "frontLeft": {
+      "x": 210.50000004371137,
+      "y": -59.0,
+      "z": 1.499999562886099
+    },
+    "reversed": true
+  },
+  "nativeInput": {
+    "x": 51.625,
+    "y": 58.125
+  },
+  "scale": 1.25,
+  "trainDataSource": "nearby"
+}

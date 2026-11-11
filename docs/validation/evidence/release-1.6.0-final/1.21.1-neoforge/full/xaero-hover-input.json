@@ -1,0 +1,39 @@
+{
+  "car": {
+    "vehicleId": 2,
+    "index": 0,
+    "count": 2,
+    "leading": true,
+    "modelId": "m_train_small_cab_1",
+    "routeName": "QA Blue",
+    "destination": "QA Destination|\u7ec8\u70b9",
+    "color": 3770879,
+    "frontRight": {
+      "x": 320.5,
+      "y": -59.0,
+      "z": 19.5
+    },
+    "backRight": {
+      "x": 300.5,
+      "y": -59.0,
+      "z": 19.5
+    },
+    "backLeft": {
+      "x": 300.5,
+      "y": -59.0,
+      "z": 21.5
+    },
+    "frontLeft": {
+      "x": 320.5,
+      "y": -59.0,
+      "z": 21.5
+    },
+    "reversed": false
+  },
+  "nativeInput": {
+    "x": 184.25,
+    "y": 75.75
+  },
+  "scale": 1.5,
+  "trainDataSource": "server"
+}

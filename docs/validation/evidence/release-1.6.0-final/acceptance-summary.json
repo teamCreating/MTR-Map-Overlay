@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-11-11T12:11:04+08:00",
+  "candidateRun": 42953810741,
+  "manifestSha256": "647c58fe0b072a29ab8608a46ad737d9306fad4d6384c8d9c7ce7258e2091414",
+  "singleplayerTargets": 6,
+  "singleplayerCases": 48,
+  "dedicatedWorldRuns": 12,
+  "dedicatedMapCases": 24,
+  "reviewedFullServerTrainHovers": 12,
+  "readyForProtectedPublication": false,
+  "published": false,
+  "pendingScopeChoice": "Forge47.4.0 quick-play multiplayer also fails in the plain control; user asked all platforms to have no issues before release"
+}

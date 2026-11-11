@@ -1,0 +1,467 @@
+{
+  "connected": true,
+  "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.20.1-fabric/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-fabric.jar",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "zStepY": 0.5,
+    "zStepX": 0.0,
+    "xStepY": 0.0,
+    "xStepX": 0.5,
+    "originY": 80.0,
+    "originX": 96.0
+  },
+  "nativeButtons": [
+    {
+      "y": 4,
+      "x": 81,
+      "w": 20,
+      "h": 20,
+      "label": "Day",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 101,
+      "w": 20,
+      "h": 20,
+      "label": "Night",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 141,
+      "w": 20,
+      "h": 20,
+      "label": "Topography",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 121,
+      "w": 20,
+      "h": 20,
+      "label": "Biome",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 161,
+      "w": 20,
+      "h": 20,
+      "label": "Cave Layers",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 80,
+      "x": 4,
+      "w": 20,
+      "h": 20,
+      "label": "Open location finder",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 556,
+      "x": 834,
+      "w": 40,
+      "h": 16,
+      "label": "x:",
+      "visible": false,
+      "active": true
+    },
+    {
+      "y": 556,
+      "x": 556,
+      "w": 40,
+      "h": 16,
+      "label": "z:",
+      "visible": false,
+      "active": true
+    },
+    {
+      "y": 0,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Pan to location",
+      "visible": false,
+      "active": true
+    },
+    {
+      "y": 100,
+      "x": 4,
+      "w": 20,
+      "h": 20,
+      "label": "Follow",
+      "visible": true,
+      "active": false
+    },
+    {
+      "y": 120,
+      "x": 4,
+      "w": 20,
+      "h": 20,
+      "label": "Zoom In",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 140,
+      "x": 4,
+      "w": 20,
+      "h": 20,
+      "label": "Zoom Out",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 133,
+      "w": 20,
+      "h": 20,
+      "label": "Waypoints...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 153,
+      "w": 20,
+      "h": 20,
+      "label": "Options...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 24,
+      "x": 403,
+      "w": 20,
+      "h": 20,
+      "label": "Newer version available: 6.0.7",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 403,
+      "w": 20,
+      "h": 20,
+      "label": "Close",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 214,
+      "x": 6,
+      "w": 80,
+      "h": 20,
+      "label": "Purist",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 184,
+      "w": 20,
+      "h": 20,
+      "label": "Show Caves",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 204,
+      "w": 20,
+      "h": 20,
+      "label": "Show Mobs",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 224,
+      "w": 20,
+      "h": 20,
+      "label": "Show Animals",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 244,
+      "w": 20,
+      "h": 20,
+      "label": "Show Pets",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 264,
+      "w": 20,
+      "h": 20,
+      "label": "Show Villagers",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 284,
+      "w": 20,
+      "h": 20,
+      "label": "Show Players",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 304,
+      "w": 20,
+      "h": 20,
+      "label": "Show Grid",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 4,
+      "x": 324,
+      "w": 20,
+      "h": 20,
+      "label": "Show Keys",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 173,
+      "w": 20,
+      "h": 20,
+      "label": "About...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 0,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": " region display off",
+      "visible": false,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 233,
+      "w": 20,
+      "h": 20,
+      "label": "Save Map",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 0,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Use Browser",
+      "visible": false,
+      "active": false
+    },
+    {
+      "y": 216,
+      "x": 253,
+      "w": 20,
+      "h": 20,
+      "label": "Auto-Map...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 213,
+      "w": 20,
+      "h": 20,
+      "label": "Delete Map...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 273,
+      "w": 20,
+      "h": 20,
+      "label": "Disable Mapping",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 216,
+      "x": 193,
+      "w": 20,
+      "h": 20,
+      "label": "Color Palette...",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 100,
+      "x": 403,
+      "w": 20,
+      "h": 20,
+      "label": "TRACKS ON",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 120,
+      "x": 403,
+      "w": 20,
+      "h": 20,
+      "label": "ROUTES ON",
+      "visible": true,
+      "active": true
+    }
+  ],
+  "providers": [],
+  "nativeMapData": {
+    "landmarks": 2,
+    "routes": 1,
+    "tracks": 3,
+    "serverSynced": false
+  },
+  "trainDataSource": "nearby",
+  "renderedCars": [
+    {
+      "vehicleId": 385526019407665708,
+      "index": 0,
+      "count": 3,
+      "leading": false,
+      "modelId": "m_train_head_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 147.28957554753976,
+        "y": -59.0,
+        "z": 70.98399940333235
+      },
+      "backRight": {
+        "x": 164.99663585916593,
+        "y": -59.0,
+        "z": 80.28238717328648
+      },
+      "backLeft": {
+        "x": 166.39139402465906,
+        "y": -59.0,
+        "z": 77.62632812654255
+      },
+      "frontLeft": {
+        "x": 148.68433371303288,
+        "y": -59.0,
+        "z": 68.32794035658841
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 385526019407665708,
+      "index": 1,
+      "count": 3,
+      "leading": false,
+      "modelId": "m_train_end_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 166.66205597377237,
+        "y": -59.0,
+        "z": 80.74017492677923
+      },
+      "backRight": {
+        "x": 186.6003241261171,
+        "y": -59.0,
+        "z": 82.3103542430343
+      },
+      "backLeft": {
+        "x": 186.83585102355536,
+        "y": -59.0,
+        "z": 79.31961402018258
+      },
+      "frontLeft": {
+        "x": 166.89758287121063,
+        "y": -59.0,
+        "z": 77.74943470392752
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 385526019407665708,
+      "index": 2,
+      "count": 3,
+      "leading": true,
+      "modelId": "m_train_head_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 187.71838855636656,
+        "y": -59.0,
+        "z": 81.9999995628861
+      },
+      "backRight": {
+        "x": 207.71838855636653,
+        "y": -59.0,
+        "z": 82.0000004371139
+      },
+      "backLeft": {
+        "x": 207.7183886875007,
+        "y": -59.0,
+        "z": 79.0000004371139
+      },
+      "frontLeft": {
+        "x": 187.71838868750072,
+        "y": -59.0,
+        "z": 78.9999995628861
+      },
+      "reversed": true
+    }
+  ],
+  "targets": [
+    {
+      "x": 211.0,
+      "y": 120.0,
+      "station": "999cb066dc884403",
+      "marker": {
+        "id": "station:999CB066DC884403",
+        "type": "STATION",
+        "x": 230,
+        "y": -59,
+        "z": 80,
+        "name": "Bravo",
+        "symbol": "Bravo",
+        "description": "Local→Charlie, Local Return→Alpha, Express→Bravo",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": []
+}

@@ -1,0 +1,39 @@
+{
+  "target": "1.21.1-neoforge",
+  "mode": "fallback",
+  "candidateSha256": "367bcf516a2c8e4fc67b99c46d7e39937004e7cb855133725f54f72768612c91",
+  "passed": true,
+  "cases": [
+    {
+      "map": "xaero",
+      "serverCatalogAbsent": true,
+      "navigateDisabled": true,
+      "noInventedArrivals": true,
+      "nativeStationCount": 1,
+      "nativeMapData": {
+        "tracks": 5,
+        "routes": 2,
+        "landmarks": 4,
+        "serverSynced": false
+      },
+      "trainDataSource": "nearby",
+      "passed": true
+    },
+    {
+      "map": "journeymap",
+      "serverCatalogAbsent": true,
+      "navigateDisabled": true,
+      "noInventedArrivals": true,
+      "nativeStationCount": 1,
+      "nativeMapData": {
+        "tracks": 5,
+        "routes": 2,
+        "landmarks": 4,
+        "serverSynced": false
+      },
+      "trainDataSource": "nearby",
+      "passed": true
+    }
+  ],
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.21.1-neoforge/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar%23198!/"
+}

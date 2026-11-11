@@ -1,0 +1,793 @@
+{
+  "connected": true,
+  "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+  "screenRole": "OTHER",
+  "gameLoadFinished": true,
+  "overlayCodeSource": "jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.20.4-forge/full/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "originY": 80.0,
+    "originX": 96.0,
+    "zStepY": 0.5,
+    "zStepX": 0.0,
+    "xStepY": 0.0,
+    "xStepX": 0.5
+  },
+  "nativeButtons": [
+    {
+      "active": true,
+      "y": 4,
+      "x": 55,
+      "w": 24,
+      "h": 24,
+      "label": "Day",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 79,
+      "w": 24,
+      "h": 24,
+      "label": "Night",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 127,
+      "w": 24,
+      "h": 24,
+      "label": "Topography",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 103,
+      "w": 24,
+      "h": 24,
+      "label": "Biome",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 151,
+      "w": 24,
+      "h": 24,
+      "label": "Cave Layers",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 72,
+      "x": 4,
+      "w": 24,
+      "h": 24,
+      "label": "Open location finder",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 936,
+      "x": 702,
+      "w": 40,
+      "h": 16,
+      "label": "x:",
+      "visible": false
+    },
+    {
+      "active": true,
+      "y": 936,
+      "x": 468,
+      "w": 40,
+      "h": 16,
+      "label": "z:",
+      "visible": false
+    },
+    {
+      "active": true,
+      "y": 0,
+      "x": 0,
+      "w": 24,
+      "h": 24,
+      "label": "Pan to location",
+      "visible": false
+    },
+    {
+      "active": false,
+      "y": 96,
+      "x": 4,
+      "w": 24,
+      "h": 24,
+      "label": "Follow",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 120,
+      "x": 4,
+      "w": 24,
+      "h": 24,
+      "label": "Zoom In",
+      "visible": true
+    },
+    {
+      "active": false,
+      "y": 144,
+      "x": 4,
+      "w": 24,
+      "h": 24,
+      "label": "Zoom Out",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 105,
+      "w": 24,
+      "h": 24,
+      "label": "Waypoints...",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 177,
+      "w": 24,
+      "h": 24,
+      "label": "UI Theme",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 129,
+      "w": 24,
+      "h": 24,
+      "label": "Options...",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 28,
+      "x": 399,
+      "w": 24,
+      "h": 24,
+      "label": "Newer version available: 5.10.0",
+      "visible": false
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 399,
+      "w": 24,
+      "h": 24,
+      "label": "Close",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 178,
+      "w": 24,
+      "h": 24,
+      "label": "Show Caves",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 202,
+      "w": 24,
+      "h": 24,
+      "label": "Show Mobs",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 226,
+      "w": 24,
+      "h": 24,
+      "label": "Show Animals",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 250,
+      "w": 24,
+      "h": 24,
+      "label": "Show Pets",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 274,
+      "w": 24,
+      "h": 24,
+      "label": "Show Villagers",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 298,
+      "w": 24,
+      "h": 24,
+      "label": "Show Players",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 322,
+      "w": 24,
+      "h": 24,
+      "label": "Show Grid",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 4,
+      "x": 346,
+      "w": 24,
+      "h": 24,
+      "label": "Show Keys",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 153,
+      "w": 24,
+      "h": 24,
+      "label": "About...",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 0,
+      "x": 0,
+      "w": 24,
+      "h": 24,
+      "label": " region display off",
+      "visible": false
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 249,
+      "w": 24,
+      "h": 24,
+      "label": "Save Map",
+      "visible": true
+    },
+    {
+      "active": false,
+      "y": 0,
+      "x": 0,
+      "w": 24,
+      "h": 24,
+      "label": "Use Browser",
+      "visible": false
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 273,
+      "w": 24,
+      "h": 24,
+      "label": "Auto-Map...",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 225,
+      "w": 24,
+      "h": 24,
+      "label": "Delete Map...",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 297,
+      "w": 24,
+      "h": 24,
+      "label": "Disable Mapping",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 212,
+      "x": 201,
+      "w": 24,
+      "h": 24,
+      "label": "Reset Color Palette",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 96,
+      "x": 399,
+      "w": 24,
+      "h": 24,
+      "label": "TRACKS",
+      "visible": true
+    },
+    {
+      "active": true,
+      "y": 120,
+      "x": 399,
+      "w": 24,
+      "h": 24,
+      "label": "ROUTES",
+      "visible": true
+    }
+  ],
+  "providers": [],
+  "nativeMapData": {
+    "serverSynced": true,
+    "landmarks": 7,
+    "routes": 3,
+    "tracks": 6
+  },
+  "trainDataSource": "server",
+  "renderedCars": [
+    {
+      "vehicleId": 1,
+      "index": 0,
+      "count": 3,
+      "leading": true,
+      "modelId": "m_train_head_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 35.00434989375618,
+        "y": -59.0,
+        "z": 2.0
+      },
+      "backRight": {
+        "x": 55.00434989375618,
+        "y": -59.0,
+        "z": 2.0
+      },
+      "backLeft": {
+        "x": 55.00434989375618,
+        "y": -59.0,
+        "z": -1.0
+      },
+      "frontLeft": {
+        "x": 35.00434989375618,
+        "y": -59.0,
+        "z": -1.0
+      },
+      "reversed": false
+    }
+  ],
+  "catalog": {
+    "world": {
+      "serverEpoch": "14b8e1cf-8762-415e-beb4-5c86d21e7b6d",
+      "dimensionId": "minecraft:overworld"
+    },
+    "revision": 7836720860551357141,
+    "baseStaticRevision": -3667211629416908043,
+    "status": "READY",
+    "stations": [
+      {
+        "id": "999cb066dc884403",
+        "name": "Bravo",
+        "position": {
+          "x": 230.0,
+          "y": -59.0,
+          "z": 80.0
+        },
+        "platformIds": [
+          "c4417b03ff09c07d"
+        ]
+      },
+      {
+        "id": "22894794953dd26b",
+        "name": "Alpha",
+        "position": {
+          "x": 40.0,
+          "y": -59.0,
+          "z": 0.0
+        },
+        "platformIds": [
+          "320d997af9d4bcb4"
+        ]
+      },
+      {
+        "id": "64d60a83ef26f46b",
+        "name": "Charlie",
+        "position": {
+          "x": 430.0,
+          "y": -59.0,
+          "z": 0.0
+        },
+        "platformIds": [
+          "bccc542a5dd2f539"
+        ]
+      }
+    ],
+    "platforms": [
+      {
+        "id": "c4417b03ff09c07d",
+        "stationId": "999cb066dc884403",
+        "name": "Bravo Platform",
+        "position": {
+          "x": 230.0,
+          "y": -59.0,
+          "z": 80.0
+        }
+      },
+      {
+        "id": "320d997af9d4bcb4",
+        "stationId": "22894794953dd26b",
+        "name": "Alpha Platform",
+        "position": {
+          "x": 40.0,
+          "y": -59.0,
+          "z": 0.0
+        }
+      },
+      {
+        "id": "bccc542a5dd2f539",
+        "stationId": "64d60a83ef26f46b",
+        "name": "Charlie Platform",
+        "position": {
+          "x": 430.0,
+          "y": -59.0,
+          "z": 0.0
+        }
+      }
+    ],
+    "routes": [
+      {
+        "id": "f546ccfde83c590c",
+        "name": "Local Return",
+        "number": "",
+        "color": 28440,
+        "type": "LIGHT_RAIL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "bccc542a5dd2f539",
+            "stationId": "64d60a83ef26f46b",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "c4417b03ff09c07d",
+            "stationId": "999cb066dc884403",
+            "destination": ""
+          },
+          {
+            "ordinal": 2,
+            "platformId": "320d997af9d4bcb4",
+            "stationId": "22894794953dd26b",
+            "destination": ""
+          }
+        ],
+        "paths": []
+      },
+      {
+        "id": "79e9c5f026b56e65",
+        "name": "Express",
+        "number": "",
+        "color": 15073280,
+        "type": "HIGH_SPEED",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "320d997af9d4bcb4",
+            "stationId": "22894794953dd26b",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "c4417b03ff09c07d",
+            "stationId": "999cb066dc884403",
+            "destination": ""
+          }
+        ],
+        "paths": []
+      },
+      {
+        "id": "b1c7a71d2bd84c73",
+        "name": "Local",
+        "number": "",
+        "color": 28440,
+        "type": "LIGHT_RAIL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "320d997af9d4bcb4",
+            "stationId": "22894794953dd26b",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "c4417b03ff09c07d",
+            "stationId": "999cb066dc884403",
+            "destination": ""
+          },
+          {
+            "ordinal": 2,
+            "platformId": "bccc542a5dd2f539",
+            "stationId": "64d60a83ef26f46b",
+            "destination": ""
+          }
+        ],
+        "paths": [
+          {
+            "id": "848e31b18efaa464:1",
+            "legs": [
+              {
+                "fromStop": 0,
+                "toStop": 1,
+                "rails": [
+                  {
+                    "railId": "0000000000000000-FFFFFFFFFFFFFFC5-0000000000000000-0000000000000050-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.5,
+                    "to": 0.0
+                  },
+                  {
+                    "railId": "0000000000000000-FFFFFFFFFFFFFFC5-0000000000000000-0000000000000050-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "0000000000000050-FFFFFFFFFFFFFFC5-0000000000000000-00000000000000B4-FFFFFFFFFFFFFFC5-0000000000000050",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "00000000000000B4-FFFFFFFFFFFFFFC5-0000000000000050-0000000000000118-FFFFFFFFFFFFFFC5-0000000000000050",
+                    "from": 0.0,
+                    "to": 0.5
+                  }
+                ]
+              },
+              {
+                "fromStop": 1,
+                "toStop": 2,
+                "rails": [
+                  {
+                    "railId": "00000000000000B4-FFFFFFFFFFFFFFC5-0000000000000050-0000000000000118-FFFFFFFFFFFFFFC5-0000000000000050",
+                    "from": 0.5,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "0000000000000118-FFFFFFFFFFFFFFC5-0000000000000050-000000000000017C-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "000000000000017C-FFFFFFFFFFFFFFC5-0000000000000000-00000000000001E0-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 0.5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "available": {
+    "999cb066dc884403": [],
+    "22894794953dd26b": [],
+    "64d60a83ef26f46b": []
+  },
+  "unknownStationAvailable": 0,
+  "selected": "999cb066dc884403",
+  "targets": [
+    {
+      "x": 211.0,
+      "y": 120.0,
+      "station": "999cb066dc884403",
+      "marker": {
+        "id": "platform:C4417B03FF09C07D",
+        "type": "PLATFORM",
+        "x": 230,
+        "y": -59,
+        "z": 80,
+        "name": "Bravo",
+        "symbol": "Bravo Platform",
+        "description": "Local Return→Alpha, Express→Bravo, Local→Charlie",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 211.0,
+      "y": 120.0,
+      "station": "999cb066dc884403",
+      "marker": {
+        "id": "station:999CB066DC884403",
+        "type": "STATION",
+        "x": 230,
+        "y": -59,
+        "z": 80,
+        "name": "Bravo",
+        "symbol": "Bravo",
+        "description": "Local Return→Alpha, Express→Bravo, Local→Charlie",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 116.0,
+      "y": 80.0,
+      "station": "22894794953dd26b",
+      "marker": {
+        "id": "platform:320D997AF9D4BCB4",
+        "type": "PLATFORM",
+        "x": 40,
+        "y": -59,
+        "z": 0,
+        "name": "Alpha",
+        "symbol": "Alpha Platform",
+        "description": "Local Return→Alpha, Express→Bravo, Local→Charlie",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 116.0,
+      "y": 80.0,
+      "station": "22894794953dd26b",
+      "marker": {
+        "id": "station:22894794953DD26B",
+        "type": "STATION",
+        "x": 40,
+        "y": -59,
+        "z": 0,
+        "name": "Alpha",
+        "symbol": "Alpha",
+        "description": "Local Return→Alpha, Express→Bravo, Local→Charlie",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 311.0,
+      "y": 80.0,
+      "station": "64d60a83ef26f46b",
+      "marker": {
+        "id": "platform:BCCC542A5DD2F539",
+        "type": "PLATFORM",
+        "x": 430,
+        "y": -59,
+        "z": 0,
+        "name": "Charlie",
+        "symbol": "Charlie Platform",
+        "description": "Local Return→Alpha, Local→Charlie",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 311.0,
+      "y": 80.0,
+      "station": "64d60a83ef26f46b",
+      "marker": {
+        "id": "station:64D60A83EF26F46B",
+        "type": "STATION",
+        "x": 430,
+        "y": -59,
+        "z": 0,
+        "name": "Charlie",
+        "symbol": "Charlie",
+        "description": "Local Return→Alpha, Local→Charlie",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "x": 377,
+      "y": 50,
+      "w": 14,
+      "h": 14,
+      "enabled": true,
+      "label": "×"
+    },
+    {
+      "x": 61,
+      "y": 190,
+      "w": 162,
+      "h": 18,
+      "enabled": true,
+      "label": "▾ Collapse"
+    },
+    {
+      "x": 225,
+      "y": 190,
+      "w": 164,
+      "h": 18,
+      "enabled": false,
+      "label": "▸ Navigate"
+    }
+  ],
+  "serverEvents": [],
+  "board": {
+    "world": {
+      "serverEpoch": "14b8e1cf-8762-415e-beb4-5c86d21e7b6d",
+      "dimensionId": "minecraft:overworld"
+    },
+    "stationId": "999cb066dc884403",
+    "generation": 5,
+    "status": "LIMITED",
+    "sampledAt": 1794369215761,
+    "serverNow": 1794369215761,
+    "services": [
+      {
+        "routeId": "79e9c5f026b56e65",
+        "platformId": "c4417b03ff09c07d",
+        "routeName": "Express",
+        "color": 15073280,
+        "platformName": "Bravo Platform"
+      },
+      {
+        "routeId": "f546ccfde83c590c",
+        "platformId": "c4417b03ff09c07d",
+        "routeName": "Local Return",
+        "color": 28440,
+        "platformName": "Bravo Platform"
+      },
+      {
+        "routeId": "b1c7a71d2bd84c73",
+        "platformId": "c4417b03ff09c07d",
+        "routeName": "Local",
+        "color": 28440,
+        "platformName": "Bravo Platform"
+      }
+    ],
+    "arrivals": [
+      {
+        "routeId": "b1c7a71d2bd84c73",
+        "routeName": "Local",
+        "color": 28440,
+        "platformId": "c4417b03ff09c07d",
+        "platformName": "Bravo Platform",
+        "destination": "Charlie",
+        "arrivalAt": 1794370220767,
+        "departureAt": 1794370230767,
+        "deviation": -174103,
+        "realtime": true,
+        "terminating": false
+      },
+      {
+        "routeId": "f546ccfde83c590c",
+        "routeName": "Local Return",
+        "color": 28440,
+        "platformId": "c4417b03ff09c07d",
+        "platformName": "Bravo Platform",
+        "destination": "Alpha",
+        "arrivalAt": 1794371596126,
+        "departureAt": 1794371606126,
+        "deviation": -174103,
+        "realtime": true,
+        "terminating": false
+      }
+    ]
+  }
+}

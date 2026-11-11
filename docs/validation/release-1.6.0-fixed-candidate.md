@@ -6,7 +6,7 @@ Tester: Codex, 2026-11-11T11:10:36+08:00 (UTC+08:00). Candidate42946243079 is he
 
 [Candidate 42946243079, attempt 1](https://github.com/teamCreating/MTR-Map-Overlay/actions/runs/42946243079) passed six builds/tests/package checks. Main: `ce337357356f8f02b164994f63b47e2bc3e5107d`; compat: `11d8e9e5697effbe3477be84893ede5f4371c6f4`. [Manifest](evidence/release-1.6.0-fixed-candidate/release-manifest.json) SHA-256: `b508207feef70203f38033d4eb402fdb4b643f712443ad739b5dc46ed6bfa033`. [JAR checksums](evidence/release-1.6.0-fixed-candidate/SHA256SUMS).
 
-This supersedes the unrepaired [historical candidate](release-1.6.0.md). The Forge1.20.4 patch class and refmap match the independently [verified repair](forge1204-startup-fix.md), which passed 48 native UI cases and four diagnostic guards on Forge49.2.0/49.2.13.
+This supersedes the unrepaired [historical candidate](release-1.6.0-initial-candidate.md). The Forge1.20.4 patch class and refmap match the independently [verified repair](forge1204-startup-fix.md), which passed 48 native UI cases and four diagnostic guards on Forge49.2.0/49.2.13.
 
 ## Exact-candidate runtime matrix
 
