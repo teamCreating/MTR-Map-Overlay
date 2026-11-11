@@ -359,3 +359,7 @@ Retain the actual mismatched-channel screen, inventories and native logs. Update
 ### 2026-11-11T11:28:19+08:00 — Verify optional-channel correction on a native MTR-only server
 
 The corrected Forge1.20.1 production build passes both native maps against the same original MTR-only server through the native multiplayer list. Local rail/route/station/car caches are nonempty; remote Overlay catalog/arrivals are absent and Navigate is correctly disabled. Preserve the real mismatch and passing logs side by side. Existing suite: 110 pass/one explicit generator skip. Seal a new candidate before release; see docs/validation/forge1201-optional-channel-fix.md.
+
+### 2026-11-11T11:36:44+08:00 — Seal both corrections and retain a plain Forge47 control
+
+PR19/20 merged after successful gates; a Maven Central429 transient was retried without changing dependencies or weakening checks. Candidate42953810741 now builds all six targets. The Forge1.20.1 optional-channel fix passed full-sync and MTR-only fallback on both maps. A plain four-mod client without Overlay/QA independently reproduces quick-play handshake timeout; native multiplayer-list entry is the valid completed path. Keep that observation explicit and test the new candidate through normal menus on Forge47.4.0.
