@@ -424,3 +424,9 @@ The user stopped further diagnosis and explicitly requested immediate publicatio
 ### 2026-11-11T13:40:41+08:00 — Verify the published 1.6.0 release
 
 Protected Publish42967128625 completed successfully. Download all ten public assets again; compare bytes/SHA-256 with unchanged Candidate42953810741 and GitHub digests. Verify formal/Latest status and exact main/compat tag SHAs. All checks pass. Public notes retain the Forge47 quick-play limitation; experimental patch branches remain unmerged and excluded. Update acceptance/state/task records with the exact publication identity.
+
+### 2026-11-11T16:47:01+08:00 — Restore provider ownership of Navigate integration
+
+The user clarified that Overlay should improve the generic Navigate API so external mods can adapt to it. Remove the built-in HowToGo reflection bridge and automatic registration, together with its dedicated tests and mandatory build-time download. Preserve the generic provider predicate overload, chooser, stale-provider handling and disabled-state behavior. Keep original QA observations as historical evidence. Published 1.6.0 binaries/tags are unchanged; they still contain the earlier adapter, so document this boundary explicitly instead of rewriting release history.
+
+Validation 2026-11-11T16:48:32+08:00: Gradle test successful: {'tests': 105, 'failures': 0, 'errors': 0, 'skipped': 1}. Production Java has no HowToGo discovery, bridge or registration. Generic Navigate implementation and API signatures are preserved. Public release scope correction was read back; all ten asset IDs and digests remain unchanged.

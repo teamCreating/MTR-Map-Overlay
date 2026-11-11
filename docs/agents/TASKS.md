@@ -6,6 +6,10 @@
 
 ## 进行中
 
+### [完成] Provider-owned navigation boundary
+- Codex, 2026-11-11T16:47:01+08:00: User clarified Overlay provides the generic Navigate API; external mods own adapters. Remove production HowToGo discovery/registration, preserve generic availability and chooser, and document the already published binary boundary.
+
+
 ### [完成] Release 1.6.0 six-platform acceptance and publication
 - 2026-11-11T13:40:41+08:00, Codex: Published [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) as formal Latest under the user’s immediate-publication instruction. Protected Publish42967128625 succeeded; all ten public assets were downloaded and exactly match Candidate42953810741 and remote digests; both tags match sealed source SHAs. Forge47 quick-play limitation is disclosed; experimental EventLoop changes are excluded. No further game investigation.
 - 2026-11-11T13:38:47+08:00, Codex: User explicitly instructed immediate publication and stopped further investigation, superseding the previous Forge47 quick-play repair prerequisite. Publish unchanged sealed Candidate42953810741 through the protected workflow; disclose the native Forge47.4.0 quick-play timeout and working multiplayer-list path. Experimental EventLoop fix remains unmerged and excluded.
