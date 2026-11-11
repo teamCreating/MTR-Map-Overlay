@@ -396,3 +396,8 @@ Add an opt-in JDK JDI CLI observer for NetworkHooks registration/payload dispatc
 
 The initial JDI method-exit request made SecureJar package scanning run too slowly to reach the handshake before the diagnostic timeout. Exclude that attempt from product evidence and remove method-exit tracking; retain only targeted breakpoints and caught Forge-network exceptions. Its controller timed out before a game window appeared and lost its stdin pipe. Add an explicit fixture-directory-checked attach helper that calls Forge's public current-server/native halt API, allowing normal save/shutdown instead of forcing process termination. Compile the helper for Java17; it does not redefine classes or patch dependencies. The native handshake observer itself remains read-only.
 
+
+### 2026-11-11T12:33:54+08:00 — Observe the actual inbound login packet listener
+
+The bounded read-only probe reproduces the timeout and sees client login-channel registration, but no Forge payload-dispatch entry or network exception. Extend observation to the native Connection read/protocol boundary and custom-query listener, and dump only that listener's actual VM bytecode/constant pool for comparison. This distinguishes a transport/protocol stall from a transformed listener bypass without rewriting classes or invoking target methods. The first clean diagnostic exits client/server/probe normally; no diagnosis is yet claimed from missing callbacks alone.
+

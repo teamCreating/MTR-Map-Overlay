@@ -3,6 +3,8 @@ import com.sun.jdi.connect.AttachingConnector;
 import com.sun.jdi.event.*;
 import com.sun.jdi.request.*;
 import java.time.OffsetDateTime;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 /** Read-only JDI observation of Forge login; never invokes target methods or writes target fields. */
@@ -10,9 +12,12 @@ public final class ForgeHandshakeProbe {
     private static final Set<String> WATCHED = Set.of(
             "net.minecraftforge.network.NetworkInstance",
             "net.minecraftforge.network.NetworkHooks",
-            "net.minecraftforge.network.HandshakeHandler");
+            "net.minecraftforge.network.HandshakeHandler",
+            "net.minecraft.network.Connection",
+            "net.minecraft.client.multiplayer.ClientHandshakePacketListenerImpl");
     private static final Set<String> BREAKS = Set.of(
-            "registerClientLoginChannel", "onCustomPayload", "dispatch", "handleError");
+            "registerClientLoginChannel", "onCustomPayload", "dispatch", "handleError",
+            "channelRead0", "setProtocol", "m_129498_");
 
     public static void main(String[] args) throws Exception {
         if (args.length != 2) throw new IllegalArgumentException("Usage: ForgeHandshakeProbe <loopback-port> <seconds>");
@@ -67,16 +72,27 @@ public final class ForgeHandshakeProbe {
         }
     }
 
-    private static void watch(VirtualMachine vm, ReferenceType type) {
+    private static void watch(VirtualMachine vm, ReferenceType type) throws Exception {
         if (!WATCHED.contains(type.name())) return;
         for (Method method : type.methods()) {
-            if (BREAKS.contains(method.name()) && !method.isAbstract() && !method.isNative()) {
+            boolean query = type.name().endsWith("ClientHandshakePacketListenerImpl")
+                    && method.argumentTypeNames().equals(List.of("net.minecraft.network.protocol.login.ClientboundCustomQueryPacket"));
+            if ((BREAKS.contains(method.name()) || query) && !method.isAbstract() && !method.isNative()) {
                 var breakpoint = vm.eventRequestManager().createBreakpointRequest(method.location());
                 breakpoint.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
                 breakpoint.enable();
+                if (query) {
+                    Path directory = Path.of(System.getProperty("forge.probe.output", "build/handshake-probe-runtime"));
+                    Files.createDirectories(directory);
+                    String name = type.name() + "-" + type.classObject().uniqueID();
+                    Files.write(directory.resolve(name + ".bytecode"), method.bytecodes());
+                    if (vm.canGetConstantPool()) Files.write(directory.resolve(name + ".constant-pool"), type.constantPool());
+                    Files.writeString(directory.resolve(name + ".txt"), method.name() + method.signature()
+                            + "\nmodule=" + type.module().name() + "\nconstantPoolCount=" + type.constantPoolCount());
+                }
             }
         }
-        emit("WATCHING " + type.name());
+        emit("WATCHING " + type.name() + " loader=" + (type.classLoader() == null ? "bootstrap" : type.classLoader().uniqueID()));
     }
 
     private static void observe(BreakpointEvent event) throws Exception {
@@ -94,6 +110,18 @@ public final class ForgeHandshakeProbe {
             }
         }
         var arguments = frame.getArgumentValues();
+        for (Value argument : arguments) {
+            if (argument instanceof ObjectReference object && object.referenceType().name().endsWith("CustomQueryPacket")) {
+                for (Field f : object.referenceType().allFields()) {
+                    if (!f.isStatic() && !f.typeName().contains("ByteBuf")) emit("QUERY " + f.name() + "=" + describe(object.getValue(f)));
+                }
+            }
+        }
+        if (self != null && self.referenceType().name().equals("net.minecraft.network.Connection")) {
+            for (Field f : self.referenceType().allFields()) {
+                if (!f.isStatic() && f.typeName().equals("net.minecraft.network.PacketListener")) emit("PACKET_LISTENER " + describe(self.getValue(f)));
+            }
+        }
         if (method.equals("handleError")) {
             emit("DISPATCH_ERROR " + describe(arguments.get(arguments.size() - 1)));
             stack(event.thread());
