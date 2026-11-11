@@ -427,3 +427,15 @@ Clean the Java compilation and test outputs before rerunning the existing suite.
 ### 2026-11-11T17:03:13+08:00 — Replace 1.6.0 on explicit user request
 
 Build the already merged generic Navigate correction for six targets; external mods own adapters. Rewrite public notes using 1.5.3 structure: bilingual Added/Optimized sections, MC/MTR compatibility and two final diff links. Preserve original publication metadata and downloaded assets locally before replacement. The user explicitly authorized replacing this version; recreate its release/tags on new sealed sources rather than force-pushing or silently retaining obsolete source tags. Use protected Publish and verify all ten replacement downloads. The old 72-case runtime record is historical, not a new binary runtime claim.
+
+### 2026-11-11T17:11:24+08:00 — Verify replacement 1.6.0 public assets and notes
+
+Candidate42991712783 passed all six builds/tests. Download all ten replacement release assets again and verify bytes/digests, Latest/formal state and both new source tags. Public body exactly matches the committed 1.5.3-style notes. Six-JAR audit confirms only adapter initialization removal and two dedicated class deletions; no new full runtime-matrix claim. Record the original draft association failure and successful fresh-draft protected attempt3. Update API documentation and mark original acceptance report historical.
+
+### 2026-11-11T17:23:32+08:00 — Resolve pending release PR integration
+
+Claim PR27/28 conflict resolution and CI validation. Merge the current base without rewriting history; preserve replacement acceptance and sealed manifest bytes. Compare older PR21/22 against the merged branches before closing duplicate evidence PRs. Release assets, tags and production code do not change.
+
+### 2026-11-11T17:27:00+08:00 — Verify release PR conflict resolution
+
+Preserve the newer PR records, including all base history. Compare each file present in old PR21/22, excluding newly added replacement evidence from the equality test; all original evidence/diagnostic blobs match. The initial verifier incorrectly treated new evidence as a mismatch and the PowerShell command chain continued; immediately repair the compatibility bookkeeping markers and require checked subprocess execution before further commits. Verify no conflict markers remain. Production files, release assets and tags are unchanged. CI gates and normal PR merges follow.
