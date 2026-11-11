@@ -362,3 +362,7 @@ The MTR-only fixture legitimately supplies only one nearby station, so inferring
 ### 2026-11-11T11:10:36+08:00 — Record repaired candidate singleplayer acceptance
 
 Candidate42946243079 passed six production targets, 48 native cases. Record exact manifest/JAR identity, fixture evidence and unsuccessful QA attempts separately. Dedicated sync/fallback remains pending, so release is still held. Production JARs have not changed. See docs/validation/release-1.6.0-fixed-candidate.md.
+
+### 2026-11-11T11:25:43+08:00 — Hold the candidate for the Forge1.20.1 fallback defect
+
+Retain the actual mismatched-channel screen, inventories and native logs. Update both-language release notes to include the native optional-channel correction. Existing singleplayer passes remain historical; Candidate42946243079 cannot be published. The repaired Forge1.20.4 full/fallback dedicated results pass, but the next release must seal and validate the additional Forge1.20.1 fix.
