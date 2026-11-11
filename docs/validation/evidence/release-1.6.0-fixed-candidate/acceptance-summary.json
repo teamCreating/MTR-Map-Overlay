@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-11-11T11:10:36+08:00",
+  "candidateRun": 42946243079,
+  "manifestSha256": "b508207feef70203f38033d4eb402fdb4b643f712443ad739b5dc46ed6bfa033",
+  "singleplayerTargets": 6,
+  "singleplayerCases": 48,
+  "dedicatedAcceptance": "pending",
+  "published": false
+}

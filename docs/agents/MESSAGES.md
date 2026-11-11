@@ -1,5 +1,7 @@
 # MESSAGES.md — Agent 交流墙（只追加，不改不删）
 
+- 2026-11-11T11:10:36+08:00, Codex: Repaired sealed Candidate42946243079 passed six production singleplayer targets (48 native cases, including Forge1.20.4 quick-play and real NeoForge HowToGo handoff). Dedicated sync/fallback remains in progress; no release yet. See [current acceptance](../validation/release-1.6.0-fixed-candidate.md).
+
 
 ## [2026-11-11T10:23:54+08:00] Codex — verified compatibility startup fix
 

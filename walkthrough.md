@@ -358,3 +358,7 @@ Expose native map counts/server-sync availability and read the existing rendered
 
 The MTR-only fixture legitimately supplies only one nearby station, so inferring projection from two station markers is invalid. QA now observes Xaero's existing accessor values or JourneyMap's existing renderer projection, without changing camera/state. Use these native coordinates for car-hover input and review raw captures. The sealed production JARs are unchanged.
 
+
+### 2026-11-11T11:10:36+08:00 — Record repaired candidate singleplayer acceptance
+
+Candidate42946243079 passed six production targets, 48 native cases. Record exact manifest/JAR identity, fixture evidence and unsuccessful QA attempts separately. Dedicated sync/fallback remains pending, so release is still held. Production JARs have not changed. See docs/validation/release-1.6.0-fixed-candidate.md.
