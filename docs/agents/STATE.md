@@ -1,5 +1,7 @@
 # STATE.md — MC 1.20 兼容分支权威状态
 
+- 2026-11-11T17:03:13+08:00, Codex: User explicitly authorized replacing v1.6.0. Candidate42991712783 builds merged provider-boundary fixes (main af08a84 / compat3adc8ce). No experimental Forge47 patch. Release notes follow 1.5.3 bilingual Added/Optimized structure and two comparison links, with generic Navigate scope. Archive old release identity before replacing old release/tags; no force push.
+
 - 2026-11-11T16:48:02+08:00, Codex: User clarified provider-owned Navigate adapters. Development source removes built-in HowToGo registration/discovery while preserving the generic API and disabled-state behavior. Published v1.6.0 assets remain unchanged and contain the earlier adapter.
 
 - 2026-11-11T13:40:41+08:00, Codex: Published [v1.6.0](https://github.com/teamCreating/MTR-Map-Overlay/releases/tag/v1.6.0) as formal Latest under the user’s immediate-publication instruction. Protected Publish42967128625 succeeded; all ten public assets were downloaded and exactly match Candidate42953810741 and remote digests; both tags match sealed source SHAs. Forge47 quick-play limitation is disclosed; experimental EventLoop changes are excluded. No further game investigation.
