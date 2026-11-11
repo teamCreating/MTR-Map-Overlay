@@ -1,0 +1,510 @@
+[11:40:31] [main/INFO]: ModLauncher running: args [--launchTarget, forge_client, --username, Dev, --version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --assetIndex, 12, --uuid, 380df991f603344ca090369bad2a924a, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[11:40:31] [main/INFO]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 17.0.19+10
+[11:40:31] [main/INFO]: ModLauncher 10.1.2 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[11:40:31] [main/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\config\fml.toml is not correct. Correcting
+[11:40:31] [main/INFO]: Incorrect key [earlyWindowSkipGLVersions] was corrected from null to []
+[11:40:31] [main/INFO]: Incorrect key [earlyWindowLogHelpMessage] was corrected from null to true
+[11:40:31] [main/INFO]: Incorrect key [earlyWindowSquir] was corrected from null to false
+[11:40:31] [main/INFO]: Incorrect key [detectNonForgeModsToml] was corrected from null to true
+[11:40:31] [main/INFO]: Incorrect key [earlyWindowShowCPU] was corrected from null to false
+[11:40:31] [main/INFO]: Loading ImmediateWindowProvider fmlearlywindow
+[11:40:31] [main/INFO]: Trying GL version 4.6
+[11:40:31] [main/INFO]: If this message is the only thing at the bottom of your log before a crash, you probably have a driver issue.
+
+Possible solutions:
+A) Make sure Minecraft is set to prefer high performance graphics in the OS and/or driver control panel
+B) Check for driver updates on the graphics brand's website
+C) Try reinstalling your graphics drivers
+D) If still not working after trying all of the above, ask for further help on the Forge forums or Discord
+
+You can safely ignore this message if the game starts up successfully.
+[11:40:31] [main/INFO]: Requested GL version 4.6 got version 4.6
+[11:40:31] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/org/spongepowered/mixin/0.8.5/mixin-0.8.5.jar!/ Service=ModLauncher Env=CLIENT
+[11:40:31] [EarlyDisplay/INFO]: GL info: Intel(R) Arc(TM) 130T GPU (16GB) GL version 4.6.0 - Build 32.0.101.8826, Intel
+[11:40:31] [main/INFO]: Found mod file CRTools-MTR-Map-Overlay-1.6.0-MC1.20.4-MTR4.0.5-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file journeymap-1.20.4-5.10.0-forge.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file minecraft-transit-railway-FORGE-4.0.5+1.20.4.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file mtrmap-acceptance-qa-forge-1.6.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file xaeros-minimap-forge-1.20.4-26.4.2.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file xaeros-world-map-forge-1.20.4-1.45.0.jar of type MOD with provider {mods folder locator at C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\mods}
+[11:40:31] [main/INFO]: Found mod file forge-1.20.4-49.2.0-client.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.MinecraftLocator@3af9aa66
+[11:40:32] [main/INFO]: Found mod file lowcodelanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[11:40:32] [main/INFO]: Found mod file mclanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[11:40:32] [main/INFO]: Found mod file fmlcore-1.20.4-49.2.0.jar of type LIBRARY with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[11:40:32] [main/INFO]: Found mod file forge-1.20.4-49.2.0-universal.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[11:40:32] [main/INFO]: Found mod file javafmllanguage-1.20.4-49.2.0.jar of type LANGPROVIDER with provider net.minecraftforge.fml.loading.moddiscovery.ClasspathLocator@7c28c1
+[11:40:32] [main/INFO]: Found 1 dependencies adding them to mods collection
+[11:40:32] [main/INFO]: Found mod file xaerolib-forge-1.20.4-1.7.1.jar of type MOD with provider net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator@522ba524
+[11:40:32] [main/INFO]: Compatibility level set to JAVA_17
+[11:40:32] [main/INFO]: Launching target 'forge_client' with arguments [--version, forge-1.20.4-49.2.0, --gameDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge, --assetsDir, C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets, --uuid, 380df991f603344ca090369bad2a924a, --username, Dev, --assetIndex, 12, --accessToken, **********, --clientId, , --xuid, , --userType, , --versionType, release, --width, 854, --height, 480, --quickPlaySingleplayer, Overlay160Test]
+[11:40:33] [main/INFO]: [MTRMap] Xaero's World Map detected - map path layer mixins will be applied
+[11:40:33] [main/WARN]: Configuration conflict: there is more than one oshi.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.properties]
+[11:40:33] [main/WARN]: Configuration conflict: there is more than one oshi.architecture.properties file on the classpath: [jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:///C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties, jar:file:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/release-launcher/libraries/com/github/oshi/oshi-core/6.4.5/oshi-core-6.4.5.jar!/oshi.architecture.properties]
+[11:40:36] [Datafixer Bootstrap/INFO]: 198 Datafixer optimizations took 139 milliseconds
+[11:40:37] [main/WARN]: Unrecognized user type: 
+[11:40:38] [Render thread/INFO]: [MTRMap] Applied TrainMapPauseMixin to Minecraft
+[11:40:38] [Render thread/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11:40:38] [Render thread/INFO]: Setting user: Dev
+[11:40:38] [Render thread/INFO]: Backend library: LWJGL version 3.3.2+13
+[11:40:38] [modloading-worker-0/INFO]: Forge mod loading, version 49.2.0, for MC 1.20.4 with MCP 20231207.112700
+[11:40:38] [modloading-worker-0/INFO]: MinecraftForge v49.2.0 Initialized
+[11:40:38] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapAccessor to GuiMap
+[11:40:38] [modloading-worker-0/INFO]: [MTRMap] Applied XaeroWorldMapMixin to GuiMap
+[11:40:38] [modloading-worker-0/INFO]: Xaero's Minimap: World Map found!
+[11:40:38] [modloading-worker-0/INFO]: No Optifine!
+[11:40:38] [modloading-worker-0/INFO]: Xaero's Minimap: No Vivecraft!
+[11:40:38] [modloading-worker-0/INFO]: Registering common data for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Registering client data for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Opening jdk.naming.dns/com.sun.jndi.dns to java.naming
+[11:40:38] [modloading-worker-0/INFO]: [MTR Map Overlay] JourneyMap detected - landmark integration enabled
+[11:40:38] [modloading-worker-0/INFO]: [MTR Map Overlay] Xaero's World Map detected - map-only landmark icons enabled
+[11:40:38] [modloading-worker-0/INFO]: Loading primary common config for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading primary client config for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerolib:main!
+[11:40:38] [modloading-worker-0/INFO]: Registering common data for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Registering client data for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading primary common config for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading server config profiles for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading primary client config for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Loading client config profiles for channel xaerominimap:main!
+[11:40:38] [modloading-worker-0/INFO]: Registering common data for channel xaeroworldmap:main!
+[11:40:38] [modloading-worker-0/INFO]: Registering client data for channel xaeroworldmap:main!
+[11:40:39] [modloading-worker-0/INFO]: Loading primary common config for channel xaeroworldmap:main!
+[11:40:39] [modloading-worker-0/INFO]: Loading server config profiles for channel xaeroworldmap:main!
+[11:40:39] [modloading-worker-0/INFO]: Loading primary client config for channel xaeroworldmap:main!
+[11:40:39] [modloading-worker-0/INFO]: Loading client config profiles for channel xaeroworldmap:main!
+[11:40:39] [modloading-worker-0/INFO]: Starting Minecraft with arguments:
+-Djava.net.preferIPv6Addresses=system
+-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+-Djava.library.path=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Djna.tmpdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dorg.lwjgl.system.SharedLibraryExtractPath=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dio.netty.native.workdir=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\bin\forge-1.20.4-49.2.0-0e007f0b-f639-564c-91d5-368d73b68153
+-Dminecraft.launcher.brand=portablemc
+-Dminecraft.launcher.version=5.0.6
+-Dlog4j.configurationFile=C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\release-launcher\assets\log_configs\client-1.12.xml
+-Xmx3G
+-Dmtrmap.qa.output=C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/build/acceptance160/final160-singleplayer-1.20.4-forge
+[11:40:39] [modloading-worker-0/INFO]: :  __  __ _                            __ _    
+[11:40:39] [modloading-worker-0/INFO]: : |  \/  (_)                          / _| |   
+[11:40:39] [modloading-worker-0/INFO]: : | \  / |_ _ __   ___  ___ _ __ __ _| |_| |_  
+[11:40:39] [modloading-worker-0/INFO]: : | |\/| | | '_ \ / _ \/ __| '__/ _` |  _| __| 
+[11:40:39] [modloading-worker-0/INFO]: : | |  | | | | | |  __/ (__| | | (_| | | | |_  
+[11:40:39] [modloading-worker-0/INFO]: : |_|__|_|_|_| |_|\___|\___|_|_ \__,_|_|  \__| 
+[11:40:39] [modloading-worker-0/INFO]: : |__   __|                (_) |               
+[11:40:39] [modloading-worker-0/INFO]: :    | |_ __ __ _ _ __  ___ _| |_              
+[11:40:39] [modloading-worker-0/INFO]: :    | | '__/ _` | '_ \/ __| | __|             
+[11:40:39] [modloading-worker-0/INFO]: :    | | | | (_| | | | \__ \ | |_              
+[11:40:39] [modloading-worker-0/INFO]: :    |_|_|  \__,_|_| |_|___/_|\__|             
+[11:40:39] [modloading-worker-0/INFO]: :  _____       _ _                             
+[11:40:39] [modloading-worker-0/INFO]: : |  __ \     (_) |                            
+[11:40:39] [modloading-worker-0/INFO]: : | |__) |__ _ _| |_      ____ _ _   _         
+[11:40:39] [modloading-worker-0/INFO]: : |  _  // _` | | \ \ /\ / / _` | | | |        
+[11:40:39] [modloading-worker-0/INFO]: : | | \ \ (_| | | |\ V  V / (_| | |_| |        
+[11:40:39] [modloading-worker-0/INFO]: : |_|  \_\__,_|_|_| \_/\_/ \__,_|\__, |        
+[11:40:39] [modloading-worker-0/INFO]: :                                 __/ |        
+[11:40:39] [modloading-worker-0/INFO]: :                                |___/ (4.0.5+1.20.4) 
+[11:40:39] [modloading-worker-0/INFO]: :                                              
+[11:40:39] [Download-2/ERROR]: Failed to fetch user properties
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:59) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:150) ~[authlib-6.0.52.jar!/:?]
+	at net.minecraft.client.Minecraft.m_303974_(Minecraft.java:434) ~[forge-1.20.4-49.2.0-client.jar!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[?:?]
+	at java.lang.Thread.run(Thread.java:840) ~[?:?]
+Caused by: com.mojang.authlib.exceptions.MinecraftClientHttpException: Status: 401
+	at com.mojang.authlib.minecraft.client.MinecraftClient.readInputStream(MinecraftClient.java:100) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:57) ~[authlib-6.0.52.jar!/:?]
+	at com.mojang.authlib.yggdrasil.YggdrasilUserApiService.fetchProperties(YggdrasilUserApiService.java:121) ~[authlib-6.0.52.jar!/:?]
+	... 5 more
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway blocks
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway items
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway block entity types
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway entity types
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway creative mode tabs
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway sound events
+[11:40:39] [modloading-worker-0/INFO]: Minecraft Mappings logging enabled
+[11:40:39] [modloading-worker-0/INFO]: Registering Minecraft Transit Railway key bindings
+[11:40:40] [Render thread/INFO]: Registering Keybinds
+[11:40:40] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:40:40] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\config\forge-client.toml is not correct. Correcting
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.alwaysSetupTerrainOffThread was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.experimentalForgeLightPipelineEnabled was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.showLoadWarnings was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.useCombinedDepthStencilAttachment was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.compressLanIPv6Addresses was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.calculateAllNormals was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.stabilizeDirectionGetNearest was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key client.allowMipmapLowering was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Configuration file C:\Users\Ben\Documents\Coding\MC\MTR\mtrsurveyor\.cache\final160-singleplayer\1.20.4-forge\config\mtrmap.toml is not correct. Correcting
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key formalInitLog was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key debugLog was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key enabled was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key waypointMode was corrected from null to its default, both. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key routeLinesEnabled was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key trackLinesEnabled was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key trainCarsEnabled was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key pidsStyle was corrected from null to its default, british. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key networkSync was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key networkSync.enabled was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key networkSync.refreshIntervalSeconds was corrected from null to its default, 300. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility was corrected from null to its default, SimpleCommentedConfig:{}. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility.showStationLandmarks was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility.showPlatformLandmarks was corrected from null to its default, true. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility.showDepotLandmarks was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility.showEmptyStation was corrected from null to its default, false. 
+[11:40:40] [modloading-worker-0/WARN]: Incorrect key visibility.showHiddenRoute was corrected from null to its default, false. 
+[11:40:40] [Worker-Main-12/INFO]: Loading XaeroLib common 1/2!
+[11:40:40] [Worker-Main-1/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:40:40] [Worker-Main-12/INFO]: [MTR Map Overlay] You get a landmark, you get a landmark, every-nyan gets a landmark! >w<
+[11:40:40] [Worker-Main-13/INFO]: Found @Ljourneymap/client/api/ClientPlugin;: io.github.teamcreating.mtrmap.integration.journeymap.MTRJourneyMapPlugin
+[11:40:40] [Forge Version Check/INFO]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[11:40:40] [Worker-Main-2/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:40:40] [Worker-Main-2/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:40:40] [Worker-Main-2/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:40:40] [Render thread/INFO]: Initializing Packet Registries
+[11:40:40] [Worker-Main-5/INFO]: Loading Xaero's Minimap - Stage 1/2
+[11:40:40] [Worker-Main-4/INFO]: Loading XaeroLib client 1/2!
+[11:40:40] [Worker-Main-12/INFO]: Loading Xaero's World Map - Stage 1/2
+[11:40:40] [Worker-Main-3/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:40:41] [Forge Version Check/INFO]: [forge] Found status: OUTDATED Current: 49.2.0 Target: 49.2.13
+[11:40:41] [Forge Version Check/INFO]: [journeymap] Starting version check at https://forge.curseupdate.com/32274/journeymap
+[11:40:41] [Worker-Main-4/WARN]: io exception while checking patreon: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:40:41] [Render thread/INFO]: Journeymap Initializing
+[11:40:41] [Render thread/INFO]: [MTR Map Overlay] JourneyMap 5 API initialized!
+[11:40:42] [Forge Version Check/INFO]: [journeymap] Found status: UP_TO_DATE Current: 5.10.0 Target: null
+[11:40:42] [Render thread/INFO]: Loading Xaero's World Map - Stage 2/2
+[11:40:42] [Render thread/INFO]: New world map region cache hash code: 747283566
+[11:40:43] [Render thread/ERROR]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:40:43] [Render thread/INFO]: Registered player tracker system: map_synced
+[11:40:43] [Render thread/INFO]: Xaero's WorldMap Mod: Xaero's minimap found!
+[11:40:43] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:40:43] [Render thread/INFO]: No Optifine!
+[11:40:43] [Render thread/INFO]: Xaero's World Map: No Vivecraft!
+[11:40:43] [Render thread/WARN]: Mod 'xaeroworldmap' took 1.159 s to run a deferred task.
+[11:40:43] [Render thread/INFO]: Loading Xaero's Minimap - Stage 2/2
+[11:40:44] [Render thread/WARN]: io exception while checking versions: Online mod data expired! Date: Fri Nov 06 20:28:29 CST 2026
+[11:40:44] [Render thread/INFO]: Registered player tracker system: minimap_synced
+[11:40:44] [Render thread/WARN]: Mod 'xaerominimap' took 1.195 s to run a deferred task.
+[11:40:44] [Render thread/INFO]: Loading XaeroLib common 2/2!
+[11:40:44] [Render thread/INFO]: Loading XaeroLib client 2/2!
+[11:40:46] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:40:46] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:40:46] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:40:47] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:40:47] [Render thread/INFO]: Sound engine started
+[11:40:47] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:40:48] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:40:48] [Render thread/INFO]: Loaded 142 signs
+[11:40:48] [Render thread/INFO]: Loaded 3 rails
+[11:40:48] [Render thread/INFO]: Loaded 1 objects
+[11:40:48] [Render thread/INFO]: Loaded 1 lifts
+[11:40:48] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:40:48] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:40:48] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:40:48] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:40:48] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:40:48] [Render thread/WARN]: The following mods have version differences that were not resolved:
+mtrmap (version 1.5.3 -> 1.6.0)
+Things may not work well.
+[11:40:48] [Render thread/INFO]: Injecting existing registry data into this CLIENT instance
+[11:40:50] [Worker-Main-6/ERROR]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_unloader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_unloader
+[11:40:50] [Worker-Main-6/ERROR]: Couldn't parse element loot_tables:mtr:blocks/train_cargo_loader - Unknown registry key in ResourceKey[minecraft:root / minecraft:item]: mtr:train_cargo_loader
+[11:40:50] [Render thread/INFO]: Loaded 7 recipes
+[11:40:50] [Render thread/INFO]: Loaded 1271 advancements
+[11:40:51] [Server thread/INFO]: Starting integrated minecraft server version 1.20.4
+[11:40:51] [Server thread/INFO]: Generating keypair
+[11:40:51] [Server thread/INFO]: [AcceptanceQA] about-to-start server=1294095511 xaero.map.server.MinecraftServerData initialized=false
+[11:40:51] [Server thread/INFO]: [AcceptanceQA] about-to-start server=1294095511 xaero.common.server.MinecraftServerData initialized=false
+[11:40:51] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[11:40:52] [Render thread/INFO]: Preparing spawn area: 0%
+[11:40:52] [Render thread/INFO]: Preparing spawn area: 0%
+[11:40:52] [Render thread/INFO]: Preparing spawn area: 0%
+[11:40:52] [Render thread/INFO]: Preparing spawn area: 1%
+[11:40:53] [Render thread/INFO]: Preparing spawn area: 87%
+[11:40:53] [Server thread/INFO]: Successfully initialized permission handler forge:default_handler
+[11:40:53] [Server thread/INFO]: [AcceptanceQA] starting server=1294095511 xaero.map.server.MinecraftServerData initialized=false
+[11:40:53] [Server thread/INFO]: [AcceptanceQA] starting server=1294095511 xaero.common.server.MinecraftServerData initialized=false
+[11:40:53] [Render thread/INFO]: Time elapsed: 2045 ms
+[11:40:53] [Server thread/INFO]: [AcceptanceQA] started server=1294095511 xaero.map.server.MinecraftServerData initialized=true
+[11:40:53] [Server thread/INFO]: [AcceptanceQA] started server=1294095511 xaero.common.server.MinecraftServerData initialized=true
+[11:40:53] [Server thread/INFO]: Found available port: 8888
+[11:40:53] [Server thread/INFO]: Loading files...
+[11:40:53] [Server thread/INFO]: Data loading complete for minecraft/overworld in 0.107 second(s)
+[11:40:53] [Server thread/INFO]: Data loading complete for minecraft/the_end in 0.001 second(s)
+[11:40:53] [Server thread/INFO]: Data loading complete for minecraft/the_nether in 0.0 second(s)
+[11:40:53] [Server thread/INFO]: Logging initialized @24560ms to org.mtr.libraries.org.eclipse.jetty.util.log.Slf4jLog
+[11:40:53] [Server thread/INFO]: jetty-9.4.54.v20240208; built: 2024-02-08T19:42:39.027Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 17.0.19+10
+[11:40:53] [Server thread/INFO]: Started o.m.l.o.e.j.s.ServletContextHandler@779f82b2{/,null,AVAILABLE}
+[11:40:53] [Server thread/INFO]: Started ServerConnector@6d66ea10{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11:40:53] [Server thread/INFO]: Started @24695ms
+[11:40:53] [Server thread/INFO]: Server started with dimensions [minecraft/overworld, minecraft/the_end, minecraft/the_nether]
+[11:40:53] [Server thread/INFO]: Starting server as a non-dedicated server
+[11:40:53] [Server thread/INFO]: Simulation difference of 1h46m for minecraft/overworld caught up with 3601 ticks in 0.051 second(s)
+[11:40:53] [Server thread/INFO]: Simulation difference of 1h46m for minecraft/the_end caught up with 3601 ticks in 0.004 second(s)
+[11:40:53] [Server thread/INFO]: Simulation difference of 1h46m for minecraft/the_nether caught up with 3601 ticks in 0.004 second(s)
+[11:40:53] [Server thread/INFO]: Changing view distance to 6, from 10
+[11:40:53] [Server thread/INFO]: Changing simulation distance to 12, from 0
+[11:40:54] [Render thread/INFO]: Connected to a modded server.
+[11:40:54] [Server thread/INFO]: Dev[local:E:384833a3] logged in with entity id 15 at (0.0, 0.0, 0.0)
+[11:40:54] [Server thread/INFO]: Dev joined the game
+[11:40:54] [Render thread/INFO]: Minimap required item set to nothing.
+[11:40:54] [Render thread/INFO]: New Xaero hud session initialized!
+[11:40:54] [Render thread/INFO]: Fullscreen map required item set to nothing.
+[11:40:54] [Render thread/INFO]: New world map session initialized!
+[11:40:54] [Render thread/INFO]: Open the Transport System Map at http://localhost:8888
+[11:40:54] [Render thread/INFO]: Open the Resource Pack Creator at http://localhost:8888/creator/
+[11:40:54] [Render thread/INFO]: Minimap updated server level id: -318835117 for world ResourceKey[minecraft:dimension / minecraft:overworld]
+[11:40:54] [Render thread/INFO]: Loaded 2 advancements
+[11:40:54] [Render thread/INFO]: Reloading radar icon resources...
+[11:40:54] [Render thread/INFO]: Reloaded radar icon resources!
+[11:40:55] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:40:55] [Worker-Main-10/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:40:55] [Worker-Main-3/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:40:55] [Worker-Main-3/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:40:55] [Worker-Main-3/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:40:55] [Server thread/INFO]: Saving and pausing game...
+[11:40:55] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:40:55] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:40:55] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:40:55] [Worker-Main-12/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:40:56] [Render thread/INFO]: [System] [CHAT] §eJourneyMap:§f Press [§bJ§f]
+[11:40:57] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:40:57] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:40:57] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:40:57] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:40:57] [Render thread/INFO]: Sound engine started
+[11:40:57] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:40:57] [Render thread/INFO]: Radar icon manager reset!
+[11:40:58] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:40:58] [Render thread/INFO]: Loaded 142 signs
+[11:40:58] [Render thread/INFO]: Loaded 3 rails
+[11:40:58] [Render thread/INFO]: Loaded 1 objects
+[11:40:58] [Render thread/INFO]: Loaded 1 lifts
+[11:40:58] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:40:58] [Render thread/INFO]: Reloading radar icon resources...
+[11:40:58] [Render thread/INFO]: Reloaded radar icon resources!
+[11:40:58] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:40:58] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:40:58] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:40:58] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:41:00] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/overworld to Dev (3 routes, 6 rails, 6397 bytes, 1 chunk(s))
+[11:41:00] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_end to Dev (0 routes, 0 rails, 43 bytes, 1 chunk(s))
+[11:41:00] [Server thread/INFO]: [MTRMap] Sent full-network snapshot for minecraft/the_nether to Dev (0 routes, 0 rails, 46 bytes, 1 chunk(s))
+[11:41:00] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/overworld: 3 routes, 6 rails, 7 landmarks
+[11:41:00] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/the_end: 0 routes, 0 rails, 0 landmarks
+[11:41:00] [Render thread/INFO]: [MTRMap] Full-network snapshot applied for minecraft/the_nether: 0 routes, 0 rails, 0 landmarks
+[11:41:01] [Server thread/INFO]: Teleported Dev to 235.000000, -53.000000, 80.000000
+[11:41:01] [Render thread/INFO]: [MTRMap] Path layer render hook into Xaero's World Map is active
+[11:41:06] [Server thread/INFO]: Saving and pausing game...
+[11:41:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:41:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:41:06] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:41:12] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:41:12] [Worker-Main-13/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:41:12] [Server thread/INFO]: Saving and pausing game...
+[11:41:12] [Worker-Main-7/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:41:12] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:41:12] [Worker-Main-7/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:41:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:41:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:41:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:41:12] [Worker-Main-7/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:41:13] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:41:13] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:41:13] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:41:13] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:41:13] [Render thread/INFO]: Sound engine started
+[11:41:14] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:41:14] [Render thread/INFO]: Radar icon manager reset!
+[11:41:14] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:41:14] [Render thread/INFO]: Loaded 142 signs
+[11:41:14] [Render thread/INFO]: Loaded 3 rails
+[11:41:14] [Render thread/INFO]: Loaded 1 objects
+[11:41:14] [Render thread/INFO]: Loaded 1 lifts
+[11:41:14] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:41:14] [Render thread/INFO]: Reloading radar icon resources...
+[11:41:14] [Render thread/INFO]: Reloaded radar icon resources!
+[11:41:14] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:41:14] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:41:14] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:41:14] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:41:17] [Server thread/INFO]: ??Dev???235.000000, -53.000000, 80.000000
+[11:41:28] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:41:28] [Worker-Main-1/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:41:28] [Worker-Main-6/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:41:28] [Worker-Main-6/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:41:28] [Worker-Main-6/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:41:28] [Server thread/INFO]: Saving and pausing game...
+[11:41:28] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:41:28] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:41:28] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:41:28] [Worker-Main-10/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:41:29] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:41:29] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:41:29] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:41:29] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:41:29] [Render thread/INFO]: Sound engine started
+[11:41:29] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:41:29] [Render thread/INFO]: Radar icon manager reset!
+[11:41:30] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:41:30] [Render thread/INFO]: Loaded 142 signs
+[11:41:30] [Render thread/INFO]: Loaded 3 rails
+[11:41:30] [Render thread/INFO]: Loaded 1 objects
+[11:41:30] [Render thread/INFO]: Loaded 1 lifts
+[11:41:30] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:41:30] [Render thread/INFO]: Reloading radar icon resources...
+[11:41:30] [Render thread/INFO]: Reloaded radar icon resources!
+[11:41:30] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:41:30] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:41:30] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:41:30] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:41:32] [Server thread/INFO]: ?? Dev ??? 235.000000, -53.000000, 80.000000
+[11:41:43] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:41:43] [Worker-Main-13/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:41:43] [Worker-Main-2/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:41:43] [Worker-Main-2/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:41:43] [Worker-Main-2/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:41:43] [Server thread/INFO]: Saving and pausing game...
+[11:41:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:41:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:41:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:41:43] [Worker-Main-7/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:41:44] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:41:44] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:41:44] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:41:45] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:41:45] [Render thread/INFO]: Sound engine started
+[11:41:45] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:41:45] [Render thread/INFO]: Radar icon manager reset!
+[11:41:45] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:41:45] [Render thread/INFO]: Loaded 142 signs
+[11:41:45] [Render thread/INFO]: Loaded 3 rails
+[11:41:45] [Render thread/INFO]: Loaded 1 objects
+[11:41:45] [Render thread/INFO]: Loaded 1 lifts
+[11:41:45] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:41:45] [Render thread/INFO]: Reloading radar icon resources...
+[11:41:45] [Render thread/INFO]: Reloaded radar icon resources!
+[11:41:45] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:41:45] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:41:45] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:41:45] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:41:48] [Server thread/INFO]: Dev?235.000000, -53.000000, 80.000000???????????
+[11:41:59] [Render thread/INFO]: Reloading ResourceManager: vanilla, mod_resources
+[11:41:59] [Worker-Main-12/INFO]: Found unifont_all_no_pua-15.1.04.hex, loading
+[11:41:59] [Worker-Main-5/WARN]: File mtr:sounds/minecart/loop.ogg does not exist, cannot add it to event mtr:minecart_loop
+[11:41:59] [Worker-Main-5/WARN]: File mtr:sounds/minecart/motor4.ogg does not exist, cannot add it to event mtr:minecart_motor4
+[11:41:59] [Worker-Main-5/WARN]: File mtr:sounds/minecart/motor3.ogg does not exist, cannot add it to event mtr:minecart_motor3
+[11:41:59] [Server thread/INFO]: Saving and pausing game...
+[11:41:59] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:41:59] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:41:59] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:41:59] [Worker-Main-5/WARN]: Texture mtr:block/psd_door_bottom_right_1 with size 72x36 limits mip level from 4 to 2
+[11:42:00] [Render thread/WARN]: Missing sound for event: minecraft:item.goat_horn.play
+[11:42:00] [Render thread/WARN]: Missing sound for event: minecraft:entity.goat.screaming.horn_break
+[11:42:00] [Render thread/WARN]: Missing sound for event: minecraft:entity.generic.wind_burst
+[11:42:00] [Render thread/INFO]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek(R) Audio)
+[11:42:00] [Render thread/INFO]: Sound engine started
+[11:42:00] [Render thread/INFO]: Created: 4096x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[11:42:00] [Render thread/INFO]: Radar icon manager reset!
+[11:42:01] [Render thread/INFO]: Loaded 423 vehicles and completed door movement validation in 0.0 ms
+[11:42:01] [Render thread/INFO]: Loaded 142 signs
+[11:42:01] [Render thread/INFO]: Loaded 3 rails
+[11:42:01] [Render thread/INFO]: Loaded 1 objects
+[11:42:01] [Render thread/INFO]: Loaded 1 lifts
+[11:42:01] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/signs.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 1024x1024x4 minecraft:textures/atlas/armor_trims.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 128x64x4 minecraft:textures/atlas/decorated_pot.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[11:42:01] [Render thread/INFO]: Reloading radar icon resources...
+[11:42:01] [Render thread/INFO]: Reloaded radar icon resources!
+[11:42:01] [Render thread/WARN]: Shader rendertype_entity_translucent_emissive could not find sampler named Sampler2 in the specified shader program.
+[11:42:01] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[11:42:01] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/gui.png-atlas
+[11:42:01] [Render thread/INFO]: Successfully reloaded the XaeroLib shaders!
+[11:42:03] [Render thread/INFO]: Stopping!
+[11:42:03] [Render thread/INFO]: Xaero hud session finalized.
+[11:42:03] [Render thread/INFO]: Finalizing world map session...
+[11:42:03] [Server thread/INFO]: Dev lost connection: Disconnected
+[11:42:03] [Server thread/INFO]: Dev left the game
+[11:42:03] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[11:42:03] [Thread-8/INFO]: World map cleaned normally!
+[11:42:03] [Server thread/INFO]: Stopping...
+[11:42:03] [Server thread/INFO]: Stopped ServerConnector@6d66ea10{HTTP/1.1, (http/1.1)}{0.0.0.0:8888}
+[11:42:03] [Server thread/INFO]: Stopped o.m.l.o.e.j.s.ServletContextHandler@779f82b2{/,null,STOPPED}
+[11:42:03] [Server thread/INFO]: Starting full save...
+[11:42:03] [Server thread/INFO]: - Changed sidings: 1
+[11:42:03] [Server thread/INFO]: - Changed depots: 1
+[11:42:03] [Server thread/INFO]: Save complete for minecraft/overworld in 0.002 second(s)
+[11:42:03] [Server thread/INFO]: - Changed settings: 1
+[11:42:03] [Server thread/INFO]: Save complete for minecraft/the_end in 0.0 second(s)
+[11:42:03] [Server thread/INFO]: - Changed settings: 1
+[11:42:03] [Server thread/INFO]: Save complete for minecraft/the_nether in 0.0 second(s)
+[11:42:03] [Server thread/INFO]: - Changed settings: 1
+[11:42:03] [Server thread/INFO]: Stopped
+[11:42:03] [Server thread/INFO]: Stopping server
+[11:42:03] [Server thread/INFO]: Saving players
+[11:42:03] [Server thread/INFO]: Saving worlds
+[11:42:03] [Render thread/INFO]: World map session finalized.
+[11:42:03] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:overworld
+[11:42:04] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_end
+[11:42:04] [Server thread/INFO]: Saving chunks for level 'ServerLevel[TestWorld]'/minecraft:the_nether
+[11:42:04] [Server thread/INFO]: ThreadedAnvilChunkStorage (Overlay160Test): All chunks are saved
+[11:42:04] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[11:42:04] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[11:42:04] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved

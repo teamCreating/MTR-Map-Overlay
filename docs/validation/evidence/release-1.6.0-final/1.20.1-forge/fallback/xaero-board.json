@@ -1,0 +1,330 @@
+{
+  "connected": true,
+  "screen": "xaero.map.gui.GuiMap",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.20.1-forge/fallback/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.20.1-MTR4.0.5-forge.jar%23162!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "zStepY": 1.0416666666666667,
+    "zStepX": 0.0,
+    "xStepY": 0.0,
+    "xStepX": 1.0416666666666667,
+    "originY": 36.66666666666666,
+    "originX": -31.291666666666686
+  },
+  "nativeButtons": [
+    {
+      "y": 220,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Map Switching Options",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 200,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Cave Mode",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 180,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "(unset)§r Toggle dimension (hold shift to reverse)",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 140,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Hop to specified coordinates",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 120,
+      "x": 0,
+      "w": 20,
+      "h": 20,
+      "label": "Camera is not attached to your character",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 0,
+      "x": 0,
+      "w": 30,
+      "h": 30,
+      "label": "]§r Open settings",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 220,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "Open waypoint mini-menu",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 200,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "(unset) Rendering waypoints",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 180,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "Open tracked player menu",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 160,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "(unset) Minimap entity radar is displayed (requires Xaero's Minimap)",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 140,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "The chunk claim feature requires the Open Parties and Claims mod!",
+      "visible": true,
+      "active": false
+    },
+    {
+      "y": 120,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "Export the map as a PNG file",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 100,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "Controls \n \n Click and drag to scroll the map. \n Scroll the mouse wheel to zoom in and out (CTRL for precise). \n Right-click the map for some useful shortcuts. \n Hold right-click and drag the mouse to select an area for an action (e.g claiming). \n Some UI buttons have additional key bindings displayed in their tooltip. \n \n Right-click a map element (e.g. waypoint) for options. \n B§r to create a new waypoint. \n +§r to create a quick temporary waypoint. \n (unset)§r to switch the waypoint set. \n (unset)§r to toggle rendering all waypoint sets. \n U§r to open the full waypoint menu. \n \n Click here to edit the key bindings.",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 80,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "(unset) Zoom out \n (or mouse wheel)",
+      "visible": true,
+      "active": true
+    },
+    {
+      "y": 60,
+      "x": 407,
+      "w": 20,
+      "h": 20,
+      "label": "(unset) Zoom in \n (or mouse wheel)",
+      "visible": true,
+      "active": true
+    }
+  ],
+  "providers": [],
+  "nativeMapData": {
+    "serverSynced": false,
+    "landmarks": 2,
+    "routes": 1,
+    "tracks": 2
+  },
+  "trainDataSource": "nearby",
+  "renderedCars": [
+    {
+      "vehicleId": 2316510736216618136,
+      "index": 0,
+      "count": 3,
+      "leading": false,
+      "modelId": "m_train_head_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 190.3822774452418,
+        "y": -59.0,
+        "z": 81.9999995628861
+      },
+      "backRight": {
+        "x": 210.38227744524178,
+        "y": -59.0,
+        "z": 82.0000004371139
+      },
+      "backLeft": {
+        "x": 210.38227757637594,
+        "y": -59.0,
+        "z": 79.0000004371139
+      },
+      "frontLeft": {
+        "x": 190.38227757637597,
+        "y": -59.0,
+        "z": 78.9999995628861
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 2316510736216618136,
+      "index": 1,
+      "count": 3,
+      "leading": false,
+      "modelId": "m_train_end_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 211.3822774452418,
+        "y": -59.0,
+        "z": 81.9999995628861
+      },
+      "backRight": {
+        "x": 231.38227744524178,
+        "y": -59.0,
+        "z": 82.0000004371139
+      },
+      "backLeft": {
+        "x": 231.38227757637594,
+        "y": -59.0,
+        "z": 79.0000004371139
+      },
+      "frontLeft": {
+        "x": 211.38227757637597,
+        "y": -59.0,
+        "z": 78.9999995628861
+      },
+      "reversed": true
+    },
+    {
+      "vehicleId": 2316510736216618136,
+      "index": 2,
+      "count": 3,
+      "leading": true,
+      "modelId": "m_train_head_1",
+      "routeName": "Local",
+      "destination": "Charlie",
+      "color": 28440,
+      "frontRight": {
+        "x": 232.3822774452418,
+        "y": -59.0,
+        "z": 81.9999995628861
+      },
+      "backRight": {
+        "x": 252.38227744524178,
+        "y": -59.0,
+        "z": 82.0000004371139
+      },
+      "backLeft": {
+        "x": 252.38227757637594,
+        "y": -59.0,
+        "z": 79.0000004371139
+      },
+      "frontLeft": {
+        "x": 232.38227757637597,
+        "y": -59.0,
+        "z": 78.9999995628861
+      },
+      "reversed": true
+    }
+  ],
+  "selected": "22894794953dd26b",
+  "targets": [
+    {
+      "x": 10.374999999999972,
+      "y": 36.66666666666666,
+      "station": "22894794953dd26b",
+      "marker": {
+        "id": "station:22894794953DD26B",
+        "type": "STATION",
+        "x": 40,
+        "y": -59,
+        "z": 0,
+        "name": "Alpha",
+        "symbol": "Alpha",
+        "description": "Local→Charlie, Local Return→Alpha, Express→Bravo",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": [
+    {
+      "x": 5,
+      "y": 60,
+      "w": 78,
+      "h": 23,
+      "enabled": true,
+      "label": "Routes"
+    },
+    {
+      "x": 5,
+      "y": 88,
+      "w": 78,
+      "h": 23,
+      "enabled": true,
+      "label": "Tracks"
+    },
+    {
+      "x": 377,
+      "y": 33,
+      "w": 14,
+      "h": 14,
+      "enabled": true,
+      "label": "×"
+    },
+    {
+      "x": 94,
+      "y": 183,
+      "w": 145,
+      "h": 18,
+      "enabled": true,
+      "label": "▾ Collapse"
+    },
+    {
+      "x": 241,
+      "y": 183,
+      "w": 148,
+      "h": 18,
+      "enabled": false,
+      "label": "▸ Navigate"
+    }
+  ],
+  "serverEvents": []
+}

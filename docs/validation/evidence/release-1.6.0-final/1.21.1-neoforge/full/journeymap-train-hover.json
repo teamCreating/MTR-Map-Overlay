@@ -1,0 +1,883 @@
+{
+  "connected": true,
+  "screen": "journeymap.client.ui.fullscreen.Fullscreen",
+  "screenRole": "OTHER",
+  "overlayCodeSource": "union:/C:/Users/Ben/Documents/Coding/MC/MTR/mtrsurveyor/.cache/final160-server-clients/1.21.1-neoforge/full/mods/CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-neoforge.jar%23198!/",
+  "paused": false,
+  "language": "en_us",
+  "languageReloading": false,
+  "labels": {
+    "navigate": "▸ Navigate",
+    "navigation_unavailable": "No navigation service can handle this station",
+    "expand": "▸ Expand",
+    "collapse": "▾ Collapse",
+    "routes": "Routes",
+    "tracks": "Tracks",
+    "next_arrivals": "NEXT ARRIVALS"
+  },
+  "guiWidth": 427,
+  "guiHeight": 240,
+  "mapProjection": {
+    "originX": -116.5,
+    "originY": 70.0,
+    "xStepX": 1.0,
+    "xStepY": 0.0,
+    "zStepX": 0.0,
+    "zStepY": 1.0
+  },
+  "nativeButtons": [
+    {
+      "active": true,
+      "visible": true,
+      "label": "Day",
+      "h": 20,
+      "w": 20,
+      "x": 81,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Night",
+      "h": 20,
+      "w": 20,
+      "x": 101,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Topography",
+      "h": 20,
+      "w": 20,
+      "x": 141,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Biome",
+      "h": 20,
+      "w": 20,
+      "x": 121,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Cave Layers",
+      "h": 20,
+      "w": 20,
+      "x": 161,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Open location finder",
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 80
+    },
+    {
+      "active": true,
+      "visible": false,
+      "label": "x:",
+      "h": 16,
+      "w": 40,
+      "x": 957,
+      "y": 638
+    },
+    {
+      "active": true,
+      "visible": false,
+      "label": "z:",
+      "h": 16,
+      "w": 40,
+      "x": 638,
+      "y": 638
+    },
+    {
+      "active": true,
+      "visible": false,
+      "label": "Pan to location",
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "active": false,
+      "visible": true,
+      "label": "Follow",
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 100
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Zoom In",
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 120
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Zoom Out",
+      "h": 20,
+      "w": 20,
+      "x": 4,
+      "y": 140
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Waypoints...",
+      "h": 20,
+      "w": 20,
+      "x": 133,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Options...",
+      "h": 20,
+      "w": 20,
+      "x": 153,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": false,
+      "label": "Newer version available: 6.0.8",
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 24
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Close",
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Purist",
+      "h": 20,
+      "w": 80,
+      "x": 6,
+      "y": 214
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Caves",
+      "h": 20,
+      "w": 20,
+      "x": 184,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Mobs",
+      "h": 20,
+      "w": 20,
+      "x": 204,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Animals",
+      "h": 20,
+      "w": 20,
+      "x": 224,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Pets",
+      "h": 20,
+      "w": 20,
+      "x": 244,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Villagers",
+      "h": 20,
+      "w": 20,
+      "x": 264,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Players",
+      "h": 20,
+      "w": 20,
+      "x": 284,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Grid",
+      "h": 20,
+      "w": 20,
+      "x": 304,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Show Keys",
+      "h": 20,
+      "w": 20,
+      "x": 324,
+      "y": 4
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "About...",
+      "h": 20,
+      "w": 20,
+      "x": 173,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": false,
+      "label": " region display off",
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Save Map",
+      "h": 20,
+      "w": 20,
+      "x": 233,
+      "y": 216
+    },
+    {
+      "active": false,
+      "visible": false,
+      "label": "Use Browser",
+      "h": 20,
+      "w": 20,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Auto-Map...",
+      "h": 20,
+      "w": 20,
+      "x": 253,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Delete Map...",
+      "h": 20,
+      "w": 20,
+      "x": 213,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Disable Mapping",
+      "h": 20,
+      "w": 20,
+      "x": 273,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "Color Palette...",
+      "h": 20,
+      "w": 20,
+      "x": 193,
+      "y": 216
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "TRACKS ON",
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 100
+    },
+    {
+      "active": true,
+      "visible": true,
+      "label": "ROUTES ON",
+      "h": 20,
+      "w": 20,
+      "x": 403,
+      "y": 120
+    }
+  ],
+  "providers": [
+    "mtrmap:howtogo",
+    "mtrnav:journey"
+  ],
+  "nativeMapData": {
+    "tracks": 10,
+    "routes": 4,
+    "landmarks": 11,
+    "serverSynced": true
+  },
+  "trainDataSource": "server",
+  "renderedCars": [
+    {
+      "vehicleId": 1,
+      "index": 0,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 170.5,
+        "y": -59.0,
+        "z": -0.5
+      },
+      "backRight": {
+        "x": 150.5,
+        "y": -59.0,
+        "z": -0.5
+      },
+      "backLeft": {
+        "x": 150.5,
+        "y": -59.0,
+        "z": 1.5
+      },
+      "frontLeft": {
+        "x": 170.5,
+        "y": -59.0,
+        "z": 1.5
+      },
+      "reversed": false
+    },
+    {
+      "vehicleId": 1,
+      "index": 1,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Red Return",
+      "destination": "QA Origin|起点",
+      "color": 15223627,
+      "frontRight": {
+        "x": 190.5,
+        "y": -59.0,
+        "z": -0.5
+      },
+      "backRight": {
+        "x": 170.5,
+        "y": -59.0,
+        "z": -0.5
+      },
+      "backLeft": {
+        "x": 170.5,
+        "y": -59.0,
+        "z": 1.5
+      },
+      "frontLeft": {
+        "x": 190.5,
+        "y": -59.0,
+        "z": 1.5
+      },
+      "reversed": false
+    },
+    {
+      "vehicleId": 2,
+      "index": 0,
+      "count": 2,
+      "leading": true,
+      "modelId": "m_train_small_cab_1",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 320.5,
+        "y": -59.0,
+        "z": 19.5
+      },
+      "backRight": {
+        "x": 300.5,
+        "y": -59.0,
+        "z": 19.5
+      },
+      "backLeft": {
+        "x": 300.5,
+        "y": -59.0,
+        "z": 21.5
+      },
+      "frontLeft": {
+        "x": 320.5,
+        "y": -59.0,
+        "z": 21.5
+      },
+      "reversed": false
+    },
+    {
+      "vehicleId": 2,
+      "index": 1,
+      "count": 2,
+      "leading": false,
+      "modelId": "m_train_small_cab_2",
+      "routeName": "QA Blue",
+      "destination": "QA Destination|终点",
+      "color": 3770879,
+      "frontRight": {
+        "x": 340.5,
+        "y": -59.0,
+        "z": 19.5
+      },
+      "backRight": {
+        "x": 320.5,
+        "y": -59.0,
+        "z": 19.5
+      },
+      "backLeft": {
+        "x": 320.5,
+        "y": -59.0,
+        "z": 21.5
+      },
+      "frontLeft": {
+        "x": 340.5,
+        "y": -59.0,
+        "z": 21.5
+      },
+      "reversed": false
+    }
+  ],
+  "catalog": {
+    "world": {
+      "serverEpoch": "02191b2a-123c-4644-bc56-1c13634b41d9",
+      "dimensionId": "minecraft:overworld"
+    },
+    "revision": -9091016708527323384,
+    "baseStaticRevision": -7671489349536027728,
+    "status": "READY",
+    "stations": [
+      {
+        "id": "1de34b7597f20c9a",
+        "name": "QA Destination|终点",
+        "position": {
+          "x": 630.0,
+          "y": -59.0,
+          "z": 20.0
+        },
+        "platformIds": [
+          "f60919362a7f9745"
+        ]
+      },
+      {
+        "id": "494569e7a256bda5",
+        "name": "QA Origin|起点",
+        "position": {
+          "x": 30.0,
+          "y": -59.0,
+          "z": 0.0
+        },
+        "platformIds": [
+          "437f07cb35f4a404"
+        ]
+      },
+      {
+        "id": "23423cb842ffa3d1",
+        "name": "QA Transfer|换乘",
+        "position": {
+          "x": 330.0,
+          "y": -59.0,
+          "z": 10.0
+        },
+        "platformIds": [
+          "21b634cf8add9958",
+          "d75327f1bc19c0d7"
+        ]
+      },
+      {
+        "id": "2d2c6a5c9091d5f3",
+        "name": "QA Middle|中途",
+        "position": {
+          "x": 180.0,
+          "y": -59.0,
+          "z": 0.0
+        },
+        "platformIds": [
+          "3c8734a478122088"
+        ]
+      }
+    ],
+    "platforms": [
+      {
+        "id": "f60919362a7f9745",
+        "stationId": "1de34b7597f20c9a",
+        "name": "QA Blue-2",
+        "position": {
+          "x": 630.0,
+          "y": -59.0,
+          "z": 20.0
+        }
+      },
+      {
+        "id": "437f07cb35f4a404",
+        "stationId": "494569e7a256bda5",
+        "name": "QA Red-1",
+        "position": {
+          "x": 30.0,
+          "y": -59.0,
+          "z": 0.0
+        }
+      },
+      {
+        "id": "21b634cf8add9958",
+        "stationId": "23423cb842ffa3d1",
+        "name": "QA Red-3",
+        "position": {
+          "x": 330.0,
+          "y": -59.0,
+          "z": 0.0
+        }
+      },
+      {
+        "id": "d75327f1bc19c0d7",
+        "stationId": "23423cb842ffa3d1",
+        "name": "QA Blue-1",
+        "position": {
+          "x": 330.0,
+          "y": -59.0,
+          "z": 20.0
+        }
+      },
+      {
+        "id": "3c8734a478122088",
+        "stationId": "2d2c6a5c9091d5f3",
+        "name": "QA Red-2",
+        "position": {
+          "x": 180.0,
+          "y": -59.0,
+          "z": 0.0
+        }
+      }
+    ],
+    "routes": [
+      {
+        "id": "5df029ac30ba6423",
+        "name": "QA Blue Return",
+        "number": "",
+        "color": 3770879,
+        "type": "NORMAL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "f60919362a7f9745",
+            "stationId": "1de34b7597f20c9a",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "d75327f1bc19c0d7",
+            "stationId": "23423cb842ffa3d1",
+            "destination": ""
+          }
+        ],
+        "paths": []
+      },
+      {
+        "id": "9d730236294b6589",
+        "name": "QA Red Return",
+        "number": "",
+        "color": 15223627,
+        "type": "NORMAL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "21b634cf8add9958",
+            "stationId": "23423cb842ffa3d1",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "3c8734a478122088",
+            "stationId": "2d2c6a5c9091d5f3",
+            "destination": ""
+          },
+          {
+            "ordinal": 2,
+            "platformId": "437f07cb35f4a404",
+            "stationId": "494569e7a256bda5",
+            "destination": ""
+          }
+        ],
+        "paths": []
+      },
+      {
+        "id": "8e5af28b67085f92",
+        "name": "QA Blue",
+        "number": "",
+        "color": 3770879,
+        "type": "NORMAL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "d75327f1bc19c0d7",
+            "stationId": "23423cb842ffa3d1",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "f60919362a7f9745",
+            "stationId": "1de34b7597f20c9a",
+            "destination": ""
+          }
+        ],
+        "paths": [
+          {
+            "id": "c5dae0a92b0380dd:0",
+            "legs": [
+              {
+                "fromStop": 0,
+                "toStop": 1,
+                "rails": [
+                  {
+                    "railId": "000000000000012C-FFFFFFFFFFFFFFC5-0000000000000014-0000000000000168-FFFFFFFFFFFFFFC5-0000000000000014",
+                    "from": 0.5,
+                    "to": 0.0
+                  },
+                  {
+                    "railId": "000000000000012C-FFFFFFFFFFFFFFC5-0000000000000014-0000000000000168-FFFFFFFFFFFFFFC5-0000000000000014",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "0000000000000168-FFFFFFFFFFFFFFC5-0000000000000014-0000000000000258-FFFFFFFFFFFFFFC5-0000000000000014",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "0000000000000258-FFFFFFFFFFFFFFC5-0000000000000014-0000000000000294-FFFFFFFFFFFFFFC5-0000000000000014",
+                    "from": 0.0,
+                    "to": 0.5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cad2f5329fab3ac2",
+        "name": "QA Red",
+        "number": "",
+        "color": 15223627,
+        "type": "NORMAL",
+        "stops": [
+          {
+            "ordinal": 0,
+            "platformId": "437f07cb35f4a404",
+            "stationId": "494569e7a256bda5",
+            "destination": ""
+          },
+          {
+            "ordinal": 1,
+            "platformId": "3c8734a478122088",
+            "stationId": "2d2c6a5c9091d5f3",
+            "destination": ""
+          },
+          {
+            "ordinal": 2,
+            "platformId": "21b634cf8add9958",
+            "stationId": "23423cb842ffa3d1",
+            "destination": ""
+          }
+        ],
+        "paths": [
+          {
+            "id": "549d4b3b77618dfb:1",
+            "legs": [
+              {
+                "fromStop": 0,
+                "toStop": 1,
+                "rails": [
+                  {
+                    "railId": "0000000000000000-FFFFFFFFFFFFFFC5-0000000000000000-000000000000003C-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.5,
+                    "to": 0.0
+                  },
+                  {
+                    "railId": "0000000000000000-FFFFFFFFFFFFFFC5-0000000000000000-000000000000003C-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "000000000000003C-FFFFFFFFFFFFFFC5-0000000000000000-0000000000000096-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "0000000000000096-FFFFFFFFFFFFFFC5-0000000000000000-00000000000000D2-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 0.5
+                  }
+                ]
+              },
+              {
+                "fromStop": 1,
+                "toStop": 2,
+                "rails": [
+                  {
+                    "railId": "0000000000000096-FFFFFFFFFFFFFFC5-0000000000000000-00000000000000D2-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.5,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "00000000000000D2-FFFFFFFFFFFFFFC5-0000000000000000-000000000000012C-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 1.0
+                  },
+                  {
+                    "railId": "000000000000012C-FFFFFFFFFFFFFFC5-0000000000000000-0000000000000168-FFFFFFFFFFFFFFC5-0000000000000000",
+                    "from": 0.0,
+                    "to": 0.5
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "available": {
+    "1de34b7597f20c9a": [
+      "mtrmap:howtogo",
+      "mtrnav:journey"
+    ],
+    "494569e7a256bda5": [
+      "mtrmap:howtogo",
+      "mtrnav:journey"
+    ],
+    "23423cb842ffa3d1": [
+      "mtrmap:howtogo",
+      "mtrnav:journey"
+    ],
+    "2d2c6a5c9091d5f3": [
+      "mtrmap:howtogo",
+      "mtrnav:journey"
+    ]
+  },
+  "unknownStationAvailable": 0,
+  "targets": [
+    {
+      "x": 213.5,
+      "y": 70.0,
+      "station": "23423cb842ffa3d1",
+      "marker": {
+        "id": "platform:21B634CF8ADD9958",
+        "type": "PLATFORM",
+        "x": 330,
+        "y": -59,
+        "z": 0,
+        "name": "QA Transfer|换乘",
+        "symbol": "QA Red-3",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 213.5,
+      "y": 90.0,
+      "station": "23423cb842ffa3d1",
+      "marker": {
+        "id": "platform:D75327F1BC19C0D7",
+        "type": "PLATFORM",
+        "x": 330,
+        "y": -59,
+        "z": 20,
+        "name": "QA Transfer|换乘",
+        "symbol": "QA Blue-1",
+        "description": "QA Blue Return→QA Transfer|换乘, QA Blue→QA Destination|终点",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 213.5,
+      "y": 80.0,
+      "station": "23423cb842ffa3d1",
+      "marker": {
+        "id": "station:23423CB842FFA3D1",
+        "type": "STATION",
+        "x": 330,
+        "y": -59,
+        "z": 10,
+        "name": "QA Transfer|换乘",
+        "symbol": "QA Transfer|换乘",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘, QA Blue Return→QA Transfer|换乘, QA Blue→QA Destination|终点",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 63.5,
+      "y": 70.0,
+      "station": "2d2c6a5c9091d5f3",
+      "marker": {
+        "id": "platform:3C8734A478122088",
+        "type": "PLATFORM",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "name": "QA Middle|中途",
+        "symbol": "QA Red-2",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘",
+        "hasRoutes": true
+      }
+    },
+    {
+      "x": 63.5,
+      "y": 70.0,
+      "station": "2d2c6a5c9091d5f3",
+      "marker": {
+        "id": "station:2D2C6A5C9091D5F3",
+        "type": "STATION",
+        "x": 180,
+        "y": -59,
+        "z": 0,
+        "name": "QA Middle|中途",
+        "symbol": "QA Middle|中途",
+        "description": "QA Red Return→QA Origin|起点, QA Red→QA Transfer|换乘",
+        "hasRoutes": true
+      }
+    }
+  ],
+  "buttons": []
+}

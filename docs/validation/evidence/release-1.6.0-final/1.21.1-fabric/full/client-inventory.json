@@ -1,0 +1,9 @@
+{
+  "CRTools-MTR-Map-Overlay-1.6.0-MC1.21.1-MTR4.1.0-beta.2-fabric.jar": "8dd3eae46332ece1908859f077c8913f1d8e7a58779d6bc29bd2a0a9e4f657ef",
+  "fabric-api-0.116.17+1.21.1.jar": "79ac44b40780acbd884b34c50be1e39af682847e5f5cb3b1fddeeaa768dce800",
+  "journeymap-1.21.1-6.0.8+fabric.jar": "ddc8286d713a4423a4bbb2f6e52b3c4e4d20e3c718bb737a29fcf53b159b4a03",
+  "minecraft-transit-railway-FABRIC-4.1.0-beta.2+1.21.1.jar": "5da075f7d63daea89da17348ace0959a0c216cbaf14a322d063a64bec44aae94",
+  "mtrmap-acceptance-qa-fabric-1.6.0.jar": "1105ffa94f5c4ec581cf7d398edcae191f193adaf1f1f00770c1775b500d293c",
+  "xaeros-minimap-fabric-1.21.1-26.4.2.jar": "85342f8f7c098e98f2f200fbba308a243af1204cb1afd7668360420e635aa2f8",
+  "xaeros-world-map-fabric-1.21.1-1.45.0.jar": "ea84c45cb1b994a7738515670b281bcd373a9d9cc3d8d3a24b84a4baf302b9d6"
+}

@@ -363,3 +363,11 @@ The corrected Forge1.20.1 production build passes both native maps against the s
 ### 2026-11-11T11:36:44+08:00 — Seal both corrections and retain a plain Forge47 control
 
 PR19/20 merged after successful gates; a Maven Central429 transient was retried without changing dependencies or weakening checks. Candidate42953810741 now builds all six targets. The Forge1.20.1 optional-channel fix passed full-sync and MTR-only fallback on both maps. A plain four-mod client without Overlay/QA independently reproduces quick-play handshake timeout; native multiplayer-list entry is the valid completed path. Keep that observation explicit and test the new candidate through normal menus on Forge47.4.0.
+
+### 2026-11-11T12:11:04+08:00 — Complete exact final-candidate acceptance
+
+Candidate42953810741 passed six production clients, 48 native map/locale cases plus 24 dedicated full/fallback cases. Verify loaded archive/hash, native data sources, actual arrivals/timestamps and both maps native train tooltips. Preserve the Forge47 quick-play control limitation and old failed candidates explicitly. Record complete local archive identity and selected raw evidence. Production JARs remain sealed; Publish dry-run42956402233 passed without tags or release writes. Publication remains held pending the Forge47 quick-play scope choice; do not treat elapsed time or an unsubmitted preselected option as approval.
+
+### 2026-11-11T12:11:59+08:00 — Keep the release gate explicit
+
+Update the active release task with completed normal-entry acceptance and the pending Forge47 quick-play scope choice. The user required all platforms to have no issues before publication; an unsubmitted choice is not approval. Do not create tags or dispatch real Publish until this condition is resolved.
