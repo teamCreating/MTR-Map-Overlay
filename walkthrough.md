@@ -366,3 +366,7 @@ Candidate42946243079 passed six production targets, 48 native cases. Record exac
 ### 2026-11-11T11:25:43+08:00 — Hold the candidate for the Forge1.20.1 fallback defect
 
 Retain the actual mismatched-channel screen, inventories and native logs. Update both-language release notes to include the native optional-channel correction. Existing singleplayer passes remain historical; Candidate42946243079 cannot be published. The repaired Forge1.20.4 full/fallback dedicated results pass, but the next release must seal and validate the additional Forge1.20.1 fix.
+
+### 2026-11-11T11:28:19+08:00 — Verify optional-channel correction on a native MTR-only server
+
+The corrected Forge1.20.1 production build passes both native maps against the same original MTR-only server through the native multiplayer list. Local rail/route/station/car caches are nonempty; remote Overlay catalog/arrivals are absent and Navigate is correctly disabled. Preserve the real mismatch and passing logs side by side. Existing suite: 110 pass/one explicit generator skip. Seal a new candidate before release; see docs/validation/forge1201-optional-channel-fix.md.
