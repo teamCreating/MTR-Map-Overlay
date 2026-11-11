@@ -272,3 +272,8 @@ User requests an attempted fix for the reproduced quick-play failure. Work is is
 Added a Forge-1.20.4-only Mixin in the target-specific source set. The verified Forge callback `lambda$new$6` keeps its self-test/resource-tracker work, then runs the original ClientModLoader.completeModLoading guard before vanilla onResourceLoadFinished can synchronously quick-play. A true guard result cancels the callback, preserving Forge warning/error pages; the obsolete late call is redirected away so completion runs once. Both sites require exactly one match. Normal Mixin remapping resolves the vanilla boundary to production m_293750_; no direct event-bus start, synthetic server event, Xaero state injection or exception suppression.
 
 Forge 1.20.4 production/QA builds and existing 110-pass/1-opt-in-skip tests pass. JAR inspection confirms the target-only class/config and correct refmap. Runtime validation is pending; version stays 1.6.0 and the old sealed candidate is unchanged.
+
+
+### 2026-11-11T09:53:50+08:00 — Codex: native startup warning/error acceptance fixtures
+
+Added opt-in properties to the separate QA mod: `mtrmap.qa.loadWarning` submits a native ModLoadingWarning through Forge's public API; `mtrmap.qa.failClientSetup` deliberately fails that QA mod's client setup event. These default-off fixtures test that the corrected completion guard preserves warning/error screens and does not enter a quick-play world after a loading failure. No dependency JAR, metadata, or production code is modified by the fixtures. QA build passed.
