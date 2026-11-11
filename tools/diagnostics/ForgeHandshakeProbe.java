@@ -44,10 +44,6 @@ public final class ForgeHandshakeProbe {
             exceptions.addClassFilter("net.minecraftforge.network.*");
             exceptions.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
             exceptions.enable();
-            var exits = requests.createMethodExitRequest();
-            exits.addClassFilter("net.minecraftforge.network.HandshakeHandler");
-            exits.setSuspendPolicy(EventRequest.SUSPEND_EVENT_THREAD);
-            exits.enable();
             vm.resume();
             boolean alive = true;
             while (alive && System.nanoTime() < deadline) {
@@ -60,8 +56,6 @@ public final class ForgeHandshakeProbe {
                         else if (event instanceof ExceptionEvent exception) {
                             emit("EXCEPTION " + describe(exception.exception()) + " at " + exception.location());
                             stack(exception.thread());
-                        } else if (event instanceof MethodExitEvent exit && exit.method().name().equals("getHandshake")) {
-                            emit("HANDSHAKE_LOOKUP_RETURN " + describe(exit.returnValue()));
                         } else if (event instanceof VMDeathEvent || event instanceof VMDisconnectEvent) alive = false;
                     }
                 } finally { events.resume(); }

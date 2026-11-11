@@ -391,3 +391,8 @@ The user explicitly chose to repair automatic multiplayer entry before release. 
 
 Add an opt-in JDK JDI CLI observer for NetworkHooks registration/payload dispatch, NetworkInstance event-bus flags/error callbacks, caught Forge network exceptions and handshake lookup results. It reads fields/stack frames only; it never invokes target methods, rewrites fields, patches dependencies or fabricates packets. Compile with the installed JDK21 jdk.jdi module. Use a loopback-only suspended debug JVM in an isolated native fixture to capture the first actual Forge47 quick-play failure before choosing a product fix.
 
+
+### 2026-11-11T12:26:43+08:00 — Reduce probe overhead and recover the owned fixture cleanly
+
+The initial JDI method-exit request made SecureJar package scanning run too slowly to reach the handshake before the diagnostic timeout. Exclude that attempt from product evidence and remove method-exit tracking; retain only targeted breakpoints and caught Forge-network exceptions. Its controller timed out before a game window appeared and lost its stdin pipe. Add an explicit fixture-directory-checked attach helper that calls Forge's public current-server/native halt API, allowing normal save/shutdown instead of forcing process termination. Compile the helper for Java17; it does not redefine classes or patch dependencies. The native handshake observer itself remains read-only.
+
