@@ -438,3 +438,7 @@ Build the already merged generic Navigate correction for six targets; external m
 ### 2026-11-11T17:11:24+08:00 — Verify replacement 1.6.0 public assets and notes
 
 Candidate42991712783 passed all six builds/tests. Download all ten replacement release assets again and verify bytes/digests, Latest/formal state and both new source tags. Public body exactly matches the committed 1.5.3-style notes. Six-JAR audit confirms only adapter initialization removal and two dedicated class deletions; no new full runtime-matrix claim. Record the original draft association failure and successful fresh-draft protected attempt3. Update API documentation and mark original acceptance report historical.
+
+### 2026-11-11T17:23:32+08:00 — Resolve pending release PR integration
+
+Claim PR27/28 conflict resolution and CI validation. Merge the current base without rewriting history; preserve replacement acceptance and sealed manifest bytes. Compare older PR21/22 against the merged branches before closing duplicate evidence PRs. Release assets, tags and production code do not change.
